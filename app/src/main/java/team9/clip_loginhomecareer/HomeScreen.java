@@ -33,22 +33,12 @@ public class HomeScreen extends ActionBarActivity implements ActionBar.TabListen
 	/**
 	 * The {@link ViewPager} that will host the section contents.
 	 */
-	ViewPager mViewPager = (ViewPager) findViewById(R.id.calendar_task_pager);
+	ViewPager mViewPager;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.home_screen);
-
-
-		/*Button registerButton = (Button) findViewById(R.id.view_contacts_Home);
-		registerButton.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View view) {
-				goToContactList();
-			}
-		});*/
-
 
 
 		// Set up the action bar.
@@ -60,6 +50,7 @@ public class HomeScreen extends ActionBarActivity implements ActionBar.TabListen
 		mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 
 		// Set up the ViewPager with the sections adapter.
+		mViewPager = (ViewPager) findViewById(R.id.calendar_task_pager);
 		mViewPager.setAdapter(mSectionsPagerAdapter);
 
 		// When swiping between different sections, select the corresponding
