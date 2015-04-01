@@ -5,9 +5,6 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
-import android.widget.TextView;
 
 
 public class CareerHome extends ActionBarActivity {
@@ -17,17 +14,33 @@ public class CareerHome extends ActionBarActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.career_home_activity);
 
-		TextView registerButton = (TextView) findViewById(R.id.view_contacts_button);
+		/*TextView registerButton = (TextView) findViewById(R.id.view_contacts_button);
 		registerButton.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
 				goToContactList();
 			}
-		});
+		});*/
 	}
 
 	public void goToContactList() {
-		setContentView(R.layout.contact_list_activity);
+		Intent intent = new Intent(this, ContactList.class);
+		startActivity(intent);
+	}
+
+	public void goToJobSearchList() {
+		Intent intent = new Intent(this, JobSearchList.class);
+		startActivity(intent);
+	}
+
+	public void goToFutureGoalsList() {
+		Intent intent = new Intent(this, FutureGoals.class);
+		startActivity(intent);
+	}
+
+	public void goToOnlineIdentitiesList() {
+		Intent intent = new Intent(this, OnlineIdentList.class);
+		startActivity(intent);
 	}
 
 

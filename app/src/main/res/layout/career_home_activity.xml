@@ -11,7 +11,7 @@
 
     <ExpandableListView
         android:layout_width="wrap_content"
-        android:layout_height="150px"
+        android:layout_height="175px"
         android:id="@+id/expandableListView"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
@@ -24,6 +24,7 @@
         android:id="@+id/view_jobs_button"
         android:padding="16dp"
         android:clickable="true"
+        android:onClick="goToJobSearchList"
         android:layout_below="@+id/view_goals_button"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"/>
@@ -47,11 +48,11 @@
         android:id="@+id/view_goals_button"
         android:padding="16dp"
         android:clickable="true"
-        android:onClick="setContentView"
         android:layout_below="@+id/expandableListView"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="18dp"/>
+        android:layout_marginTop="18dp"
+        android:onClick="goToFutureGoalsList"/>
 
     <TextView
         android:layout_width="fill_parent"
@@ -60,6 +61,7 @@
         android:id="@+id/view_online_identities_button"
         android:padding="16dp"
         android:clickable="true"
+        android:onClick="goToOnlineIdentitiesList"
         android:layout_below="@+id/view_contacts_button"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"/>

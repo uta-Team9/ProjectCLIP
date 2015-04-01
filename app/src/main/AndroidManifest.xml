@@ -6,7 +6,6 @@
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.READ_PROFILE" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
-    <user-permission android:name="android.permission.CALL_PHONE"/>
 
     <application
         android:allowBackup="true"
@@ -64,7 +63,7 @@
                 android:value="team9.clip_loginhomecareer.CareerHome" />
         </activity>
         <activity
-            android:name=".JobList"
+            android:name=".JobSearchList"
             android:label="@string/title_activity_job_list"
             android:parentActivityName=".CareerHome" >
             <meta-data
@@ -78,6 +77,22 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="team9.clip_loginhomecareer.CareerHome" />
+        </activity>
+        <activity
+            android:name=".FutureGoals"
+            android:label="@string/title_activity_future_goals"
+            android:parentActivityName=".CareerHome" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="team9.clip_loginhomecareer.CareerHome" />
+        </activity>
+        <activity
+            android:name=".NewFutureGoal"
+            android:label="@string/title_activity_new_future_goal"
+            android:parentActivityName=".FutureGoals" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="team9.clip_loginhomecareer.FutureGoals" />
         </activity>
     </application>
 

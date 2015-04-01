@@ -16,8 +16,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.TextView;
 
 
 public class HomeScreen extends ActionBarActivity implements ActionBar.TabListener {
@@ -35,7 +33,7 @@ public class HomeScreen extends ActionBarActivity implements ActionBar.TabListen
 	/**
 	 * The {@link ViewPager} that will host the section contents.
 	 */
-	ViewPager mViewPager;
+	ViewPager mViewPager = (ViewPager) findViewById(R.id.calendar_task_pager);
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -43,13 +41,13 @@ public class HomeScreen extends ActionBarActivity implements ActionBar.TabListen
 		setContentView(R.layout.home_screen);
 
 
-		Button registerButton = (Button) findViewById(R.id.view_contacts_Home);
+		/*Button registerButton = (Button) findViewById(R.id.view_contacts_Home);
 		registerButton.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
 				goToContactList();
 			}
-		});
+		});*/
 
 
 
@@ -62,7 +60,6 @@ public class HomeScreen extends ActionBarActivity implements ActionBar.TabListen
 		mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 
 		// Set up the ViewPager with the sections adapter.
-		mViewPager = (ViewPager) findViewById(R.id.calendar_task_pager);
 		mViewPager.setAdapter(mSectionsPagerAdapter);
 
 		// When swiping between different sections, select the corresponding
@@ -152,7 +149,8 @@ public class HomeScreen extends ActionBarActivity implements ActionBar.TabListen
 	}
 
 	public void goToContactList() {
-		setContentView(R.layout.contact_list_activity);
+		Intent intent = new Intent(this, ContactList.class);
+		startActivity(intent);
 	}
 
 	/**

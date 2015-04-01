@@ -17,8 +17,7 @@
         android:layout_above="@+id/calendarView"
         android:focusedMonthDateColor="#ff000000"
         android:weekNumberColor="#ff000000"
-        android:weekSeparatorLineColor="#ff000000"
-        android:onClick="setContentView"/>
+        android:weekSeparatorLineColor="#ff000000"/>
 
     <Button
         android:layout_width="fill_parent"
@@ -26,6 +25,7 @@
         android:text="View Contacts"
         android:id="@+id/view_contacts_Home"
         android:layout_alignParentBottom="true"
-        android:background="#ffffffff"/>
+        android:background="#ffffffff"
+        android:onClick="goToContactsList"/>
 
 </RelativeLayout>

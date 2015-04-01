@@ -1,24 +1,25 @@
 package team9.clip_loginhomecareer;
 
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
 
-public class JobList extends ActionBarActivity {
+public class FutureGoals extends ActionBarActivity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.job_list_activity);
+		setContentView(R.layout.future_goals_list_activity);
 	}
 
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.menu_job_list, menu);
+		getMenuInflater().inflate(R.menu.future_goals_menu, menu);
 		return true;
 	}
 
@@ -35,5 +36,10 @@ public class JobList extends ActionBarActivity {
 		}
 
 		return super.onOptionsItemSelected(item);
+	}
+
+	public void goToNewFutureGoals() {
+		Intent intent = new Intent(this, NewFutureGoal.class);
+		startActivity(intent);
 	}
 }
