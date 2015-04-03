@@ -38,7 +38,7 @@ public class HomeScreen extends ActionBarActivity implements ActionBar.TabListen
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.home_screen);
+		setContentView(R.layout.home_calendar_activity);
 
 
 		// Set up the action bar.
@@ -103,7 +103,7 @@ public class HomeScreen extends ActionBarActivity implements ActionBar.TabListen
 				startActivity(intent);
 				break;
 			case(R.id.action_Career):
-				setContentView(R.layout.career_home_activity);
+				setContentView(R.layout.home_career_activity);
 				break;
 			case(R.id.action_Finance):
 

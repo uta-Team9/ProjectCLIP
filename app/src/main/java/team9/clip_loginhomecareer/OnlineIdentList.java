@@ -11,7 +11,7 @@ public class OnlineIdentList extends ActionBarActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.online_ident_list_activity);
+		setContentView(R.layout.list_identities_activity);
 	}
 
 

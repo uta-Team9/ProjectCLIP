@@ -12,7 +12,7 @@ public class CareerHome extends ActionBarActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.career_home_activity);
+		setContentView(R.layout.home_career_activity);
 
 		/*TextView registerButton = (TextView) findViewById(R.id.view_contacts_button);
 		registerButton.setOnClickListener(new View.OnClickListener() {
@@ -66,7 +66,7 @@ public class CareerHome extends ActionBarActivity {
 				startActivity(intent);
 			break;
 			case(R.id.action_Career):
-				setContentView(R.layout.career_home_activity);
+				setContentView(R.layout.home_career_activity);
 			break;
 			case(R.id.action_Finance):
 

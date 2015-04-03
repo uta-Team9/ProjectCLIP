@@ -30,4 +30,12 @@
     <string name="title_activity_new_future_goal">NewFutureGoal</string>
     <string name="title_activity_main">MainActivity</string>
     <string name="title_section3">Section 3</string>
+    <string name="title_activity_display_future_goal_activity">display_future_goal_activity</string>
+    <string name="title_activity_view_contact">ViewContact</string>
+    <string name="title_activity_new_contact">NewContact</string>
+    <string name="title_activity_view_identity">ViewIdentity</string>
+    <string name="title_activity_new_identity">NewIdentity</string>
+    <string name="title_activity_view_job_search">ViewJobSearch</string>
+    <string name="title_activity_new_job_search">NewJobSearch</string>
+    <string name="title_activity_day_view">DayView</string>
 </resources>

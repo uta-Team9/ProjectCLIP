@@ -94,6 +94,70 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="team9.clip_loginhomecareer.FutureGoals" />
         </activity>
+        <activity
+            android:name=".ViewFutureGoal"
+            android:label="@string/title_activity_display_future_goal_activity"
+            android:parentActivityName=".FutureGoals" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="team9.clip_loginhomecareer.FutureGoals" />
+        </activity>
+        <activity
+            android:name=".ViewContact"
+            android:label="@string/title_activity_view_contact"
+            android:parentActivityName=".ContactList" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="team9.clip_loginhomecareer.ContactList" />
+        </activity>
+        <activity
+            android:name=".NewContact"
+            android:label="@string/title_activity_new_contact"
+            android:parentActivityName=".ContactList" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="team9.clip_loginhomecareer.ContactList" />
+        </activity>
+        <activity
+            android:name=".ViewIdentity"
+            android:label="@string/title_activity_view_identity"
+            android:parentActivityName=".OnlineIdentList" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="team9.clip_loginhomecareer.OnlineIdentList" />
+        </activity>
+        <activity
+            android:name=".NewIdentity"
+            android:label="@string/title_activity_new_identity"
+            android:parentActivityName=".OnlineIdentList" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="team9.clip_loginhomecareer.OnlineIdentList" />
+        </activity>
+        <activity
+            android:name=".ViewJobSearch"
+            android:label="@string/title_activity_view_job_search"
+            android:parentActivityName=".JobSearchList" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="team9.clip_loginhomecareer.JobSearchList" />
+        </activity>
+        <activity
+            android:name=".NewJobSearch"
+            android:label="@string/title_activity_new_job_search"
+            android:parentActivityName=".JobSearchList" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="team9.clip_loginhomecareer.JobSearchList" />
+        </activity>
+        <activity
+            android:name=".DayView"
+            android:label="@string/title_activity_day_view"
+            android:parentActivityName=".HomeScreen" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="team9.clip_loginhomecareer.HomeScreen" />
+        </activity>
     </application>
 
 </manifest>

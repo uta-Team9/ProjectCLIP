@@ -11,7 +11,7 @@ public class JobSearchList extends ActionBarActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.job_list_activity);
+		setContentView(R.layout.list_jobs_activity);
 	}
 
 

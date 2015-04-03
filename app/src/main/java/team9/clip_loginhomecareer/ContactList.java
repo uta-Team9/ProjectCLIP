@@ -11,7 +11,7 @@ public class ContactList extends ActionBarActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.contact_list_activity);
+		setContentView(R.layout.list_contacts_activity);
 	}
 
 

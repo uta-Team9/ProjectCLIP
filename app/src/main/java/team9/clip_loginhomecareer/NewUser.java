@@ -11,7 +11,7 @@ public class NewUser extends ActionBarActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.new_user_activity);
+		setContentView(R.layout.new_login_activity);
 	}
 
 
