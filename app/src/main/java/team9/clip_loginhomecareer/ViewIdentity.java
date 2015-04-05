@@ -1,9 +1,12 @@
 package team9.clip_loginhomecareer;
 
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 
 
 public class ViewIdentity extends ActionBarActivity {
@@ -12,6 +15,21 @@ public class ViewIdentity extends ActionBarActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.display_identity_activity);
+
+		Button edit = (Button) findViewById(R.id.edit_button);
+		edit.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				editInstance(v);
+			}
+		});
+		Button delete = (Button) findViewById(R.id.delete_button);
+		delete.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				deleteInstance(v);
+			}
+		});
 	}
 
 
@@ -35,5 +53,14 @@ public class ViewIdentity extends ActionBarActivity {
 		}
 
 		return super.onOptionsItemSelected(item);
+	}
+
+	//Added By Edward
+	public void editInstance(View v) {
+		Intent intent = new Intent(this, NewIdentity.class);
+		startActivity(intent);
+	}
+
+	public void deleteInstance(View v) {
 	}
 }

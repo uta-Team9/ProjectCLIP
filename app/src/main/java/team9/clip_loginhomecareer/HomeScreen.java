@@ -11,11 +11,13 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 
 public class HomeScreen extends ActionBarActivity implements ActionBar.TabListener {
@@ -40,7 +42,6 @@ public class HomeScreen extends ActionBarActivity implements ActionBar.TabListen
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.home_calendar_activity);
 
-
 		// Set up the action bar.
 		final ActionBar actionBar = getSupportActionBar();
 		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
@@ -59,7 +60,15 @@ public class HomeScreen extends ActionBarActivity implements ActionBar.TabListen
 		mViewPager.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
 			@Override
 			public void onPageSelected(int position) {
-				actionBar.setSelectedNavigationItem(position);
+				//actionBar.setSelectedNavigationItem(position);
+				switch(position) {
+					case(0):
+						setContentView(R.layout.calendar_view);
+						break;
+					case(1):
+						setContentView(R.layout.task_view);
+						break;
+				}
 			}
 		});
 
@@ -95,15 +104,14 @@ public class HomeScreen extends ActionBarActivity implements ActionBar.TabListen
 		// automatically handle clicks on the Home/Up button, so long
 		// as you specify a parent activity in AndroidManifest.xml.
 		int id = item.getItemId();
-		Intent intent;
+		Intent intent = null;
 
 		switch(id) {
 			case(R.id.action_settings):
 				intent = new Intent(this, Settings.class);
-				startActivity(intent);
 				break;
 			case(R.id.action_Career):
-				setContentView(R.layout.home_career_activity);
+				intent = new Intent(this, CareerHome.class);
 				break;
 			case(R.id.action_Finance):
 
@@ -116,6 +124,8 @@ public class HomeScreen extends ActionBarActivity implements ActionBar.TabListen
 				break;
 		}
 
+		if(intent != null)
+			startActivity(intent);
 		//noinspection SimplifiableIfStatement
 		//if (id == R.id.action_settings) {
 		//	return true;
@@ -139,7 +149,9 @@ public class HomeScreen extends ActionBarActivity implements ActionBar.TabListen
 	public void onTabReselected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
 	}
 
-	public void goToContactList() {
+	public void viewContactsList(View v) {
+		Log.d("Contact Button", "Was Clicked");
+		//setContentView(R.layout.list_contacts_activity);
 		Intent intent = new Intent(this, ContactList.class);
 		startActivity(intent);
 	}

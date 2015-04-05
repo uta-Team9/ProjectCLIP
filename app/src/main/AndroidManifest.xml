@@ -71,7 +71,7 @@
                 android:value="team9.clip_loginhomecareer.CareerHome" />
         </activity>
         <activity
-            android:name=".OnlineIdentList"
+            android:name=".IdentitiesList"
             android:label="@string/title_activity_online_ident_list"
             android:parentActivityName=".CareerHome" >
             <meta-data
@@ -79,7 +79,7 @@
                 android:value="team9.clip_loginhomecareer.CareerHome" />
         </activity>
         <activity
-            android:name=".FutureGoals"
+            android:name=".FutureGoalsList"
             android:label="@string/title_activity_future_goals"
             android:parentActivityName=".CareerHome" >
             <meta-data
@@ -89,18 +89,18 @@
         <activity
             android:name=".NewFutureGoal"
             android:label="@string/title_activity_new_future_goal"
-            android:parentActivityName=".FutureGoals" >
+            android:parentActivityName=".FutureGoalsList" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="team9.clip_loginhomecareer.FutureGoals" />
+                android:value=".FutureGoalsList" />
         </activity>
         <activity
             android:name=".ViewFutureGoal"
             android:label="@string/title_activity_display_future_goal_activity"
-            android:parentActivityName=".FutureGoals" >
+            android:parentActivityName=".FutureGoalsList" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="team9.clip_loginhomecareer.FutureGoals" />
+                android:value=".FutureGoalsList" />
         </activity>
         <activity
             android:name=".ViewContact"
@@ -121,18 +121,18 @@
         <activity
             android:name=".ViewIdentity"
             android:label="@string/title_activity_view_identity"
-            android:parentActivityName=".OnlineIdentList" >
+            android:parentActivityName=".IdentitiesList" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="team9.clip_loginhomecareer.OnlineIdentList" />
+                android:value=".IdentitiesList" />
         </activity>
         <activity
             android:name=".NewIdentity"
             android:label="@string/title_activity_new_identity"
-            android:parentActivityName=".OnlineIdentList" >
+            android:parentActivityName=".IdentitiesList" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="team9.clip_loginhomecareer.OnlineIdentList" />
+                android:value=".IdentitiesList" />
         </activity>
         <activity
             android:name=".ViewJobSearch"

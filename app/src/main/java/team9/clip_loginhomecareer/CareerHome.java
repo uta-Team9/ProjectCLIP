@@ -5,6 +5,7 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 
 public class CareerHome extends ActionBarActivity {
@@ -14,33 +15,27 @@ public class CareerHome extends ActionBarActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.home_career_activity);
 
-		/*TextView registerButton = (TextView) findViewById(R.id.view_contacts_button);
-		registerButton.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View view) {
-				goToContactList();
-			}
-		});*/
 	}
 
-	public void goToContactList() {
-		Intent intent = new Intent(this, ContactList.class);
-		startActivity(intent);
-	}
+	public void moveViews(View v) {
+		Intent intent = null;
+		switch(v.getId()) {
+			case(R.id.view_contacts_button):
+				intent = new Intent(this, ContactList.class);
+				break;
+			case(R.id.view_jobs_button):
+				intent = new Intent(this, JobSearchList.class);
+				break;
+			case(R.id.view_goals_button):
+				intent = new Intent(this, FutureGoalsList.class);
+				break;
+			case(R.id.view_online_identities_button):
+				intent = new Intent(this, IdentitiesList.class);
+				break;
+		}
 
-	public void goToJobSearchList() {
-		Intent intent = new Intent(this, JobSearchList.class);
-		startActivity(intent);
-	}
-
-	public void goToFutureGoalsList() {
-		Intent intent = new Intent(this, FutureGoals.class);
-		startActivity(intent);
-	}
-
-	public void goToOnlineIdentitiesList() {
-		Intent intent = new Intent(this, OnlineIdentList.class);
-		startActivity(intent);
+		if(intent != null)
+			startActivity(intent);
 	}
 
 
@@ -64,10 +59,10 @@ public class CareerHome extends ActionBarActivity {
 			case(R.id.action_settings):
 				intent = new Intent(this, Settings.class);
 				startActivity(intent);
-			break;
+				break;
 			case(R.id.action_Career):
 				setContentView(R.layout.home_career_activity);
-			break;
+				break;
 			case(R.id.action_Finance):
 
 				break;
