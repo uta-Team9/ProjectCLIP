@@ -56,7 +56,7 @@
         </activity>
         <activity
             android:name=".ContactList"
-            android:label="@string/career_home_title"
+            android:label="@string/title_activity_contact_list"
             android:parentActivityName=".CareerHome" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -96,7 +96,7 @@
         </activity>
         <activity
             android:name=".ViewFutureGoal"
-            android:label="@string/title_activity_display_future_goal_activity"
+            android:label="@string/title_activity_view_future_goal"
             android:parentActivityName=".FutureGoalsList" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"

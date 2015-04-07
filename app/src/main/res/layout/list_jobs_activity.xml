@@ -7,28 +7,16 @@
                 android:paddingLeft="@dimen/activity_horizontal_margin"
                 android:paddingRight="@dimen/activity_horizontal_margin"
                 tools:context="team9.clip_loginhomecareer.JobSearchList"
-                android:background="#ff000000">
-
-    <TextView
-        android:text="@string/title_activity_job_list"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="24sp"
-        android:padding="8dp"
-        android:singleLine="false"
-        android:id="@+id/textView2"
-        android:textColor="#ffffffff"/>
+                ><!--android:background="#ff000000"-->
 
     <ListView
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="fill_parent"
         android:id="@+id/contacts_list"
         android:choiceMode="singleChoice"
-        android:layout_below="@+id/textView2"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_above="@+id/new_instance_button"
-        android:background="#ffffffff"/>
+        android:layout_alignParentTop="true"
+        android:layout_above="@+id/new_instance_button"/>
 
     <Button
         android:layout_width="fill_parent"
@@ -38,7 +26,6 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:onClick="createNewInstance"
-        android:background="#ff504af1"
-        android:textColor="#ff000000"/>
+        android:background="#ff504af1"/>
 
 </RelativeLayout>
