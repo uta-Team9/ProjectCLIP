@@ -8,8 +8,7 @@ import android.provider.BaseColumns;
 /**
  * Created by Edward on 3/24/2015.
  */
-public final class LoginDatabaseContract
-{
+public final class LoginDatabaseContract {
 	// To prevent someone from accidentally instantiating the contract class,
 	// give it an empty constructor.
 	public LoginDatabaseContract() {}
@@ -23,10 +22,16 @@ public final class LoginDatabaseContract
 		public static final String COLUMN_SECRET_ANSWER = "Secret Answer";
 	}
 
-    public static abstract class HealthTest implements BaseColumns
-    {
-     int x;
+    public static abstract class EduEntries implements BaseColumns {
+        public static final String TABLE_NAME = "Colleges";
+        public static final String _ID = "UNI";
+        public static final String COLUMN_INSTITUTION = "Institution Name";
     }
+
+
+	public static abstract class ContactEntries implements BaseColumns {
+		public static final String TABLE_NAME = "Contacts";
+	}
 
 
 	private static final String TEXT_TYPE = " TEXT";
@@ -48,7 +53,7 @@ public final class LoginDatabaseContract
 
 
 	// If you change the database schema, you must increment the database version.
-	public static final int DATABASE_VERSION = 1;
+	public static final int DATABASE_VERSION = 2;
 	public static final String DATABASE_NAME = "UserDatabase.db";
 
 	public class DatabaseHelper extends SQLiteOpenHelper {
