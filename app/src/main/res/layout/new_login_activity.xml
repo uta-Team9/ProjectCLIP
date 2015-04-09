@@ -8,14 +8,22 @@
                 android:paddingRight="@dimen/activity_horizontal_margin"
                 tools:context="team9.clip_loginhomecareer.NewUser">
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/new_user"
+        android:id="@+id/new_user_title"
+        android:textSize="24sp"
+        android:layout_margin="8sp"/>
+
     <ScrollView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:id="@+id/scrollView"
+        android:layout_below="@+id/new_user_title"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:layout_above="@+id/new_user_create_button"
-        android:layout_alignParentTop="true">
+        android:layout_above="@+id/new_user_create_button">
 
         <LinearLayout
             android:orientation="vertical"

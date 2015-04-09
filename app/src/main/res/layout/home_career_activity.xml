@@ -19,9 +19,7 @@
         android:onClick="moveViews"
         android:layout_below="@+id/view_goals_button"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:textSize="18dp"
-        android:textColor="#ff000000"/>
+        android:layout_alignParentStart="true"/>
 
     <TextView
         android:layout_width="fill_parent"
@@ -33,10 +31,7 @@
         android:layout_below="@+id/view_jobs_button"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:onClick="moveViews"
-        android:textSize="18dp"
-        android:textColor="#ff000000"/>
-    <!--android:textColor="#ffffffff"/-->
+        android:onClick="moveViews"/>
 
     <TextView
         android:layout_width="fill_parent"
@@ -48,10 +43,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_marginTop="18dp"
-        android:onClick="moveViews"
-        android:textSize="18dp"
-        android:textColor="#ff000000"/>
-    <!--android:textColor="#ffffffff"/-->
+        android:onClick="moveViews"/>
 
     <TextView
         android:layout_width="fill_parent"
@@ -63,9 +55,6 @@
         android:onClick="moveViews"
         android:layout_below="@+id/view_contacts_button"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:textSize="18dp"
-        android:textColor="#ff000000"/>
-    <!--android:textColor="#ffffffff"/-->
+        android:layout_alignParentStart="true"/>
 
 </RelativeLayout>
