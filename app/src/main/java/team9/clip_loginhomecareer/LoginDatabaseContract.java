@@ -8,7 +8,8 @@ import android.provider.BaseColumns;
 /**
  * Created by Edward on 3/24/2015.
  */
-public final class LoginDatabaseContract {
+public final class LoginDatabaseContract
+{
 	// To prevent someone from accidentally instantiating the contract class,
 	// give it an empty constructor.
 	public LoginDatabaseContract() {}
@@ -21,6 +22,11 @@ public final class LoginDatabaseContract {
 		public static final String COLUMN_SECRET_QUESTION = "Secret Question";
 		public static final String COLUMN_SECRET_ANSWER = "Secret Answer";
 	}
+
+    public static abstract class HealthTest implements BaseColumns
+    {
+
+    }
 
 
 	private static final String TEXT_TYPE = " TEXT";
