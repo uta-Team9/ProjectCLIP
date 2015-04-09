@@ -1,49 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <string name="app_name">CLIP</string>
     <string name="hello_world">Hello world!</string>
-
-
-    //App login Area Titles
-    <string name="login_title">Login to CLIP</string>
+    //App login Area Titles    <string name="login_title">Login to CLIP</string>
     <string name="title_activity_new_user">Register</string>
     <string name="title_activity_password_recovery">Password Recovery</string>
-
-    //Home Screen Titles
-    <string name="title_activity_home_screen">Welcome to CLIP</string>
+    //Home Screen Titles    <string name="title_activity_home_screen">Welcome to CLIP</string>
     <string name="title_section1">Calendar</string>
     <string name="title_section2">Task View</string>
     <string name="title_activity_day_view">View Day</string>
-
-    //Settings
-    <string name="action_settings">Settings</string>
-
-    //Main Section Titles
-    <string name="title_activity_career_home">Career</string>
+    //Settings    <string name="action_settings">Settings</string>
+    //Main Section Titles    <string name="title_activity_career_home">Career</string>
     <string name="title_activity_health_home">Health</string>
     <string name="title_activity_education_home">Education</string>
     <string name="title_activity_finance_home">Finance</string>
-
     //Career Activity Titles
-    //contacts
-    <string name="title_activity_contact_list">Contacts</string>
+    //contacts    <string name="title_activity_contact_list">Contacts</string>
     <string name="title_activity_view_contact">View Contact</string>
     <string name="title_activity_new_contact">New Contact</string>
-    //job searches
-    <string name="title_activity_job_list">Job Searches</string>
+    //job searches    <string name="title_activity_job_list">Job Searches</string>
     <string name="title_activity_view_job_search">View Job Search</string>
     <string name="title_activity_new_job_search">New Job Search</string>
-    //online identities
-    <string name="title_activity_online_ident_list">Online Identities</string>
+    //online identities    <string name="title_activity_online_ident_list">Online Identities</string>
     <string name="title_activity_view_identity">View Identity</string>
     <string name="title_activity_new_identity">New Identity</string>
-    //future goals
-    <string name="title_activity_future_goals">Future Goals</string>
+    //future goals    <string name="title_activity_future_goals">Future Goals</string>
     <string name="title_activity_view_future_goal">View Goal</string>
     <string name="title_activity_new_future_goal">New Future Goal</string>
-
-    //Colors
-    <string name="color_black">#ff000000</string>
+    //Colors    <string name="color_black">#ff000000</string>
     <string name="color_white">#ffffffff</string>
     <string name="color_career_section">#FFF7FF1F</string>
     <string name="color_blue">#ff504af1</string>
+    <string name="title_activity_edu_main">Education</string>
+
 </resources>
