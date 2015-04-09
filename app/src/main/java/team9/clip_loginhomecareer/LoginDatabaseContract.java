@@ -36,6 +36,8 @@ public final class LoginDatabaseContract {
     public static abstract class HealthTest implements BaseColumns
     {
 
+	    public static final String TABLE_NAME = "test table name";
+	    public static final String _ID = "ID";
     }
 
 
