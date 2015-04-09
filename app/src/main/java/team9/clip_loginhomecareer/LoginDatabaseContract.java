@@ -21,6 +21,12 @@ public final class LoginDatabaseContract {
 		public static final String COLUMN_SECRET_QUESTION = "Secret Question";
 		public static final String COLUMN_SECRET_ANSWER = "Secret Answer";
 	}
+    public static abstract class EduEntries implements BaseColumns {
+        public static final String TABLE_NAME = "Colleges";
+        public static final String _ID = "UNI";
+        public static final String COLUMN_INSTITUTION = "Institution Name";
+    }
+
 
 
 	private static final String TEXT_TYPE = " TEXT";
@@ -42,7 +48,7 @@ public final class LoginDatabaseContract {
 
 
 	// If you change the database schema, you must increment the database version.
-	public static final int DATABASE_VERSION = 1;
+	public static final int DATABASE_VERSION = 2;
 	public static final String DATABASE_NAME = "UserDatabase.db";
 
 	public class DatabaseHelper extends SQLiteOpenHelper {
