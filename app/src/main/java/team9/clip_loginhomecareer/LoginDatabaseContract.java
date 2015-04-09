@@ -33,6 +33,11 @@ public final class LoginDatabaseContract {
 		public static final String TABLE_NAME = "Contacts";
 	}
 
+    public static abstract class HealthTest implements BaseColumns
+    {
+
+    }
+
 
 	private static final String TEXT_TYPE = " TEXT";
 	private static final String COMMA_SEP = ",";
