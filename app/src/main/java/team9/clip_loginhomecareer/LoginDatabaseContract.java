@@ -25,7 +25,7 @@ public final class LoginDatabaseContract
 
     public static abstract class HealthTest implements BaseColumns
     {
-
+     int x;
     }
 
 
