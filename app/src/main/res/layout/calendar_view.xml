@@ -24,7 +24,6 @@
         android:text="View Contacts"
         android:id="@+id/view_contacts_calendar"
         android:background="#ffffffff"
-        android:textColor="#ff000000"
         android:onClick="viewContactsList"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
