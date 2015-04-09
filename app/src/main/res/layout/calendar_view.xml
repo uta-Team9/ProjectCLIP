@@ -16,8 +16,7 @@
         android:showWeekNumber="false"
         android:focusedMonthDateColor="#ff000000"
         android:weekNumberColor="#ff000000"
-        android:weekSeparatorLineColor="#ff000000"
-        android:layout_above="@+id/view_contacts_calendar"/>
+        android:weekSeparatorLineColor="#ff000000" />
 
     <Button
         android:layout_width="fill_parent"

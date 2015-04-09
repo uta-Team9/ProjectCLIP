@@ -21,12 +21,22 @@ public final class LoginDatabaseContract {
 		public static final String COLUMN_SECRET_QUESTION = "Secret Question";
 		public static final String COLUMN_SECRET_ANSWER = "Secret Answer";
 	}
+
     public static abstract class EduEntries implements BaseColumns {
         public static final String TABLE_NAME = "Colleges";
         public static final String _ID = "UNI";
         public static final String COLUMN_INSTITUTION = "Institution Name";
     }
 
+
+	public static abstract class ContactEntries implements BaseColumns {
+		public static final String TABLE_NAME = "Contacts";
+	}
+
+    public static abstract class HealthTest implements BaseColumns
+    {
+
+    }
 
 
 	private static final String TEXT_TYPE = " TEXT";
