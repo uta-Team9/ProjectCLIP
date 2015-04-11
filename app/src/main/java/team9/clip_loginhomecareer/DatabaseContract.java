@@ -14,7 +14,7 @@ public final class DatabaseContract {
 
 	//Database Name and Version Number. Change V# if you add new columns
 	public static final String DATABASE_NAME = "UserDatabase.db";
-	public static final int DATABASE_VERSION = 2;
+	public static final int DATABASE_VERSION = 1; //database not yet implemented in code
 		//download and merge changes to update to current db before changing number
 		//always save work! GitHub can be evil.
 
@@ -37,11 +37,23 @@ public final class DatabaseContract {
 		public static final String[] ALL_COLUMNS =
 				{_ID, NAME, EMAIL, PASSWORD, SECRET_QUESTION, SECRET_ANSWER};
 	}
+	private static final String SQL_CREATE_LOGIN_ENTRIES =
+			"CREATE TABLE " + LoginEntries.TABLE_NAME + " (" +
+					LoginEntries._ID + " INTEGER PRIMARY KEY," +
+					LoginEntries.NAME + TEXT_TYPE + COMMA_SEP +
+					LoginEntries.EMAIL + TEXT_TYPE + COMMA_SEP +
+					LoginEntries.PASSWORD + TEXT_TYPE + COMMA_SEP +
+					LoginEntries.SECRET_QUESTION + INT_TYPE + COMMA_SEP +
+					LoginEntries.SECRET_ANSWER + TEXT_TYPE
+					+");";
+	private static final String SQL_DELETE_LOGIN_ENTRIES =
+			"DROP TABLE IF EXISTS " + LoginEntries.TABLE_NAME;
+
+
 
 	/*
 	 * CAREER SECTION
 	 */
-
 
 	//CONTACTS
 	public static abstract class ContactEntries implements BaseColumns {
@@ -55,35 +67,94 @@ public final class DatabaseContract {
 		public static final String[] ALL_COLUMNS =
 				{_ID, NAME, NUMBER, EMAIL, USED, MET};
 	}
+	private static final String SQL_CREATE_CONTRACT_ENTRIES =
+			"CREATE TABLE " + ContactEntries.TABLE_NAME + " (" +
+					ContactEntries._ID + " INTEGER PRIMARY KEY," +
+					//add entries following instructions above
+					");";
+	private static final String SQL_DELETE_CONTRACT_ENTRIES =
+			"DROP TABLE IF EXISTS " + ContactEntries.TABLE_NAME;
+
 	//GOALS
+	public static abstract class GoalEntries implements BaseColumns {
+		public static final String TABLE_NAME = "Goals";
+		public static final String _ID = "ID";
+		public static final String DESCRIPTION = "Description";
+		public static final String END_DATE = "End Date";
+		public static final String TERM_LENGTH = "Term Length";
+		public static final String[] ALL_COLUMNS =
+				{_ID, DESCRIPTION, END_DATE, TERM_LENGTH};
+	}
+	private static final String SQL_CREATE_GOAL_ENTRIES =
+			"CREATE TABLE " + GoalEntries.TABLE_NAME + " (" +
+					GoalEntries._ID + " INTEGER PRIMARY KEY," +
+					//add entries following instructions above
+					");";
+	private static final String SQL_DELETE_GOAL_ENTRIES =
+			"DROP TABLE IF EXISTS " + GoalEntries.TABLE_NAME;
+
 	//IDENTITIES
+	public static abstract class IdentityEntries implements BaseColumns {
+		public static final String TABLE_NAME = "Identities";
+		public static final String _ID = "ID";
+		public static final String LOGIN = "Login";
+		public static final String WEBSITE = "Website";
+		public static final String PASSWORD = "Password";
+		public static final String[] ALL_COLUMNS =
+				{_ID, LOGIN, WEBSITE, PASSWORD};
+	}
+	private static final String SQL_CREATE_Identity_ENTRIES =
+			"CREATE TABLE " + IdentityEntries.TABLE_NAME + " (" +
+					IdentityEntries._ID + " INTEGER PRIMARY KEY," +
+					//add entries following instructions above
+					");";
+	private static final String SQL_DELETE_Identity_ENTRIES =
+			"DROP TABLE IF EXISTS " + IdentityEntries.TABLE_NAME;
+
 	//JOBS
+	public static abstract class JobEntries implements BaseColumns {
+		public static final String TABLE_NAME = "Job Searches";
+		public static final String _ID = "ID";
+		public static final String COMPANY = "Company";
+		public static final String STATUS = "Status";
+		public static final String APPLIED = "Applied";
+		public static final String[] ALL_COLUMNS =
+				{_ID, COMPANY, STATUS, APPLIED};
+	}
+	private static final String SQL_CREATE_JOB_ENTRIES =
+			"CREATE TABLE " + JobEntries.TABLE_NAME + " (" +
+					JobEntries._ID + " INTEGER PRIMARY KEY," +
+					//add entries following instructions above
+					");";
+	private static final String SQL_DELETE_JOB_ENTRIES =
+			"DROP TABLE IF EXISTS " + JobEntries.TABLE_NAME;
+
 	//COMPANIES
+	public static abstract class CompanyEntries implements BaseColumns {
+		public static final String TABLE_NAME = "Companies";
+		public static final String _ID = "ID";
+		public static final String NAME = "Name";
+		public static final String ADDRESS = "Address";
+		public static final String PHONE = "Phone";
+		public static final String DESCRIPTION = "Description";
+		public static final String APPLIED_DATE = "Applied Date";
+		public static final String INTERVIEW_DATE = "Interview Date";
+		public static final String[] ALL_COLUMNS =
+				{_ID, NAME, ADDRESS, PHONE, DESCRIPTION, APPLIED_DATE, INTERVIEW_DATE};
+	}
+	private static final String SQL_CREATE_COMPANY_ENTRIES =
+			"CREATE TABLE " + CompanyEntries.TABLE_NAME + " (" +
+					CompanyEntries._ID + " INTEGER PRIMARY KEY," +
+					//add entries following instructions above
+					");";
+	private static final String SQL_DELETE_COMPANY_ENTRIES =
+			"DROP TABLE IF EXISTS " + CompanyEntries.TABLE_NAME;
 
-	// TODO: Place your fields here!
-	// + KEY{...} + " {type} not null"
-	//	- Key is the column name you created above.
-	//	- {type} is one of: text, integer, real, blob
-	//		(http://www.sqlite.org/datatype3.html)
-	//  - "not null" means it is a required field (must be given a value).
-	// NOTE: All must be comma separated (end of line!) Last one must have NO comma!!
-	private static final String SQL_CREATE_LOGIN_ENTRIES =
-			"CREATE TABLE " + LoginEntries.TABLE_NAME + " (" +
-					LoginEntries._ID + " INTEGER PRIMARY KEY," +
-					LoginEntries.NAME + TEXT_TYPE + COMMA_SEP +
-					LoginEntries.EMAIL + TEXT_TYPE + COMMA_SEP +
-					LoginEntries.PASSWORD + TEXT_TYPE + COMMA_SEP +
-					LoginEntries.SECRET_QUESTION + INT_TYPE + COMMA_SEP +
-					LoginEntries.SECRET_ANSWER + TEXT_TYPE
-			//any other options for the create command
-			+");";
-
-	private static final String SQL_DELETE_ENTRIES =
-			"DROP TABLE IF EXISTS " + LoginEntries.TABLE_NAME;
 
 
 	/*
 	 * EDUCATION SECTION
+	 * TODO: Mary
 	 */
 
 	//COLLEGES
@@ -91,9 +162,9 @@ public final class DatabaseContract {
 	    public static final String TABLE_NAME = "Colleges";
 	    public static final String _ID = "ID";
 	    public static final String COLUMN_INSTITUTION = "Institution Name";
-		public static final String[] ALL_COLUMNS = {};
+		public static final String[] ALL_COLUMNS =
+				{_ID, COLUMN_INSTITUTION};
 	}
-
 	// TODO: Place your fields here!
 	// + KEY{...} + " {type} not null"
 	//	- Key is the column name you created above.
@@ -106,7 +177,6 @@ public final class DatabaseContract {
 					EduEntries._ID + " INTEGER PRIMARY KEY," +
 					//add entries following instructions above
 			");";
-
 	//delete statement
 	private static final String SQL_DELETE_Edu_Entries =
 			"DROP TABLE IF EXISTS " + EduEntries.TABLE_NAME;
@@ -114,11 +184,13 @@ public final class DatabaseContract {
 
 	/*
 	 * FINANCE SECTION
+	 * TODO: Ajoy
 	 */
 
 
 	/*
 	 * HEALTH SECTION
+	 * TODO: Ameera
 	 */
 
 
@@ -180,7 +252,7 @@ public final class DatabaseContract {
 		return db.delete(LoginEntries.TABLE_NAME, where, null) != 0;
 	}
 
-	public void deleteAll() {
+	public void deleteAllLoginRows() {
 		Cursor c = getAllLoginRows();
 		long rowId = c.getColumnIndexOrThrow(LoginEntries._ID);
 		if (c.moveToFirst()) {
@@ -254,7 +326,7 @@ public final class DatabaseContract {
 		public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 			// This database is only a cache for online data, so its upgrade policy is
 			// to simply to discard the data and start over
-			db.execSQL(SQL_DELETE_ENTRIES);
+			db.execSQL(SQL_DELETE_LOGIN_ENTRIES);
 			onCreate(db);
 		}
 

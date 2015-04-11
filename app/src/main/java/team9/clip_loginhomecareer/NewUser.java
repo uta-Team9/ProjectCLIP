@@ -1,9 +1,10 @@
 package team9.clip_loginhomecareer;
 
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 
 public class NewUser extends ActionBarActivity {
@@ -37,7 +38,7 @@ public class NewUser extends ActionBarActivity {
 		return super.onOptionsItemSelected(item);
 	}
 
-	public boolean saveUser() {
+	public boolean saveUser(View v) {
 
 		return true;
 	}
