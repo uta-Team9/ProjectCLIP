@@ -13,8 +13,8 @@ import android.provider.BaseColumns;
 public final class DatabaseContract {
 
 	//Database Name and Version Number. Change V# if you add new columns
-	public static final String DATABASE_NAME = "UserDatabase.db";
-	public static final int DATABASE_VERSION = 1; //database not yet implemented in code
+	private static final String DATABASE_NAME = "UserDatabase.db";
+	private static final int DATABASE_VERSION = 1; //database not yet implemented in code
 		//download and merge changes to update to current db before changing number
 		//always save work! GitHub can be evil.
 
@@ -26,7 +26,7 @@ public final class DatabaseContract {
 	//TODO: This is where we enter in information for database
 
 	//LOGIN INFORMATION TABLE
-	public static abstract class LoginEntries implements BaseColumns {
+	private static abstract class LoginEntries implements BaseColumns {
 		public static final String TABLE_NAME = "Passwords";
 		public static final String _ID = "ID";
 		public static final String NAME = "Name";
@@ -76,7 +76,7 @@ public final class DatabaseContract {
 			"DROP TABLE IF EXISTS " + ContactEntries.TABLE_NAME;
 
 	//GOALS
-	public static abstract class GoalEntries implements BaseColumns {
+	private static abstract class GoalEntries implements BaseColumns {
 		public static final String TABLE_NAME = "Goals";
 		public static final String _ID = "ID";
 		public static final String DESCRIPTION = "Description";
@@ -94,7 +94,7 @@ public final class DatabaseContract {
 			"DROP TABLE IF EXISTS " + GoalEntries.TABLE_NAME;
 
 	//IDENTITIES
-	public static abstract class IdentityEntries implements BaseColumns {
+	private static abstract class IdentityEntries implements BaseColumns {
 		public static final String TABLE_NAME = "Identities";
 		public static final String _ID = "ID";
 		public static final String LOGIN = "Login";
@@ -112,7 +112,7 @@ public final class DatabaseContract {
 			"DROP TABLE IF EXISTS " + IdentityEntries.TABLE_NAME;
 
 	//JOBS
-	public static abstract class JobEntries implements BaseColumns {
+	private static abstract class JobEntries implements BaseColumns {
 		public static final String TABLE_NAME = "Job Searches";
 		public static final String _ID = "ID";
 		public static final String COMPANY = "Company";
@@ -130,7 +130,7 @@ public final class DatabaseContract {
 			"DROP TABLE IF EXISTS " + JobEntries.TABLE_NAME;
 
 	//COMPANIES
-	public static abstract class CompanyEntries implements BaseColumns {
+	private static abstract class CompanyEntries implements BaseColumns {
 		public static final String TABLE_NAME = "Companies";
 		public static final String _ID = "ID";
 		public static final String NAME = "Name";
@@ -158,7 +158,7 @@ public final class DatabaseContract {
 	 */
 
 	//COLLEGES
-	public static abstract class EduEntries implements BaseColumns {
+	private static abstract class EduEntries implements BaseColumns {
 	    public static final String TABLE_NAME = "Colleges";
 	    public static final String _ID = "ID";
 	    public static final String COLUMN_INSTITUTION = "Institution Name";

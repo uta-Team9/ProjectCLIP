@@ -8,19 +8,27 @@ import android.view.View;
 
 
 public class NewUser extends ActionBarActivity {
+	DatabaseContract myDB;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.new_login_activity);
-	}
 
+		openDB();
+	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.menu_new_user, menu);
 		return true;
+	}
+
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+		closeDB();
 	}
 
 	@Override
@@ -38,8 +46,16 @@ public class NewUser extends ActionBarActivity {
 		return super.onOptionsItemSelected(item);
 	}
 
-	public boolean saveUser(View v) {
+	private void openDB() {
+		myDB = new DatabaseContract(this);
+		myDB.open();
+	}
+	private void closeDB() {
+		myDB.close();
+	}
 
+	public boolean saveUser(View v) {
+		//myDB.insertLoginRow();
 		return true;
 	}
 }
