@@ -168,7 +168,11 @@
         </activity>
         <activity
             android:name=".HealthHomePage"
-            android:label="@string/title_activity_health_home_page" >
+            android:label="@string/title_activity_health_home_page"
+            android:parentActivityName=".HomeScreen" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="team9.clip_loginhomecareer.HomeScreen" />
         </activity>
     </application>
 
