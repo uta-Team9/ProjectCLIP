@@ -26,7 +26,7 @@ public final class DatabaseContract {
 	//TODO: This is where we enter in information for database
 
 	//LOGIN INFORMATION TABLE
-	public static abstract class LoginEntries implements BaseColumns {
+	private static abstract class LoginEntries implements BaseColumns {
 		public static final String TABLE_NAME = "Passwords";
 		public static final String _ID = "ID";
 		public static final String NAME = "Name";

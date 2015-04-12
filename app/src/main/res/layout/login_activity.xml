@@ -72,24 +72,47 @@
                 android:layout_gravity="right"
                 android:layout_marginRight="18dp"/>
 
-            <Button
-                android:id="@+id/email_sign_in_button"
-                style="?android:textAppearanceSmall"
-                android:layout_width="match_parent"
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:text="@string/login_sign_in"
-                android:textStyle="bold"/>
+                android:weightSum="2"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:id="@+id/linearLayout">
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Recover"
+                    android:id="@+id/forgot_password_button"
+                    android:layout_weight="1"
+                    style="?android:textAppearanceSmall"
+                    android:layout_marginTop="16dp"
+                    android:textStyle="bold"/>
+
+                <Button
+                    android:id="@+id/email_sign_in_button"
+                    style="?android:textAppearanceSmall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginTop="16dp"
+                    android:text="@string/login_sign_in"
+                    android:textStyle="bold"/>
+
+            </LinearLayout>
 
             <Button
                 style="?android:textAppearanceSmall"
-                android:layout_width="match_parent"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:id="@+id/register_button"
-                android:layout_gravity="center_horizontal"
                 android:text="@string/login_register"
-                android:textStyle="bold"/>
+                android:textStyle="bold"
+                android:layout_gravity="right"/>
 
         </LinearLayout>
     </ScrollView>

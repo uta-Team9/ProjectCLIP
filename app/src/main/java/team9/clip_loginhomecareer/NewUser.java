@@ -103,7 +103,7 @@ public class NewUser extends ActionBarActivity {
 
 		if(c.moveToFirst()) {
 			do { //check for name
-				if(c.getString(1).equalsIgnoreCase(email)) {
+				if(c.getString(2).equalsIgnoreCase(email)) {
 					return true;
 				}
 			} while(c.moveToNext());
