@@ -8,19 +8,19 @@ import android.view.MenuItem;
 import android.view.View;
 
 
-public class DoctorsVisits extends ActionBarActivity {
+public class ExercisePlansList extends ActionBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_doctors_visits);
+        setContentView(R.layout.activity_exercise_plans_list);
     }
 
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_doctors_visits, menu);
+        getMenuInflater().inflate(R.menu.menu_exercise_plans_list, menu);
         return true;
     }
 
@@ -38,14 +38,9 @@ public class DoctorsVisits extends ActionBarActivity {
 
         return super.onOptionsItemSelected(item);
     }
-    public void goToAppointmentList(View view)
+    public void goToExercisePlan(View view)
     {
-        Intent intent = new Intent(DoctorsVisits.this, AppointmentsList.class);
-        startActivity(intent);
-    }
-    public void goToMedicationsList(View view)
-    {
-        Intent intent = new Intent(DoctorsVisits.this, MedicationsList.class);
+        Intent intent = new Intent(ExercisePlansList.this, ExercisePlan.class);
         startActivity(intent);
     }
 }

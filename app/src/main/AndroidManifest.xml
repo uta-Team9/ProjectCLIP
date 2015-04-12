@@ -18,6 +18,7 @@
             android:windowSoftInputMode="adjustResize|stateVisible" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -196,6 +197,67 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="team9.clip_loginhomecareer.HealthHomePage" />
+        </activity>
+        <activity
+            android:name=".AppointmentsList"
+            android:label="@string/title_activity_appointments_list"
+            android:parentActivityName=".DoctorsVisits" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="team9.clip_loginhomecareer.DoctorsVisits" />
+        </activity>
+        <activity
+            android:name=".Appointment"
+            android:label="@string/title_activity_appointment"
+            android:parentActivityName=".AppointmentsList" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="team9.clip_loginhomecareer.AppointmentsList" />
+        </activity>
+        <activity
+            android:name=".MedicationsList"
+            android:label="@string/title_activity_medications_list"
+            android:parentActivityName=".DoctorsVisits" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="team9.clip_loginhomecareer.DoctorsVisits" />
+        </activity>
+        <activity
+            android:name=".Medication"
+            android:label="@string/title_activity_medication"
+            android:parentActivityName=".MedicationsList" >
+        </activity>
+        <activity
+            android:name=".ExercisePlansList"
+            android:label="@string/title_activity_exercise_plans_list"
+            android:parentActivityName=".WeightLossAndDietPlan" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="team9.clip_loginhomecareer.WeightLossAndDietPlan" />
+        </activity>
+        <activity
+            android:name=".ExercisePlan"
+            android:label="@string/title_activity_exercise_plan"
+            android:parentActivityName=".ExercisePlansList" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="team9.clip_loginhomecareer.ExercisePlansList" />
+        </activity>
+        <activity
+            android:name=".HealthRecipes"
+            android:label="@string/title_activity_health_recipes"
+            android:parentActivityName=".HealthyRecipesList" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="team9.clip_loginhomecareer.HealthyRecipesList" />
+        </activity>
+        <activity
+            android:name=".HealthyRecipesList"
+            android:label="@string/title_activity_healthy_recipes_list"
+            android:parentActivityName=".WeightLossAndDietPlan" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="team9.clip_loginhomecareer.WeightLossAndDietPlan" />
         </activity>
     </application>
 
