@@ -8,6 +8,13 @@
     <string name="login_title">Login to CLIP</string>
     <string name="title_activity_new_user">Register</string>
     <string name="title_activity_password_recovery">Password Recovery</string>
+    <string-array name="security_questions">
+        <item>Pick A Question.</item>
+        <item>First Pet?</item>
+        <item>First Car?</item>
+        <item>Favorite Teacher?</item>
+        <item>Mothers Maiden Name?</item>
+    </string-array>
 
     //Home Screen Titles
     <string name="title_activity_home_screen">Welcome to CLIP</string>

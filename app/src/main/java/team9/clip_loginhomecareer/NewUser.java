@@ -1,10 +1,14 @@
 package team9.clip_loginhomecareer;
 
+import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
+import android.widget.Spinner;
+import android.widget.Toast;
 
 
 public class NewUser extends ActionBarActivity {
@@ -54,8 +58,79 @@ public class NewUser extends ActionBarActivity {
 		myDB.close();
 	}
 
-	public boolean saveUser(View v) {
-		//myDB.insertLoginRow();
-		return true;
+	public void saveUser(View v) {
+		if(tryToSave()) {
+			Toast.makeText(getApplicationContext(), "User Saved", Toast.LENGTH_SHORT).show();
+		} else {
+			Toast.makeText(getApplicationContext(), "User Not Saved", Toast.LENGTH_LONG).show();
+		}
+	}
+
+	public boolean tryToSave() {
+		//save name
+		EditText text = (EditText) findViewById(R.id.new_user_name);
+		String name = text.getText().toString();
+
+		//save email
+		text = (EditText) findViewById(R.id.new_user_email);
+		String email = text.getText().toString();
+		//return false if, contains :, contains @, is registered
+		if(email.contains(":") || !email.contains("@") || isRegistered(email))
+			return resetFields(false); //reset email and password
+
+		//save password
+		text = (EditText) findViewById(R.id.new_user_password);
+		String password = text.getText().toString();
+		//cannot contain ":", length must be greater than 4
+		if(password.contains(":") || !(password.length() > 4))
+			return resetFields(false); //reset email and password
+
+		//save spinner choice
+		Spinner choice = (Spinner) findViewById(R.id.new_user_question);
+		int question = choice.getSelectedItemPosition();
+
+		//save answer
+		text = (EditText) findViewById(R.id.new_user_answer);
+		String answer = text.getText().toString();
+
+		//insert new row into DB
+		myDB.insertLoginRow(name, email, password, question, answer);
+		return resetFields(true); //reset all fields
+	}
+
+	public boolean isRegistered(String email) {
+		Cursor c = myDB.getAllLoginRows();
+
+		if(c.moveToFirst()) {
+			do { //check for name
+				if(c.getString(1).equalsIgnoreCase(email)) {
+					return true;
+				}
+			} while(c.moveToNext());
+		}
+		return false;
+	}
+
+	public boolean resetFields(Boolean trigger) {
+		EditText text;
+		if(trigger) {
+			text = (EditText) findViewById(R.id.new_user_name);
+			text.setText("");
+			text = (EditText) findViewById(R.id.new_user_email);
+			text.setText("");
+			text = (EditText) findViewById(R.id.new_user_password);
+			text.setText("");
+			Spinner choice = (Spinner) findViewById(R.id.new_user_question);
+			choice.setSelection(0);
+			text = (EditText) findViewById(R.id.new_user_answer);
+			text.setText("");
+			return true;
+		}
+
+		text = (EditText) findViewById(R.id.new_user_name);
+		text.setText("");
+		text = (EditText) findViewById(R.id.new_user_email);
+		text.setText("");
+		return false;
 	}
 }

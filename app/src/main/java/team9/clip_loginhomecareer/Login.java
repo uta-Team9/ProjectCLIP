@@ -22,6 +22,7 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -41,6 +42,7 @@ public class Login extends ActionBarActivity implements LoaderCallbacks<Cursor> 
 			"foo@example.com:hello", "bar@example.com:world"
 	};
 
+	DatabaseContract dB;
 
 	/**
 	 * Keep track of the login task to ensure we can cancel it if requested.
@@ -52,15 +54,19 @@ public class Login extends ActionBarActivity implements LoaderCallbacks<Cursor> 
 	private EditText mPasswordView;
 	private View mProgressView;
 	private View mLoginFormView;
+	private CheckBox mRememberMe;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		openDB();
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.login_activity);
 
 		// Set up the login form.
 		mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
-		populateAutoComplete();
+		mRememberMe = (CheckBox) findViewById(R.id.remember_me);
+		if(mRememberMe.isChecked())
+			populateAutoComplete();
 
 		mPasswordView = (EditText) findViewById(R.id.password);
 		mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
@@ -165,20 +171,31 @@ public class Login extends ActionBarActivity implements LoaderCallbacks<Cursor> 
 			showProgress(true);
 			mAuthTask = new UserLoginTask(email, password);
 			mAuthTask.execute((Void) null);
-
-			moveToMainPage();
 		}
 	}
 
 	private boolean isEmailValid(String email) {
 		//TODO: Replace this with your own logic
-		return email.contains("@");
+		if(!email.contains(":") && email.contains("@"))
+			return true;
+		return false;
 	}
 
 	private boolean isPasswordValid(String password) {
 		//TODO: Replace this with your own logic
-		return password.length() > 4;
+		if(!password.contains(":") && password.length() > 4)
+			return true;
+		return false;
 	}
+
+	private void openDB() {
+		dB = new DatabaseContract(this);
+		dB.open();
+	}
+	private void closeDB() {
+		dB.close();
+	}
+
 
 	/**
 	 * Shows the progress UI and hides the login form.
@@ -242,7 +259,9 @@ public class Login extends ActionBarActivity implements LoaderCallbacks<Cursor> 
 			cursor.moveToNext();
 		}
 
-		addEmailsToAutoComplete(emails);
+		CheckBox rm = (CheckBox) findViewById(R.id.remember_me);
+		if(rm.isChecked())
+			addEmailsToAutoComplete(emails);
 	}
 
 	@Override
@@ -295,7 +314,18 @@ public class Login extends ActionBarActivity implements LoaderCallbacks<Cursor> 
 				return false;
 			}
 
-			for (String credential : DUMMY_CREDENTIALS) {
+			//putting together credentials list
+			Cursor cursor = dB.getAllLoginRows();
+			ArrayList<String> creds = new ArrayList<>();
+			if (cursor.moveToFirst()) {
+				do {
+					//email is 2, password is 3
+					creds.add((cursor.getString(2) + ":" + cursor.getString(3)));
+				} while (cursor.moveToNext());
+			}
+			cursor.close();
+
+			for (String credential : creds) {
 				String[] pieces = credential.split(":");
 				if (pieces[0].equals(mEmail)) {
 					// Account exists, return true if the password matches.
@@ -304,7 +334,8 @@ public class Login extends ActionBarActivity implements LoaderCallbacks<Cursor> 
 			}
 
 			// TODO: register the new account here.
-			return true;
+			//register on different page
+			return false;
 		}
 
 		@Override
@@ -314,6 +345,8 @@ public class Login extends ActionBarActivity implements LoaderCallbacks<Cursor> 
 
 			if (success) {
 				finish();
+				//THIS IS WHERE WE MOVE TO MAIN PAGE!
+				moveToMainPage();
 			} else {
 				mPasswordView.setError(getString(R.string.error_incorrect_password));
 				mPasswordView.requestFocus();

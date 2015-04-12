@@ -14,7 +14,7 @@ public final class DatabaseContract {
 
 	//Database Name and Version Number. Change V# if you add new columns
 	private static final String DATABASE_NAME = "UserDatabase.db";
-	private static final int DATABASE_VERSION = 1; //database not yet implemented in code
+	private static final int DATABASE_VERSION = 2; //database not yet implemented in code
 		//download and merge changes to update to current db before changing number
 		//always save work! GitHub can be evil.
 
@@ -26,16 +26,17 @@ public final class DatabaseContract {
 	//TODO: This is where we enter in information for database
 
 	//LOGIN INFORMATION TABLE
-	private static abstract class LoginEntries implements BaseColumns {
+	public static abstract class LoginEntries implements BaseColumns {
 		public static final String TABLE_NAME = "Passwords";
 		public static final String _ID = "ID";
 		public static final String NAME = "Name";
 		public static final String EMAIL = "Email";
 		public static final String PASSWORD = "Password";
-		public static final String SECRET_QUESTION = "Secret Question";
-		public static final String SECRET_ANSWER = "Secret Answer";
+		public static final String SECRET_QUESTION = "SecretQuestion";
+		public static final String SECRET_ANSWER = "SecretAnswer";
+		public static final String APP_ID = "AppID";
 		public static final String[] ALL_COLUMNS =
-				{_ID, NAME, EMAIL, PASSWORD, SECRET_QUESTION, SECRET_ANSWER};
+				{_ID, NAME, EMAIL, PASSWORD, SECRET_QUESTION, SECRET_ANSWER, APP_ID};
 	}
 	private static final String SQL_CREATE_LOGIN_ENTRIES =
 			"CREATE TABLE " + LoginEntries.TABLE_NAME + " (" +
@@ -44,7 +45,8 @@ public final class DatabaseContract {
 					LoginEntries.EMAIL + TEXT_TYPE + COMMA_SEP +
 					LoginEntries.PASSWORD + TEXT_TYPE + COMMA_SEP +
 					LoginEntries.SECRET_QUESTION + INT_TYPE + COMMA_SEP +
-					LoginEntries.SECRET_ANSWER + TEXT_TYPE
+					LoginEntries.SECRET_ANSWER + TEXT_TYPE + COMMA_SEP +
+					LoginEntries.APP_ID + INT_TYPE
 					+");";
 	private static final String SQL_DELETE_LOGIN_ENTRIES =
 			"DROP TABLE IF EXISTS " + LoginEntries.TABLE_NAME;
@@ -225,7 +227,15 @@ public final class DatabaseContract {
 		myDBHelper.close();
 	}
 
-	// Add a new set of values to the database.
+	/**
+	 * Add a new set of values to the database.
+	 * @param name
+	 * @param email
+	 * @param password
+	 * @param question
+	 * @param answer
+	 * @return The DB table _ID row number.
+	 */
 	public long insertLoginRow(
 			String name, String email, String password,
 			int question, String answer) {
@@ -241,6 +251,14 @@ public final class DatabaseContract {
 		initialValues.put(LoginEntries.PASSWORD, password);
 		initialValues.put(LoginEntries.SECRET_QUESTION, question);
 		initialValues.put(LoginEntries.SECRET_ANSWER, answer);
+
+		int ID = 0, i = 0;
+		for(char letter : email.toCharArray()) {
+			ID += letter + i;
+			i++;
+		}
+
+		initialValues.put(LoginEntries.APP_ID, ID);
 
 		// Insert it into the database.
 		return db.insert(LoginEntries.TABLE_NAME, null, initialValues);
@@ -266,8 +284,8 @@ public final class DatabaseContract {
 	// Return all data in the database.
 	public Cursor getAllLoginRows() {
 		String where = null;
-		Cursor c = 	db.query(true, LoginEntries.TABLE_NAME, LoginEntries.ALL_COLUMNS,
-				where, null, null, null, null, null);
+		Cursor c = 	db.query(LoginEntries.TABLE_NAME, LoginEntries.ALL_COLUMNS,
+				where, null, null, null, null);
 		if (c != null) {
 			c.moveToFirst();
 		}
@@ -284,6 +302,20 @@ public final class DatabaseContract {
 			c.moveToFirst();
 		}
 		return c;
+	}
+
+	public int getLoginAuthenticationID(long rowId) {
+		int ID = 0;
+		String where = LoginEntries._ID + "=" + rowId;
+		String[] ALL_KEYS = LoginEntries.ALL_COLUMNS;
+		Cursor c = 	db.query(true, LoginEntries.TABLE_NAME, ALL_KEYS,
+				where, null, null, null, null, null);
+		if (c != null) {
+			c.moveToFirst();
+		}
+		ID = c.getInt(LoginEntries.ALL_COLUMNS.length);
+		c.close();
+		return ID;
 	}
 
 	// Change an existing row to be equal to new data.
