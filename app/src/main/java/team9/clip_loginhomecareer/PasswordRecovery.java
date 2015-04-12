@@ -15,7 +15,6 @@ public class PasswordRecovery extends ActionBarActivity {
 
 	private DatabaseContract db;
 	private int passwordTries = 0;
-	private int userID = 0;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -104,7 +103,6 @@ public class PasswordRecovery extends ActionBarActivity {
 		if(c.moveToFirst()) {
 			do { //check for email
 				if(c.getString(2).equalsIgnoreCase(email.getText().toString())) {
-					userID = c.getPosition();
 					return true;
 				}
 			} while(c.moveToNext());
