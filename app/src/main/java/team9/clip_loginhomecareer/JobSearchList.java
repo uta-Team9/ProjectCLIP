@@ -34,19 +34,38 @@ public class JobSearchList extends ActionBarActivity {
 	}
 
 	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		// Handle action bar item clicks here. The action bar will
-		// automatically handle clicks on the Home/Up button, so long
-		// as you specify a parent activity in AndroidManifest.xml.
-		int id = item.getItemId();
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+        Intent intent;
 
-		//noinspection SimplifiableIfStatement
-		if (id == R.id.action_settings) {
-			return true;
-		}
+        //noinspection SimplifiableIfStatement
+        switch(id) {
+            case(R.id.action_settings):
+                intent = new Intent(this, Settings.class);
+                startActivity(intent);
+                break;
+            case(R.id.action_Career):
+                setContentView(R.layout.home_career_activity);
+                break;
+            case(R.id.action_Finance):
 
-		return super.onOptionsItemSelected(item);
-	}
+                break;
+            case(R.id.action_Health):
+                intent= new Intent(this, HealthHomePage.class);
+                break;
+            case(R.id.action_Education):
+
+                break;
+        }
+        if (id == R.id.action_settings) {
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
 
 	public void createNewInstance(View v) {
 		Intent intent = new Intent(this, NewJobSearch.class);

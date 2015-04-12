@@ -170,6 +170,27 @@
             android:name=".HealthHomePage"
             android:label="@string/title_activity_health_home_page"
             android:parentActivityName=".HomeScreen" >
+        </activity>
+        <activity
+            android:name=".DoctorsVisits"
+            android:label="@string/title_activity_doctors_visits"
+            android:parentActivityName=".HomeScreen" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="team9.clip_loginhomecareer.HomeScreen" />
+        </activity>
+        <activity
+            android:name=".WeightLossAndDietPlan"
+            android:label="@string/title_activity_weight_loss_and_diet_plan"
+            android:parentActivityName=".HomeScreen" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="team9.clip_loginhomecareer.HomeScreen" />
+        </activity>
+        <activity
+            android:name=".MedicalReport"
+            android:label="@string/title_activity_medical_report"
+            android:parentActivityName=".HomeScreen" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="team9.clip_loginhomecareer.HomeScreen" />
