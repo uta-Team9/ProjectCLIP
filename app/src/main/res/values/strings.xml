@@ -68,5 +68,13 @@
     <string name="title_activity_doctors_visits">Doctor Visits</string>
     <string name="title_activity_weight_loss_and_diet_plan">Weight Loss And Diet Plan</string>
     <string name="title_activity_medical_report">Medical Report</string>
+    <string name="title_activity_appointments_list">"Appointments List "</string>
+    <string name="title_activity_appointment">Appointment</string>
+    <string name="title_activity_medications_list">Medications List</string>
+    <string name="title_activity_medication">Medication</string>
+    <string name="title_activity_exercise_plans_list">Exercise Plans List</string>
+    <string name="title_activity_exercise_plan">Exercise Plan</string>
+    <string name="title_activity_health_recipes">Health Recipes</string>
+    <string name="title_activity_healthy_recipes_list">Healthy Recipes List</string>
 
 </resources>

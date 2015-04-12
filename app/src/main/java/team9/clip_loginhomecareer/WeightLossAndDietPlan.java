@@ -1,10 +1,11 @@
 package team9.clip_loginhomecareer;
 
 import android.content.Intent;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 
 public class WeightLossAndDietPlan extends ActionBarActivity {
@@ -55,6 +56,16 @@ public class WeightLossAndDietPlan extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+    public void goToExercisePlanList(View view)
+    {
+        Intent intent = new Intent(WeightLossAndDietPlan.this, ExercisePlansList.class);
+        startActivity(intent);
+    }
+    public void goToHealthyRecipeList(View view)
+    {
+        Intent intent = new Intent(WeightLossAndDietPlan.this, HealthyRecipesList.class);
+        startActivity(intent);
     }
 }
 

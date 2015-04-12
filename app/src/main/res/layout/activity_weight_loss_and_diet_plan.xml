@@ -39,7 +39,8 @@
             android:layout_alignEnd="@+id/editText4"
             android:layout_marginTop="23dp"
             android:layout_toRightOf="@+id/textView11"
-            android:layout_toEndOf="@+id/textView11" />
+            android:layout_toEndOf="@+id/textView11"
+            android:onClick="goToExercisePlanList"/>
 
 
 
@@ -139,7 +140,8 @@
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true"
             android:layout_toRightOf="@+id/textView11"
-            android:layout_toEndOf="@+id/textView11" />
+            android:layout_toEndOf="@+id/textView11"
+            android:onClick="goToHealthyRecipeList"/>
 
         <TextView
             android:layout_width="wrap_content"
