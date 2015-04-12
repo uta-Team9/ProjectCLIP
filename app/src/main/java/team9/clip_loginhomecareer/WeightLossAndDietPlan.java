@@ -5,22 +5,21 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 
 
-public class HealthHomePage extends ActionBarActivity {
+public class WeightLossAndDietPlan extends ActionBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_health_home_page);
+        setContentView(R.layout.activity_weight_loss_and_diet_plan);
     }
 
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_health_home_page, menu);
+        getMenuInflater().inflate(R.menu.menu_weight_loss_and_diet_plan, menu);
         return true;
     }
 
@@ -30,30 +29,33 @@ public class HealthHomePage extends ActionBarActivity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
+        Intent intent;
 
         //noinspection SimplifiableIfStatement
+        switch (id) {
+            case (R.id.action_settings):
+                intent = new Intent(this, Settings.class);
+                startActivity(intent);
+                break;
+            case (R.id.action_Career):
+                setContentView(R.layout.home_career_activity);
+                break;
+            case (R.id.action_Finance):
+
+                break;
+            case (R.id.action_Health):
+                intent = new Intent(this, HealthHomePage.class);
+                break;
+            case (R.id.action_Education):
+
+                break;
+        }
         if (id == R.id.action_settings) {
             return true;
         }
 
         return super.onOptionsItemSelected(item);
     }
-
-    public void sendMessage(View view)
-    {
-        Intent intent = new Intent(HealthHomePage.this, DoctorsVisits.class);
-        startActivity(intent);
-    }
-    public void sendMessageMedReport(View view)
-    {
-        Intent intent = new Intent(HealthHomePage.this, MedicalReport.class);
-        startActivity(intent);
-    }
-    public void sendMessageWeightLossAndDietPlan(View view)
-    {
-        Intent intent = new Intent(HealthHomePage.this, WeightLossAndDietPlan.class);
-
-        startActivity(intent);
-    }
-
 }
+
+

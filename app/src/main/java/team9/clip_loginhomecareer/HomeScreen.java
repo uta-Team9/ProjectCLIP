@@ -117,7 +117,7 @@ public class HomeScreen extends ActionBarActivity implements ActionBar.TabListen
 
 				break;
 			case(R.id.action_Health):
-
+                intent = new Intent(this, HealthHomePage.class);
 				break;
 			case(R.id.action_Education):
 
