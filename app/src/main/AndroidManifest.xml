@@ -259,6 +259,14 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="team9.clip_loginhomecareer.WeightLossAndDietPlan" />
         </activity>
+        <activity
+            android:name=".DegreesList"
+            android:label="@string/title_activity_degrees_list"
+            android:parentActivityName=".EduMain" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="team9.clip_loginhomecareer.EduMain" />
+        </activity>
     </application>
 
 </manifest>
