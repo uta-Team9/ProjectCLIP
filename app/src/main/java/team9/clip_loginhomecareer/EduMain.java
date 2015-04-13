@@ -28,7 +28,8 @@ public class EduMain extends ActionBarActivity {
         Intent intent = null;
         switch(v.getId()) {
             case(R.id.view_degrees_button):
-                intent = new Intent(this, ContactList.class);
+                intent = new Intent(this, DegreesList.class);
+                //Log.d for debugging
                 break;
             case(R.id.view_applications_button):
                 intent = new Intent(this, JobSearchList.class);
