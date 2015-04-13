@@ -1,23 +1,22 @@
 package team9.clip_loginhomecareer;
 
-import java.util.Locale;
-
 import android.content.Intent;
-import android.support.v7.app.ActionBarActivity;
-import android.support.v7.app.ActionBar;
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.os.Bundle;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
+
+import java.util.Locale;
 
 
 public class HomeScreen extends ActionBarActivity implements ActionBar.TabListener {
@@ -120,7 +119,7 @@ public class HomeScreen extends ActionBarActivity implements ActionBar.TabListen
                 intent = new Intent(this, HealthHomePage.class);
 				break;
 			case(R.id.action_Education):
-
+				intent = new Intent(this, EduMain.class);
 				break;
 		}
 
