@@ -10,12 +10,12 @@
     <TextView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="View Jobs"
-        android:id="@+id/view_jobs_button"
+        android:text="View Finance"
+        android:id="@+id/view_finance_button"
         android:padding="16dp"
         android:clickable="true"
         android:onClick="moveViews"
-        android:layout_below="@+id/view_goals_button"
+        android:layout_below="@+id/view_applications_button"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:textSize="18dp"
@@ -24,11 +24,11 @@
     <TextView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="View Contacts"
-        android:id="@+id/view_contacts_button"
+        android:text="View Applications"
+        android:id="@+id/view_applications_button"
         android:padding="16dp"
         android:clickable="true"
-        android:layout_below="@+id/view_jobs_button"
+        android:layout_below="@+id/view_degrees_button"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:onClick="moveViews"
@@ -39,8 +39,8 @@
     <TextView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="View Goals"
-        android:id="@+id/view_goals_button"
+        android:text="View Degrees"
+        android:id="@+id/view_degrees_button"
         android:padding="16dp"
         android:clickable="true"
         android:layout_alignParentLeft="true"
@@ -51,20 +51,6 @@
         android:textColor="#ff000000"/>
     <!--android:textColor="#ffffffff"/-->
 
-    <TextView
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="View Online Identities"
-        android:id="@+id/view_online_identities_button"
-        android:padding="16dp"
-        android:clickable="true"
-        android:onClick="moveViews"
-        android:layout_below="@+id/view_contacts_button"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:textSize="18dp"
-        android:textColor="#ff000000"/>
-    <!--android:textColor="#ffffffff"/-->
 
 
 </RelativeLayout>

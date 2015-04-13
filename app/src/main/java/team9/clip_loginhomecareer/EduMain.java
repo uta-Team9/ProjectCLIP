@@ -1,9 +1,11 @@
 package team9.clip_loginhomecareer;
 
-import android.support.v7.app.ActionBarActivity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 
 public class EduMain extends ActionBarActivity {
@@ -22,6 +24,23 @@ public class EduMain extends ActionBarActivity {
         return true;
     }
 
+    public void moveViews(View v) {
+        Intent intent = null;
+        switch(v.getId()) {
+            case(R.id.view_degrees_button):
+                intent = new Intent(this, ContactList.class);
+                break;
+            case(R.id.view_applications_button):
+                intent = new Intent(this, JobSearchList.class);
+                break;
+            case(R.id.view_finance_button):
+                intent = new Intent(this, FutureGoalsList.class);
+                break;
+        }
+
+        if(intent != null)
+            startActivity(intent);
+    }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
