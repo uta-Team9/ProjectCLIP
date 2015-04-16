@@ -78,5 +78,6 @@
     <string name="title_activity_health_recipes">Health Recipes</string>
     <string name="title_activity_healthy_recipes_list">Healthy Recipes List</string>
     <string name="title_activity_degrees_list">My Degrees</string>
+    <string name="title_activity_finance_cash_view">Cash Information</string>
 
 </resources>

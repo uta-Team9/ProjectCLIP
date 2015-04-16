@@ -267,6 +267,22 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="team9.clip_loginhomecareer.EduMain" />
         </activity>
+        <activity
+            android:name=".FinanceHome"
+            android:label="@string/title_activity_finance_home"
+            android:parentActivityName=".HomeScreen" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="team9.clip_loginhomecareer.HomeScreen" />
+        </activity>
+        <activity
+            android:name=".FinanceCashView"
+            android:label="@string/title_activity_finance_cash_view"
+            android:parentActivityName=".FinanceHome" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="team9.clip_loginhomecareer.FinanceHome" />
+        </activity>
     </application>
 
 </manifest>
