@@ -94,6 +94,19 @@
     <string name="title_activity_finance_stock_security_view">Stocks and Securities</string>
     <string name="title_activity_finance_stock_security_new">New Stock/Security</string>
     <string name="title_activity_finance_goal_view">Financial Goals</string>
-    <string name="title_section3">Section 3</string>
 
+    <string-array name="asset_type">
+        <item>Select Asset Type</item>
+        <item>Car</item>
+        <item>Boat</item>
+        <item>House</item>
+        <item>Land</item>
+    </string-array>
+    <string-array name="card_provider">
+        <item>Visa</item>
+        <item>Master Card</item>
+        <item>Discover</item>
+        <item>American Express</item>
+        <item>Other</item>
+    </string-array>
 </resources>
