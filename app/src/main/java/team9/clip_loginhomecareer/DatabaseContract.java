@@ -969,6 +969,93 @@ public final class DatabaseContract {
 		return db.update(ApplicationEntries.TABLE_NAME, newValues, where, null) != 0;
 	}
 
+	//COLLEGE FINANCES
+	/**
+	 * Add a new set of values to the database.
+	 * @param awardName
+	 * @param amount
+	 * @param period
+	 * @param condition
+	 * @param user
+	 * @return The DB table _ID row number.
+	 */
+	public long insertCollegeApplication(String awardName, int amount, String period, String condition, int user) {
+		/*
+		 * CHANGE 3:
+		 */
+		// TODO: Update data in the row with new fields.
+		// TODO: Also change the function's arguments to be what you need!
+		// Create row's data:
+		ContentValues initialValues = new ContentValues();
+		initialValues.put(ApplicationEntries.COLUMN_COLLEGE, college);
+		initialValues.put(ApplicationEntries.COLUMN_DUE_DATE, dueDate);
+		initialValues.put(ApplicationEntries.COLUMN_REPLY_DATE, replyDate);
+		initialValues.put(CollegeFinanceEntries.COLUMN_USER_ID, user);
+
+		// Insert it into the database.
+		return db.insert(ApplicationEntries.TABLE_NAME, null, initialValues);
+	}
+
+	// Delete a row from the database, by rowId (primary key)
+	public boolean deleteCollegeApplication(long rowId) {
+		String where = ApplicationEntries._ID + "=" + rowId;
+		return db.delete(ApplicationEntries.TABLE_NAME, where, null) != 0;
+	}
+
+	public void deleteAllCollegeApplications() {
+		Cursor c = getAllCollegeApplications();
+		long rowId = c.getColumnIndexOrThrow(ApplicationEntries._ID);
+		if (c.moveToFirst()) {
+			do {
+				deleteCollegeApplication(c.getLong((int) rowId));
+			} while (c.moveToNext());
+		}
+		c.close();
+	}
+
+	// Return all data in the database.
+	public Cursor getAllCollegeApplications() {
+		String where = null;
+		Cursor c = 	db.query(ApplicationEntries.TABLE_NAME, ApplicationEntries.ALL_COLUMNS,
+				where, null, null, null, null);
+		if (c != null) {
+			c.moveToFirst();
+		}
+		return c;
+	}
+
+	// Get a specific row (by rowId)
+	public Cursor getCollegeApplication(long rowId) {
+		String where = ApplicationEntries._ID + "=" + rowId;
+		String[] ALL_KEYS = ApplicationEntries.ALL_COLUMNS;
+		Cursor c = 	db.query(true, ApplicationEntries.TABLE_NAME, ALL_KEYS,
+				where, null, null, null, null, null);
+		if (c != null) {
+			c.moveToFirst();
+		}
+		return c;
+	}
+
+	// Change an existing row to be equal to new data.
+	public boolean updateCollegeApplication(long rowId, String college, int dueDate, int replyDate) {
+		String where = ApplicationEntries._ID + "=" + rowId;
+
+		/*
+		 * CHANGE 4:
+		 */
+		// TODO: Update data in the row with new fields.
+		// TODO: Also change the function's arguments to be what you need!
+		// Create row's data:
+		ContentValues newValues = new ContentValues();
+		newValues.put(ApplicationEntries.COLUMN_COLLEGE, college);
+		newValues.put(ApplicationEntries.COLUMN_DUE_DATE, dueDate);
+		newValues.put(ApplicationEntries.COLUMN_REPLY_DATE, replyDate);
+
+
+		// Insert it into the database.
+		return db.update(ApplicationEntries.TABLE_NAME, newValues, where, null) != 0;
+	}
+
 	//CASH METHODS
 	/**
 	 * Add a new set of values to the database.
