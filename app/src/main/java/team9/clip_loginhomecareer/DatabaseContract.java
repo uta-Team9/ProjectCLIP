@@ -14,13 +14,14 @@ public final class DatabaseContract {
 
 	//Database Name and Version Number. Change V# if you add new columns
 	private static final String DATABASE_NAME = "UserDatabase.db";
-	private static final int DATABASE_VERSION = 4; //database not yet implemented in code
+	private static final int DATABASE_VERSION = 5; //database not yet implemented in code
 		//download and merge changes to update to current db before changing number
 		//always save work! GitHub can be evil.
 
 	//Separators for SQL Creation
 	private static final String TEXT_TYPE = " TEXT";
 	private static final String INT_TYPE = " INTEGER";
+	private static final String DOUBLE_TYPE = " DOUBLE";
 	private static final String COMMA_SEP = ",";
 
 	//TODO: This is where we enter in information for database
@@ -47,6 +48,7 @@ public final class DatabaseContract {
 					LoginEntries.SECRET_QUESTION + INT_TYPE + COMMA_SEP +
 					LoginEntries.SECRET_ANSWER + TEXT_TYPE + COMMA_SEP +
 					LoginEntries.APP_ID + INT_TYPE
+
 					+");";
 	private static final String SQL_DELETE_LOGIN_ENTRIES =
 			"DROP TABLE IF EXISTS " + LoginEntries.TABLE_NAME;
@@ -62,11 +64,11 @@ public final class DatabaseContract {
 		public static final String TABLE_NAME = "Contacts";
 		public static final String _ID = "ID";
 		public static final String NAME = "Name";
-		public static final String NUMBER = "Phone Number";
+		public static final String NUMBER = "PhoneNumber";
 		public static final String EMAIL = "Email";
 		public static final String USED = "Used";
 		public static final String MET = "Met";
-		public static final String HASH_ID = "Hash ID";
+		public static final String HASH_ID = "HashID";
 		public static final String[] ALL_COLUMNS =
 				{_ID, NAME, NUMBER, EMAIL, USED, MET, HASH_ID};
 	}
@@ -91,7 +93,7 @@ public final class DatabaseContract {
 		public static final String DESCRIPTION = "Description";
 		public static final String END_DATE = "End Date";
 		public static final String TERM_LENGTH = "Term Length";
-		public static final String HASH_ID = "Hash ID";
+		public static final String HASH_ID = "HashID";
 		public static final String[] ALL_COLUMNS =
 				{_ID, DESCRIPTION, END_DATE, TERM_LENGTH, HASH_ID};
 	}
@@ -110,7 +112,7 @@ public final class DatabaseContract {
 		public static final String LOGIN = "Login";
 		public static final String WEBSITE = "Website";
 		public static final String PASSWORD = "Password";
-		public static final String HASH_ID = "Hash ID";
+		public static final String HASH_ID = "HashID";
 		public static final String[] ALL_COLUMNS =
 				{_ID, LOGIN, WEBSITE, PASSWORD, HASH_ID};
 	}
@@ -129,7 +131,7 @@ public final class DatabaseContract {
 		public static final String COMPANY = "Company";
 		public static final String STATUS = "Status";
 		public static final String APPLIED = "Applied";
-		public static final String HASH_ID = "Hash ID";
+		public static final String HASH_ID = "HashID";
 		public static final String[] ALL_COLUMNS =
 				{_ID, COMPANY, STATUS, APPLIED, HASH_ID};
 	}
@@ -151,7 +153,7 @@ public final class DatabaseContract {
 		public static final String DESCRIPTION = "Description";
 		public static final String APPLIED_DATE = "Applied Date";
 		public static final String INTERVIEW_DATE = "Interview Date";
-		public static final String HASH_ID = "Hash ID";
+		public static final String HASH_ID = "HashID";
 		public static final String[] ALL_COLUMNS =
 				{_ID, NAME, ADDRESS, PHONE, DESCRIPTION, APPLIED_DATE, INTERVIEW_DATE, HASH_ID};
 	}
@@ -171,16 +173,19 @@ public final class DatabaseContract {
 	 */
 
 	//COLLEGES
-	private static abstract class EduEntries implements BaseColumns {
+	private static abstract class CollegeEntries implements BaseColumns {
 	    public static final String TABLE_NAME = "Colleges";
 	    public static final String _ID = "ID";
 	    public static final String COLUMN_INSTITUTION = "InstitutionName";
         public static final String COLUMN_COLLEGE_CITY = "InstitutionCity";
-        public static final String COLUMN_STUDY_FIELD = "FieldStudy";
+        public static final String COLUMN_STUDY_FIELD = "FieldOfStudy";
+        public static final String COLUMN_DEGREE = "Degree";
+		public static final String COLUMN_START_DATE = "StartDate";
         public static final String COLUMN_COMPLETION_DATE = "GraduationDate";
-        public static final String COLUMN_START_DATE = "StartDate";
+		public static final String COLUMN_USER_ID = "User_ID";
         public static final String[] ALL_COLUMNS =
-				{_ID, COLUMN_INSTITUTION, COLUMN_COLLEGE_CITY, COLUMN_STUDY_FIELD, COLUMN_COMPLETION_DATE,COLUMN_START_DATE};
+				{_ID, COLUMN_INSTITUTION, COLUMN_COLLEGE_CITY, COLUMN_STUDY_FIELD,
+						COLUMN_COMPLETION_DATE, COLUMN_USER_ID};
 	}
 	// TODO: Place your fields here!
 	// + KEY{...} + " {type} not null"
@@ -190,25 +195,120 @@ public final class DatabaseContract {
 	//  - "not null" means it is a required field (must be given a value).
 	// NOTE: All must be comma separated (end of line!) Last one must have NO comma!!
 	private static final String SQL_CREATE_Edu_Entries =
-			"CREATE TABLE " + EduEntries.TABLE_NAME + " (" +
-					EduEntries._ID + " INTEGER PRIMARY KEY," +
+			"CREATE TABLE " + CollegeEntries.TABLE_NAME + " (" +
+					CollegeEntries._ID + " INTEGER PRIMARY KEY," +
+					CollegeEntries.COLUMN_INSTITUTION + TEXT_TYPE + COMMA_SEP +
+					CollegeEntries.COLUMN_COLLEGE_CITY + TEXT_TYPE + COMMA_SEP +
+					CollegeEntries.COLUMN_STUDY_FIELD + TEXT_TYPE + COMMA_SEP +
+                    CollegeEntries.COLUMN_DEGREE + TEXT_TYPE + COMMA_SEP +
+					CollegeEntries.COLUMN_START_DATE + INT_TYPE + COMMA_SEP +
+					CollegeEntries.COLUMN_COMPLETION_DATE + INT_TYPE + COMMA_SEP +
+					CollegeEntries.COLUMN_USER_ID + INT_TYPE +
 					//add entries following instructions above
 			");";
 	//delete statement
 	private static final String SQL_DELETE_Edu_Entries =
-			"DROP TABLE IF EXISTS " + EduEntries.TABLE_NAME;
+			"DROP TABLE IF EXISTS " + CollegeEntries.TABLE_NAME;
 
 
 	/*
 	 * FINANCE SECTION
 	 * TODO: Ajoy
 	 */
+	//Cash Section
+	private static abstract class CashEntries implements BaseColumns {
+		public static final String TABLE_NAME = "CASH";
+		public static final String _ID = "ID";
+		public static final String COLUMN_CASH_AMOUNT = "CASH_AMOUNT";
+		public static final String COLUMN_SOURCE = "SOURCE";
+		public static final String COLUMN_NOTE = "NOTE";
+		public static final String COLUMN_DATE = "DATE";
+		public static final String COLUMN_USER_ID = "USER_ID";
+		public static final String[] ALL_COLUMNS =
+				{_ID, COLUMN_CASH_AMOUNT, COLUMN_SOURCE, COLUMN_NOTE, COLUMN_DATE, COLUMN_USER_ID};
+	}
+	// TODO: Place your fields here!
+	// + KEY{...} + " {type} not null"
+	//	- Key is the column name you created above.
+	//	- {type} is one of: text, integer, real, blob
+	//		(http://www.sqlite.org/datatype3.html)
+	//  - "not null" means it is a required field (must be given a value).
+	// NOTE: All must be comma separated (end of line!) Last one must have NO comma!!
+	private static final String SQL_CREATE_CASH_ENTRIES =
+			"CREATE TABLE " + CashEntries.TABLE_NAME + " (" +
+					CashEntries._ID + " INTEGER PRIMARY KEY," +
+					CashEntries.COLUMN_CASH_AMOUNT + DOUBLE_TYPE + COMMA_SEP +
+					CashEntries.COLUMN_SOURCE + TEXT_TYPE + COMMA_SEP +
+					CashEntries.COLUMN_NOTE + TEXT_TYPE + COMMA_SEP +
+					CashEntries.COLUMN_DATE + INT_TYPE + COMMA_SEP +
+					CashEntries.COLUMN_USER_ID + INT_TYPE +
+					//add entries following instructions above
+					");";
+	//delete statement
+	private static final String SQL_DELETE_CASH_ENTRIES =
+			"DROP TABLE IF EXISTS " + CashEntries.TABLE_NAME;
 
 
-	/*
-	 * HEALTH SECTION
-	 * TODO: Ameera
-	 */
+       //HEALTH
+
+    private static abstract class HealthEntries implements BaseColumns {
+
+        public static final String TABLE_NAME = "Doctor's Visit";
+        public static final String LAST_CHECK_UP_DATE = "Last Check Up Date";
+        public static final String HEALTH_INSURANCE_COMPANY = "Health Insurance Company";
+        public static final String HEALTH_INSURANCE_POLICY_NUM = "Health Insurance Policy Number";
+
+        //TABLE_NAME = "Medication"
+        public static final String MEDICATION_NAME = "Medication Name";
+        public static final String DOSAGE = "Dosage";
+        public static final String MEDICATION_DURATION = "Medication Duration";
+        public static final String MEDICATION_REASON = "Med Reason";
+        public static final String PHARMACY_NAME = "Pharmacy Name";
+        public static final String PHARMACY_PHONE = "Pharmacy Phone";
+
+        //TABLE_NAME = "Medical Report"
+        public static final String BLOOD_PRESSURE = "Blood Pressure";
+        public static final String LDL = "LDL";
+        public static final String HDL = "HDL";
+        public static final String CHOLESTEROL_TOTAL = "Cholesterol Total";
+        public static final String GLUCOSE = "Glucose";
+        public static final String BLOOD_TYPE = "Blood Type";
+        public static final String ALLERGIES = "Allergies";
+
+        //TABLE_NAME = "Appointment"
+        public static final String DOCTOR_NAME = "Doctor's Name";
+        public static final String DATE_OF_APPOINTMENT = "Date of Appointment";
+        public static final String TIME_OF_APPOINTMENT = "Appointment Time";
+        public static final String REASON_FOR_APPOINTMENT = "Reason for Appointment";
+        public static final String OFFICE_ADDRESS = "Office Address";
+        public static final String DOCTOR_PHONE = "Doctor Phone";
+
+        //TABLE_NAME = "Weight Loss and Diet Plan"
+        public static final String DIET_NAME = "Diet Name";
+        public static final String DIET_START_DATE = "Diet Start Date";
+        public static final String DIET_END_DATE = "Diet End Date";
+        public static final String CURRENT_WEIGHT = "Current Weight";
+        public static final String GOAL_WEIGHT = "Goal Weight";
+
+        //TABLE_NAME = "Exercise Plan"
+        public static final String EXERCISE_NAME = "Exercise Name";
+        public static final String CALORIES_BURNED = "Calories Burned";
+        public static final String DURATION_WORKOUT = "Duration Workout";
+        public static final String MUSCLE_GROUP = "Muscle Group";
+
+        //TABLE_NAME = "Healthy Recipe"
+        public static final String RECIPE_NAME = "Recipe Name";
+        public static final String SERVINGS = "Servings";
+        public static final String COOK_TIME = "Cook Time";
+        public static final String RECIPE_DESCRIPTION = "Recipe Description";
+        public static final String RECIPE_INGREDIENTS = "Recipe Ingredients";
+        public static final String RECIPE_DIRECTIONS = "Recipe Directions";
+
+
+    }
+
+
+
 
 
 
@@ -244,6 +344,7 @@ public final class DatabaseContract {
 
 
 
+	//LOGIN METHODS
 	/**
 	 * Add a new set of values to the database.
 	 * @param name
@@ -428,7 +529,6 @@ public final class DatabaseContract {
 		return c;
 	}
 
-	//HELPER CLASS, Do not mess with this.
 	// Change an existing row to be equal to new data.
 	public boolean updateContact(long rowId, String name, String email,
 	                             int phone,	int met, int used) {
@@ -453,11 +553,218 @@ public final class DatabaseContract {
 	}
 
 
+	//EDUCATION METHODS
+	//COLUMN_INSTITUTION, COLUMN_COLLEGE_CITY, COLUMN_STUDY_FIELD, COLUMN_START_DATE, COLUMN_COMPLETION_DATE, COLUMN_USER_ID
+	/**
+	* Add a new set of values to the database.
+	* @param institute
+	* @param city
+	* @param field
+     * @param degree
+	* @param startDate yyyymmdd
+	* @param finishDate yyyymmdd
+	* @param user ID of user
+	* @return The Primary Key number.
+	*/
+	public long insertColleges(String institute, String city, String field, String degree, int startDate, int finishDate, int user) {
+		/*
+		 * CHANGE 3:
+		 */
+		// TODO: Update data in the row with new fields.
+		// TODO: Also change the function's arguments to be what you need!
+		// Create row's data:
+		ContentValues initialValues = new ContentValues();
+		initialValues.put(CollegeEntries.COLUMN_INSTITUTION, institute);
+		initialValues.put(CollegeEntries.COLUMN_COLLEGE_CITY, city);
+		initialValues.put(CollegeEntries.COLUMN_STUDY_FIELD, field);
+        initialValues.put(CollegeEntries.COLUMN_DEGREE, degree);
+		initialValues.put(CollegeEntries.COLUMN_START_DATE, startDate);
+		initialValues.put(CollegeEntries.COLUMN_COMPLETION_DATE, finishDate);
+		initialValues.put(CollegeEntries.COLUMN_USER_ID, user);
+
+		// Insert it into the database.
+		return db.insert(CollegeEntries.TABLE_NAME, null, initialValues);
+	}
+
+	// Delete a row from the database, by rowId (primary key)
+	public boolean deleteCollege(long rowId) {
+		String where = CollegeEntries._ID + "=" + rowId;
+		return db.delete(CollegeEntries.TABLE_NAME, where, null) != 0;
+	}
+
+	public void deleteAllColleges() {
+		Cursor c = getAllCash();
+		long rowId = c.getColumnIndexOrThrow(CollegeEntries._ID);
+		if (c.moveToFirst()) {
+			do {
+				deleteCash(c.getLong((int) rowId));
+			} while (c.moveToNext());
+		}
+		c.close();
+	}
+
+	// Return all data in the database.
+	public Cursor getAllColleges() {
+		String where = null;
+		Cursor c = 	db.query(CollegeEntries.TABLE_NAME, CollegeEntries.ALL_COLUMNS,
+				where, null, null, null, null);
+		if (c != null) {
+			c.moveToFirst();
+		}
+		return c;
+	}
+
+	// Get a specific row (by rowId)
+	public Cursor getCollege(long rowId) {
+		String where = CollegeEntries._ID + "=" + rowId;
+		String[] ALL_KEYS = CollegeEntries.ALL_COLUMNS;
+		Cursor c = 	db.query(true, CollegeEntries.TABLE_NAME, ALL_KEYS,
+				where, null, null, null, null, null);
+		if (c != null) {
+			c.moveToFirst();
+		}
+		return c;
+	}
+
+	/**
+	 * Update a area of the db.
+	 * @param rowId the primary key
+	 * @param institute
+	 * @param city
+	 * @param field
+     * @param degree
+	 * @param startDate yyyymmdd
+	 * @param finishDate yyyymmdd
+	 * @return true if successful
+	 */
+	public boolean updateCollege(long rowId, String institute, String city, String field,
+                                 String degree, int startDate, int finishDate) {
+		String where = CollegeEntries._ID + "=" + rowId;
+
+		/*
+		 * CHANGE 4:
+		 */
+		// TODO: Update data in the row with new fields.
+		// TODO: Also change the function's arguments to be what you need!
+		// Create row's data:
+		ContentValues newValues = new ContentValues();
+		newValues.put(CollegeEntries.COLUMN_INSTITUTION, institute);
+		newValues.put(CollegeEntries.COLUMN_COLLEGE_CITY, city);
+		newValues.put(CollegeEntries.COLUMN_STUDY_FIELD, field);
+        newValues.put(CollegeEntries.COLUMN_DEGREE, degree);
+		newValues.put(CollegeEntries.COLUMN_START_DATE, startDate);
+		newValues.put(CollegeEntries.COLUMN_COMPLETION_DATE, finishDate);
+
+
+		// Insert it into the database.
+		return db.update(CollegeEntries.TABLE_NAME, newValues, where, null) != 0;
+	}
+
+
+	//CASH METHODS
+	/**
+	 * Add a new set of values to the database.
+	 * @param value
+	 * @param source
+	 * @param note
+	 * @param date yyyymmdd
+	 * @param user ID of user
+	 * @return The Primary Key number.
+	 */
+	public long insertCash(double value, String source, String note, int date, int user) {
+		/*
+		 * CHANGE 3:
+		 */
+		// TODO: Update data in the row with new fields.
+		// TODO: Also change the function's arguments to be what you need!
+		// Create row's data:
+		ContentValues initialValues = new ContentValues();
+		initialValues.put(CashEntries.COLUMN_CASH_AMOUNT, value);
+		initialValues.put(CashEntries.COLUMN_SOURCE, source);
+		initialValues.put(CashEntries.COLUMN_NOTE, note);
+		initialValues.put(CashEntries.COLUMN_DATE, date);
+		initialValues.put(CashEntries.COLUMN_USER_ID, user);
+
+		// Insert it into the database.
+		return db.insert(CashEntries.TABLE_NAME, null, initialValues);
+	}
+
+	// Delete a row from the database, by rowId (primary key)
+	public boolean deleteCash(long rowId) {
+		String where = CashEntries._ID + "=" + rowId;
+		return db.delete(CashEntries.TABLE_NAME, where, null) != 0;
+	}
+
+	public void deleteAllCash() {
+		Cursor c = getAllCash();
+		long rowId = c.getColumnIndexOrThrow(CashEntries._ID);
+		if (c.moveToFirst()) {
+			do {
+				deleteCash(c.getLong((int) rowId));
+			} while (c.moveToNext());
+		}
+		c.close();
+	}
+
+	// Return all data in the database.
+	public Cursor getAllCash() {
+		String where = null;
+		Cursor c = 	db.query(CashEntries.TABLE_NAME, CashEntries.ALL_COLUMNS,
+				where, null, null, null, null);
+		if (c != null) {
+			c.moveToFirst();
+		}
+		return c;
+	}
+
+	// Get a specific row (by rowId)
+	public Cursor getCash(long rowId) {
+		String where = CashEntries._ID + "=" + rowId;
+		String[] ALL_KEYS = CashEntries.ALL_COLUMNS;
+		Cursor c = 	db.query(true, CashEntries.TABLE_NAME, ALL_KEYS,
+				where, null, null, null, null, null);
+		if (c != null) {
+			c.moveToFirst();
+		}
+		return c;
+	}
+
+	/**
+	 * Update a area of the db.
+	 * @param rowId the primary key
+	 * @param value
+	 * @param source
+	 * @param note
+	 * @param date yyyymmdd
+	 * @return true if successful
+	 */
+	public boolean updateCash(long rowId, double value, String source, String note, int date) {
+		String where = CashEntries._ID + "=" + rowId;
+
+		/*
+		 * CHANGE 4:
+		 */
+		// TODO: Update data in the row with new fields.
+		// TODO: Also change the function's arguments to be what you need!
+		// Create row's data:
+		ContentValues newValues = new ContentValues();
+		newValues.put(CashEntries.COLUMN_CASH_AMOUNT, value);
+		newValues.put(CashEntries.COLUMN_SOURCE, source);
+		newValues.put(CashEntries.COLUMN_NOTE, note);
+		newValues.put(CashEntries.COLUMN_DATE, date);
+
+
+		// Insert it into the database.
+		return db.update(CashEntries.TABLE_NAME, newValues, where, null) != 0;
+	}
 
 
 
 
 
+
+	//HELPER CLASS, Do not mess with this.
+	// Change an existing row to be equal to new data.
 	public class DatabaseHelper extends SQLiteOpenHelper {
 		public DatabaseHelper(Context context) {
 			super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -474,8 +781,9 @@ public final class DatabaseContract {
 			db.execSQL(SQL_CREATE_JOB_ENTRIES);
 			//education
 			db.execSQL(SQL_CREATE_Edu_Entries);*/
-			//health
+			//db.execSQL(SQL_CREATE_Health_Entries);
 			//finance
+			db.execSQL(SQL_CREATE_CASH_ENTRIES);
 		}
 
 		@Override
@@ -488,6 +796,7 @@ public final class DatabaseContract {
 			db.execSQL(SQL_DELETE_GOAL_ENTRIES);
 			db.execSQL(SQL_DELETE_JOB_ENTRIES);
 			db.execSQL(SQL_DELETE_IDENTITY_ENTRIES);*/
+			db.execSQL(SQL_DELETE_CASH_ENTRIES);
 			onCreate(db);
 		}
 

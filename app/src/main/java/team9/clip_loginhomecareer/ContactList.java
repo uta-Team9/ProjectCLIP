@@ -26,7 +26,8 @@ public class ContactList extends ActionBarActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		openDB();
 		Bundle extras = getIntent().getExtras();
-		if(extras != null) {
+		if(extras != null)
+        {
 			User_ID = extras.getInt("ID");
 			Log.d("User ID: ", "" + User_ID);
 		}
