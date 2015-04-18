@@ -192,7 +192,7 @@ public final class DatabaseContract {
 		public static final String COLUMN_USER_ID = "User_ID";
         public static final String[] ALL_COLUMNS =
 				{_ID, COLUMN_INSTITUTION, COLUMN_COLLEGE_CITY, COLUMN_STUDY_FIELD,
-						COLUMN_COMPLETION_DATE, COLUMN_USER_ID};
+						COLUMN_DEGREE, COLUMN_COMPLETION_DATE, COLUMN_USER_ID};
 	}
 	// TODO: Place your fields here!
 	// + KEY{...} + " {type} not null"
