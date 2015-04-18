@@ -70,7 +70,7 @@ public final class DatabaseContract {
 		public static final String[] ALL_COLUMNS =
 				{_ID, NAME, NUMBER, EMAIL, USED, MET, HASH_ID};
 	}
-	private static final String SQL_CREATE_CONTRACT_ENTRIES =
+	private static final String SQL_CREATE_CONTACT_ENTRIES =
 			"CREATE TABLE " + ContactEntries.TABLE_NAME + " (" +
 					ContactEntries._ID + " INTEGER PRIMARY KEY," +
 					ContactEntries.NAME + TEXT_TYPE + COMMA_SEP +
@@ -463,7 +463,7 @@ public final class DatabaseContract {
 		public void onCreate(SQLiteDatabase db) {
 			db.execSQL(SQL_CREATE_LOGIN_ENTRIES);
 			//career
-			db.execSQL(SQL_CREATE_CONTRACT_ENTRIES);
+			db.execSQL(SQL_CREATE_CONTACT_ENTRIES);
 			/*db.execSQL(SQL_CREATE_COMPANY_ENTRIES);
 			db.execSQL(SQL_CREATE_GOAL_ENTRIES);
 			db.execSQL(SQL_CREATE_IDENTITY_ENTRIES);

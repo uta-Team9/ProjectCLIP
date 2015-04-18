@@ -11,7 +11,7 @@ public class FinanceHome extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.finance_home_screen);
+        setContentView(R.layout.finance_home_view);
     }
 
 

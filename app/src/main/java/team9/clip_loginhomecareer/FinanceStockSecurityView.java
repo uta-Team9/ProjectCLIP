@@ -6,19 +6,19 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 
-public class FinanceGoals extends ActionBarActivity {
+public class FinanceStockSecurityView extends ActionBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.finance_goals);
+        setContentView(R.layout.finance_stock_security_view);
     }
 
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_finance_goals, menu);
+        getMenuInflater().inflate(R.menu.menu_finance_stock_security_view, menu);
         return true;
     }
 
