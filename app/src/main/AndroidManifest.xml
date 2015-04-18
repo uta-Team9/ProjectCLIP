@@ -349,7 +349,7 @@
         </activity>
         <activity
             android:name=".EduNewApp"
-            android:label="@string/title_activity_edu_new_app"
+            android:label="@string/title_activity_edu_apps_list"
             android:parentActivityName=".CollegeAppsList" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -357,7 +357,7 @@
         </activity>
         <activity
             android:name=".edu_new_app"
-            android:label="@string/title_activity_edu_new_app"
+            android:label="Create New Application"
             android:parentActivityName=".CollegeAppsList" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
