@@ -284,6 +284,62 @@
                 android:value="team9.clip_loginhomecareer.FinanceHome" />
         </activity>
         <activity
+            android:name=".FinanceCashNew"
+            android:label="@string/title_activity_finances_cash_new"
+            android:parentActivityName=".FinanceCashView" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="team9.clip_loginhomecareer.FinanceCashView" />
+        </activity>
+        <activity
+            android:name=".FinanceAssetView"
+            android:label="@string/title_activity_finance_assets_view" >
+        </activity>
+        <activity
+            android:name=".FinanceAssetNew"
+            android:label="@string/title_activity_finance_asset_new" >
+        </activity>
+        <activity
+            android:name=".FinanceLiabilityView"
+            android:label="@string/title_activity_finance_liability_view" >
+        </activity>
+        <activity
+            android:name=".FinanceLiabilityNew"
+            android:label="@string/title_activity_finance_liability_new" >
+        </activity>
+        <activity
+            android:name=".FinanceCreditView"
+            android:label="@string/title_activity_finance_credit_balance_view" >
+        </activity>
+        <activity
+            android:name=".FinanceCreditNew"
+            android:label="@string/title_activity_finance_credit_new" >
+        </activity>
+        <activity
+            android:name=".FinanceStateView"
+            android:label="@string/title_activity_finance_state_view" >
+        </activity>
+        <activity
+            android:name=".FinanceOtherView"
+            android:label="@string/title_activity_finance_other_view" >
+        </activity>
+        <activity
+            android:name=".FinanceStockSecurityView"
+            android:label="@string/title_activity_finance_stock_security_view" >
+        </activity>
+        <activity
+            android:name=".FinanceStockSecurityNew"
+            android:label="@string/title_activity_finance_stock_security_new" >
+        </activity>
+        <activity
+            android:name=".FinanceGoalView"
+            android:label="@string/title_activity_finance_goal_view"
+            android:parentActivityName=".FinanceHome" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="team9.clip_loginhomecareer.FinanceHome" />
+        </activity>
+        <activity
             android:name=".new_degree_activity"
             android:label="@string/title_activity_new_degree_activity"
             android:parentActivityName=".DegreesList" >

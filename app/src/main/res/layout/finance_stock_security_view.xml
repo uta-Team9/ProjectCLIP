@@ -4,13 +4,12 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
-    tools:context="team9.clip_loginhomecareer.FinanceCashView"
-    android:background="#FFFFFFFF">
+    tools:context="team9.clip_loginhomecareer.FinanceStockSecurityView">
 
     <ListView
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:id="@+id/lst_cash"
+        android:id="@+id/lst_stock_security"
         android:choiceMode="singleChoice"
         android:background="#ffffffff"
         android:layout_alignParentLeft="true"
@@ -21,8 +20,8 @@
     <Button
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="Add Cash"
-        android:id="@+id/add_cash"
+        android:text="Add Stock"
+        android:id="@+id/add_stock"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:background="#ff504af1"
@@ -32,8 +31,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Balance:"
-        android:layout_below="@+id/balance_text_box"
+        android:text="Total Stocks and Securities Value:"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
@@ -41,4 +39,5 @@
         android:background="#FFFFFFFF"
         android:layout_margin="8dp"
         android:id="@+id/txt_balance" />
+
 </RelativeLayout>

@@ -1,26 +1,25 @@
 package team9.clip_loginhomecareer;
 
-import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 
-public class Appointment extends ActionBarActivity
-{
-
+public class FinanceCashNew extends ActionBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_appointment);
+        setContentView(R.layout.finance_cash_new);
     }
 
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_appointment, menu);
+        getMenuInflater().inflate(R.menu.menu_finances_cash_new, menu);
         return true;
     }
 
@@ -37,5 +36,12 @@ public class Appointment extends ActionBarActivity
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void add_new(View v) {
+
+    }
+    public void cancel(View v) {
+
     }
 }

@@ -473,33 +473,78 @@ public final class DatabaseContract {
 	}
 
     public long insertDoctorVisitRow(
-            String tableName, String email, String password,
-            int question, String answer) {
+            String tableName, String lastCheckUpDate, String insuranceCompany,
+            String insurancePolicyNum) {
 		/*
 		 * CHANGE 3:
 		 */
-        // TODO: Update data in the row with new fields.
-        // TODO: Also change the function's arguments to be what you need!
         // Create row's data:
         ContentValues initialValues = new ContentValues();
         initialValues.put(DoctorVisitEntries.TABLE_NAME, tableName);
-        initialValues.put(DoctorVisitEntries.LAST_CHECK_UP_DATE, email);
-        initialValues.put(DoctorVisitEntries.HEALTH_INSURANCE_COMPANY, password);
-        initialValues.put(DoctorVisitEntries.HEALTH_INSURANCE_POLICY_NUM, question);
+        initialValues.put(DoctorVisitEntries.LAST_CHECK_UP_DATE, lastCheckUpDate);
+        initialValues.put(DoctorVisitEntries.HEALTH_INSURANCE_COMPANY, insuranceCompany);
+        initialValues.put(DoctorVisitEntries.HEALTH_INSURANCE_POLICY_NUM, insurancePolicyNum);
+
+        // Insert it into the database.
+        return db.insert(LoginEntries.TABLE_NAME, null, initialValues);
+    }
+    public long insertMedication(
+            String tableName, String medName, String dosage,
+            String medDuration, String medReason, String pharmName, String pharmPhone) {
+
+        // Create row's data:
+        ContentValues initialValues = new ContentValues();
+        initialValues.put(MedicationEntries.TABLE_NAME, tableName);
+        initialValues.put(MedicationEntries.MEDICATION_NAME, medName);
+        initialValues.put(MedicationEntries.DOSAGE, dosage);
+        initialValues.put(MedicationEntries.MEDICATION_DURATION, medDuration);
+        initialValues.put(MedicationEntries.MEDICATION_REASON, medReason);
+        initialValues.put(MedicationEntries.PHARMACY_NAME, pharmName);
+        initialValues.put(MedicationEntries.PHARMACY_PHONE, pharmPhone);
 
 
-        int ID = 0, i = 0;
-        for(char letter : email.toCharArray()) {
-            ID += letter + i;
-            i++;
-        }
-
-        initialValues.put(LoginEntries.APP_ID, ID);
 
         // Insert it into the database.
         return db.insert(LoginEntries.TABLE_NAME, null, initialValues);
     }
 
+    public long insertMedicalReport(
+            String tableName, String medName, String dosage,
+            String medDuration, String medReason, String pharmName, String pharmPhone)
+    {
+        // Create row's data:
+        ContentValues initialValues = new ContentValues();
+        initialValues.put(MedicalReportEntries.TABLE_NAME, tableName);
+        initialValues.put(MedicalReportEntries.BLOOD_PRESSURE, medName);
+        initialValues.put(MedicalReportEntries.LDL, dosage);
+        initialValues.put(MedicalReportEntries.HDL, medDuration);
+        initialValues.put(MedicalReportEntries.CHOLESTEROL_TOTAL, medReason);
+        initialValues.put(MedicalReportEntries.GLUCOSE, pharmName);
+        initialValues.put(MedicalReportEntries.BLOOD_TYPE, pharmPhone);
+        initialValues.put(MedicalReportEntries.ALLERGIES, pharmPhone);
+
+
+        // Insert it into the database.
+        return db.insert(LoginEntries.TABLE_NAME, null, initialValues);
+    }
+
+    public long insertAppointments(
+            String tableName, String medName, String dosage,
+            String medDuration, String medReason, String pharmName, String pharmPhone)
+    {
+        // Create row's data:
+        ContentValues initialValues = new ContentValues();
+        initialValues.put(AppointmentEntries.TABLE_NAME, tableName);
+        initialValues.put(AppointmentEntries.DOCTOR_NAME, medName);
+        initialValues.put(AppointmentEntries.DATE_OF_APPOINTMENT, dosage);
+        initialValues.put(AppointmentEntries.TIME_OF_APPOINTMENT, medDuration);
+        initialValues.put(AppointmentEntries.REASON_FOR_APPOINTMENT, medReason);
+        initialValues.put(AppointmentEntries.OFFICE_ADDRESS, pharmName);
+        initialValues.put(AppointmentEntries.DOCTOR_PHONE, pharmPhone);
+
+        // Insert it into the database.
+        return db.insert(LoginEntries.TABLE_NAME, null, initialValues);
+    }
 
 	// Delete a row from the database, by rowId (primary key)
 	public boolean deleteLoginRow(long rowId) {
