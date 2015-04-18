@@ -1,26 +1,24 @@
 package team9.clip_loginhomecareer;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 
 
-public class DegreesList extends ActionBarActivity {
+public class new_degree_activity extends ActionBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.education_degrees_list);
+        setContentView(R.layout.activity_new_degree_activity);
     }
 
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_degrees_list, menu);
+        getMenuInflater().inflate(R.menu.menu_new_degree_activity, menu);
         return true;
     }
 
@@ -37,11 +35,5 @@ public class DegreesList extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
-    }
-
-
-    public void createNewInstance(View v) {
-        Intent intent = new Intent(this,new_degree_activity.class);
-        startActivity(intent);
     }
 }

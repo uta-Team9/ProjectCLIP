@@ -32,10 +32,10 @@ public class EduMain extends ActionBarActivity {
                 //Log.d for debugging
                 break;
             case(R.id.view_applications_button):
-                intent = new Intent(this, JobSearchList.class);
+                //intent = new Intent(this, ApplicationsList.class);
                 break;
             case(R.id.view_finance_button):
-                intent = new Intent(this, FutureGoalsList.class);
+                //intent = new Intent(this, EduFinanceList.class);
                 break;
         }
 
