@@ -8,19 +8,19 @@ import android.view.MenuItem;
 import android.view.View;
 
 
-public class FinanceCashView extends ActionBarActivity {
+public class FinanceStateView extends ActionBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.finance_cash_view);
+        setContentView(R.layout.finance_state_view);
     }
 
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_finance_cash_view, menu);
+        getMenuInflater().inflate(R.menu.menu_finance_state_view, menu);
         return true;
     }
 
@@ -38,6 +38,9 @@ public class FinanceCashView extends ActionBarActivity {
 
         return super.onOptionsItemSelected(item);
     }
-
-
+    public void openCashView(View v)
+    {
+        Intent intent = new Intent(FinanceStateView.this, FinanceCashView.class);
+        startActivity(intent);
+    }
 }
