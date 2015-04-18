@@ -45,7 +45,7 @@
         <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/editText4"
+            android:id="@+id/add_LDL_cholesterol"
             android:layout_alignBottom="@+id/textView9"
             android:layout_toRightOf="@+id/textView9"
             android:layout_alignRight="@+id/editText5"
@@ -159,12 +159,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/editText8"
-            android:layout_alignParentBottom="true"
-            android:layout_alignRight="@+id/editText7"
-            android:layout_alignEnd="@+id/editText7"
-            android:layout_toEndOf="@+id/textView14"
-            android:layout_alignLeft="@+id/editText7"
-            android:layout_alignStart="@+id/editText7" />
+            android:layout_above="@+id/button6"
+            android:layout_toRightOf="@+id/textView13"
+            android:layout_alignRight="@+id/add_LDL_cholesterol"
+            android:layout_alignEnd="@+id/add_LDL_cholesterol" />
 
         <EditText
             android:layout_width="wrap_content"
@@ -184,6 +182,17 @@
             android:layout_toRightOf="@+id/textView8"
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Save"
+            android:id="@+id/button6"
+            android:layout_below="@+id/textView14"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignRight="@+id/textView12"
+            android:layout_alignEnd="@+id/textView12" />
 
 
     </RelativeLayout>

@@ -14,7 +14,8 @@ public class new_degree_activity extends ActionBarActivity {
     private DatabaseContract db;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         openDB();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_degree_activity);
@@ -87,7 +88,8 @@ public class new_degree_activity extends ActionBarActivity {
     private void toastNotification(String description) {
         Toast.makeText(getApplicationContext(), description, Toast.LENGTH_LONG).show();
     }
-    private void clearData() {
+    private void clearData()
+    {
         EditText text;
         text = (EditText) findViewById(R.id.new_college_name);
         text.setText("");

@@ -536,19 +536,11 @@ public final class DatabaseContract {
         ContentValues initialValues = new ContentValues();
         initialValues.put(AppointmentEntries.TABLE_NAME, tableName);
         initialValues.put(AppointmentEntries.DOCTOR_NAME, medName);
-        initialValues.put(AppointmentEntries.LDL, dosage);
-        initialValues.put(AppointmentEntries.HDL, medDuration);
-        initialValues.put(AppointmentEntries.CHOLESTEROL_TOTAL, medReason);
-        initialValues.put(AppointmentEntries.GLUCOSE, pharmName);
-        initialValues.put(AppointmentEntries.BLOOD_TYPE, pharmPhone);
-        initialValues.put(AppointmentEntries.ALLERGIES, pharmPhone);
-
-        AppointmentEntries.DOCTOR_NAME + INT_TYPE + COMMA_SEP +
-                AppointmentEntries.DATE_OF_APPOINTMENT + TEXT_TYPE + COMMA_SEP +
-                AppointmentEntries.TIME_OF_APPOINTMENT + INT_TYPE+ COMMA_SEP+
-                AppointmentEntries.REASON_FOR_APPOINTMENT + TEXT_TYPE + COMMA_SEP +
-                AppointmentEntries.OFFICE_ADDRESS + TEXT_TYPE + COMMA_SEP +
-                AppointmentEntries.DOCTOR_PHONE + INT_TYPE
+        initialValues.put(AppointmentEntries.DATE_OF_APPOINTMENT, dosage);
+        initialValues.put(AppointmentEntries.TIME_OF_APPOINTMENT, medDuration);
+        initialValues.put(AppointmentEntries.REASON_FOR_APPOINTMENT, medReason);
+        initialValues.put(AppointmentEntries.OFFICE_ADDRESS, pharmName);
+        initialValues.put(AppointmentEntries.DOCTOR_PHONE, pharmPhone);
 
         // Insert it into the database.
         return db.insert(LoginEntries.TABLE_NAME, null, initialValues);

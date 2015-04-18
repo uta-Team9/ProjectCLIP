@@ -9,13 +9,6 @@ import android.view.MenuItem;
 public class Appointment extends ActionBarActivity
 {
 
-    private String ApptName;
-    private String DoctorName;
-    private String Date;
-    private String Time;
-    private String Reason;
-    private String OfficeAddress;
-    private String OfficePhone;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
