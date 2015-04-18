@@ -1,17 +1,45 @@
 package team9.clip_loginhomecareer;
 
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.Toast;
 
 
 public class NewContact extends ActionBarActivity {
+	//_ID, NAME, NUMBER, EMAIL, USED, MET, HASH_ID
+
+	private DatabaseContract db;
+	private int User_ID;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		openDB();
+		Bundle extras = getIntent().getExtras();
+		if(extras != null) {
+			User_ID = extras.getInt("ID");
+			Log.d("User ID: ", "" + User_ID);
+		}
+
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.new_contact_activity);
+	}
+
+	protected void onDestroy() {
+		super.onDestroy();
+		closeDB();
+	}
+
+	private void openDB() {
+		db = new DatabaseContract(this);
+		db.open();
+	}
+	private void closeDB() {
+		db.close();
 	}
 
 
@@ -35,5 +63,48 @@ public class NewContact extends ActionBarActivity {
 		}
 
 		return super.onOptionsItemSelected(item);
+	}
+
+	//_ID, NAME, EMAIL, NUMBER, MET, USED, HASH_ID
+	public void add_new(View v) {
+		EditText text;
+		if(validItems()) {
+			text = (EditText) findViewById(R.id.new_contact_name);
+			String n = text.getText().toString();
+			text = (EditText) findViewById(R.id.new_contact_email);
+			String e = text.getText().toString();
+			text = (EditText) findViewById(R.id.new_contact_phone);
+			Integer p = Integer.parseInt(text.getText().toString());
+			text = (EditText) findViewById(R.id.new_contact_met);
+			Integer m = Integer.parseInt(text.getText().toString());
+
+			db.insertContact(n, e, p.intValue(), m.intValue(), 0, User_ID);
+			Log.d("Contact Saved: ", "" + n);
+			toastNotification("Contact Saved");
+			clearData();
+		} else {
+			toastNotification("Invalid Information");
+		}
+	}
+
+	private boolean validItems() {
+		//TODO: Check for invalid input data
+		return true;
+	}
+
+	private void clearData() {
+		EditText text;
+		text = (EditText) findViewById(R.id.new_contact_name);
+		text.setText("");
+		text = (EditText) findViewById(R.id.new_contact_email);
+		text.setText("");
+		text = (EditText) findViewById(R.id.new_contact_phone);
+		text.setText("");
+		text = (EditText) findViewById(R.id.new_contact_met);
+		text.setText("");
+	}
+
+	private void toastNotification(String description) {
+		Toast.makeText(getApplicationContext(), description, Toast.LENGTH_LONG).show();
 	}
 }
