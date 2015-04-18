@@ -1,28 +1,24 @@
 package team9.clip_loginhomecareer;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 
-/**
- * Created by Mary on 4/18/2015.
- */
-public class CollegeAppsList extends ActionBarActivity {
+
+public class edu_new_app extends ActionBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_edu_apps_list);
+        setContentView(R.layout.activity_edu_new_app);
     }
 
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_edu_apps_list, menu);
+        getMenuInflater().inflate(R.menu.menu_edu_new_app, menu);
         return true;
     }
 
@@ -40,11 +36,4 @@ public class CollegeAppsList extends ActionBarActivity {
 
         return super.onOptionsItemSelected(item);
     }
-
-
-    public void createNewApplication(View v) {
-        Intent intent = new Intent(this,EduNewApp.class);
-        startActivity(intent);
-    }
 }
-

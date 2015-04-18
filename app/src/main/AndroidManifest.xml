@@ -291,6 +291,22 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="team9.clip_loginhomecareer.DegreesList" />
         </activity>
+        <activity
+            android:name=".EduNewApp"
+            android:label="@string/title_activity_edu_new_app"
+            android:parentActivityName=".CollegeAppsList" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="team9.clip_loginhomecareer.CollegeAppsList" />
+        </activity>
+        <activity
+            android:name=".edu_new_app"
+            android:label="@string/title_activity_edu_new_app"
+            android:parentActivityName=".CollegeAppsList" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="team9.clip_loginhomecareer.CollegeAppsList" />
+        </activity>
     </application>
 
 </manifest>
