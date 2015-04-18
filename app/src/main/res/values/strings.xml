@@ -80,5 +80,6 @@
     <string name="title_activity_degrees_list">My Degrees</string>
     <string name="title_activity_finance_cash_view">Cash Information</string>
     <string name="title_activity_new_degree_activity">new_degree_activity</string>
+    <string name="title_activity_edu_apps_list">edu_apps_list</string>
 
 </resources>
