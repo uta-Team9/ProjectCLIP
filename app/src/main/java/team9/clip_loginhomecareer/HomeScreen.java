@@ -9,7 +9,6 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -20,6 +19,8 @@ import java.util.Locale;
 
 
 public class HomeScreen extends ActionBarActivity implements ActionBar.TabListener {
+	private int User_ID;
+	private DatabaseContract db;
 
 	/**
 	 * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -38,6 +39,10 @@ public class HomeScreen extends ActionBarActivity implements ActionBar.TabListen
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		Bundle extras = getIntent().getExtras();
+		if(extras != null) {
+			User_ID = extras.getInt("ID");
+		}
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.home_calendar_activity);
 
@@ -84,8 +89,17 @@ public class HomeScreen extends ActionBarActivity implements ActionBar.TabListen
 		}
 	}
 
+	private void openDB() {
+		db = new DatabaseContract(this);
+		db.open();
+	}
+	private void closeDB() {
+		db.close();
+	}
+
 	public void onDestroy() {
 		super.onDestroy();
+
 		setContentView(R.layout.login_activity);
 	}
 
@@ -113,7 +127,7 @@ public class HomeScreen extends ActionBarActivity implements ActionBar.TabListen
 				intent = new Intent(this, CareerHome.class);
 				break;
 			case(R.id.action_Finance):
-
+				intent = new Intent(this, FinanceHome.class);
 				break;
 			case(R.id.action_Health):
                 intent = new Intent(this, HealthHomePage.class);
@@ -123,8 +137,10 @@ public class HomeScreen extends ActionBarActivity implements ActionBar.TabListen
 				break;
 		}
 
-		if(intent != null)
+		if(intent != null) {
+			intent.putExtra("ID", User_ID);
 			startActivity(intent);
+		}
 		//noinspection SimplifiableIfStatement
 		//if (id == R.id.action_settings) {
 		//	return true;
@@ -149,9 +165,9 @@ public class HomeScreen extends ActionBarActivity implements ActionBar.TabListen
 	}
 
 	public void viewContactsList(View v) {
-		Log.d("Contact Button", "Was Clicked");
 		//setContentView(R.layout.list_contacts_activity);
 		Intent intent = new Intent(this, ContactList.class);
+		intent.putExtra("ID", User_ID);
 		startActivity(intent);
 	}
 

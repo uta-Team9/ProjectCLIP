@@ -35,7 +35,8 @@ import java.util.List;
  */
 public class Login extends ActionBarActivity implements LoaderCallbacks<Cursor> {
 
-	DatabaseContract dB;
+	private DatabaseContract dB;
+	private int User_ID = 0;
 
 	/**
 	 * Keep track of the login task to ensure we can cancel it if requested.
@@ -113,6 +114,7 @@ public class Login extends ActionBarActivity implements LoaderCallbacks<Cursor> 
 
 	public void moveToMainPage() {
 		Intent intent = new Intent(this, HomeScreen.class);
+		intent.putExtra("ID", this.User_ID);
 		startActivity(intent);
 	}
 
@@ -321,17 +323,26 @@ public class Login extends ActionBarActivity implements LoaderCallbacks<Cursor> 
 				do {
 					//email is 2, password is 3
 					creds.add((cursor.getString(2) + ":" + cursor.getString(3)));
+					if(cursor.getString(2).equals(mEmail)) {
+						if(cursor.getString(3).equals(mPassword)) {
+							User_ID = cursor.getInt(6);
+							cursor.close();
+							return true;
+						}
+					}
 				} while (cursor.moveToNext());
 			}
 			cursor.close();
-
+			/**
 			for (String credential : creds) {
 				String[] pieces = credential.split(":");
 				if (pieces[0].equals(mEmail)) {
 					// Account exists, return true if the password matches.
-					return pieces[1].equals(mPassword);
+					if(pieces[1].equals(mPassword)) {
+						return true;
+					}
 				}
-			}
+			}**/
 
 			// TODO: register the new account here.
 			//register on different page
