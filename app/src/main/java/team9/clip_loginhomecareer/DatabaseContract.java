@@ -201,7 +201,7 @@ public final class DatabaseContract {
 	//		(http://www.sqlite.org/datatype3.html)
 	//  - "not null" means it is a required field (must be given a value).
 	// NOTE: All must be comma separated (end of line!) Last one must have NO comma!!
-	private static final String SQL_CREATE_Edu_Entries =
+	private static final String SQL_CREATE_COLLEGE_Entries =
 			"CREATE TABLE " + CollegeEntries.TABLE_NAME + " (" +
 					CollegeEntries._ID + " INTEGER PRIMARY KEY," +
 					CollegeEntries.COLUMN_INSTITUTION + TEXT_TYPE + COMMA_SEP +
@@ -213,39 +213,8 @@ public final class DatabaseContract {
 					CollegeEntries.COLUMN_USER_ID + INT_TYPE +
 					//add entries following instructions above
 			");";
-	//delete statement
-	//private static final String SQL_DELETE_Edu_Entries =
-	//		"DROP TABLE IF EXISTS " + CollegeEntries.TABLE_NAME;
-
-//=======
-    //COLLEGES
-    private static abstract class EduEntries implements BaseColumns {
-        public static final String TABLE_NAME = "Colleges";
-        public static final String _ID = "ID";
-        public static final String COLUMN_INSTITUTION = "Institution Name";
-        public static final String COLUMN_COLLEGE_CITY = "Institution City";
-        public static final String COLUMN_STUDY_FIELD = "Field of Study";
-        public static final String COLUMN_COMPLETION_DATE = "Graduation Date";
-        public static final String[] ALL_COLUMNS =
-                {_ID, COLUMN_INSTITUTION, COLUMN_COLLEGE_CITY, COLUMN_STUDY_FIELD, COLUMN_COMPLETION_DATE};
-    }
-//>>>>>>> Stashed changes
-
-    // TODO: Place your fields here!
-    // + KEY{...} + " {type} not null"
-    //	- Key is the column name you created above.
-    //	- {type} is one of: text, integer, real, blob
-    //		(http://www.sqlite.org/datatype3.html)
-    //  - "not null" means it is a required field (must be given a value).
-    // NOTE: All must be comma separated (end of line!) Last one must have NO comma!!
-    private static final String SQL_CREATE_Edu_Entries =
-            "CREATE TABLE " + EduEntries.TABLE_NAME + " (" +
-                    EduEntries._ID + " INTEGER PRIMARY KEY," +
-                    //add entries following instructions above
-                    ");";
-    //delete statement
-    private static final String SQL_DELETE_Edu_Entries =
-            "DROP TABLE IF EXISTS " + EduEntries.TABLE_NAME;
+    private static final String SQL_DELETE_COLLEGE_Entries =
+            "DROP TABLE IF EXISTS " + CollegeEntries.TABLE_NAME;
 
 
     /*
