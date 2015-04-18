@@ -175,8 +175,11 @@ public final class DatabaseContract {
 	    public static final String TABLE_NAME = "Colleges";
 	    public static final String _ID = "ID";
 	    public static final String COLUMN_INSTITUTION = "Institution Name";
-		public static final String[] ALL_COLUMNS =
-				{_ID, COLUMN_INSTITUTION};
+        public static final String COLUMN_COLLEGE_CITY = "Institution City";
+        public static final String COLUMN_STUDY_FIELD = "Field of Study";
+        public static final String COLUMN_COMPLETION_DATE = "Graduation Date";
+        public static final String[] ALL_COLUMNS =
+				{_ID, COLUMN_INSTITUTION, COLUMN_COLLEGE_CITY, COLUMN_STUDY_FIELD, COLUMN_COMPLETION_DATE};
 	}
 	// TODO: Place your fields here!
 	// + KEY{...} + " {type} not null"
