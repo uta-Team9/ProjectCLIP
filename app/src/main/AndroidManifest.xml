@@ -291,6 +291,14 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="team9.clip_loginhomecareer.FinanceHome" />
         </activity>
+        <activity
+            android:name=".FinancesCashNew"
+            android:label="@string/title_activity_finances_cash_new"
+            android:parentActivityName=".FinanceCashView" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="team9.clip_loginhomecareer.FinanceCashView" />
+        </activity>
     </application>
 
 </manifest>
