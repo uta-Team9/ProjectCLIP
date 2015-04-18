@@ -14,7 +14,7 @@ public final class DatabaseContract {
 
     //Database Name and Version Number. Change V# if you add new columns
     private static final String DATABASE_NAME = "UserDatabase.db";
-    private static final int DATABASE_VERSION = 5; //database not yet implemented in code
+    private static final int DATABASE_VERSION = 8; //database not yet implemented in code
     //download and merge changes to update to current db before changing number
     //always save work! GitHub can be evil.
 
@@ -130,7 +130,7 @@ public final class DatabaseContract {
 
     //JOBS
     private static abstract class JobEntries implements BaseColumns {
-        public static final String TABLE_NAME = "Job Searches";
+        public static final String TABLE_NAME = "JobSearches";
         public static final String _ID = "ID";
         public static final String COMPANY = "Company";
         public static final String STATUS = "Status";
@@ -177,8 +177,6 @@ public final class DatabaseContract {
 	 * EDUCATION SECTION
 	 * TODO: Mary
 	 */
-
-//<<<<<<< Updated upstream
 	//COLLEGES
 	private static abstract class CollegeEntries implements BaseColumns {
 	    public static final String TABLE_NAME = "Colleges";
@@ -216,6 +214,67 @@ public final class DatabaseContract {
     private static final String SQL_DELETE_COLLEGE_Entries =
             "DROP TABLE IF EXISTS " + CollegeEntries.TABLE_NAME;
 
+	//Applications
+	private static abstract class ApplicationEntries implements BaseColumns {
+		public static final String TABLE_NAME = "EducationApplications";
+		public static final String _ID = "ID";
+		public static final String COLUMN_COLLEGE = "College";
+		public static final String COLUMN_DUE_DATE = "DueDate";
+		public static final String COLUMN_REPLY_DATE = "ReplyDate";
+		public static final String COLUMN_USER_ID = "User_ID";
+		public static final String[] ALL_COLUMNS =
+				{_ID, COLUMN_COLLEGE, COLUMN_DUE_DATE, COLUMN_REPLY_DATE, COLUMN_USER_ID};
+	}
+	// TODO: Place your fields here!
+	// + KEY{...} + " {type} not null"
+	//	- Key is the column name you created above.
+	//	- {type} is one of: text, integer, real, blob
+	//		(http://www.sqlite.org/datatype3.html)
+	//  - "not null" means it is a required field (must be given a value).
+	// NOTE: All must be comma separated (end of line!) Last one must have NO comma!!
+	private static final String SQL_CREATE_APPLICATION_ENTRIES =
+			"CREATE TABLE " + ApplicationEntries.TABLE_NAME + " (" +
+					ApplicationEntries._ID + " INTEGER PRIMARY KEY," +
+					ApplicationEntries.COLUMN_COLLEGE + TEXT_TYPE + COMMA_SEP +
+					ApplicationEntries.COLUMN_DUE_DATE + INT_TYPE + COMMA_SEP +
+					ApplicationEntries.COLUMN_REPLY_DATE + INT_TYPE + COMMA_SEP +
+					ApplicationEntries.COLUMN_USER_ID + INT_TYPE +
+					//add entries following instructions above
+					");";
+	private static final String SQL_DELETE_APPLICATION_ENTRIES =
+			"DROP TABLE IF EXISTS " + ApplicationEntries.TABLE_NAME;
+
+	//CollegeFinances
+	private static abstract class CollegeFinanceEntries implements BaseColumns {
+		public static final String TABLE_NAME = "EducationFinances";
+		public static final String _ID = "ID";
+		public static final String COLUMN_AWARD_NAME = "AwardName";
+		public static final String COLUMN_AMOUNT = "Amount";
+		public static final String COLUMN_PERIOD = "Period";
+		public static final String COLUMN_CONDITION = "Condition";
+		public static final String COLUMN_USER_ID = "User_ID";
+		public static final String[] ALL_COLUMNS =
+				{_ID, COLUMN_AWARD_NAME, COLUMN_AMOUNT, COLUMN_PERIOD, COLUMN_CONDITION, COLUMN_USER_ID};
+	}
+	// TODO: Place your fields here!
+	// + KEY{...} + " {type} not null"
+	//	- Key is the column name you created above.
+	//	- {type} is one of: text, integer, real, blob
+	//		(http://www.sqlite.org/datatype3.html)
+	//  - "not null" means it is a required field (must be given a value).
+	// NOTE: All must be comma separated (end of line!) Last one must have NO comma!!
+	private static final String SQL_CREATE_FINANCE_ENTRIES =
+			"CREATE TABLE " + CollegeFinanceEntries.TABLE_NAME + " (" +
+					CollegeFinanceEntries._ID + " INTEGER PRIMARY KEY," +
+					CollegeFinanceEntries.COLUMN_AWARD_NAME + TEXT_TYPE + COMMA_SEP +
+					CollegeFinanceEntries.COLUMN_AMOUNT + INT_TYPE + COMMA_SEP +
+					CollegeFinanceEntries.COLUMN_PERIOD + TEXT_TYPE + COMMA_SEP +
+					CollegeFinanceEntries.COLUMN_CONDITION + TEXT_TYPE + COMMA_SEP +
+					CollegeFinanceEntries.COLUMN_USER_ID + INT_TYPE +
+					//add entries following instructions above
+					");";
+	private static final String SQL_DELETE_FINANCE_ENTRIES =
+			"DROP TABLE IF EXISTS " + CollegeFinanceEntries.TABLE_NAME;
 
     /*
 	 * FINANCE SECTION
@@ -824,6 +883,91 @@ public final class DatabaseContract {
 		return db.update(CollegeEntries.TABLE_NAME, newValues, where, null) != 0;
 	}
 
+	//COLLEGE APPLICATIONS
+	/**
+	 * Add a new set of values to the database.
+	 * @param college
+	 * @param dueDate
+	 * @param replyDate
+	 * @param user
+	 * @return The DB table _ID row number.
+	 */
+	public long insertCollegeApplication(String college, int dueDate, int replyDate, int user) {
+		/*
+		 * CHANGE 3:
+		 */
+		// TODO: Update data in the row with new fields.
+		// TODO: Also change the function's arguments to be what you need!
+		// Create row's data:
+		ContentValues initialValues = new ContentValues();
+		initialValues.put(ApplicationEntries.COLUMN_COLLEGE, college);
+		initialValues.put(ApplicationEntries.COLUMN_DUE_DATE, dueDate);
+		initialValues.put(ApplicationEntries.COLUMN_REPLY_DATE, replyDate);
+		initialValues.put(ApplicationEntries.COLUMN_USER_ID, user);
+
+		// Insert it into the database.
+		return db.insert(ApplicationEntries.TABLE_NAME, null, initialValues);
+	}
+
+	// Delete a row from the database, by rowId (primary key)
+	public boolean deleteCollegeApplication(long rowId) {
+		String where = ApplicationEntries._ID + "=" + rowId;
+		return db.delete(ApplicationEntries.TABLE_NAME, where, null) != 0;
+	}
+
+	public void deleteAllCollegeApplications() {
+		Cursor c = getAllCollegeApplications();
+		long rowId = c.getColumnIndexOrThrow(ApplicationEntries._ID);
+		if (c.moveToFirst()) {
+			do {
+				deleteCollegeApplication(c.getLong((int) rowId));
+			} while (c.moveToNext());
+		}
+		c.close();
+	}
+
+	// Return all data in the database.
+	public Cursor getAllCollegeApplications() {
+		String where = null;
+		Cursor c = 	db.query(ApplicationEntries.TABLE_NAME, ApplicationEntries.ALL_COLUMNS,
+				where, null, null, null, null);
+		if (c != null) {
+			c.moveToFirst();
+		}
+		return c;
+	}
+
+	// Get a specific row (by rowId)
+	public Cursor getCollegeApplication(long rowId) {
+		String where = ApplicationEntries._ID + "=" + rowId;
+		String[] ALL_KEYS = ApplicationEntries.ALL_COLUMNS;
+		Cursor c = 	db.query(true, ApplicationEntries.TABLE_NAME, ALL_KEYS,
+				where, null, null, null, null, null);
+		if (c != null) {
+			c.moveToFirst();
+		}
+		return c;
+	}
+
+	// Change an existing row to be equal to new data.
+	public boolean updateCollegeApplication(long rowId, String college, int dueDate, int replyDate) {
+		String where = ApplicationEntries._ID + "=" + rowId;
+
+		/*
+		 * CHANGE 4:
+		 */
+		// TODO: Update data in the row with new fields.
+		// TODO: Also change the function's arguments to be what you need!
+		// Create row's data:
+		ContentValues newValues = new ContentValues();
+		newValues.put(ApplicationEntries.COLUMN_COLLEGE, college);
+		newValues.put(ApplicationEntries.COLUMN_DUE_DATE, dueDate);
+		newValues.put(ApplicationEntries.COLUMN_REPLY_DATE, replyDate);
+
+
+		// Insert it into the database.
+		return db.update(ApplicationEntries.TABLE_NAME, newValues, where, null) != 0;
+	}
 
 	//CASH METHODS
 	/**
