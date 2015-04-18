@@ -47,6 +47,7 @@ public final class DatabaseContract {
 					LoginEntries.SECRET_QUESTION + INT_TYPE + COMMA_SEP +
 					LoginEntries.SECRET_ANSWER + TEXT_TYPE + COMMA_SEP +
 					LoginEntries.APP_ID + INT_TYPE
+
 					+");";
 	private static final String SQL_DELETE_LOGIN_ENTRIES =
 			"DROP TABLE IF EXISTS " + LoginEntries.TABLE_NAME;
@@ -200,11 +201,53 @@ public final class DatabaseContract {
 	 * TODO: Ajoy
 	 */
 
+       //HEALTH
 
-	/*
-	 * HEALTH SECTION
-	 * TODO: Ameera
-	 */
+    private static abstract class HealthEntries implements BaseColumns {
+        public static final String TABLE_NAME = "Health";
+        public static final String LAST_CHECK_UP_DATE = "Last Check Up Date";
+        public static final String HEALTH_INSURANCE_COMPANY = "Health Insurance Company";
+        public static final String HEALTH_INSURANCE_POLICY_NUM = "Health Insurance Policy Number";
+        public static final String MEDICATION_NAME = "Medication Name";
+        public static final String DOSAGE = "Dosage";
+        public static final String MEDICATION_DURATION = "Medication Duration";
+        public static final String MEDICATION_REASON = "Med Reason";
+        public static final String PHARMACY_NAME = "Pharmacy Name";
+        public static final String PHARMACY_PHONE = "Pharmacy Phone";
+        public static final String BLOOD_PRESSURE = "Blood Pressure";
+        public static final String LDL = "LDL";
+        public static final String HDL = "HDL";
+        public static final String CHOLESTEROL_TOTAL = "Cholesterol Total";
+        public static final String GLUCOSE = "Glucose";
+        public static final String BLOOD_TYPE = "Blood Type";
+        public static final String ALLERGIES = "Allergies";
+        public static final String DOCTOR_NAME = "Doctor's Name";
+        public static final String DATE_OF_APPOINTMENT = "Date of Appointment";
+        public static final String TIME_OF_APPOINTMENT = "Appointment Time";
+        public static final String REASON_FOR_APPOINTMENT = "Reason for Appointment";
+        public static final String OFFICE_ADDRESS = "Office Address";
+        public static final String DOCTOR_PHONE = "Doctor Phone";
+        public static final String DIET_NAME = "Diet Name";
+        public static final String DIET_START_DATE = "Diet Start Date";
+        public static final String DIET_END_DATE = "Diet End Date";
+        public static final String CURRENT_WEIGHT = "Current Weight";
+        public static final String GOAL_WEIGHT = "Goal Weight";
+        public static final String EXERCISE_NAME = "Exercise Name";
+        public static final String CALORIES_BURNED = "Calories Burned";
+        public static final String DURATION_WORKOUT = "Duration Workout";
+        public static final String MUSCLE_GROUP = "Muscle Group";
+        public static final String RECIPE_NAME = "Recipe Name";
+        public static final String SERVINGS = "Servings";
+        public static final String COOK_TIME = "Cook Time";
+        public static final String RECIPE_DESCRIPTION = "Recipe Description";
+        public static final String RECIPE_INGREDIENTS = "Recipe Ingredients";
+        public static final String RECIPE_DIRECTIONS = "Recipe Directions";
+
+
+    }
+
+
+
 
 
 
@@ -470,7 +513,7 @@ public final class DatabaseContract {
 			db.execSQL(SQL_CREATE_JOB_ENTRIES);
 			//education
 			db.execSQL(SQL_CREATE_Edu_Entries);*/
-			//health
+			//db.execSQL(SQL_CREATE_Health_Entries);
 			//finance
 		}
 

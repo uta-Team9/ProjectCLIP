@@ -9,11 +9,14 @@ import android.view.View;
 
 
 public class DoctorsVisits extends ActionBarActivity {
+    private Appointment thisappointment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_doctors_visits);
+
+
     }
 
 
@@ -41,6 +44,8 @@ public class DoctorsVisits extends ActionBarActivity {
     public void goToAppointmentList(View view)
     {
         Intent intent = new Intent(DoctorsVisits.this, AppointmentsList.class);
+        thisappointment = new Appointment();
+        intent.putExtra("Appointment1", 0);
         startActivity(intent);
     }
     public void goToMedicationsList(View view)
