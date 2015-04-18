@@ -2,6 +2,7 @@ package team9.clip_loginhomecareer;
 
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -18,21 +19,24 @@ public class MedicalReport extends ActionBarActivity {
         openDB();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_medical_report);
+
+
+
     }
 
-    @Override
-    protected void onDestroy() {
+    //@Override
+    /*protected void onDestroy() {
         closeDB();
-    }
+    }*/
 
     public void openDB() {
         db = new DatabaseContract(this);
         db.open();
     }
 
-    public void closeDB() {
+    /*public void closeDB() {
         db.close();
-    }
+    }*/
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -59,22 +63,33 @@ public class MedicalReport extends ActionBarActivity {
         EditText text;
         if (validItems()) {
             text = (EditText) findViewById(R.id.add_LDL_cholesterol);
-            String inst = text.getText().toString();
-            text = (EditText) findViewById(R.id.editText5);
-            String loc = text.getText().toString();
-            text = (EditText) findViewById(R.id.editText6);
-            String ds = text.getText().toString();
-            text = (EditText) findViewById(R.id.editText7);
-            String major = text.getText().toString();
-            text = (EditText) findViewById(R.id.editText8);
-            Integer grad = Integer.parseInt(text.getText().toString());
-            text = (EditText) findViewById(R.id.editText9);
-            String matr = Integer.parseInt(text.getText().toString());
+            String ldlCholesterol = text.getText().toString();
+            text.setText(ldlCholesterol);
 
-            db.insertColleges(inst, loc, major, ds, matr, grad, 0);
-            toastNotification("Degree Saved");
-            clearData();
-        } else {
+            text = (EditText) findViewById(R.id.editText5);
+            String hdlCholesterol = text.getText().toString();
+            text = (EditText) findViewById(R.id.editText6);
+            String totalCholesterol = text.getText().toString();
+            text = (EditText) findViewById(R.id.editText);
+            String glucose = text.getText().toString();
+            text = (EditText) findViewById(R.id.editText7);
+            String bloodType = text.getText().toString();
+            text = (EditText) findViewById(R.id.editText8);
+            String allergies = text.getText().toString();
+            text = (EditText) findViewById(R.id.editText9);
+            String bloodPressure = text.getText().toString();
+
+
+
+
+            Log.d("Enterd info", "app");
+            db.insertMedicalReport(bloodPressure, ldlCholesterol, hdlCholesterol, totalCholesterol, glucose, bloodType, allergies);
+            toastNotification("Medical Report Saved");
+          //  clearData();
+        }
+
+        else
+        {
             toastNotification("Invalid Information");
         }
     }
@@ -85,20 +100,25 @@ public class MedicalReport extends ActionBarActivity {
     private void toastNotification(String description) {
         Toast.makeText(getApplicationContext(), description, Toast.LENGTH_LONG).show();
     }
-    private void clearData()
+
+   /* private void clearData()
     {
         EditText text;
         text = (EditText) findViewById(R.id.add_LDL_cholesterol);
         text.setText("");
-        text = (EditText) findViewById(R.id.new_college_degree_sought);
+        text = (EditText) findViewById(R.id.editText5);
         text.setText("");
-        text = (EditText) findViewById(R.id.new_college_location);
+        text = (EditText) findViewById(R.id.editText6);
         text.setText("");
-        text = (EditText) findViewById(R.id.new_college_start_date);
+        text = (EditText) findViewById(R.id.editText);
         text.setText("");
-        text = (EditText) findViewById(R.id.new_college_grad_date);
+        text = (EditText) findViewById(R.id.editText7);
         text.setText("");
-        text = (EditText) findViewById(R.id.new_college_field_of_study);
+        text = (EditText) findViewById(R.id.editText8);
         text.setText("");
+        text = (EditText) findViewById(R.id.editText9);
+        text.setText("");
+
     }
+    */
 }

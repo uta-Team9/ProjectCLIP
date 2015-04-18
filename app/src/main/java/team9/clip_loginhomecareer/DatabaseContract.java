@@ -969,6 +969,94 @@ public final class DatabaseContract {
 		return db.update(ApplicationEntries.TABLE_NAME, newValues, where, null) != 0;
 	}
 
+	//COLLEGE FINANCES
+	/**
+	 * Add a new set of values to the database.
+	 * @param awardName
+	 * @param amount
+	 * @param period
+	 * @param condition
+	 * @param user
+	 * @return The DB table _ID row number.
+	 */
+	public long insertCollegeFinance(String awardName, int amount, String period, String condition, int user) {
+		/*
+		 * CHANGE 3:
+		 */
+		// TODO: Update data in the row with new fields.
+		// TODO: Also change the function's arguments to be what you need!
+		// Create row's data:
+		ContentValues initialValues = new ContentValues();
+		initialValues.put(CollegeFinanceEntries.COLUMN_AWARD_NAME, awardName);
+		initialValues.put(CollegeFinanceEntries.COLUMN_AMOUNT, amount);
+		initialValues.put(CollegeFinanceEntries.COLUMN_PERIOD, period);
+		initialValues.put(CollegeFinanceEntries.COLUMN_CONDITION, condition);
+		initialValues.put(CollegeFinanceEntries.COLUMN_USER_ID, user);
+
+		// Insert it into the database.
+		return db.insert(CollegeFinanceEntries.TABLE_NAME, null, initialValues);
+	}
+
+	// Delete a row from the database, by rowId (primary key)
+	public boolean deleteCollegeFinance(long rowId) {
+		String where = CollegeFinanceEntries._ID + "=" + rowId;
+		return db.delete(CollegeFinanceEntries.TABLE_NAME, where, null) != 0;
+	}
+
+	public void deleteAllCollegeFinances() {
+		Cursor c = getAllCollegeFinances();
+		long rowId = c.getColumnIndexOrThrow(CollegeFinanceEntries._ID);
+		if (c.moveToFirst()) {
+			do {
+				deleteCollegeFinance(c.getLong((int) rowId));
+			} while (c.moveToNext());
+		}
+		c.close();
+	}
+
+	// Return all data in the database.
+	public Cursor getAllCollegeFinances() {
+		String where = null;
+		Cursor c = 	db.query(CollegeFinanceEntries.TABLE_NAME, CollegeFinanceEntries.ALL_COLUMNS,
+				where, null, null, null, null);
+		if (c != null) {
+			c.moveToFirst();
+		}
+		return c;
+	}
+
+	// Get a specific row (by rowId)
+	public Cursor getCollegeFinance(long rowId) {
+		String where = CollegeFinanceEntries._ID + "=" + rowId;
+		String[] ALL_KEYS = CollegeFinanceEntries.ALL_COLUMNS;
+		Cursor c = 	db.query(true, CollegeFinanceEntries.TABLE_NAME, ALL_KEYS,
+				where, null, null, null, null, null);
+		if (c != null) {
+			c.moveToFirst();
+		}
+		return c;
+	}
+
+	// Change an existing row to be equal to new data.
+	public boolean updateCollegeFinance(long rowId, String awardName, int amount, String period, String condition) {
+		String where = CollegeFinanceEntries._ID + "=" + rowId;
+
+		/*
+		 * CHANGE 4:
+		 */
+		// TODO: Update data in the row with new fields.
+		// TODO: Also change the function's arguments to be what you need!
+		// Create row's data:
+		ContentValues newValues = new ContentValues();
+		newValues.put(CollegeFinanceEntries.COLUMN_AWARD_NAME, awardName);
+		newValues.put(CollegeFinanceEntries.COLUMN_AMOUNT, amount);
+		newValues.put(CollegeFinanceEntries.COLUMN_PERIOD, period);
+		newValues.put(CollegeFinanceEntries.COLUMN_CONDITION, condition);
+
+		// Insert it into the database.
+		return db.update(CollegeFinanceEntries.TABLE_NAME, newValues, where, null) != 0;
+	}
+
 	//CASH METHODS
 	/**
 	 * Add a new set of values to the database.
