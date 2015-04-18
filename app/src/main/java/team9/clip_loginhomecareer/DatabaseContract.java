@@ -14,7 +14,7 @@ public final class DatabaseContract {
 
 	//Database Name and Version Number. Change V# if you add new columns
 	private static final String DATABASE_NAME = "UserDatabase.db";
-	private static final int DATABASE_VERSION = 4; //database not yet implemented in code
+	private static final int DATABASE_VERSION = 5; //database not yet implemented in code
 		//download and merge changes to update to current db before changing number
 		//always save work! GitHub can be evil.
 
@@ -64,11 +64,11 @@ public final class DatabaseContract {
 		public static final String TABLE_NAME = "Contacts";
 		public static final String _ID = "ID";
 		public static final String NAME = "Name";
-		public static final String NUMBER = "Phone Number";
+		public static final String NUMBER = "PhoneNumber";
 		public static final String EMAIL = "Email";
 		public static final String USED = "Used";
 		public static final String MET = "Met";
-		public static final String HASH_ID = "Hash ID";
+		public static final String HASH_ID = "HashID";
 		public static final String[] ALL_COLUMNS =
 				{_ID, NAME, NUMBER, EMAIL, USED, MET, HASH_ID};
 	}
@@ -93,7 +93,7 @@ public final class DatabaseContract {
 		public static final String DESCRIPTION = "Description";
 		public static final String END_DATE = "End Date";
 		public static final String TERM_LENGTH = "Term Length";
-		public static final String HASH_ID = "Hash ID";
+		public static final String HASH_ID = "HashID";
 		public static final String[] ALL_COLUMNS =
 				{_ID, DESCRIPTION, END_DATE, TERM_LENGTH, HASH_ID};
 	}
@@ -112,7 +112,7 @@ public final class DatabaseContract {
 		public static final String LOGIN = "Login";
 		public static final String WEBSITE = "Website";
 		public static final String PASSWORD = "Password";
-		public static final String HASH_ID = "Hash ID";
+		public static final String HASH_ID = "HashID";
 		public static final String[] ALL_COLUMNS =
 				{_ID, LOGIN, WEBSITE, PASSWORD, HASH_ID};
 	}
@@ -131,7 +131,7 @@ public final class DatabaseContract {
 		public static final String COMPANY = "Company";
 		public static final String STATUS = "Status";
 		public static final String APPLIED = "Applied";
-		public static final String HASH_ID = "Hash ID";
+		public static final String HASH_ID = "HashID";
 		public static final String[] ALL_COLUMNS =
 				{_ID, COMPANY, STATUS, APPLIED, HASH_ID};
 	}
@@ -153,7 +153,7 @@ public final class DatabaseContract {
 		public static final String DESCRIPTION = "Description";
 		public static final String APPLIED_DATE = "Applied Date";
 		public static final String INTERVIEW_DATE = "Interview Date";
-		public static final String HASH_ID = "Hash ID";
+		public static final String HASH_ID = "HashID";
 		public static final String[] ALL_COLUMNS =
 				{_ID, NAME, ADDRESS, PHONE, DESCRIPTION, APPLIED_DATE, INTERVIEW_DATE, HASH_ID};
 	}
@@ -225,7 +225,7 @@ public final class DatabaseContract {
 	// NOTE: All must be comma separated (end of line!) Last one must have NO comma!!
 	private static final String SQL_CREATE_CASH_ENTRIES =
 			"CREATE TABLE " + CashEntries.TABLE_NAME + " (" +
-					CashEntries._ID + " INTEGER PRIMARY KEY," + COMMA_SEP +
+					CashEntries._ID + " INTEGER PRIMARY KEY," +
 					CashEntries.COLUMN_CASH_AMOUNT + DOUBLE_TYPE + COMMA_SEP +
 					CashEntries.COLUMN_SOURCE + TEXT_TYPE + COMMA_SEP +
 					CashEntries.COLUMN_NOTE + TEXT_TYPE + COMMA_SEP +

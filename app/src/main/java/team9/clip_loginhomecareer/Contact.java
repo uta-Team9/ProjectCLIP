@@ -12,6 +12,16 @@ public class Contact {
 	private int phone;
 	private String email;
 
+	public int getDatabaseID() {
+		return databaseID;
+	}
+
+	public void setDatabaseID(int databaseID) {
+		this.databaseID = databaseID;
+	}
+
+	private int databaseID;
+
 	public Contact() {
 		name = "";
 		phone = 0;
@@ -19,6 +29,7 @@ public class Contact {
 		description = "";
 		used = 0;
 		company = "";
+		databaseID = 0;
 	}
 
 	public String toString() {
