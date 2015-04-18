@@ -21,6 +21,7 @@ public final class DatabaseContract {
 	//Separators for SQL Creation
 	private static final String TEXT_TYPE = " TEXT";
 	private static final String INT_TYPE = " INTEGER";
+	private static final String DOUBLE_TYPE = " DOUBLE";
 	private static final String COMMA_SEP = ",";
 
 	//TODO: This is where we enter in information for database
@@ -176,8 +177,11 @@ public final class DatabaseContract {
 	    public static final String TABLE_NAME = "Colleges";
 	    public static final String _ID = "ID";
 	    public static final String COLUMN_INSTITUTION = "Institution Name";
-		public static final String[] ALL_COLUMNS =
-				{_ID, COLUMN_INSTITUTION};
+        public static final String COLUMN_COLLEGE_CITY = "Institution City";
+        public static final String COLUMN_STUDY_FIELD = "Field of Study";
+        public static final String COLUMN_COMPLETION_DATE = "Graduation Date";
+        public static final String[] ALL_COLUMNS =
+				{_ID, COLUMN_INSTITUTION, COLUMN_COLLEGE_CITY, COLUMN_STUDY_FIELD, COLUMN_COMPLETION_DATE};
 	}
 	// TODO: Place your fields here!
 	// + KEY{...} + " {type} not null"
@@ -200,6 +204,39 @@ public final class DatabaseContract {
 	 * FINANCE SECTION
 	 * TODO: Ajoy
 	 */
+	//Cash Section
+	private static abstract class CashEntries implements BaseColumns {
+		public static final String TABLE_NAME = "CASH";
+		public static final String _ID = "ID";
+		public static final String COLUMN_CASH_AMOUNT = "CASH_AMOUNT";
+		public static final String COLUMN_SOURCE = "SOURCE";
+		public static final String COLUMN_NOTE = "NOTE";
+		public static final String COLUMN_DATE = "DATE";
+		public static final String COLUMN_USER_ID = "USER_ID";
+		public static final String[] ALL_COLUMNS =
+				{_ID, COLUMN_CASH_AMOUNT, COLUMN_SOURCE, COLUMN_NOTE, COLUMN_DATE, COLUMN_USER_ID};
+	}
+	// TODO: Place your fields here!
+	// + KEY{...} + " {type} not null"
+	//	- Key is the column name you created above.
+	//	- {type} is one of: text, integer, real, blob
+	//		(http://www.sqlite.org/datatype3.html)
+	//  - "not null" means it is a required field (must be given a value).
+	// NOTE: All must be comma separated (end of line!) Last one must have NO comma!!
+	private static final String SQL_CREATE_CASH_ENTRIES =
+			"CREATE TABLE " + CashEntries.TABLE_NAME + " (" +
+					CashEntries._ID + " INTEGER PRIMARY KEY," + COMMA_SEP +
+					CashEntries.COLUMN_CASH_AMOUNT + DOUBLE_TYPE + COMMA_SEP +
+					CashEntries.COLUMN_SOURCE + TEXT_TYPE + COMMA_SEP +
+					CashEntries.COLUMN_NOTE + TEXT_TYPE + COMMA_SEP +
+					CashEntries.COLUMN_DATE + INT_TYPE + COMMA_SEP +
+					CashEntries.COLUMN_USER_ID + INT_TYPE +
+					//add entries following instructions above
+					");";
+	//delete statement
+	private static final String SQL_DELETE_CASH_ENTRIES =
+			"DROP TABLE IF EXISTS " + CashEntries.TABLE_NAME;
+
 
        //HEALTH
 
@@ -492,11 +529,110 @@ public final class DatabaseContract {
 	}
 
 
+	//CASH METHODS
+	/**
+	 * Add a new set of values to the database.
+	 * @param value
+	 * @param source
+	 * @param note
+	 * @param date yyyymmdd
+	 * @param user ID of user
+	 * @return The Primary Key number.
+	 */
+	public long insertCash(double value, String source, String note, int date, int user) {
+		/*
+		 * CHANGE 3:
+		 */
+		// TODO: Update data in the row with new fields.
+		// TODO: Also change the function's arguments to be what you need!
+		// Create row's data:
+		ContentValues initialValues = new ContentValues();
+		initialValues.put(CashEntries.COLUMN_CASH_AMOUNT, value);
+		initialValues.put(CashEntries.COLUMN_SOURCE, source);
+		initialValues.put(CashEntries.COLUMN_NOTE, note);
+		initialValues.put(CashEntries.COLUMN_DATE, date);
+		initialValues.put(CashEntries.COLUMN_USER_ID, user);
+
+		// Insert it into the database.
+		return db.insert(CashEntries.TABLE_NAME, null, initialValues);
+	}
+
+	// Delete a row from the database, by rowId (primary key)
+	public boolean deleteCash(long rowId) {
+		String where = CashEntries._ID + "=" + rowId;
+		return db.delete(CashEntries.TABLE_NAME, where, null) != 0;
+	}
+
+	public void deleteAllCash() {
+		Cursor c = getAllCash();
+		long rowId = c.getColumnIndexOrThrow(ContactEntries._ID);
+		if (c.moveToFirst()) {
+			do {
+				deleteCash(c.getLong((int) rowId));
+			} while (c.moveToNext());
+		}
+		c.close();
+	}
+
+	// Return all data in the database.
+	public Cursor getAllCash() {
+		String where = null;
+		Cursor c = 	db.query(CashEntries.TABLE_NAME, CashEntries.ALL_COLUMNS,
+				where, null, null, null, null);
+		if (c != null) {
+			c.moveToFirst();
+		}
+		return c;
+	}
+
+	// Get a specific row (by rowId)
+	public Cursor getCash(long rowId) {
+		String where = ContactEntries._ID + "=" + rowId;
+		String[] ALL_KEYS = CashEntries.ALL_COLUMNS;
+		Cursor c = 	db.query(true, CashEntries.TABLE_NAME, ALL_KEYS,
+				where, null, null, null, null, null);
+		if (c != null) {
+			c.moveToFirst();
+		}
+		return c;
+	}
+
+	/**
+	 * Update a area of the db.
+	 * @param rowId the primary key
+	 * @param value
+	 * @param source
+	 * @param note
+	 * @param date yyyymmdd
+	 * @return true if successful
+	 */
+	public boolean updateCash(long rowId, double value, String source, String note, int date) {
+		String where = CashEntries._ID + "=" + rowId;
+
+		/*
+		 * CHANGE 4:
+		 */
+		// TODO: Update data in the row with new fields.
+		// TODO: Also change the function's arguments to be what you need!
+		// Create row's data:
+		ContentValues newValues = new ContentValues();
+		newValues.put(CashEntries.COLUMN_CASH_AMOUNT, value);
+		newValues.put(CashEntries.COLUMN_SOURCE, source);
+		newValues.put(CashEntries.COLUMN_NOTE, note);
+		newValues.put(CashEntries.COLUMN_DATE, date);
+
+
+		// Insert it into the database.
+		return db.update(CashEntries.TABLE_NAME, newValues, where, null) != 0;
+	}
 
 
 
 
 
+
+	//HELPER CLASS, Do not mess with this.
+	// Change an existing row to be equal to new data.
 	public class DatabaseHelper extends SQLiteOpenHelper {
 		public DatabaseHelper(Context context) {
 			super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -515,6 +651,7 @@ public final class DatabaseContract {
 			db.execSQL(SQL_CREATE_Edu_Entries);*/
 			//db.execSQL(SQL_CREATE_Health_Entries);
 			//finance
+			db.execSQL(SQL_CREATE_CASH_ENTRIES);
 		}
 
 		@Override
@@ -527,6 +664,7 @@ public final class DatabaseContract {
 			db.execSQL(SQL_DELETE_GOAL_ENTRIES);
 			db.execSQL(SQL_DELETE_JOB_ENTRIES);
 			db.execSQL(SQL_DELETE_IDENTITY_ENTRIES);*/
+			db.execSQL(SQL_DELETE_CASH_ENTRIES);
 			onCreate(db);
 		}
 
