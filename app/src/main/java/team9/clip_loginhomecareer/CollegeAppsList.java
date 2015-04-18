@@ -1,21 +1,63 @@
 package team9.clip_loginhomecareer;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.ListView;
+
+import java.util.ArrayList;
 
 /**
  * Created by Mary on 4/18/2015.
  */
 public class CollegeAppsList extends ActionBarActivity {
 
+    private int User_ID = 0;
+    private DatabaseContract db;
+    private ArrayList<EduApp> list = new ArrayList<>();
+    private ListView applicationsList;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edu_apps_list);
+
+        openDB();
+        Bundle extras = getIntent().getExtras();
+        if(extras != null)
+        {
+            User_ID = extras.getInt("ID");
+            Log.d("User ID: ", "" + User_ID);
+        }
+
+        applicationsList = (ListView) findViewById(R.id.applications_list);
+
+        Button edit = (Button) findViewById(R.id.new_instance_button);
+        edit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                createNewInstance(v);
+            }
+        });
+
+        buildList();
+
+		/*ArrayList<String> temp = new ArrayList<>();
+		for(Contact c : list) {
+			temp.add(c.toString());
+		}*/
+
+        ArrayAdapter<EduApp> arrayAdapter = new ArrayAdapter<EduApp>(
+                this, android.R.layout.simple_list_item_1, list);
+
+        applicationsList.setAdapter(arrayAdapter);
     }
 
 
@@ -44,6 +86,39 @@ public class CollegeAppsList extends ActionBarActivity {
 
     public void createNewApplication(View v) {
         Intent intent = new Intent(this,EduNewApp.class);
+        startActivity(intent);
+    }
+    private void openDB() {
+        db = new DatabaseContract(this);
+        db.open();
+    }
+    private void closeDB() {
+        db.close();
+    }
+
+    private void buildList() {
+        Cursor cursor = db.getAllCollegeApplications();
+        EduApp temp = null;
+        if (cursor.moveToFirst()) {
+            do {
+                if(cursor.getInt(5) == User_ID) {
+                    temp = new EduApp();
+                    //_ID, college, due date, reply date
+                    temp.setCollege(cursor.getString(2));
+                    temp.setDeadline(cursor.getInt(3));
+                    temp.setReply_expected(cursor.getInt(4));
+                    list.add(temp);
+                }
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+
+    }
+
+
+    public void createNewInstance(View v) {
+        Intent intent = new Intent(this, EduNewApp.class);
+        intent.putExtra("ID", User_ID);
         startActivity(intent);
     }
 }
