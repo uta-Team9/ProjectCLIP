@@ -173,15 +173,18 @@ public final class DatabaseContract {
 	 */
 
 	//COLLEGES
-	private static abstract class EduEntries implements BaseColumns {
+	private static abstract class CollegeEntries implements BaseColumns {
 	    public static final String TABLE_NAME = "Colleges";
 	    public static final String _ID = "ID";
-	    public static final String COLUMN_INSTITUTION = "Institution Name";
-        public static final String COLUMN_COLLEGE_CITY = "Institution City";
-        public static final String COLUMN_STUDY_FIELD = "Field of Study";
-        public static final String COLUMN_COMPLETION_DATE = "Graduation Date";
+	    public static final String COLUMN_INSTITUTION = "InstitutionName";
+        public static final String COLUMN_COLLEGE_CITY = "InstitutionCity";
+        public static final String COLUMN_STUDY_FIELD = "FieldOfStudy";
+		public static final String COLUMN_START_DATE = "StartDate";
+        public static final String COLUMN_COMPLETION_DATE = "GraduationDate";
+		public static final String COLUMN_USER_ID = "User_ID";
         public static final String[] ALL_COLUMNS =
-				{_ID, COLUMN_INSTITUTION, COLUMN_COLLEGE_CITY, COLUMN_STUDY_FIELD, COLUMN_COMPLETION_DATE};
+				{_ID, COLUMN_INSTITUTION, COLUMN_COLLEGE_CITY, COLUMN_STUDY_FIELD,
+						COLUMN_COMPLETION_DATE, COLUMN_USER_ID};
 	}
 	// TODO: Place your fields here!
 	// + KEY{...} + " {type} not null"
@@ -191,13 +194,19 @@ public final class DatabaseContract {
 	//  - "not null" means it is a required field (must be given a value).
 	// NOTE: All must be comma separated (end of line!) Last one must have NO comma!!
 	private static final String SQL_CREATE_Edu_Entries =
-			"CREATE TABLE " + EduEntries.TABLE_NAME + " (" +
-					EduEntries._ID + " INTEGER PRIMARY KEY," +
+			"CREATE TABLE " + CollegeEntries.TABLE_NAME + " (" +
+					CollegeEntries._ID + " INTEGER PRIMARY KEY," +
+					CollegeEntries.COLUMN_INSTITUTION + TEXT_TYPE + COMMA_SEP +
+					CollegeEntries.COLUMN_COLLEGE_CITY + TEXT_TYPE + COMMA_SEP +
+					CollegeEntries.COLUMN_STUDY_FIELD + TEXT_TYPE + COMMA_SEP +
+					CollegeEntries.COLUMN_START_DATE + INT_TYPE + COMMA_SEP +
+					CollegeEntries.COLUMN_COMPLETION_DATE + INT_TYPE + COMMA_SEP +
+					CollegeEntries.COLUMN_USER_ID + INT_TYPE +
 					//add entries following instructions above
 			");";
 	//delete statement
 	private static final String SQL_DELETE_Edu_Entries =
-			"DROP TABLE IF EXISTS " + EduEntries.TABLE_NAME;
+			"DROP TABLE IF EXISTS " + CollegeEntries.TABLE_NAME;
 
 
 	/*
@@ -320,6 +329,7 @@ public final class DatabaseContract {
 
 
 
+	//LOGIN METHODS
 	/**
 	 * Add a new set of values to the database.
 	 * @param name
@@ -504,7 +514,6 @@ public final class DatabaseContract {
 		return c;
 	}
 
-	//HELPER CLASS, Do not mess with this.
 	// Change an existing row to be equal to new data.
 	public boolean updateContact(long rowId, String name, String email,
 	                             int phone,	int met, int used) {
@@ -526,6 +535,109 @@ public final class DatabaseContract {
 
 		// Insert it into the database.
 		return db.update(ContactEntries.TABLE_NAME, newValues, where, null) != 0;
+	}
+
+
+	//EDUCATION METHODS
+	//COLUMN_INSTITUTION, COLUMN_COLLEGE_CITY, COLUMN_STUDY_FIELD, COLUMN_START_DATE, COLUMN_COMPLETION_DATE, COLUMN_USER_ID
+	/**
+	* Add a new set of values to the database.
+	* @param institute
+	* @param city
+	* @param field
+	* @param startDate yyyymmdd
+	* @param finishDate yyyymmdd
+	* @param user ID of user
+	* @return The Primary Key number.
+	*/
+	public long insertColleges(String institute, String city, String field, int startDate, int finishDate, int user) {
+		/*
+		 * CHANGE 3:
+		 */
+		// TODO: Update data in the row with new fields.
+		// TODO: Also change the function's arguments to be what you need!
+		// Create row's data:
+		ContentValues initialValues = new ContentValues();
+		initialValues.put(CollegeEntries.COLUMN_INSTITUTION, institute);
+		initialValues.put(CollegeEntries.COLUMN_COLLEGE_CITY, city);
+		initialValues.put(CollegeEntries.COLUMN_STUDY_FIELD, field);
+		initialValues.put(CollegeEntries.COLUMN_START_DATE, startDate);
+		initialValues.put(CollegeEntries.COLUMN_COMPLETION_DATE, finishDate);
+		initialValues.put(CollegeEntries.COLUMN_USER_ID, user);
+
+		// Insert it into the database.
+		return db.insert(CollegeEntries.TABLE_NAME, null, initialValues);
+	}
+
+	// Delete a row from the database, by rowId (primary key)
+	public boolean deleteCollege(long rowId) {
+		String where = CollegeEntries._ID + "=" + rowId;
+		return db.delete(CollegeEntries.TABLE_NAME, where, null) != 0;
+	}
+
+	public void deleteAllColleges() {
+		Cursor c = getAllCash();
+		long rowId = c.getColumnIndexOrThrow(CollegeEntries._ID);
+		if (c.moveToFirst()) {
+			do {
+				deleteCash(c.getLong((int) rowId));
+			} while (c.moveToNext());
+		}
+		c.close();
+	}
+
+	// Return all data in the database.
+	public Cursor getAllColleges() {
+		String where = null;
+		Cursor c = 	db.query(CollegeEntries.TABLE_NAME, CollegeEntries.ALL_COLUMNS,
+				where, null, null, null, null);
+		if (c != null) {
+			c.moveToFirst();
+		}
+		return c;
+	}
+
+	// Get a specific row (by rowId)
+	public Cursor getCollege(long rowId) {
+		String where = CollegeEntries._ID + "=" + rowId;
+		String[] ALL_KEYS = CollegeEntries.ALL_COLUMNS;
+		Cursor c = 	db.query(true, CollegeEntries.TABLE_NAME, ALL_KEYS,
+				where, null, null, null, null, null);
+		if (c != null) {
+			c.moveToFirst();
+		}
+		return c;
+	}
+
+	/**
+	 * Update a area of the db.
+	 * @param rowId the primary key
+	 * @param institute
+	 * @param city
+	 * @param field
+	 * @param startDate yyyymmdd
+	 * @param finishDate yyyymmdd
+	 * @return true if successful
+	 */
+	public boolean updateCollege(long rowId, String institute, String city, String field, int startDate, int finishDate) {
+		String where = CollegeEntries._ID + "=" + rowId;
+
+		/*
+		 * CHANGE 4:
+		 */
+		// TODO: Update data in the row with new fields.
+		// TODO: Also change the function's arguments to be what you need!
+		// Create row's data:
+		ContentValues newValues = new ContentValues();
+		newValues.put(CollegeEntries.COLUMN_INSTITUTION, institute);
+		newValues.put(CollegeEntries.COLUMN_COLLEGE_CITY, city);
+		newValues.put(CollegeEntries.COLUMN_STUDY_FIELD, field);
+		newValues.put(CollegeEntries.COLUMN_START_DATE, startDate);
+		newValues.put(CollegeEntries.COLUMN_COMPLETION_DATE, finishDate);
+
+
+		// Insert it into the database.
+		return db.update(CollegeEntries.TABLE_NAME, newValues, where, null) != 0;
 	}
 
 
@@ -565,7 +677,7 @@ public final class DatabaseContract {
 
 	public void deleteAllCash() {
 		Cursor c = getAllCash();
-		long rowId = c.getColumnIndexOrThrow(ContactEntries._ID);
+		long rowId = c.getColumnIndexOrThrow(CashEntries._ID);
 		if (c.moveToFirst()) {
 			do {
 				deleteCash(c.getLong((int) rowId));
@@ -587,7 +699,7 @@ public final class DatabaseContract {
 
 	// Get a specific row (by rowId)
 	public Cursor getCash(long rowId) {
-		String where = ContactEntries._ID + "=" + rowId;
+		String where = CashEntries._ID + "=" + rowId;
 		String[] ALL_KEYS = CashEntries.ALL_COLUMNS;
 		Cursor c = 	db.query(true, CashEntries.TABLE_NAME, ALL_KEYS,
 				where, null, null, null, null, null);
