@@ -96,7 +96,7 @@ public class ContactList extends ActionBarActivity {
 	public void createNewInstance(View v) {
 		Intent intent = new Intent(this, NewContact.class);
 		intent.putExtra("ID", User_ID);
-		startActivity(intent);
+		startActivityForResult(intent, 2);
 	}
 
 	//putting together contact list
