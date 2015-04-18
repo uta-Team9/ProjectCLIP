@@ -17,22 +17,6 @@
         <item>Mothers Maiden Name?</item>
     </string-array>
 
-    <string-array name="asset_type">
-        <item>Select asset type</item>
-        <item>Car</item>
-        <item>House</item>
-        <item>Land</item>
-    </string-array>
-
-    <string-array name="card_provider">
-        <item>Select card provider</item>
-        <item>Visa</item>
-        <item>Master Card</item>
-        <item>Discover</item>
-        <item>American Express</item>
-        <item>Other</item>
-    </string-array>
-
     <!-- Home Screen Titles -->
     <string name="title_activity_home_screen">Welcome to CLIP</string>
     <string name="title_section1">Calendar</string>
@@ -95,6 +79,8 @@
     <string name="title_activity_healthy_recipes_list">Healthy Recipes List</string>
     <string name="title_activity_degrees_list">My Degrees</string>
     <string name="title_activity_finance_cash_view">Cash Information</string>
+    <string name="title_activity_new_degree_activity">new_degree_activity</string>
+    <string name="title_activity_edu_apps_list">edu_apps_list</string>
     <string name="title_activity_finance_goals">Finance Goals</string>
     <string name="title_activity_finances_cash_new">Add Cash</string>
     <string name="title_activity_finance_assets_view">Assets</string>

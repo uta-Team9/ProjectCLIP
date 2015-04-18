@@ -339,6 +339,14 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="team9.clip_loginhomecareer.FinanceHome" />
         </activity>
+        <activity
+            android:name=".new_degree_activity"
+            android:label="@string/title_activity_new_degree_activity"
+            android:parentActivityName=".DegreesList" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="team9.clip_loginhomecareer.DegreesList" />
+        </activity>
     </application>
 
 </manifest>

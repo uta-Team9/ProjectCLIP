@@ -38,8 +38,10 @@ public class DegreesList extends ActionBarActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+
     public void createNewInstance(View v) {
-        Intent intent = new Intent(this, NewContact/*add new degree class*/.class);
+        Intent intent = new Intent(this,new_degree_activity.class);
         startActivity(intent);
     }
 }

@@ -6,15 +6,38 @@ import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+
+import java.util.ArrayList;
 
 
 public class AppointmentsList extends ActionBarActivity {
 
+    private ArrayList<Appointment> list = new ArrayList<>();
+    private ListView activityList;
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
+
+        Bundle extras = getIntent().getExtras();
+
+       // var = extras.getInt("Appointment1");
+
+       // if()
+
         setContentView(R.layout.activity_appointments_list);
+        activityList = (ListView) findViewById(R.id.listView);
+
+        ArrayAdapter<Appointment> arrayAdapter = new ArrayAdapter<Appointment>( this, android.R.layout.simple_list_item_1, list);
+
+
+        activityList.setAdapter(arrayAdapter);
     }
+
+
 
 
     @Override

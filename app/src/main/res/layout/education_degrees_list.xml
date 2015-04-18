@@ -10,7 +10,7 @@
     <ListView
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:id="@+id/contacts_list"
+        android:id="@+id/degree_list"
         android:choiceMode="singleChoice"
         android:layout_below="@+id/textView2"
         android:layout_alignParentLeft="true"
