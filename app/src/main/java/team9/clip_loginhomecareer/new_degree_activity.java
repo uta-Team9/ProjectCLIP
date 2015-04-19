@@ -60,20 +60,27 @@ public class new_degree_activity extends ActionBarActivity {
     }
 
     public void add_new(View v) {
+        String inst;
+        String loc;
+        String ds;
+        String major;
+        Integer grad;
+        Integer matr;
         EditText text;
+
         if (validItems()) {
             text = (EditText) findViewById(R.id.new_college_name);
-            String inst = text.getText().toString();
+            inst = text.getText().toString();
             text = (EditText) findViewById(R.id.new_college_location);
-            String loc = text.getText().toString();
+            loc = text.getText().toString();
             text = (EditText) findViewById(R.id.new_college_degree_sought);
-            String ds = text.getText().toString();
+            ds = text.getText().toString();
             text = (EditText) findViewById(R.id.new_college_field_of_study);
-            String major = text.getText().toString();
+            major = text.getText().toString();
             text = (EditText) findViewById(R.id.new_college_grad_date);
-            Integer grad = Integer.parseInt(text.getText().toString());
+            grad = Integer.parseInt(text.getText().toString());
             text = (EditText) findViewById(R.id.new_college_start_date);
-            Integer matr = Integer.parseInt(text.getText().toString());
+            matr = Integer.parseInt(text.getText().toString());
 
             db.insertColleges(inst, loc, major, ds, matr, grad, 0);
             toastNotification("Degree Saved");
