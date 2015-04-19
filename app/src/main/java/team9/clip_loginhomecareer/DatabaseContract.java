@@ -1185,7 +1185,14 @@ public final class DatabaseContract {
 			db.execSQL(SQL_CREATE_Edu_Entries);*/
 			//db.execSQL(SQL_CREATE_Health_Entries);
 			//finance
-			db.execSQL(SQL_CREATE_CASH_ENTRIES);
+			db.execSQL(SQL_DELETE_CASH_ENTRIES);
+			db.execSQL(SQL_CREATE_MEDICAL_REPORT_ENTRIES);
+			db.execSQL(SQL_CREATE_MEDICATION_ENTRIES);
+			db.execSQL(SQL_CREATE_APPOINTMENT_ENTRIES);
+			db.execSQL(SQL_CREATE_DOCTOR_VISIT_ENTRIES);
+			db.execSQL(SQL_CREATE_WEIGHT_LOSS_AND_DIET_PLAN_ENTRIES);
+			db.execSQL(SQL_CREATE_EXERCISE_PLAN_ENTRIES);
+			db.execSQL(SQL_CREATE_HEALTHY_RECIPE_ENTRIES);
 		}
 
 		@Override
@@ -1194,10 +1201,10 @@ public final class DatabaseContract {
 			// to simply to discard the data and start over
 			db.execSQL(SQL_DELETE_LOGIN_ENTRIES);
 			db.execSQL(SQL_DELETE_CONTRACT_ENTRIES);
-			db.execSQL(SQL_DELETE_COMPANY_ENTRIES);
+			/*db.execSQL(SQL_DELETE_COMPANY_ENTRIES);
 			db.execSQL(SQL_DELETE_GOAL_ENTRIES);
 			db.execSQL(SQL_DELETE_JOB_ENTRIES);
-			db.execSQL(SQL_DELETE_IDENTITY_ENTRIES);
+			db.execSQL(SQL_DELETE_IDENTITY_ENTRIES);*/
 			db.execSQL(SQL_DELETE_CASH_ENTRIES);
             db.execSQL(SQL_CREATE_MEDICAL_REPORT_ENTRIES);
             db.execSQL(SQL_CREATE_MEDICATION_ENTRIES);
