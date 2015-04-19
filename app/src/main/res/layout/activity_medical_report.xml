@@ -192,7 +192,8 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:layout_alignRight="@+id/textView12"
-            android:layout_alignEnd="@+id/textView12" />
+            android:layout_alignEnd="@+id/textView12"
+            android:onClick="add_new"/>
 
 
     </RelativeLayout>
