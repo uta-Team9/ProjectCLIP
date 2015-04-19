@@ -1,9 +1,11 @@
 package team9.clip_loginhomecareer;
 
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 
 public class FinanceCreditNew extends ActionBarActivity {
@@ -35,5 +37,10 @@ public class FinanceCreditNew extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+    public void cancel(View v) {
+        Intent intent = null;
+        intent = new Intent(this, FinanceCreditView.class);
+        startActivity(intent);
     }
 }
