@@ -427,6 +427,14 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="team9.clip_loginhomecareer.CollegeAppsList" />
         </activity>
+        <activity
+            android:name=".EducationFinancesList"
+            android:label="@string/title_activity_education_finances_list"
+            android:parentActivityName=".EduMain" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="team9.clip_loginhomecareer.EduMain" />
+        </activity>
     </application>
 
 </manifest>
