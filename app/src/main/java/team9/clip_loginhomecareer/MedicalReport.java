@@ -1,5 +1,6 @@
 package team9.clip_loginhomecareer;
 
+import android.database.Cursor;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -11,7 +12,8 @@ import android.widget.Toast;
 
 
 public class MedicalReport extends ActionBarActivity {
-
+  long  user;
+    int userId;
     private DatabaseContract db;
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -20,6 +22,18 @@ public class MedicalReport extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_medical_report);
 
+        Bundle extras = getIntent().getExtras();
+        if(extras!=null)
+        {
+            userId = extras.getInt("ID");
+        }
+        Cursor c = db.getMedicalReport(user);
+        if (savedInstanceState != null)
+        {
+            c.getString(0);
+
+
+        }
 
 
     }
@@ -59,7 +73,7 @@ public class MedicalReport extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void add_new(View v) {
+    public void add_new(View v) {/*
         EditText text;
         if (validItems()) {
             text = (EditText) findViewById(R.id.add_LDL_cholesterol);
@@ -83,7 +97,8 @@ public class MedicalReport extends ActionBarActivity {
 
 
             Log.d("Enterd info", "app");
-            db.insertMedicalReport(bloodPressure, ldlCholesterol, hdlCholesterol, totalCholesterol, glucose, bloodType, allergies);
+             user = db.insertMedicalReport(bloodPressure, ldlCholesterol, hdlCholesterol, totalCholesterol, glucose, bloodType, allergies, userId);
+
             toastNotification("Medical Report Saved");
           //  clearData();
         }
@@ -91,7 +106,7 @@ public class MedicalReport extends ActionBarActivity {
         else
         {
             toastNotification("Invalid Information");
-        }
+        }*/
     }
     private boolean validItems() {
         //TODO: Check for invalid input data

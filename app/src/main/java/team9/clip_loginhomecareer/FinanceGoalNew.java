@@ -1,26 +1,27 @@
 package team9.clip_loginhomecareer;
 
-import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.RadioButton;
 
 
-public class FinanceHome extends ActionBarActivity {
+public class FinanceGoalNew extends ActionBarActivity {
+    boolean isShortTerm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.finance_home_view);
+        setContentView(R.layout.finance_goal_new);
     }
 
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_finance_home, menu);
+        getMenuInflater().inflate(R.menu.menu_finance_goal_new, menu);
         return true;
     }
 
@@ -38,26 +39,20 @@ public class FinanceHome extends ActionBarActivity {
 
         return super.onOptionsItemSelected(item);
     }
+    public void onRadioButtonClicked(View view) {
+        // Is the button now checked?
+        boolean checked = ((RadioButton) view).isChecked();
 
-    public void switchViews(View v) {
-        Intent intent = null;
-        switch(v.getId())
-        {
-            case(R.id.txt_financial_state):
-                intent = new Intent(this, FinanceStateView.class);
-                break;
-            case(R.id.txt_stock_security):
-                intent = new Intent(this, FinanceStockSecurityView.class);
-                break;
-            case(R.id.txt_financial_goals):
-                intent = new Intent(this, FinanceGoalView.class);
-                break;
-            case(R.id.txt_financial_summary):
-                intent = new Intent(this, FinanceSummaryView.class);
-                break;
+        // Check which radio button was clicked
+        switch(view.getId()) {
+            case R.id.rdo_short_term_goal:
+                if (checked)
+                    this.isShortTerm = true;
+                    break;
+            case R.id.rdo_long_term_goal:
+                if (checked)
+                    this.isShortTerm = false;
+                    break;
         }
-
-        //intent.putExtra("tagName", value);
-        startActivity(intent);
     }
 }
