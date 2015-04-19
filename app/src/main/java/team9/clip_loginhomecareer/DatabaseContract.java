@@ -283,7 +283,7 @@ public final class DatabaseContract {
     //Cash Section
     private static abstract class CashEntries implements BaseColumns {
         public static final String TABLE_NAME = "CASH";
-        public static final String _ID = "ID";
+	    public static final String _ID = "ID";
         public static final String COLUMN_CASH_AMOUNT = "CASH_AMOUNT";
         public static final String COLUMN_SOURCE = "SOURCE";
         public static final String COLUMN_NOTE = "NOTE";
@@ -318,74 +318,100 @@ public final class DatabaseContract {
     //HEALTH
 
     private static abstract class DoctorVisitEntries implements BaseColumns {
-
-        public static final String TABLE_NAME = "Doctor's Visit";
-        public static final String LAST_CHECK_UP_DATE = "Last Check Up Date";
-        public static final String HEALTH_INSURANCE_COMPANY = "Health Insurance Company";
-        public static final String HEALTH_INSURANCE_POLICY_NUM = "Health Insurance Policy Number";
+        public static final String TABLE_NAME = "DoctorsVisit";
+	    public static final String _ID = "ID";
+        public static final String LAST_CHECK_UP_DATE = "LastCheckUpDate";
+        public static final String HEALTH_INSURANCE_COMPANY = "HealthInsuranceCompany";
+        public static final String HEALTH_INSURANCE_POLICY_NUM = "HealthInsurancePolicyNumber";
+	    public static final String HASH_ID = "HashID";
+	    public static final String[] ALL_COLUMNS =
+			    {_ID, LAST_CHECK_UP_DATE, HEALTH_INSURANCE_COMPANY, HEALTH_INSURANCE_POLICY_NUM, HASH_ID};
     }
 
     public static abstract class MedicationEntries implements BaseColumns {
         public static final String TABLE_NAME = "Medication";
-        public static final String MEDICATION_NAME = "Medication Name";
+	    public static final String _ID = "ID";
+        public static final String MEDICATION_NAME = "MedicationName";
         public static final String DOSAGE = "Dosage";
-        public static final String MEDICATION_DURATION = "Medication Duration";
-        public static final String MEDICATION_REASON = "Med Reason";
-        public static final String PHARMACY_NAME = "Pharmacy Name";
-        public static final String PHARMACY_PHONE = "Pharmacy Phone";
+        public static final String MEDICATION_DURATION = "MedicationDuration";
+        public static final String MEDICATION_REASON = "MedReason";
+        public static final String PHARMACY_NAME = "PharmacyName";
+        public static final String PHARMACY_PHONE = "PharmacyPhone";
+	    public static final String HASH_ID = "HashID";
+	    public static final String[] ALL_COLUMNS =
+			    {_ID, MEDICATION_NAME, DOSAGE, MEDICATION_DURATION, MEDICATION_REASON,
+					    PHARMACY_NAME, PHARMACY_PHONE, HASH_ID};
     }
 
     public static abstract class MedicalReportEntries implements BaseColumns {
-        public static final String TABLE_NAME = "Medical Report";
-        public static final String BLOOD_PRESSURE = "Blood Pressure";
+        public static final String TABLE_NAME = "MedicalReport";
+	    public static final String _ID = "ID";
+        public static final String BLOOD_PRESSURE = "BloodPressure";
         public static final String LDL = "LDL";
         public static final String HDL = "HDL";
-        public static final String CHOLESTEROL_TOTAL = "Cholesterol Total";
+        public static final String CHOLESTEROL_TOTAL = "CholesterolTotal";
         public static final String GLUCOSE = "Glucose";
-        public static final String BLOOD_TYPE = "Blood Type";
+        public static final String BLOOD_TYPE = "BloodType";
         public static final String ALLERGIES = "Allergies";
-        public static final String userId = "User ID";
-        public static final String[] ALL_COLUMNS = { BLOOD_PRESSURE, LDL, HDL, CHOLESTEROL_TOTAL, GLUCOSE, BLOOD_TYPE, ALLERGIES, userId};
+	    public static final String HASH_ID = "HashID";
+        public static final String[] ALL_COLUMNS =
+		        {_ID, BLOOD_PRESSURE, LDL, HDL, CHOLESTEROL_TOTAL, GLUCOSE,
+				        BLOOD_TYPE, ALLERGIES, HASH_ID};
     }
 
     public static abstract class AppointmentEntries implements BaseColumns {
         public static final String TABLE_NAME = "Appointment";
-        public static final String DOCTOR_NAME = "Doctor's Name";
-        public static final String DATE_OF_APPOINTMENT = "Date of Appointment";
-        public static final String TIME_OF_APPOINTMENT = "Appointment Time";
-        public static final String REASON_FOR_APPOINTMENT = "Reason for Appointment";
-        public static final String OFFICE_ADDRESS = "Office Address";
-        public static final String DOCTOR_PHONE = "Doctor Phone";
-    }
+	    public static final String _ID = "ID";
+        public static final String DOCTOR_NAME = "DoctorsName";
+        public static final String DATE_OF_APPOINTMENT = "DateofAppointment";
+        public static final String TIME_OF_APPOINTMENT = "AppointmentTime";
+        public static final String REASON_FOR_APPOINTMENT = "Reason";
+        public static final String OFFICE_ADDRESS = "OfficeAddress";
+        public static final String DOCTOR_PHONE = "DoctorPhone";
+	    public static final String HASH_ID = "HashID";
+	    public static final String[] ALL_COLUMNS =
+			    {_ID, DOCTOR_NAME, DATE_OF_APPOINTMENT, TIME_OF_APPOINTMENT,
+			    REASON_FOR_APPOINTMENT, OFFICE_ADDRESS, DOCTOR_PHONE, HASH_ID};
+	    }
 
     public static abstract class WeightLossDietPlanEntries implements BaseColumns {
-        public static final String TABLE_NAME = "Weight Loss and Diet Plan";
-        public static final String DIET_NAME = "Diet Name";
-        public static final String DIET_START_DATE = "Diet Start Date";
-        public static final String DIET_END_DATE = "Diet End Date";
-        public static final String CURRENT_WEIGHT = "Current Weight";
-        public static final String GOAL_WEIGHT = "Goal Weight";
+        public static final String TABLE_NAME = "WeightLossDietPlan";
+	    public static final String _ID = "ID";
+        public static final String DIET_NAME = "DietName";
+        public static final String DIET_START_DATE = "DietStartDate";
+        public static final String DIET_END_DATE = "DietEndDate";
+        public static final String CURRENT_WEIGHT = "CurrentWeight";
+        public static final String GOAL_WEIGHT = "GoalWeight";
+	    public static final String HASH_ID = "HashID";
+	    public static final String[] ALL_COLUMNS = {_ID,DIET_NAME,DIET_START_DATE,DIET_END_DATE,
+			    CURRENT_WEIGHT,GOAL_WEIGHT,HASH_ID};
     }
 
     public static abstract class ExercisePlanEntries implements BaseColumns {
-        public static final String TABLE_NAME = "Exercise Plan";
-        public static final String EXERCISE_NAME = "Exercise Name";
-        public static final String CALORIES_BURNED = "Calories Burned";
-        public static final String DURATION_WORKOUT = "Duration Workout";
-        public static final String MUSCLE_GROUP = "Muscle Group";
-    }
+        public static final String TABLE_NAME = "ExercisePlan";
+	    public static final String _ID = "ID";
+        public static final String EXERCISE_NAME = "ExerciseName";
+        public static final String CALORIES_BURNED = "CaloriesBurned";
+        public static final String DURATION_WORKOUT = "DurationWorkout";
+        public static final String MUSCLE_GROUP = "MuscleGroup";
+	    public static final String HASH_ID = "HashID";
+	    public static final String[] ALL_COLUMNS =
+			    {_ID,EXERCISE_NAME,CALORIES_BURNED,DURATION_WORKOUT,MUSCLE_GROUP,HASH_ID};
+	}
 
     public static abstract class RecipeEntries implements BaseColumns {
-        public static final String TABLE_NAME = "Healthy Recipe";
-        public static final String RECIPE_NAME = "Recipe Name";
+        public static final String TABLE_NAME = "HealthyRecipe";
+	    public static final String _ID = "ID";
+        public static final String RECIPE_NAME = "RecipeName";
         public static final String SERVINGS = "Servings";
-        public static final String COOK_TIME = "Cook Time";
-        public static final String RECIPE_DESCRIPTION = "Recipe Description";
-        public static final String RECIPE_INGREDIENTS = "Recipe Ingredients";
-        public static final String RECIPE_DIRECTIONS = "Recipe Directions";
-    }
-
-
+        public static final String COOK_TIME = "CookTime";
+        public static final String RECIPE_DESCRIPTION = "RecipeDescription";
+        public static final String RECIPE_INGREDIENTS = "RecipeIngredients";
+        public static final String RECIPE_DIRECTIONS = "RecipeDirections";
+	    public static final String HASH_ID = "HashID";
+	    public static final String[] ALL_COLUMNS = {_ID,RECIPE_NAME,SERVINGS,COOK_TIME,
+			    RECIPE_DESCRIPTION,RECIPE_INGREDIENTS,RECIPE_DIRECTIONS,HASH_ID};
+	}
     private static final String SQL_CREATE_DOCTOR_VISIT_ENTRIES =
             "CREATE TABLE " + DoctorVisitEntries.TABLE_NAME + " (" +
                     DoctorVisitEntries.LAST_CHECK_UP_DATE + TEXT_TYPE + COMMA_SEP +
@@ -410,7 +436,7 @@ public final class DatabaseContract {
                     MedicalReportEntries.GLUCOSE + TEXT_TYPE + COMMA_SEP +
                     MedicalReportEntries.BLOOD_TYPE + TEXT_TYPE + COMMA_SEP +
                     MedicalReportEntries.ALLERGIES + TEXT_TYPE + COMMA_SEP +
-                    MedicalReportEntries.userId + INT_TYPE
+                    MedicalReportEntries.HASH_ID + INT_TYPE
                     +");";
     private static final String SQL_CREATE_APPOINTMENT_ENTRIES =
             "CREATE TABLE " + AppointmentEntries.TABLE_NAME + " (" +
@@ -457,7 +483,7 @@ public final class DatabaseContract {
             "DROP TABLE IF EXISTS " + WeightLossDietPlanEntries.TABLE_NAME;
     private static final String SQL_DELETE_EXERCISE_PLAN_ENTRIES =
             "DROP TABLE IF EXISTS " + ExercisePlanEntries.TABLE_NAME;
-    private static final String SQL_DELETE_RECIPE_ENTRIES =
+    private static final String SQL_DELETE_HEALTHY_RECIPE_ENTRIES =
             "DROP TABLE IF EXISTS " + RecipeEntries.TABLE_NAME;
 
 
@@ -533,81 +559,6 @@ public final class DatabaseContract {
 		// Insert it into the database.
 		return db.insert(LoginEntries.TABLE_NAME, null, initialValues);
 	}
-
-    public long insertDoctorVisitRow(
-            String tableName, String lastCheckUpDate, String insuranceCompany,
-            String insurancePolicyNum) {
-		/*
-		 * CHANGE 3:
-		 */
-        // Create row's data:
-        ContentValues initialValues = new ContentValues();
-        initialValues.put(DoctorVisitEntries.TABLE_NAME, tableName);
-        initialValues.put(DoctorVisitEntries.LAST_CHECK_UP_DATE, lastCheckUpDate);
-        initialValues.put(DoctorVisitEntries.HEALTH_INSURANCE_COMPANY, insuranceCompany);
-        initialValues.put(DoctorVisitEntries.HEALTH_INSURANCE_POLICY_NUM, insurancePolicyNum);
-
-        // Insert it into the database.
-        return db.insert(LoginEntries.TABLE_NAME, null, initialValues);
-    }
-    public long insertMedication(
-            String tableName, String medName, String dosage,
-            String medDuration, String medReason, String pharmName, String pharmPhone) {
-
-        // Create row's data:
-        ContentValues initialValues = new ContentValues();
-        initialValues.put(MedicationEntries.TABLE_NAME, tableName);
-        initialValues.put(MedicationEntries.MEDICATION_NAME, medName);
-        initialValues.put(MedicationEntries.DOSAGE, dosage);
-        initialValues.put(MedicationEntries.MEDICATION_DURATION, medDuration);
-        initialValues.put(MedicationEntries.MEDICATION_REASON, medReason);
-        initialValues.put(MedicationEntries.PHARMACY_NAME, pharmName);
-        initialValues.put(MedicationEntries.PHARMACY_PHONE, pharmPhone);
-
-
-
-        // Insert it into the database.
-        return db.insert(LoginEntries.TABLE_NAME, null, initialValues);
-    }
-
-    public long insertMedicalReport(
-            String tableName, String medName, String dosage,
-            String medDuration, String medReason, String pharmName, String pharmPhone, int user)
-    {
-        // Create row's data:
-        ContentValues initialValues = new ContentValues();
-        initialValues.put(MedicalReportEntries.TABLE_NAME, tableName);
-        initialValues.put(MedicalReportEntries.BLOOD_PRESSURE, medName);
-        initialValues.put(MedicalReportEntries.LDL, dosage);
-        initialValues.put(MedicalReportEntries.HDL, medDuration);
-        initialValues.put(MedicalReportEntries.CHOLESTEROL_TOTAL, medReason);
-        initialValues.put(MedicalReportEntries.GLUCOSE, pharmName);
-        initialValues.put(MedicalReportEntries.BLOOD_TYPE, pharmPhone);
-        initialValues.put(MedicalReportEntries.ALLERGIES, pharmPhone);
-        initialValues.put(MedicalReportEntries.userId, user);
-
-
-        // Insert it into the database.
-        return db.insert(LoginEntries.TABLE_NAME, null, initialValues);
-    }
-
-    public long insertAppointments(
-            String tableName, String medName, String dosage,
-            String medDuration, String medReason, String pharmName, String pharmPhone)
-    {
-        // Create row's data:
-        ContentValues initialValues = new ContentValues();
-        initialValues.put(AppointmentEntries.TABLE_NAME, tableName);
-        initialValues.put(AppointmentEntries.DOCTOR_NAME, medName);
-        initialValues.put(AppointmentEntries.DATE_OF_APPOINTMENT, dosage);
-        initialValues.put(AppointmentEntries.TIME_OF_APPOINTMENT, medDuration);
-        initialValues.put(AppointmentEntries.REASON_FOR_APPOINTMENT, medReason);
-        initialValues.put(AppointmentEntries.OFFICE_ADDRESS, pharmName);
-        initialValues.put(AppointmentEntries.DOCTOR_PHONE, pharmPhone);
-
-        // Insert it into the database.
-        return db.insert(LoginEntries.TABLE_NAME, null, initialValues);
-    }
 
 	// Delete a row from the database, by rowId (primary key)
 	public boolean deleteLoginRow(long rowId) {
@@ -1188,13 +1139,14 @@ public final class DatabaseContract {
             db.execSQL(SQL_CREATE_COLLEGE_APPLICATION_ENTRIES);
             db.execSQL(SQL_CREATE_COLLEGE_FINANCE_ENTRIES);
 
-/*			db.execSQL(SQL_CREATE_MEDICAL_REPORT_ENTRIES);
+			//HEALTH
+			db.execSQL(SQL_CREATE_MEDICAL_REPORT_ENTRIES);
 			db.execSQL(SQL_CREATE_MEDICATION_ENTRIES);
 			db.execSQL(SQL_CREATE_APPOINTMENT_ENTRIES);
 			db.execSQL(SQL_CREATE_DOCTOR_VISIT_ENTRIES);
 			db.execSQL(SQL_CREATE_WEIGHT_LOSS_AND_DIET_PLAN_ENTRIES);
 			db.execSQL(SQL_CREATE_EXERCISE_PLAN_ENTRIES);
-			db.execSQL(SQL_CREATE_HEALTHY_RECIPE_ENTRIES);*/
+			db.execSQL(SQL_CREATE_HEALTHY_RECIPE_ENTRIES);
 		}
 
 		@Override
@@ -1208,16 +1160,16 @@ public final class DatabaseContract {
 			db.execSQL(SQL_DELETE_JOB_ENTRIES);
 			db.execSQL(SQL_DELETE_IDENTITY_ENTRIES);*/
 			db.execSQL(SQL_DELETE_CASH_ENTRIES);
-            /*db.execSQL(SQL_CREATE_MEDICAL_REPORT_ENTRIES);
-            db.execSQL(SQL_CREATE_MEDICATION_ENTRIES);
-            db.execSQL(SQL_CREATE_APPOINTMENT_ENTRIES);
-            db.execSQL(SQL_CREATE_DOCTOR_VISIT_ENTRIES);
-            db.execSQL(SQL_CREATE_WEIGHT_LOSS_AND_DIET_PLAN_ENTRIES);
-            db.execSQL(SQL_CREATE_EXERCISE_PLAN_ENTRIES);
-            db.execSQL(SQL_CREATE_HEALTHY_RECIPE_ENTRIES);*/
-            db.execSQL(SQL_DELETE_COLLEGE_Entries);
-            db.execSQL(SQL_DELETE_COLLEGE_APPLICATION_ENTRIES);
-            db.execSQL(SQL_DELETE_COLLEGE_FINANCE_ENTRIES);
+
+
+			//HEALTH
+			db.execSQL(SQL_DELETE_MEDICAL_REPORT_ENTRIES);
+			db.execSQL(SQL_DELETE_MEDICATION_ENTRIES);
+			db.execSQL(SQL_DELETE_APPOINTMENT_ENTRIES);
+			db.execSQL(SQL_DELETE_DOCTOR_VISIT_ENTRIES);
+			db.execSQL(SQL_DELETE_WEIGHT_LOSS_AND_DIET_PLAN_ENTRIES);
+			db.execSQL(SQL_DELETE_EXERCISE_PLAN_ENTRIES);
+			db.execSQL(SQL_DELETE_HEALTHY_RECIPE_ENTRIES);
 			onCreate(db);
 		}
 
@@ -1226,15 +1178,156 @@ public final class DatabaseContract {
 		}
 	}
 
-    public Cursor getMedicalReport(long rowId) {
-        String where = MedicalReportEntries._ID + "=" + rowId;
-        String[] ALL_KEYS = MedicalReportEntries.ALL_COLUMNS;
-        Cursor c = 	db.query(true, MedicalReportEntries.TABLE_NAME, ALL_KEYS,
-                where, null, null, null, null, null);
-        if (c != null) {
-            c.moveToFirst();
-        }
-        return c;
-    }
+
+
+	public long insertDoctorVisitRow(String tableName, String lastCheckUpDate,
+	                  String insuranceCompany, String insurancePolicyNum, int user) {
+		// Create row's data:
+		ContentValues initialValues = new ContentValues();
+		initialValues.put(DoctorVisitEntries.LAST_CHECK_UP_DATE, lastCheckUpDate);
+		initialValues.put(DoctorVisitEntries.HEALTH_INSURANCE_COMPANY, insuranceCompany);
+		initialValues.put(DoctorVisitEntries.HEALTH_INSURANCE_POLICY_NUM, insurancePolicyNum);
+		initialValues.put(DoctorVisitEntries.HASH_ID, user);
+
+		// Insert it into the database.
+		return db.insert(DoctorVisitEntries.TABLE_NAME, null, initialValues);
+	}
+	public long insertMedication(String medName, String dosage,
+			String medDuration, String medReason, String pharmName, String pharmPhone, int user) {
+
+		// Create row's data:
+		ContentValues initialValues = new ContentValues();
+		initialValues.put(MedicationEntries.MEDICATION_NAME, medName);
+		initialValues.put(MedicationEntries.DOSAGE, dosage);
+		initialValues.put(MedicationEntries.MEDICATION_DURATION, medDuration);
+		initialValues.put(MedicationEntries.MEDICATION_REASON, medReason);
+		initialValues.put(MedicationEntries.PHARMACY_NAME, pharmName);
+		initialValues.put(MedicationEntries.PHARMACY_PHONE, pharmPhone);
+		initialValues.put(DoctorVisitEntries.HASH_ID, user);
+
+		// Insert it into the database.
+		return db.insert(MedicationEntries.TABLE_NAME, null, initialValues);
+	}
+
+
+
+	/* MEDICAL REPORT ENTRIES */
+	/**
+	 * insert a new medical report into the database
+	 * @param medName
+	 * @param dosage
+	 * @param medDuration
+	 * @param medReason
+	 * @param pharmName
+	 * @param pharmPhone
+	 * @param user
+	 * @return primary key, the rowID
+	 */
+	public long insertMedicalReport(String medName, String dosage, String medDuration,
+			String medReason, String pharmName, String pharmPhone, int user) {
+		// Create row's data:
+		ContentValues initialValues = new ContentValues();
+		initialValues.put(MedicalReportEntries.BLOOD_PRESSURE, medName);
+		initialValues.put(MedicalReportEntries.LDL, dosage);
+		initialValues.put(MedicalReportEntries.HDL, medDuration);
+		initialValues.put(MedicalReportEntries.CHOLESTEROL_TOTAL, medReason);
+		initialValues.put(MedicalReportEntries.GLUCOSE, pharmName);
+		initialValues.put(MedicalReportEntries.BLOOD_TYPE, pharmPhone);
+		initialValues.put(MedicalReportEntries.ALLERGIES, pharmPhone);
+		initialValues.put(MedicalReportEntries.HASH_ID, user);
+
+		// Insert it into the database.
+		return db.insert(MedicalReportEntries.TABLE_NAME, null, initialValues);
+	}
+
+	/**
+	 * Update a area of the db.
+	 * @param rowId
+	 * @param medName
+	 * @param dosage
+	 * @param medDuration
+	 * @param medReason
+	 * @param pharmName
+	 * @param pharmPhone
+	 * @return true if successful
+	 */
+	public boolean updateMedicalReport(long rowId, String medName, String dosage,
+	                    String medDuration, String medReason, String pharmName, String pharmPhone) {
+		String where = CashEntries._ID + "=" + rowId;
+		// TODO: Update data in the row with new fields.
+		// TODO: Also change the function's arguments to be what you need!
+		ContentValues newValues = new ContentValues();
+		newValues.put(MedicalReportEntries.BLOOD_PRESSURE, medName);
+		newValues.put(MedicalReportEntries.LDL, dosage);
+		newValues.put(MedicalReportEntries.HDL, medDuration);
+		newValues.put(MedicalReportEntries.CHOLESTEROL_TOTAL, medReason);
+		newValues.put(MedicalReportEntries.GLUCOSE, pharmName);
+		newValues.put(MedicalReportEntries.BLOOD_TYPE, pharmPhone);
+		newValues.put(MedicalReportEntries.ALLERGIES, pharmPhone);
+
+		// Insert it into the database.
+		return db.update(MedicalReportEntries.TABLE_NAME, newValues, where, null) != 0;
+	}
+
+	public Cursor getMedicalReport(long rowId) {
+		String where = MedicalReportEntries._ID + "=" + rowId;
+		String[] ALL_KEYS = MedicalReportEntries.ALL_COLUMNS;
+		Cursor c = 	db.query(true, MedicalReportEntries.TABLE_NAME, MedicalReportEntries.ALL_COLUMNS,
+				where, null, null, null, null, null);
+		if (c != null) {
+			c.moveToFirst();
+		}
+		return c;
+	}
+
+	// Return all data in the database.
+	public Cursor getAllMedicalReports() {
+		String where = null;
+		Cursor c = 	db.query(MedicalReportEntries.TABLE_NAME, MedicalReportEntries.ALL_COLUMNS,
+				where, null, null, null, null);
+		if (c != null) {
+			c.moveToFirst();
+		}
+		return c;
+	}
+
+	// Delete a row from the database, by rowId (primary key)
+	public boolean deleteMedicalReport(long rowId) {
+		String where = MedicalReportEntries._ID + "=" + rowId;
+		return db.delete(MedicalReportEntries.TABLE_NAME, where, null) != 0;
+	}
+
+	public void deleteAllMedicalReports() {
+		Cursor c = getAllMedicalReports();
+		long rowId = c.getColumnIndexOrThrow(MedicalReportEntries._ID);
+		if (c.moveToFirst()) {
+			do {
+				deleteMedicalReport(c.getLong((int) rowId));
+			} while (c.moveToNext());
+		}
+		c.close();
+	}
+
+
+
+
+
+	public long insertAppointments(
+			String tableName, String medName, String dosage, String medDuration, String medReason,
+			String pharmName, String pharmPhone, int user) {
+		// Create row's data:
+		ContentValues initialValues = new ContentValues();
+		initialValues.put(AppointmentEntries.TABLE_NAME, tableName);
+		initialValues.put(AppointmentEntries.DOCTOR_NAME, medName);
+		initialValues.put(AppointmentEntries.DATE_OF_APPOINTMENT, dosage);
+		initialValues.put(AppointmentEntries.TIME_OF_APPOINTMENT, medDuration);
+		initialValues.put(AppointmentEntries.REASON_FOR_APPOINTMENT, medReason);
+		initialValues.put(AppointmentEntries.OFFICE_ADDRESS, pharmName);
+		initialValues.put(AppointmentEntries.DOCTOR_PHONE, pharmPhone);
+		initialValues.put(DoctorVisitEntries.HASH_ID, user);
+
+		// Insert it into the database.
+		return db.insert(AppointmentEntries.TABLE_NAME, null, initialValues);
+	}
 
 }
