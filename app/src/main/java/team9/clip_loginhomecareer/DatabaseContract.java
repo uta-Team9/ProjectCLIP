@@ -412,9 +412,9 @@ public final class DatabaseContract {
     }
 	private static final String SQL_CREATE_DOCTOR_VISIT_ENTRIES =
 			"CREATE TABLE " + DoctorVisitEntries.TABLE_NAME + " (" +
-					DoctorVisitEntries.LAST_CHECK_UP_DATE + TEXT_TYPE + COMMA_SEP +
+					DoctorVisitEntries.LAST_CHECK_UP_DATE + INT_TYPE + COMMA_SEP +
 					DoctorVisitEntries.HEALTH_INSURANCE_COMPANY + TEXT_TYPE + COMMA_SEP +
-					DoctorVisitEntries.HEALTH_INSURANCE_POLICY_NUM + TEXT_TYPE + COMMA_SEP +
+					DoctorVisitEntries.HEALTH_INSURANCE_POLICY_NUM + INT_TYPE + COMMA_SEP +
 					DoctorVisitEntries.HASH_ID + INT_TYPE
 					+ ");";
 	private static final String SQL_DELETE_DOCTOR_VISIT_ENTRIES =
@@ -440,9 +440,9 @@ public final class DatabaseContract {
 					MedicationEntries.MEDICATION_NAME + TEXT_TYPE + COMMA_SEP +
 					MedicationEntries.DOSAGE + INT_TYPE + COMMA_SEP +
 					MedicationEntries.MEDICATION_DURATION + TEXT_TYPE + COMMA_SEP +
-					MedicationEntries.MEDICATION_REASON + INT_TYPE + COMMA_SEP +
+					MedicationEntries.MEDICATION_REASON + TEXT_TYPE + COMMA_SEP +
 					MedicationEntries.PHARMACY_NAME + TEXT_TYPE + COMMA_SEP +
-					MedicationEntries.PHARMACY_PHONE + TEXT_TYPE + COMMA_SEP +
+					MedicationEntries.PHARMACY_PHONE + INT_TYPE + COMMA_SEP +
 					MedicationEntries.HASH_ID + INT_TYPE
 					+");";
 	private static final String SQL_DELETE_MEDICATION_ENTRIES =
@@ -495,8 +495,8 @@ public final class DatabaseContract {
 	}
 	private static final String SQL_CREATE_APPOINTMENT_ENTRIES =
 			"CREATE TABLE " + AppointmentEntries.TABLE_NAME + " (" +
-					AppointmentEntries.DOCTOR_NAME + INT_TYPE + COMMA_SEP +
-					AppointmentEntries.DATE_OF_APPOINTMENT + TEXT_TYPE + COMMA_SEP +
+					AppointmentEntries.DOCTOR_NAME + TEXT_TYPE + COMMA_SEP +
+					AppointmentEntries.DATE_OF_APPOINTMENT + INT_TYPE + COMMA_SEP +
 					AppointmentEntries.TIME_OF_APPOINTMENT + INT_TYPE+ COMMA_SEP+
 					AppointmentEntries.REASON_FOR_APPOINTMENT + TEXT_TYPE + COMMA_SEP +
 					AppointmentEntries.OFFICE_ADDRESS + TEXT_TYPE + COMMA_SEP +
@@ -523,8 +523,8 @@ public final class DatabaseContract {
 			"CREATE TABLE " + WeightLossDietPlanEntries.TABLE_NAME + " (" +
 					WeightLossDietPlanEntries.DIET_NAME + TEXT_TYPE + COMMA_SEP +
 					WeightLossDietPlanEntries.DIET_START_DATE + INT_TYPE+ COMMA_SEP +
-					WeightLossDietPlanEntries.DIET_END_DATE + TEXT_TYPE + COMMA_SEP+
-					WeightLossDietPlanEntries.CURRENT_WEIGHT + TEXT_TYPE + COMMA_SEP +
+					WeightLossDietPlanEntries.DIET_END_DATE + INT_TYPE + COMMA_SEP+
+					WeightLossDietPlanEntries.CURRENT_WEIGHT + INT_TYPE + COMMA_SEP +
 					WeightLossDietPlanEntries.GOAL_WEIGHT + INT_TYPE + COMMA_SEP +
 					WeightLossDietPlanEntries.HASH_ID + INT_TYPE
 					+");";
@@ -547,7 +547,7 @@ public final class DatabaseContract {
 			"CREATE TABLE " + ExercisePlanEntries.TABLE_NAME + " (" +
 					ExercisePlanEntries.EXERCISE_NAME + TEXT_TYPE + COMMA_SEP +
 					ExercisePlanEntries.CALORIES_BURNED + INT_TYPE+ COMMA_SEP +
-					ExercisePlanEntries.DURATION_WORKOUT + TEXT_TYPE + COMMA_SEP+
+					ExercisePlanEntries.DURATION_WORKOUT + INT_TYPE + COMMA_SEP+
 					ExercisePlanEntries.MUSCLE_GROUP + TEXT_TYPE + COMMA_SEP +
 					ExercisePlanEntries.HASH_ID + INT_TYPE
 					+");";
@@ -572,8 +572,8 @@ public final class DatabaseContract {
 			"CREATE TABLE " + RecipeEntries.TABLE_NAME + " (" +
 					RecipeEntries.RECIPE_NAME + TEXT_TYPE + COMMA_SEP +
 					RecipeEntries.SERVINGS + INT_TYPE  + COMMA_SEP +
-					RecipeEntries.COOK_TIME + TEXT_TYPE + COMMA_SEP +
-					RecipeEntries.RECIPE_DESCRIPTION + INT_TYPE+ COMMA_SEP +
+					RecipeEntries.COOK_TIME + INT_TYPE + COMMA_SEP +
+					RecipeEntries.RECIPE_DESCRIPTION + TEXT_TYPE+ COMMA_SEP +
 					RecipeEntries.RECIPE_INGREDIENTS + TEXT_TYPE + COMMA_SEP+
 					RecipeEntries.RECIPE_DIRECTIONS + TEXT_TYPE + COMMA_SEP +
 					RecipeEntries.HASH_ID + INT_TYPE
