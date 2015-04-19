@@ -250,7 +250,7 @@ public final class DatabaseContract {
 		public static final String _ID = "ID";
 		public static final String COLUMN_AWARD_NAME = "AwardName";
 		public static final String COLUMN_AMOUNT = "Amount";
-		public static final String COLUMN_PERIOD = "Period";
+		public static final String COLUMN_PERIOD = "Period  ";
 		public static final String COLUMN_CONDITION = "Condition";
 		public static final String COLUMN_USER_ID = "User_ID";
 		public static final String[] ALL_COLUMNS =
@@ -1214,26 +1214,27 @@ public final class DatabaseContract {
 	/* MEDICAL REPORT ENTRIES */
 	/**
 	 * insert a new medical report into the database
-	 * @param medName
-	 * @param dosage
-	 * @param medDuration
-	 * @param medReason
-	 * @param pharmName
-	 * @param pharmPhone
-	 * @param user
-	 * @return primary key, the rowID
-	 */
-	public long insertMedicalReport(String medName, String dosage, String medDuration,
-			String medReason, String pharmName, String pharmPhone, int user) {
+     * @param bloodPressure
+     * @param ldl
+     * @param hdl
+     * @param cholestot
+     * @param glucose
+     * @param bloodtype
+     * @param allergies
+     * @param user
+     * @return
+     */
+	public long insertMedicalReport(String bloodPressure, String ldl, String hdl,
+			String cholestot, String glucose, String bloodtype, String allergies, int user ) {
 		// Create row's data:
 		ContentValues initialValues = new ContentValues();
-		initialValues.put(MedicalReportEntries.BLOOD_PRESSURE, medName);
-		initialValues.put(MedicalReportEntries.LDL, dosage);
-		initialValues.put(MedicalReportEntries.HDL, medDuration);
-		initialValues.put(MedicalReportEntries.CHOLESTEROL_TOTAL, medReason);
-		initialValues.put(MedicalReportEntries.GLUCOSE, pharmName);
-		initialValues.put(MedicalReportEntries.BLOOD_TYPE, pharmPhone);
-		initialValues.put(MedicalReportEntries.ALLERGIES, pharmPhone);
+		initialValues.put(MedicalReportEntries.BLOOD_PRESSURE, bloodPressure);
+		initialValues.put(MedicalReportEntries.LDL, ldl);
+		initialValues.put(MedicalReportEntries.HDL, hdl);
+		initialValues.put(MedicalReportEntries.CHOLESTEROL_TOTAL, cholestot);
+		initialValues.put(MedicalReportEntries.GLUCOSE, glucose);
+		initialValues.put(MedicalReportEntries.BLOOD_TYPE, bloodtype);
+		initialValues.put(MedicalReportEntries.ALLERGIES, allergies);
 		initialValues.put(MedicalReportEntries.HASH_ID, user);
 
 		// Insert it into the database.

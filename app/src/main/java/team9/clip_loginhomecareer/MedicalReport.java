@@ -15,6 +15,7 @@ public class MedicalReport extends ActionBarActivity {
   long  user;
     int userId;
     private DatabaseContract db;
+    private boolean hasData = false;
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -27,12 +28,15 @@ public class MedicalReport extends ActionBarActivity {
         {
             userId = extras.getInt("ID");
         }
-        Cursor c = db.getMedicalReport(user);
-        if (savedInstanceState != null)
+        Cursor c = db.getAllMedicalReports();
+        if(c.moveToFirst())
         {
-            c.getString(0);
-
-
+            do {
+                if(c.getInt(7) == userId) {
+                    buildFields(c);
+                    hasData = true;
+                }
+            } while (c.moveToNext());
         }
 
 
@@ -73,7 +77,32 @@ public class MedicalReport extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void add_new(View v) {/*
+    public void buildFields(Cursor c)
+    {
+        EditText text;
+        text = (EditText) findViewById(R.id.add_LDL_cholesterol);
+        text.setText(c.getString(2));
+
+        text = (EditText) findViewById(R.id.editText5);
+        text.setText(c.getString(3));
+
+        text = (EditText) findViewById(R.id.editText6);
+        text.setText(c.getString(4));
+
+        text = (EditText) findViewById(R.id.editText);
+        text.setText(c.getString(5));
+
+        text = (EditText) findViewById(R.id.editText7);
+        text.setText(c.getString(6));
+
+        text = (EditText) findViewById(R.id.editText8);
+        text.setText(c.getString(7));
+
+        text = (EditText) findViewById(R.id.editText9);
+        text.setText(c.getString(1));
+    }
+
+    public void add_new(View v) {
         EditText text;
         if (validItems()) {
             text = (EditText) findViewById(R.id.add_LDL_cholesterol);
@@ -106,7 +135,7 @@ public class MedicalReport extends ActionBarActivity {
         else
         {
             toastNotification("Invalid Information");
-        }*/
+        }
     }
     private boolean validItems() {
         //TODO: Check for invalid input data
