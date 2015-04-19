@@ -14,7 +14,7 @@ public final class DatabaseContract {
 
     //Database Name and Version Number. Change V# if you add new columns
     private static final String DATABASE_NAME = "UserDatabase.db";
-    private static final int DATABASE_VERSION = 8; //database not yet implemented in code
+    private static final int DATABASE_VERSION = 9; //database not yet implemented in code
     //download and merge changes to update to current db before changing number
     //always save work! GitHub can be evil.
 
@@ -190,7 +190,7 @@ public final class DatabaseContract {
 		public static final String COLUMN_USER_ID = "User_ID";
         public static final String[] ALL_COLUMNS =
 				{_ID, COLUMN_INSTITUTION, COLUMN_COLLEGE_CITY, COLUMN_STUDY_FIELD,
-						COLUMN_DEGREE, COLUMN_COMPLETION_DATE, COLUMN_USER_ID};
+						COLUMN_DEGREE, COLUMN_START_DATE, COLUMN_COMPLETION_DATE, COLUMN_USER_ID};
 	}
 	// TODO: Place your fields here!
 	// + KEY{...} + " {type} not null"
@@ -232,7 +232,7 @@ public final class DatabaseContract {
 	//		(http://www.sqlite.org/datatype3.html)
 	//  - "not null" means it is a required field (must be given a value).
 	// NOTE: All must be comma separated (end of line!) Last one must have NO comma!!
-	private static final String SQL_CREATE_APPLICATION_ENTRIES =
+	private static final String SQL_CREATE_COLLEGE_APPLICATION_ENTRIES =
 			"CREATE TABLE " + ApplicationEntries.TABLE_NAME + " (" +
 					ApplicationEntries._ID + " INTEGER PRIMARY KEY," +
 					ApplicationEntries.COLUMN_COLLEGE + TEXT_TYPE + COMMA_SEP +
@@ -241,7 +241,7 @@ public final class DatabaseContract {
 					ApplicationEntries.COLUMN_USER_ID + INT_TYPE +
 					//add entries following instructions above
 					");";
-	private static final String SQL_DELETE_APPLICATION_ENTRIES =
+	private static final String SQL_DELETE_COLLEGE_APPLICATION_ENTRIES =
 			"DROP TABLE IF EXISTS " + ApplicationEntries.TABLE_NAME;
 
 	//CollegeFinances
@@ -263,7 +263,7 @@ public final class DatabaseContract {
 	//		(http://www.sqlite.org/datatype3.html)
 	//  - "not null" means it is a required field (must be given a value).
 	// NOTE: All must be comma separated (end of line!) Last one must have NO comma!!
-	private static final String SQL_CREATE_FINANCE_ENTRIES =
+	private static final String SQL_CREATE_COLLEGE_FINANCE_ENTRIES =
 			"CREATE TABLE " + CollegeFinanceEntries.TABLE_NAME + " (" +
 					CollegeFinanceEntries._ID + " INTEGER PRIMARY KEY," +
 					CollegeFinanceEntries.COLUMN_AWARD_NAME + TEXT_TYPE + COMMA_SEP +
@@ -273,7 +273,7 @@ public final class DatabaseContract {
 					CollegeFinanceEntries.COLUMN_USER_ID + INT_TYPE +
 					//add entries following instructions above
 					");";
-	private static final String SQL_DELETE_FINANCE_ENTRIES =
+	private static final String SQL_DELETE_COLLEGE_FINANCE_ENTRIES =
 			"DROP TABLE IF EXISTS " + CollegeFinanceEntries.TABLE_NAME;
 
     /*
@@ -816,7 +816,7 @@ public final class DatabaseContract {
 	}
 
 	public void deleteAllColleges() {
-		Cursor c = getAllCash();
+		Cursor c = getAllColleges();
 		long rowId = c.getColumnIndexOrThrow(CollegeEntries._ID);
 		if (c.moveToFirst()) {
 			do {
@@ -1180,6 +1180,11 @@ public final class DatabaseContract {
 			//db.execSQL(SQL_CREATE_Health_Entries);
 			//finance
 			db.execSQL(SQL_CREATE_CASH_ENTRIES);
+            db.execSQL(SQL_CREATE_COLLEGE_Entries);
+            db.execSQL(SQL_CREATE_COLLEGE_APPLICATION_ENTRIES);
+            db.execSQL(SQL_CREATE_COLLEGE_FINANCE_ENTRIES);
+
+
 		}
 
 		@Override
@@ -1193,6 +1198,9 @@ public final class DatabaseContract {
 			db.execSQL(SQL_DELETE_JOB_ENTRIES);
 			db.execSQL(SQL_DELETE_IDENTITY_ENTRIES);*/
 			db.execSQL(SQL_DELETE_CASH_ENTRIES);
+            db.execSQL(SQL_DELETE_COLLEGE_Entries);
+            db.execSQL(SQL_DELETE_COLLEGE_APPLICATION_ENTRIES);
+            db.execSQL(SQL_DELETE_COLLEGE_FINANCE_ENTRIES);
 			onCreate(db);
 		}
 

@@ -9,7 +9,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ListView;
 
 import java.util.ArrayList;
@@ -31,6 +30,9 @@ public class DegreesList extends ActionBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.education_degrees_list);
+
         openDB();
         Bundle extras = getIntent().getExtras();
         if(extras != null)
@@ -38,18 +40,9 @@ public class DegreesList extends ActionBarActivity {
             User_ID = extras.getInt("ID");
             Log.d("User ID: ", "" + User_ID);
         }
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.education_degrees_list);
+
 
         degrees = (ListView) findViewById(R.id.degree_list);
-
-        Button edit = (Button) findViewById(R.id.degree_list);
-        edit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                createNewInstance(v);
-            }
-        });
 
         buildList();
 
@@ -94,13 +87,14 @@ public class DegreesList extends ActionBarActivity {
             do {
                 if(cursor.getInt(7) == User_ID) {
                     temp = new Degree();
-                    //_ID, name, phone, email, used, met
-                    temp.setCollege(cursor.getString(2));
-                    temp.setStart_date(cursor.getInt(3));
-                    temp.setDegree_type(cursor.getString(5));
+                    //_ID, COLUMN_INSTITUTION, COLUMN_COLLEGE_CITY, COLUMN_STUDY_FIELD,
+                    //COLUMN_DEGREE, COLUMN_START_DATE, COLUMN_COMPLETION_DATE, COLUMN_USER_ID};
+                    temp.setCollege(cursor.getString(1));
+                    temp.setStart_date(cursor.getInt(5));
+                    temp.setDegree_type(cursor.getString(4));
                     temp.setGrad_date(cursor.getInt(6));
                     temp.setLocation(cursor.getString(2));
-                    temp.setStudy_field(cursor.getString(4));
+                    temp.setStudy_field(cursor.getString(3));
                     degreeArrayList.add(temp);
                 }
             } while (cursor.moveToNext());

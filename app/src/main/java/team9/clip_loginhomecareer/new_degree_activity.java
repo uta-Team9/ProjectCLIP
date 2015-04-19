@@ -24,6 +24,7 @@ public class new_degree_activity extends ActionBarActivity {
 
     @Override
     protected void onDestroy() {
+        super.onDestroy();
         closeDB();
     }
 

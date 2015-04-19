@@ -12,11 +12,23 @@
         android:layout_height="fill_parent"
         android:id="@+id/degree_list"
         android:choiceMode="singleChoice"
-        android:layout_below="@+id/textView2"
-        android:layout_alignParentLeft="true"
+        android:background="#ffffffff"
         android:layout_alignParentTop="true"
-        android:layout_above="@+id/new_instance_button"
-        android:background="#ffffffff"/>
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+
+    <Button
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Add Degree"
+        android:id="@+id/new_instance_button"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:background="#ff504af1"
+        android:textColor="#ff000000"
+        android:onClick="createNewInstance"/>
+
 
 
 </RelativeLayout>
