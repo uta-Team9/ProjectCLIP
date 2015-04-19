@@ -1769,34 +1769,7 @@ public final class DatabaseContract {
 
 
 
-	public long insertDoctorVisitRow(String tableName, String lastCheckUpDate,
-	                  String insuranceCompany, String insurancePolicyNum, int user) {
-		// Create row's data:
-		ContentValues initialValues = new ContentValues();
-		initialValues.put(DoctorVisitEntries.LAST_CHECK_UP_DATE, lastCheckUpDate);
-		initialValues.put(DoctorVisitEntries.HEALTH_INSURANCE_COMPANY, insuranceCompany);
-		initialValues.put(DoctorVisitEntries.HEALTH_INSURANCE_POLICY_NUM, insurancePolicyNum);
-		initialValues.put(DoctorVisitEntries.HASH_ID, user);
 
-		// Insert it into the database.
-		return db.insert(DoctorVisitEntries.TABLE_NAME, null, initialValues);
-	}
-	public long insertMedication(String medName, String dosage,
-			String medDuration, String medReason, String pharmName, String pharmPhone, int user) {
-
-		// Create row's data:
-		ContentValues initialValues = new ContentValues();
-		initialValues.put(MedicationEntries.MEDICATION_NAME, medName);
-		initialValues.put(MedicationEntries.DOSAGE, dosage);
-		initialValues.put(MedicationEntries.MEDICATION_DURATION, medDuration);
-		initialValues.put(MedicationEntries.MEDICATION_REASON, medReason);
-		initialValues.put(MedicationEntries.PHARMACY_NAME, pharmName);
-		initialValues.put(MedicationEntries.PHARMACY_PHONE, pharmPhone);
-		initialValues.put(DoctorVisitEntries.HASH_ID, user);
-
-		// Insert it into the database.
-		return db.insert(MedicationEntries.TABLE_NAME, null, initialValues);
-	}
 
 
 
@@ -1899,24 +1872,544 @@ public final class DatabaseContract {
 
 
 
-
-
-	public long insertAppointments(
-			String tableName, String medName, String dosage, String medDuration, String medReason,
-			String pharmName, String pharmPhone, int user) {
+	//APPOINTMENT METHODS
+	/**
+	 *
+	 * @param doctor
+	 * @param date
+	 * @param time
+	 * @param reason
+	 * @param address
+	 * @param phone
+	 * @param user
+	 * @return row number, type long Primary Key
+	 */
+	public long insertAppointment(String doctor, int date, int time, String reason, String address,
+	                               int phone, int user) {
 		// Create row's data:
 		ContentValues initialValues = new ContentValues();
-		initialValues.put(AppointmentEntries.TABLE_NAME, tableName);
-		initialValues.put(AppointmentEntries.DOCTOR_NAME, medName);
-		initialValues.put(AppointmentEntries.DATE_OF_APPOINTMENT, dosage);
-		initialValues.put(AppointmentEntries.TIME_OF_APPOINTMENT, medDuration);
-		initialValues.put(AppointmentEntries.REASON_FOR_APPOINTMENT, medReason);
-		initialValues.put(AppointmentEntries.OFFICE_ADDRESS, pharmName);
-		initialValues.put(AppointmentEntries.DOCTOR_PHONE, pharmPhone);
-		initialValues.put(AppointmentEntries.HASH_ID, user);
+		initialValues.put(AppointmentEntries.ALL_COLUMNS[1], doctor);
+		initialValues.put(AppointmentEntries.ALL_COLUMNS[2], date);
+		initialValues.put(AppointmentEntries.ALL_COLUMNS[3], time);
+		initialValues.put(AppointmentEntries.ALL_COLUMNS[4], reason);
+		initialValues.put(AppointmentEntries.ALL_COLUMNS[5], address);
+		initialValues.put(AppointmentEntries.ALL_COLUMNS[6], phone);
+		initialValues.put(AppointmentEntries.ALL_COLUMNS[7], user);
 
 		// Insert it into the database.
 		return db.insert(AppointmentEntries.TABLE_NAME, null, initialValues);
 	}
 
+	/**
+	 *
+	 * @param rowId row number, type long Primary Key
+	 * @param doctor
+	 * @param date
+	 * @param time
+	 * @param reason
+	 * @param address
+	 * @param phone
+	 * @return
+	 */
+	public boolean updateAppointment(long rowId, String doctor, int date, int time,
+	                                   String reason, String address, int phone) {
+		String where = AppointmentEntries._ID + "=" + rowId;
+		// TODO: Update data in the row with new fields.
+		// TODO: Also change the function's arguments to be what you need!
+		ContentValues initialValues = new ContentValues();
+		initialValues.put(AppointmentEntries.ALL_COLUMNS[1], doctor);
+		initialValues.put(AppointmentEntries.ALL_COLUMNS[2], date);
+		initialValues.put(AppointmentEntries.ALL_COLUMNS[3], time);
+		initialValues.put(AppointmentEntries.ALL_COLUMNS[4], reason);
+		initialValues.put(AppointmentEntries.ALL_COLUMNS[5], address);
+		initialValues.put(AppointmentEntries.ALL_COLUMNS[6], phone);
+
+		// Insert it into the database.
+		return db.update(AppointmentEntries.TABLE_NAME, initialValues, where, null) != 0;
+	}
+
+	public Cursor getAppointment(long rowId) {
+		String where = AppointmentEntries._ID + "=" + rowId;
+		Cursor c = 	db.query(true, AppointmentEntries.TABLE_NAME, AppointmentEntries.ALL_COLUMNS,
+				where, null, null, null, null, null);
+		if (c != null) {
+			c.moveToFirst();
+		}
+		return c;
+	}
+
+	// Return all data in the database.
+	public Cursor getAllAppointments() {
+		String where = null;
+		Cursor c = 	db.query(AppointmentEntries.TABLE_NAME, AppointmentEntries.ALL_COLUMNS,
+				where, null, null, null, null);
+		if (c != null) {
+			c.moveToFirst();
+		}
+		return c;
+	}
+
+	// Delete a row from the database, by rowId (primary key)
+	public boolean deleteAppointment(long rowId) {
+		String where = AppointmentEntries._ID + "=" + rowId;
+		return db.delete(AppointmentEntries.TABLE_NAME, where, null) != 0;
+	}
+
+	public void deleteAllAppointments() {
+		Cursor c = getAllAppointments();
+		long rowId = c.getColumnIndexOrThrow(AppointmentEntries._ID);
+		if (c.moveToFirst()) {
+			do {
+				deleteAppointment(c.getLong((int) rowId));
+			} while (c.moveToNext());
+		}
+		c.close();
+	}
+
+
+	//DOCTORS VISIT METHODS
+	/**
+	 *
+	 * @param lastCheckUpDate
+	 * @param insuranceCompany
+	 * @param insurancePolicyNum
+	 * @param user
+	 * @return row number, type long Primary Key
+	 */
+	public long insertDoctorVisit(int lastCheckUpDate, String insuranceCompany, int insurancePolicyNum, int user) {
+		// Create row's data:
+		ContentValues initialValues = new ContentValues();
+		initialValues.put(DoctorVisitEntries.LAST_CHECK_UP_DATE, lastCheckUpDate);
+		initialValues.put(DoctorVisitEntries.HEALTH_INSURANCE_COMPANY, insuranceCompany);
+		initialValues.put(DoctorVisitEntries.HEALTH_INSURANCE_POLICY_NUM, insurancePolicyNum);
+		initialValues.put(DoctorVisitEntries.HASH_ID, user);
+
+		// Insert it into the database.
+		return db.insert(DoctorVisitEntries.TABLE_NAME, null, initialValues);
+	}
+
+	/**
+	 *
+	 * @param rowId row number, type long Primary Key
+	 * @param lastCheckUpDate
+	 * @param insuranceCompany
+	 * @param insurancePolicyNum
+	 * @return
+	 */
+	public boolean updateDoctorVisit(long rowId, int lastCheckUpDate, String insuranceCompany, int insurancePolicyNum) {
+		String where = DoctorVisitEntries._ID + "=" + rowId;
+		// TODO: Update data in the row with new fields.
+		// TODO: Also change the function's arguments to be what you need!
+		ContentValues newValues = new ContentValues();
+		newValues.put(DoctorVisitEntries.LAST_CHECK_UP_DATE, lastCheckUpDate);
+		newValues.put(DoctorVisitEntries.HEALTH_INSURANCE_COMPANY, insuranceCompany);
+		newValues.put(DoctorVisitEntries.HEALTH_INSURANCE_POLICY_NUM, insurancePolicyNum);
+
+		// Insert it into the database.
+		return db.update(DoctorVisitEntries.TABLE_NAME, newValues, where, null) != 0;
+	}
+
+	public Cursor getDoctorVisit(long rowId) {
+		String where = DoctorVisitEntries._ID + "=" + rowId;
+		Cursor c = 	db.query(true, DoctorVisitEntries.TABLE_NAME, DoctorVisitEntries.ALL_COLUMNS,
+				where, null, null, null, null, null);
+		if (c != null) {
+			c.moveToFirst();
+		}
+		return c;
+	}
+
+	// Return all data in the database.
+	public Cursor getAllDoctorVisits() {
+		String where = null;
+		Cursor c = 	db.query(DoctorVisitEntries.TABLE_NAME, DoctorVisitEntries.ALL_COLUMNS,
+				where, null, null, null, null);
+		if (c != null) {
+			c.moveToFirst();
+		}
+		return c;
+	}
+
+	// Delete a row from the database, by rowId (primary key)
+	public boolean deleteDoctorVisit(long rowId) {
+		String where = DoctorVisitEntries._ID + "=" + rowId;
+		return db.delete(DoctorVisitEntries.TABLE_NAME, where, null) != 0;
+	}
+
+	public void deleteAllDoctorVisits() {
+		Cursor c = getAllDoctorVisits();
+		long rowId = c.getColumnIndexOrThrow(DoctorVisitEntries._ID);
+		if (c.moveToFirst()) {
+			do {
+				deleteDoctorVisit(c.getLong((int) rowId));
+			} while (c.moveToNext());
+		}
+		c.close();
+	}
+
+
+	//MEDICATION METHODS
+	/**
+	 *
+	 * @param medName
+	 * @param dosage
+	 * @param medDuration
+	 * @param medReason
+	 * @param pharmName
+	 * @param pharmPhone
+	 * @param user
+	 * @return row number, type long Primary Key
+	 */
+	public long insertMedication(String medName, String dosage, String medDuration,
+	                             String medReason, String pharmName, String pharmPhone, int user) {
+
+		// Create row's data:
+		ContentValues initialValues = new ContentValues();
+		initialValues.put(MedicationEntries.MEDICATION_NAME, medName);
+		initialValues.put(MedicationEntries.DOSAGE, dosage);
+		initialValues.put(MedicationEntries.MEDICATION_DURATION, medDuration);
+		initialValues.put(MedicationEntries.MEDICATION_REASON, medReason);
+		initialValues.put(MedicationEntries.PHARMACY_NAME, pharmName);
+		initialValues.put(MedicationEntries.PHARMACY_PHONE, pharmPhone);
+		initialValues.put(MedicationEntries.HASH_ID, user);
+
+		// Insert it into the database.
+		return db.insert(MedicationEntries.TABLE_NAME, null, initialValues);
+	}
+
+	/**
+	 *
+	 * @param rowId row number, type long Primary Key
+	 * @param medName
+	 * @param dosage
+	 * @param medDuration
+	 * @param medReason
+	 * @param pharmName
+	 * @param pharmPhone
+	 * @return
+	 */
+	public boolean updateMedication(long rowId, String medName, String dosage, String medDuration,
+	                                   String medReason, String pharmName, String pharmPhone) {
+		String where = MedicationEntries._ID + "=" + rowId;
+		// TODO: Update data in the row with new fields.
+		// TODO: Also change the function's arguments to be what you need!
+		ContentValues initialValues = new ContentValues();
+		initialValues.put(MedicationEntries.MEDICATION_NAME, medName);
+		initialValues.put(MedicationEntries.DOSAGE, dosage);
+		initialValues.put(MedicationEntries.MEDICATION_DURATION, medDuration);
+		initialValues.put(MedicationEntries.MEDICATION_REASON, medReason);
+		initialValues.put(MedicationEntries.PHARMACY_NAME, pharmName);
+		initialValues.put(MedicationEntries.PHARMACY_PHONE, pharmPhone);
+
+		// Insert it into the database.
+		return db.update(MedicationEntries.TABLE_NAME, initialValues, where, null) != 0;
+	}
+
+	public Cursor getMedication(long rowId) {
+		String where = MedicationEntries._ID + "=" + rowId;
+		Cursor c = 	db.query(true, MedicationEntries.TABLE_NAME, MedicationEntries.ALL_COLUMNS,
+				where, null, null, null, null, null);
+		if (c != null) {
+			c.moveToFirst();
+		}
+		return c;
+	}
+
+	// Return all data in the database.
+	public Cursor getAllMedications() {
+		String where = null;
+		Cursor c = 	db.query(MedicationEntries.TABLE_NAME, MedicationEntries.ALL_COLUMNS,
+				where, null, null, null, null);
+		if (c != null) {
+			c.moveToFirst();
+		}
+		return c;
+	}
+
+	// Delete a row from the database, by rowId (primary key)
+	public boolean deleteMedication(long rowId) {
+		String where = MedicationEntries._ID + "=" + rowId;
+		return db.delete(MedicationEntries.TABLE_NAME, where, null) != 0;
+	}
+
+	public void deleteAllMedications() {
+		Cursor c = getAllMedications();
+		long rowId = c.getColumnIndexOrThrow(MedicationEntries._ID);
+		if (c.moveToFirst()) {
+			do {
+				deleteMedication(c.getLong((int) rowId));
+			} while (c.moveToNext());
+		}
+		c.close();
+	}
+
+	//WEIGHT LOSS and DIET PLAN
+	/**
+	 *
+	 * @param planName
+	 * @param startDate
+	 * @param endDate
+	 * @param currentWeight
+	 * @param goalWeight
+	 * @param user
+	 * @return row number, type long Primary Key
+	 */
+	public long insertWeightDietRow(String planName, int startDate, int endDate, int currentWeight,
+	                                int goalWeight, int user) {
+		// Create row's data:
+		ContentValues initialValues = new ContentValues();
+		initialValues.put(WeightLossDietPlanEntries.ALL_COLUMNS[1], planName);
+		initialValues.put(WeightLossDietPlanEntries.ALL_COLUMNS[2], startDate);
+		initialValues.put(WeightLossDietPlanEntries.ALL_COLUMNS[3], endDate);
+		initialValues.put(WeightLossDietPlanEntries.ALL_COLUMNS[4], currentWeight);
+		initialValues.put(WeightLossDietPlanEntries.ALL_COLUMNS[5], goalWeight);
+		initialValues.put(WeightLossDietPlanEntries.ALL_COLUMNS[6], user);
+
+		// Insert it into the database.
+		return db.insert(WeightLossDietPlanEntries.TABLE_NAME, null, initialValues);
+	}
+
+	/**
+	 *
+	 * @param rowId row number, type long Primary Key
+	 * @param planName
+	 * @param startDate
+	 * @param endDate
+	 * @param currentWeight
+	 * @param goalWeight
+	 * @return
+	 */
+	public boolean updateWeightDietRow(long rowId, String planName, int startDate, int endDate, int currentWeight,
+	                                   int goalWeight) {
+		String where = WeightLossDietPlanEntries._ID + "=" + rowId;
+		// TODO: Update data in the row with new fields.
+		// TODO: Also change the function's arguments to be what you need!
+		ContentValues initialValues = new ContentValues();
+		initialValues.put(WeightLossDietPlanEntries.ALL_COLUMNS[1], planName);
+		initialValues.put(WeightLossDietPlanEntries.ALL_COLUMNS[2], startDate);
+		initialValues.put(WeightLossDietPlanEntries.ALL_COLUMNS[3], endDate);
+		initialValues.put(WeightLossDietPlanEntries.ALL_COLUMNS[4], currentWeight);
+		initialValues.put(WeightLossDietPlanEntries.ALL_COLUMNS[5], goalWeight);
+
+		// Insert it into the database.
+		return db.update(WeightLossDietPlanEntries.TABLE_NAME, initialValues, where, null) != 0;
+	}
+
+	public Cursor getWeightDietRow(long rowId) {
+		String where = WeightLossDietPlanEntries._ID + "=" + rowId;
+		Cursor c = 	db.query(true, WeightLossDietPlanEntries.TABLE_NAME, WeightLossDietPlanEntries.ALL_COLUMNS,
+				where, null, null, null, null, null);
+		if (c != null) {
+			c.moveToFirst();
+		}
+		return c;
+	}
+
+	// Return all data in the database.
+	public Cursor getAllWeightDietRows() {
+		String where = null;
+		Cursor c = 	db.query(WeightLossDietPlanEntries.TABLE_NAME, WeightLossDietPlanEntries.ALL_COLUMNS,
+				where, null, null, null, null);
+		if (c != null) {
+			c.moveToFirst();
+		}
+		return c;
+	}
+
+	// Delete a row from the database, by rowId (primary key)
+	public boolean deleteWeightDietRow(long rowId) {
+		String where = WeightLossDietPlanEntries._ID + "=" + rowId;
+		return db.delete(WeightLossDietPlanEntries.TABLE_NAME, where, null) != 0;
+	}
+
+	public void deleteAllWeightDietRows() {
+		Cursor c = getAllWeightDietRows();
+		long rowId = c.getColumnIndexOrThrow(WeightLossDietPlanEntries._ID);
+		if (c.moveToFirst()) {
+			do {
+				deleteWeightDietRow(c.getLong((int) rowId));
+			} while (c.moveToNext());
+		}
+		c.close();
+	}
+
+	//EXERCISE PLAN
+	/**
+	 *
+	 * @param planName
+	 * @param caloriesBurned
+	 * @param duration
+	 * @param muscleGroup
+	 * @param user
+	 * @return row number, type long Primary Key
+	 */
+	public long insertExercisePlan(String planName, int caloriesBurned, int duration, String muscleGroup, int user) {
+		// Create row's data:
+		ContentValues initialValues = new ContentValues();
+		initialValues.put(ExercisePlanEntries.ALL_COLUMNS[1], planName);
+		initialValues.put(ExercisePlanEntries.ALL_COLUMNS[2], caloriesBurned);
+		initialValues.put(ExercisePlanEntries.ALL_COLUMNS[3], duration);
+		initialValues.put(ExercisePlanEntries.ALL_COLUMNS[4], muscleGroup);
+		initialValues.put(ExercisePlanEntries.ALL_COLUMNS[5], user);
+
+		// Insert it into the database.
+		return db.insert(ExercisePlanEntries.TABLE_NAME, null, initialValues);
+	}
+
+	/**
+	 *
+	 * @param rowId row number, type long Primary Key
+	 * @param planName
+	 * @param caloriesBurned
+	 * @param duration
+	 * @param muscleGroup
+	 * @return
+	 */
+	public boolean updateExercisePlan(long rowId, String planName, int caloriesBurned,
+	                                   int duration, String muscleGroup) {
+		String where = ExercisePlanEntries._ID + "=" + rowId;
+		// TODO: Update data in the row with new fields.
+		// TODO: Also change the function's arguments to be what you need!
+		ContentValues initialValues = new ContentValues();
+		initialValues.put(ExercisePlanEntries.ALL_COLUMNS[1], planName);
+		initialValues.put(ExercisePlanEntries.ALL_COLUMNS[2], caloriesBurned);
+		initialValues.put(ExercisePlanEntries.ALL_COLUMNS[3], duration);
+		initialValues.put(ExercisePlanEntries.ALL_COLUMNS[4], muscleGroup);
+
+		// Insert it into the database.
+		return db.update(ExercisePlanEntries.TABLE_NAME, initialValues, where, null) != 0;
+	}
+
+	public Cursor getExercisePlan(long rowId) {
+		String where = ExercisePlanEntries._ID + "=" + rowId;
+		Cursor c = 	db.query(true, ExercisePlanEntries.TABLE_NAME, ExercisePlanEntries.ALL_COLUMNS,
+				where, null, null, null, null, null);
+		if (c != null) {
+			c.moveToFirst();
+		}
+		return c;
+	}
+
+	// Return all data in the database.
+	public Cursor getAllExercisePlans() {
+		String where = null;
+		Cursor c = 	db.query(ExercisePlanEntries.TABLE_NAME, ExercisePlanEntries.ALL_COLUMNS,
+				where, null, null, null, null);
+		if (c != null) {
+			c.moveToFirst();
+		}
+		return c;
+	}
+
+	// Delete a row from the database, by rowId (primary key)
+	public boolean deleteExercisePlan(long rowId) {
+		String where = ExercisePlanEntries._ID + "=" + rowId;
+		return db.delete(ExercisePlanEntries.TABLE_NAME, where, null) != 0;
+	}
+
+	public void deleteAllExercisePlans() {
+		Cursor c = getAllExercisePlans();
+		long rowId = c.getColumnIndexOrThrow(ExercisePlanEntries._ID);
+		if (c.moveToFirst()) {
+			do {
+				deleteExercisePlan(c.getLong((int) rowId));
+			} while (c.moveToNext());
+		}
+		c.close();
+	}
+
+	//RECIPES
+
+	/**
+	 * Inserts recipe variables into the database
+	 * @param recipeName
+	 * @param servings
+	 * @param cookTime
+	 * @param description
+	 * @param ingredients
+	 * @param directions
+	 * @param user
+	 * @return row number, type long Primary Key
+	 */
+	public long insertRecipe(String recipeName, int servings, int cookTime, String description,
+	                         String ingredients, String directions, int user) {
+		// Create row's data:
+		ContentValues initialValues = new ContentValues();
+		initialValues.put(RecipeEntries.ALL_COLUMNS[1], recipeName);
+		initialValues.put(RecipeEntries.ALL_COLUMNS[2], servings);
+		initialValues.put(RecipeEntries.ALL_COLUMNS[3], cookTime);
+		initialValues.put(RecipeEntries.ALL_COLUMNS[4], description);
+		initialValues.put(RecipeEntries.ALL_COLUMNS[5], ingredients);
+		initialValues.put(RecipeEntries.ALL_COLUMNS[6], directions);
+		initialValues.put(RecipeEntries.ALL_COLUMNS[7], user);
+
+		// Insert it into the database.
+		return db.insert(RecipeEntries.TABLE_NAME, null, initialValues);
+	}
+
+	/**
+	 *
+	 * @param rowId the primary key, row number
+	 * @param recipeName
+	 * @param servings
+	 * @param cookTime
+	 * @param description
+	 * @param ingredients
+	 * @param directions
+	 * @return true if update is successful
+	 */
+	public boolean updateRecipe(long rowId, String recipeName, int servings, int cookTime,
+	                                   String description, String ingredients, String directions) {
+		String where = RecipeEntries._ID + "=" + rowId;
+		// TODO: Update data in the row with new fields.
+		// TODO: Also change the function's arguments to be what you need!
+		ContentValues initialValues = new ContentValues();
+		initialValues.put(RecipeEntries.ALL_COLUMNS[1], recipeName);
+		initialValues.put(RecipeEntries.ALL_COLUMNS[2], servings);
+		initialValues.put(RecipeEntries.ALL_COLUMNS[3], cookTime);
+		initialValues.put(RecipeEntries.ALL_COLUMNS[4], description);
+		initialValues.put(RecipeEntries.ALL_COLUMNS[5], ingredients);
+		initialValues.put(RecipeEntries.ALL_COLUMNS[6], directions);
+
+		// Insert it into the database.
+		return db.update(RecipeEntries.TABLE_NAME, initialValues, where, null) != 0;
+	}
+
+	public Cursor getRecipe(long rowId) {
+		String where = RecipeEntries._ID + "=" + rowId;
+		Cursor c = 	db.query(true, RecipeEntries.TABLE_NAME, RecipeEntries.ALL_COLUMNS,
+				where, null, null, null, null, null);
+		if (c != null) {
+			c.moveToFirst();
+		}
+		return c;
+	}
+
+	// Return all data in the database.
+	public Cursor getAllRecipes() {
+		String where = null;
+		Cursor c = 	db.query(RecipeEntries.TABLE_NAME, RecipeEntries.ALL_COLUMNS,
+				where, null, null, null, null);
+		if (c != null) {
+			c.moveToFirst();
+		}
+		return c;
+	}
+
+	// Delete a row from the database, by rowId (primary key)
+	public boolean deleteRecipe(long rowId) {
+		String where = RecipeEntries._ID + "=" + rowId;
+		return db.delete(RecipeEntries.TABLE_NAME, where, null) != 0;
+	}
+
+	public void deleteAllRecipes() {
+		Cursor c = getAllRecipes();
+		long rowId = c.getColumnIndexOrThrow(RecipeEntries._ID);
+		if (c.moveToFirst()) {
+			do {
+				deleteRecipe(c.getLong((int) rowId));
+			} while (c.moveToNext());
+		}
+		c.close();
+	}
 }
