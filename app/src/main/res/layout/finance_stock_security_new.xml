@@ -61,9 +61,17 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:id="@+id/txt_price_per_unit"
+                android:id="@+id/txt_purchase_price_per_unit"
                 android:paddingTop="16dp"
-                android:hint="Price Per Unit"/>
+                android:hint="Purchase Price Per Unit"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:id="@+id/txt_current_price_per_unit"
+                android:paddingTop="16dp"
+                android:hint="Current Market Price Per Unit"/>
 
             <EditText
                 android:layout_width="match_parent"

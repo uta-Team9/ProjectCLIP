@@ -14,7 +14,7 @@ public final class DatabaseContract {
 
     //Database Name and Version Number. Change V# if you add new columns
     private static final String DATABASE_NAME = "UserDatabase.db";
-    private static final int DATABASE_VERSION = 9; //database not yet implemented in code
+    private static final int DATABASE_VERSION = 12; //database not yet implemented in code
     //download and merge changes to update to current db before changing number
     //always save work! GitHub can be evil.
 
@@ -1141,12 +1141,12 @@ public final class DatabaseContract {
 
 			//HEALTH
 			db.execSQL(SQL_CREATE_MEDICAL_REPORT_ENTRIES);
-			db.execSQL(SQL_CREATE_MEDICATION_ENTRIES);
+			/*db.execSQL(SQL_CREATE_MEDICATION_ENTRIES);
 			db.execSQL(SQL_CREATE_APPOINTMENT_ENTRIES);
 			db.execSQL(SQL_CREATE_DOCTOR_VISIT_ENTRIES);
 			db.execSQL(SQL_CREATE_WEIGHT_LOSS_AND_DIET_PLAN_ENTRIES);
 			db.execSQL(SQL_CREATE_EXERCISE_PLAN_ENTRIES);
-			db.execSQL(SQL_CREATE_HEALTHY_RECIPE_ENTRIES);
+			db.execSQL(SQL_CREATE_HEALTHY_RECIPE_ENTRIES);*/
 		}
 
 		@Override
@@ -1164,12 +1164,12 @@ public final class DatabaseContract {
 
 			//HEALTH
 			db.execSQL(SQL_DELETE_MEDICAL_REPORT_ENTRIES);
-			db.execSQL(SQL_DELETE_MEDICATION_ENTRIES);
+			/*db.execSQL(SQL_DELETE_MEDICATION_ENTRIES);
 			db.execSQL(SQL_DELETE_APPOINTMENT_ENTRIES);
 			db.execSQL(SQL_DELETE_DOCTOR_VISIT_ENTRIES);
 			db.execSQL(SQL_DELETE_WEIGHT_LOSS_AND_DIET_PLAN_ENTRIES);
 			db.execSQL(SQL_DELETE_EXERCISE_PLAN_ENTRIES);
-			db.execSQL(SQL_DELETE_HEALTHY_RECIPE_ENTRIES);
+			db.execSQL(SQL_DELETE_HEALTHY_RECIPE_ENTRIES);*/
 			onCreate(db);
 		}
 
