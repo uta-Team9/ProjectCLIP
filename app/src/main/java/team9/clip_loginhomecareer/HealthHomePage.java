@@ -9,11 +9,19 @@ import android.view.View;
 
 
 public class HealthHomePage extends ActionBarActivity {
+    int medreport;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Bundle extras = getIntent().getExtras();
+        if(extras!=null)
+        {
+            medreport = extras.getInt("ID");
+        }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_health_home_page);
+
+
     }
 
 
@@ -47,6 +55,7 @@ public class HealthHomePage extends ActionBarActivity {
     public void sendMessageMedReport(View view)
     {
         Intent intent = new Intent(HealthHomePage.this, MedicalReport.class);
+        intent.putExtra("ID", medreport);
         startActivity(intent);
     }
     public void sendMessageWeightLossAndDietPlan(View view)

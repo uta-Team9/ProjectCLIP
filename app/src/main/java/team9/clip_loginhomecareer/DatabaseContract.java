@@ -344,6 +344,8 @@ public final class DatabaseContract {
         public static final String GLUCOSE = "Glucose";
         public static final String BLOOD_TYPE = "Blood Type";
         public static final String ALLERGIES = "Allergies";
+        public static final String userId = "User ID";
+        public static final String[] ALL_COLUMNS = { BLOOD_PRESSURE, LDL, HDL, CHOLESTEROL_TOTAL, GLUCOSE, BLOOD_TYPE, ALLERGIES, userId};
     }
 
     public static abstract class AppointmentEntries implements BaseColumns {
@@ -407,7 +409,8 @@ public final class DatabaseContract {
                     MedicalReportEntries.CHOLESTEROL_TOTAL + TEXT_TYPE + COMMA_SEP +
                     MedicalReportEntries.GLUCOSE + TEXT_TYPE + COMMA_SEP +
                     MedicalReportEntries.BLOOD_TYPE + TEXT_TYPE + COMMA_SEP +
-                    MedicalReportEntries.ALLERGIES + TEXT_TYPE
+                    MedicalReportEntries.ALLERGIES + TEXT_TYPE + COMMA_SEP +
+                    MedicalReportEntries.userId + INT_TYPE
                     +");";
     private static final String SQL_CREATE_APPOINTMENT_ENTRIES =
             "CREATE TABLE " + AppointmentEntries.TABLE_NAME + " (" +
@@ -569,7 +572,7 @@ public final class DatabaseContract {
 
     public long insertMedicalReport(
             String tableName, String medName, String dosage,
-            String medDuration, String medReason, String pharmName, String pharmPhone)
+            String medDuration, String medReason, String pharmName, String pharmPhone, int user)
     {
         // Create row's data:
         ContentValues initialValues = new ContentValues();
@@ -581,6 +584,7 @@ public final class DatabaseContract {
         initialValues.put(MedicalReportEntries.GLUCOSE, pharmName);
         initialValues.put(MedicalReportEntries.BLOOD_TYPE, pharmPhone);
         initialValues.put(MedicalReportEntries.ALLERGIES, pharmPhone);
+        initialValues.put(MedicalReportEntries.userId, user);
 
 
         // Insert it into the database.
@@ -1198,6 +1202,13 @@ public final class DatabaseContract {
 			db.execSQL(SQL_DELETE_JOB_ENTRIES);
 			db.execSQL(SQL_DELETE_IDENTITY_ENTRIES);*/
 			db.execSQL(SQL_DELETE_CASH_ENTRIES);
+            db.execSQL(SQL_CREATE_MEDICAL_REPORT_ENTRIES);
+            db.execSQL(SQL_CREATE_MEDICATION_ENTRIES);
+            db.execSQL(SQL_CREATE_APPOINTMENT_ENTRIES);
+            db.execSQL(SQL_CREATE_DOCTOR_VISIT_ENTRIES);
+            db.execSQL(SQL_CREATE_WEIGHT_LOSS_AND_DIET_PLAN_ENTRIES);
+            db.execSQL(SQL_CREATE_EXERCISE_PLAN_ENTRIES);
+            db.execSQL(SQL_CREATE_HEALTHY_RECIPE_ENTRIES);
             db.execSQL(SQL_DELETE_COLLEGE_Entries);
             db.execSQL(SQL_DELETE_COLLEGE_APPLICATION_ENTRIES);
             db.execSQL(SQL_DELETE_COLLEGE_FINANCE_ENTRIES);
@@ -1208,5 +1219,16 @@ public final class DatabaseContract {
 			onUpgrade(db, oldVersion, newVersion);
 		}
 	}
+
+    public Cursor getMedicalReport(long rowId) {
+        String where = MedicalReportEntries._ID + "=" + rowId;
+        String[] ALL_KEYS = MedicalReportEntries.ALL_COLUMNS;
+        Cursor c = 	db.query(true, MedicalReportEntries.TABLE_NAME, ALL_KEYS,
+                where, null, null, null, null, null);
+        if (c != null) {
+            c.moveToFirst();
+        }
+        return c;
+    }
 
 }
