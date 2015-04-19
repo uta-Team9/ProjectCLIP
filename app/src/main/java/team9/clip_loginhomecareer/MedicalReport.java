@@ -73,7 +73,7 @@ public class MedicalReport extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void add_new(View v) {
+    public void add_new(View v) {/*
         EditText text;
         if (validItems()) {
             text = (EditText) findViewById(R.id.add_LDL_cholesterol);
@@ -106,7 +106,7 @@ public class MedicalReport extends ActionBarActivity {
         else
         {
             toastNotification("Invalid Information");
-        }
+        }*/
     }
     private boolean validItems() {
         //TODO: Check for invalid input data

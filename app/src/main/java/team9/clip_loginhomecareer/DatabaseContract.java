@@ -1184,11 +1184,6 @@ public final class DatabaseContract {
 			//db.execSQL(SQL_CREATE_Health_Entries);
 			//finance
 			db.execSQL(SQL_CREATE_CASH_ENTRIES);
-            db.execSQL(SQL_CREATE_COLLEGE_Entries);
-            db.execSQL(SQL_CREATE_COLLEGE_APPLICATION_ENTRIES);
-            db.execSQL(SQL_CREATE_COLLEGE_FINANCE_ENTRIES);
-
-
 		}
 
 		@Override

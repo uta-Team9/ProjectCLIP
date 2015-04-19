@@ -19,7 +19,8 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:onClick="openCashView"/>
+        android:clickable="true"
+        android:onClick="switchViews"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -31,7 +32,9 @@
         android:id="@+id/txt_asset"
         android:layout_below="@+id/txt_cash"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:clickable="true"
+        android:onClick="switchViews"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -43,7 +46,9 @@
         android:id="@+id/txt_liability"
         android:layout_below="@+id/txt_asset"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:clickable="true"
+        android:onClick="switchViews"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -55,7 +60,9 @@
         android:id="@+id/txt_credit"
         android:layout_below="@+id/txt_liability"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:clickable="true"
+        android:onClick="switchViews"/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -66,7 +73,8 @@
         android:id="@+id/txt_other"
         android:layout_below="@+id/txt_credit"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
-
+        android:layout_alignParentStart="true"
+        android:clickable="true"
+        android:onClick="switchViews"/>
 
 </RelativeLayout>
