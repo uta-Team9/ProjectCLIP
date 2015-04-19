@@ -178,14 +178,14 @@ public class Login extends ActionBarActivity implements LoaderCallbacks<Cursor> 
 
 	private boolean isEmailValid(String email) {
 		//TODO: Replace this with your own logic
-		if(!email.contains(":") && email.contains("@"))
+		if(!email.contains(":") /*&& email.contains("@")*/)
 			return true;
 		return false;
 	}
 
 	private boolean isPasswordValid(String password) {
 		//TODO: Replace this with your own logic
-		if(!password.contains(":") && password.length() > 4)
+		if(!password.contains(":") && password.length() > 0)
 			return true;
 		return false;
 	}
@@ -333,16 +333,6 @@ public class Login extends ActionBarActivity implements LoaderCallbacks<Cursor> 
 				} while (cursor.moveToNext());
 			}
 			cursor.close();
-			/**
-			for (String credential : creds) {
-				String[] pieces = credential.split(":");
-				if (pieces[0].equals(mEmail)) {
-					// Account exists, return true if the password matches.
-					if(pieces[1].equals(mPassword)) {
-						return true;
-					}
-				}
-			}**/
 
 			// TODO: register the new account here.
 			//register on different page
