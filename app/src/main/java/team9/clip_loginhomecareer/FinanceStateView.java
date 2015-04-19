@@ -38,9 +38,29 @@ public class FinanceStateView extends ActionBarActivity {
 
         return super.onOptionsItemSelected(item);
     }
-    public void openCashView(View v)
-    {
-        Intent intent = new Intent(FinanceStateView.this, FinanceCashView.class);
+
+    public void switchViews(View v) {
+        Intent intent = null;
+        switch(v.getId())
+        {
+            case(R.id.txt_cash):
+                intent = new Intent(this, FinanceCashView.class);
+                break;
+            case(R.id.txt_asset):
+                intent = new Intent(this, FinanceAssetView.class);
+                break;
+            case(R.id.txt_liability):
+                intent = new Intent(this, FinanceLiabilityView.class);
+                break;
+            case(R.id.txt_credit):
+                intent = new Intent(this, FinanceCreditView.class);
+                break;
+            case(R.id.txt_other):
+                intent = new Intent(this, FinanceOtherView.class);
+                break;
+        }
+
+        //intent.putExtra("tagName", value);
         startActivity(intent);
     }
 }

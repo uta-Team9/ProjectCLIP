@@ -39,5 +39,10 @@ public class FinanceCashView extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    public void createNewInstance(View view) {
+        Intent intent = null;
+        intent = new Intent(this, FinanceCashNew.class);
+        startActivity(intent);
+    }
 
 }

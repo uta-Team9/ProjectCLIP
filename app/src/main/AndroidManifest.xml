@@ -278,10 +278,10 @@
         <activity
             android:name=".FinanceCashView"
             android:label="@string/title_activity_finance_cash_view"
-            android:parentActivityName=".FinanceHome" >
+            android:parentActivityName=".FinanceStateView" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="team9.clip_loginhomecareer.FinanceHome" />
+                android:value="team9.clip_loginhomecareer.FinanceStateView" />
         </activity>
         <activity
             android:name=".FinanceCashNew"
@@ -293,43 +293,83 @@
         </activity>
         <activity
             android:name=".FinanceAssetView"
-            android:label="@string/title_activity_finance_assets_view" >
+            android:label="@string/title_activity_finance_assets_view"
+            android:parentActivityName=".FinanceStateView" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="team9.clip_loginhomecareer.FinanceStateView" />
         </activity>
         <activity
             android:name=".FinanceAssetNew"
-            android:label="@string/title_activity_finance_asset_new" >
+            android:label="@string/title_activity_finance_asset_new"
+            android:parentActivityName=".FinanceAssetView" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="team9.clip_loginhomecareer.FinanceAssetView" />
         </activity>
         <activity
             android:name=".FinanceLiabilityView"
-            android:label="@string/title_activity_finance_liability_view" >
+            android:label="@string/title_activity_finance_liability_view"
+            android:parentActivityName=".FinanceStateView" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="team9.clip_loginhomecareer.FinanceStateView" />
         </activity>
         <activity
             android:name=".FinanceLiabilityNew"
-            android:label="@string/title_activity_finance_liability_new" >
+            android:label="@string/title_activity_finance_liability_new"
+            android:parentActivityName=".FinanceLiabilityView" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="team9.clip_loginhomecareer.FinanceLiabilityView" />
         </activity>
         <activity
             android:name=".FinanceCreditView"
-            android:label="@string/title_activity_finance_credit_balance_view" >
+            android:label="@string/title_activity_finance_credit_balance_view"
+            android:parentActivityName=".FinanceStateView" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="team9.clip_loginhomecareer.FinanceStateView" />
         </activity>
         <activity
             android:name=".FinanceCreditNew"
-            android:label="@string/title_activity_finance_credit_new" >
+            android:label="@string/title_activity_finance_credit_new"
+            android:parentActivityName=".FinanceCreditView" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="team9.clip_loginhomecareer.FinanceCreditView" />
         </activity>
         <activity
             android:name=".FinanceStateView"
-            android:label="@string/title_activity_finance_state_view" >
+            android:label="@string/title_activity_finance_state_view"
+            android:parentActivityName=".FinanceHome" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="team9.clip_loginhomecareer.FinanceHome" />
         </activity>
         <activity
             android:name=".FinanceOtherView"
-            android:label="@string/title_activity_finance_other_view" >
+            android:label="@string/title_activity_finance_other_view"
+            android:parentActivityName=".FinanceStateView" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="team9.clip_loginhomecareer.FinanceStateView" />
         </activity>
         <activity
             android:name=".FinanceStockSecurityView"
-            android:label="@string/title_activity_finance_stock_security_view" >
+            android:label="@string/title_activity_finance_stock_security_view"
+            android:parentActivityName=".FinanceHome" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="team9.clip_loginhomecareer.FinanceHome" />
         </activity>
         <activity
             android:name=".FinanceStockSecurityNew"
-            android:label="@string/title_activity_finance_stock_security_new" >
+            android:label="@string/title_activity_finance_stock_security_new"
+            android:parentActivityName=".FinanceStockSecurityView" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="team9.clip_loginhomecareer.FinanceStockSecurityView" />
         </activity>
         <activity
             android:name=".FinanceGoalView"
@@ -346,6 +386,30 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="team9.clip_loginhomecareer.DegreesList" />
+        </activity>
+        <activity
+            android:name=".FinanceSummaryView"
+            android:label="@string/title_activity_finance_summary_view"
+            android:parentActivityName=".FinanceHome" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="team9.clip_loginhomecareer.FinanceHome" />
+        </activity>
+        <activity
+            android:name=".FinanceGoalNew"
+            android:label="@string/title_activity_finance_goal_new"
+            android:parentActivityName=".FinanceGoalView" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="team9.clip_loginhomecareer.FinanceGoalView" />
+        </activity>
+        <activity
+            android:name=".FinanceOtherNew"
+            android:label="@string/title_activity_finance_other_new"
+            android:parentActivityName=".FinanceOtherView" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="team9.clip_loginhomecareer.FinanceOtherView" />
         </activity>
     </application>
 

@@ -2,6 +2,7 @@ package team9.clip_loginhomecareer;
 
 import java.util.Locale;
 
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
@@ -187,6 +188,11 @@ public class FinanceGoalView extends ActionBarActivity implements ActionBar.TabL
             View rootView = inflater.inflate(R.layout.finance_short_term_view, container, false);
             return rootView;
         }
+    }
+    public void createNewInstance(View view) {
+        Intent intent = null;
+        intent = new Intent(this, FinanceGoalNew.class);
+        startActivity(intent);
     }
 
 }
