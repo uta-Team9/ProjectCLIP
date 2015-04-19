@@ -27,6 +27,7 @@ public class FinanceCashView extends ActionBarActivity {
         setContentView(R.layout.finance_cash_view);
         buildList();
 
+        onScreenList = (ListView) findViewById(R.id.lst_cash);
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(
                 this, android.R.layout.simple_list_item_1, list);
         onScreenList.setAdapter(arrayAdapter);

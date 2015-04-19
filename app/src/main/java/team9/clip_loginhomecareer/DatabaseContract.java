@@ -1160,6 +1160,9 @@ public final class DatabaseContract {
 			db.execSQL(SQL_DELETE_JOB_ENTRIES);
 			db.execSQL(SQL_DELETE_IDENTITY_ENTRIES);*/
 			db.execSQL(SQL_DELETE_CASH_ENTRIES);
+            db.execSQL(SQL_DELETE_COLLEGE_Entries);
+            db.execSQL(SQL_DELETE_COLLEGE_FINANCE_ENTRIES);
+            db.execSQL(SQL_DELETE_COLLEGE_APPLICATION_ENTRIES);
 
 
 			//HEALTH
