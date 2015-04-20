@@ -60,6 +60,12 @@ public class CollegeAppsList extends ActionBarActivity {
         applicationsList.setAdapter(arrayAdapter);
     }
 
+    @Override
+    protected void onDestroy() {
+        closeDB();
+        super.onDestroy();
+    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -101,12 +107,12 @@ public class CollegeAppsList extends ActionBarActivity {
         EduApp temp = null;
         if (cursor.moveToFirst()) {
             do {
-                if(cursor.getInt(5) == User_ID) {
+                if(true) {
                     temp = new EduApp();
                     //_ID, college, due date, reply date
-                    temp.setCollege(cursor.getString(2));
-                    temp.setDeadline(cursor.getInt(3));
-                    temp.setReply_expected(cursor.getInt(4));
+                    temp.setCollege(cursor.getString(1));
+                    temp.setDeadline(cursor.getInt(2));
+                    temp.setReply_expected(cursor.getInt(3));
                     list.add(temp);
                 }
             } while (cursor.moveToNext());

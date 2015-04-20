@@ -11,12 +11,10 @@ public class EduFinanceItem {
 
     @Override
     public String toString() {
-        return "EduFinanceItem{" +
-                "awardName='" + awardName + '\'' +
-                ", amount=" + amount +
-                ", period='" + period + '\'' +
-                ", condition='" + condition + '\'' +
-                '}';
+        return  "awardName=" + awardName + "\n" +
+                "amount=" + amount + "\n" +
+                "period=" + period + "\n" +
+                "condition=" + condition + "\n";
     }
 
     public EduFinanceItem()

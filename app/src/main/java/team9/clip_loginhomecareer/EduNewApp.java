@@ -24,6 +24,7 @@ public class EduNewApp extends ActionBarActivity {
     @Override
     protected void onDestroy() {
         closeDB();
+        super.onDestroy();
     }
 
     public void openDB() {
@@ -86,17 +87,12 @@ public class EduNewApp extends ActionBarActivity {
 
     private void clearData() {
         EditText text;
-        text = (EditText) findViewById(R.id.new_college_name);
+        text = (EditText) findViewById(R.id.app_college_name);
         text.setText("");
-        text = (EditText) findViewById(R.id.new_college_degree_sought);
+        text = (EditText) findViewById(R.id.application_due_date);
         text.setText("");
-        text = (EditText) findViewById(R.id.new_college_location);
+        text = (EditText) findViewById(R.id.reply_date);
         text.setText("");
-        text = (EditText) findViewById(R.id.new_college_start_date);
-        text.setText("");
-        text = (EditText) findViewById(R.id.new_college_grad_date);
-        text.setText("");
-        text = (EditText) findViewById(R.id.new_college_field_of_study);
-        text.setText("");
+
     }
 }

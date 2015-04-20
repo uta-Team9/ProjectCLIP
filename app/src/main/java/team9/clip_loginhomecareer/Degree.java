@@ -20,7 +20,10 @@ public class Degree {
     }
 
     public String toString() {
-        return college;
+        String info = "";
+        info = college + "\n" + location + "\n" + degree_type + " in "+study_field + "\n" + grad_date;
+
+        return info;
     }
 
     public String getStudy_field() {
