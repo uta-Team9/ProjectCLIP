@@ -1,21 +1,42 @@
 package team9.clip_loginhomecareer;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+
+import java.util.ArrayList;
 
 
 public class FinanceCashView extends ActionBarActivity {
 
+    private DatabaseContract db;
+    private ListView onScreenList;
+    private ArrayList<String> list = new ArrayList<>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        db = new DatabaseContract(this);
+        db.open();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.finance_cash_view);
+        buildList();
+
+        onScreenList = (ListView) findViewById(R.id.lst_cash);
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(
+                this, android.R.layout.simple_list_item_1, list);
+        onScreenList.setAdapter(arrayAdapter);
     }
 
+    protected void onDestroy() {
+        db.close();
+        super.onDestroy();
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -43,6 +64,18 @@ public class FinanceCashView extends ActionBarActivity {
         Intent intent = null;
         intent = new Intent(this, FinanceCashNew.class);
         startActivity(intent);
+    }
+
+    public void buildList(){
+        Cursor c = db.getAllCash();
+        if(c.moveToFirst()) {
+            do{
+                //4 2 1 3
+                list.add(new String("Date:" + c.getInt(4) + " " + c.getString(2) + " $" +
+                c.getDouble(1) + " Notes:" + c.getString(3)));
+            }while(c.moveToNext());
+        }
+        c.close();
     }
 
 }

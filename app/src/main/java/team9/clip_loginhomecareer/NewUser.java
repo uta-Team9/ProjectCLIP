@@ -31,8 +31,8 @@ public class NewUser extends ActionBarActivity {
 
 	@Override
 	protected void onDestroy() {
-		super.onDestroy();
 		closeDB();
+		super.onDestroy();
 	}
 
 	@Override
@@ -75,14 +75,14 @@ public class NewUser extends ActionBarActivity {
 		text = (EditText) findViewById(R.id.new_user_email);
 		String email = text.getText().toString();
 		//return false if, contains :, contains @, is registered
-		if(email.contains(":") || !email.contains("@") || isRegistered(email))
+		if(email.contains(":") || /*!email.contains("@") ||*/ isRegistered(email))
 			return resetFields(false); //reset email and password
 
 		//save password
 		text = (EditText) findViewById(R.id.new_user_password);
 		String password = text.getText().toString();
 		//cannot contain ":", length must be greater than 4
-		if(password.contains(":") || !(password.length() > 4))
+		if(password.contains(":") || !(password.length() > 0))
 			return resetFields(false); //reset email and password
 
 		//save spinner choice

@@ -24,6 +24,7 @@ public class FinanceCashNew extends ActionBarActivity {
     }
 
     protected void onDestroy() {
+        super.onDestroy();
         db.close();
     }
 

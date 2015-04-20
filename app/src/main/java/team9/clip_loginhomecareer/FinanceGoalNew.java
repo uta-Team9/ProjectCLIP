@@ -1,5 +1,6 @@
 package team9.clip_loginhomecareer;
 
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -54,5 +55,10 @@ public class FinanceGoalNew extends ActionBarActivity {
                     this.isShortTerm = false;
                     break;
         }
+    }
+    public void cancel(View v) {
+        Intent intent = null;
+        intent = new Intent(this, FinanceGoalView.class);
+        startActivity(intent);
     }
 }
