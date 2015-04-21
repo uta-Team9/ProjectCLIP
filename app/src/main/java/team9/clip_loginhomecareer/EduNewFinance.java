@@ -4,12 +4,18 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.Toast;
 
 
 public class EduNewFinance extends ActionBarActivity {
 
+    private DatabaseContract db;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        openDB();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edu_new_finance);
     }
@@ -35,5 +41,55 @@ public class EduNewFinance extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+    public void add_new(View v) {
+        EditText text;
+        if (validItems()) {
+            text = (EditText) findViewById(R.id.edu_aid_amount);
+            String inst = text.getText().toString();
+            text = (EditText) findViewById(R.id.application_due_date);
+            Integer due = Integer.parseInt(text.getText().toString());
+            text = (EditText) findViewById(R.id.reply_date);
+            Integer reply = Integer.parseInt(text.getText().toString());
+
+            db.insertCollegeApplication(inst, due, reply, 0);
+            toastNotification("Application Saved");
+            clearData();
+        } else {
+            toastNotification("Invalid Information");
+        }
+    }
+    @Override
+    protected void onDestroy() {
+        closeDB();
+        super.onDestroy();
+    }
+
+    public void openDB() {
+        db = new DatabaseContract(this);
+        db.open();
+    }
+
+    public void closeDB() {
+        db.close();
+    }
+    private boolean validItems() {
+        //TODO: Check for invalid input data
+        return true;
+    }
+
+    private void toastNotification(String description) {
+        Toast.makeText(getApplicationContext(), description, Toast.LENGTH_LONG).show();
+    }
+
+    private void clearData() {
+        EditText text;
+        text = (EditText) findViewById(R.id.app_college_name);
+        text.setText("");
+        text = (EditText) findViewById(R.id.application_due_date);
+        text.setText("");
+        text = (EditText) findViewById(R.id.reply_date);
+        text.setText("");
+
     }
 }
