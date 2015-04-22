@@ -1,7 +1,6 @@
 package team9.clip_loginhomecareer;
 
 import android.database.Cursor;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
