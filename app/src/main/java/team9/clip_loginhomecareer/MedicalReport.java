@@ -24,22 +24,24 @@ public class MedicalReport extends ActionBarActivity {
         setContentView(R.layout.activity_medical_report);
 
         Bundle extras = getIntent().getExtras();
-        if(extras!=null)
+   /*     if(extras!=null)
         {
             userId = extras.getInt("ID");
         }
+
         Cursor c = db.getAllMedicalReports();
         if(c.moveToFirst())
         {
             do {
-                if(c.getInt(7) == userId) {
+                if(c.getInt(7) == userId)
+                {
                     buildFields(c);
                     hasData = true;
                 }
             } while (c.moveToNext());
         }
 
-
+*/
     }
 
     //@Override
@@ -80,6 +82,9 @@ public class MedicalReport extends ActionBarActivity {
     public void buildFields(Cursor c)
     {
         EditText text;
+        text = (EditText) findViewById(R.id.editText9);
+        text.setText(c.getString(1));
+
         text = (EditText) findViewById(R.id.add_LDL_cholesterol);
         text.setText(c.getString(2));
 
@@ -98,8 +103,7 @@ public class MedicalReport extends ActionBarActivity {
         text = (EditText) findViewById(R.id.editText8);
         text.setText(c.getString(7));
 
-        text = (EditText) findViewById(R.id.editText9);
-        text.setText(c.getString(1));
+
     }
 
     public void add_new(View v) {
@@ -121,8 +125,6 @@ public class MedicalReport extends ActionBarActivity {
             String allergies = text.getText().toString();
             text = (EditText) findViewById(R.id.editText9);
             String bloodPressure = text.getText().toString();
-
-
 
 
             Log.d("Enterd info", "app");

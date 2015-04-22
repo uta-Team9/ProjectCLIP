@@ -1805,28 +1805,28 @@ public final class DatabaseContract {
 
 	/**
 	 * Update a area of the db.
-	 * @param rowId
-	 * @param medName
-	 * @param dosage
-	 * @param medDuration
-	 * @param medReason
-	 * @param pharmName
-	 * @param pharmPhone
+	 * @param bloodPressure
+	 * @param ldl
+	 * @param hdl
+	 * @param cholestot
+	 * @param glucose
+	 * @param bloodtype
+	 * @param allergies
 	 * @return true if successful
 	 */
-	public boolean updateMedicalReport(long rowId, String medName, String dosage,
-	                    String medDuration, String medReason, String pharmName, String pharmPhone) {
+	public boolean updateMedicalReport(long rowId, String bloodPressure, String ldl, String hdl,
+                                       String cholestot, String glucose, String bloodtype, String allergies) {
 		String where = MedicalReportEntries._ID + "=" + rowId;
 		// TODO: Update data in the row with new fields.
 		// TODO: Also change the function's arguments to be what you need!
 		ContentValues newValues = new ContentValues();
-		newValues.put(MedicalReportEntries.BLOOD_PRESSURE, medName);
-		newValues.put(MedicalReportEntries.LDL, dosage);
-		newValues.put(MedicalReportEntries.HDL, medDuration);
-		newValues.put(MedicalReportEntries.CHOLESTEROL_TOTAL, medReason);
-		newValues.put(MedicalReportEntries.GLUCOSE, pharmName);
-		newValues.put(MedicalReportEntries.BLOOD_TYPE, pharmPhone);
-		newValues.put(MedicalReportEntries.ALLERGIES, pharmPhone);
+		newValues.put(MedicalReportEntries.BLOOD_PRESSURE, bloodPressure);
+		newValues.put(MedicalReportEntries.LDL, ldl);
+		newValues.put(MedicalReportEntries.HDL, hdl);
+		newValues.put(MedicalReportEntries.CHOLESTEROL_TOTAL, cholestot);
+		newValues.put(MedicalReportEntries.GLUCOSE, glucose);
+		newValues.put(MedicalReportEntries.BLOOD_TYPE, bloodtype);
+		newValues.put(MedicalReportEntries.ALLERGIES, allergies);
 
 		// Insert it into the database.
 		return db.update(MedicalReportEntries.TABLE_NAME, newValues, where, null) != 0;
@@ -1846,8 +1846,9 @@ public final class DatabaseContract {
 	public Cursor getAllMedicalReports() {
 		String where = null;
 		Cursor c = 	db.query(MedicalReportEntries.TABLE_NAME, MedicalReportEntries.ALL_COLUMNS,
-				where, null, null, null, null);
-		if (c != null) {
+				where, null, null, null, null, null);
+		if (c != null)
+        {
 			c.moveToFirst();
 		}
 		return c;
