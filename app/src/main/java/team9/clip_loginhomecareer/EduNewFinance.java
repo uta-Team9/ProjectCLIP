@@ -10,10 +10,10 @@ import android.widget.Toast;
 
 
 public class EduNewFinance extends ActionBarActivity {
-    int amount;
-    String period;
-    String awardName;
-    String condition;
+    double amount =0;
+    String period = "";
+    String awardName = "";
+    String condition =   "";
     private DatabaseContract db;
 
     @Override
@@ -47,15 +47,23 @@ public class EduNewFinance extends ActionBarActivity {
     }
     public void add_new(View v) {
         EditText text;
-        if (validItems()) {
+        if (true) {
             text = (EditText) findViewById(R.id.edu_awardName);
             awardName = text.getText().toString();
             text = (EditText) findViewById(R.id.edu_aid_amount);
-            amount = Integer.parseInt(text.getText().toString());
+            amount = Double.parseDouble(text.getText().toString());
             text = (EditText) findViewById(R.id.edu_awardPeriod);
             period = text.getText().toString();
             text = (EditText) findViewById(R.id.edu_financeCondition);
             condition = text.getText().toString();
+
+            if((!awardName.equals("")) || (amount != 0)){
+                db.insertCollegeFinance(awardName,amount,period,condition,0);
+
+            }else{
+                toastNotification("Invalid Information");
+
+            }
 
             db.insertCollegeFinance(awardName,amount,period,condition,0);
             toastNotification("Application Saved");
@@ -79,6 +87,10 @@ public class EduNewFinance extends ActionBarActivity {
         db.close();
     }
     private boolean validItems() {
+
+
+
+
         //TODO: Check for invalid input data
         return true;
     }

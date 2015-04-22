@@ -6,14 +6,25 @@ import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 
 
 public class EduMain extends ActionBarActivity {
+
+    TextView totalDegree;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edu_main);
+        totalDegree = (TextView) findViewById(R.id.mainDegree);
+
+        // call the counting total function
+
+        totalDegree.setText("");
+
+
+
     }
 
 
