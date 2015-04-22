@@ -1,5 +1,6 @@
 package team9.clip_loginhomecareer;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
@@ -90,7 +91,7 @@ public class EducationFinancesList extends ActionBarActivity {
 
     }
     public void createNewInstance(View v) {
-        //Intent intent = new Intent(this,.class);
-        //startActivity(intent);
+        Intent intent = new Intent(this,EduNewFinance.class);
+        startActivity(intent);
     }
 }

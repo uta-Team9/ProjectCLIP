@@ -10,7 +10,10 @@ import android.widget.Toast;
 
 
 public class EduNewFinance extends ActionBarActivity {
-
+    int amount;
+    String period;
+    String awardName;
+    String condition;
     private DatabaseContract db;
 
     @Override
@@ -45,14 +48,16 @@ public class EduNewFinance extends ActionBarActivity {
     public void add_new(View v) {
         EditText text;
         if (validItems()) {
+            text = (EditText) findViewById(R.id.edu_awardName);
+            awardName = text.getText().toString();
             text = (EditText) findViewById(R.id.edu_aid_amount);
-            String inst = text.getText().toString();
-            text = (EditText) findViewById(R.id.application_due_date);
-            Integer due = Integer.parseInt(text.getText().toString());
-            text = (EditText) findViewById(R.id.reply_date);
-            Integer reply = Integer.parseInt(text.getText().toString());
+            amount = Integer.parseInt(text.getText().toString());
+            text = (EditText) findViewById(R.id.edu_awardPeriod);
+            period = text.getText().toString();
+            text = (EditText) findViewById(R.id.edu_financeCondition);
+            condition = text.getText().toString();
 
-            db.insertCollegeApplication(inst, due, reply, 0);
+            db.insertCollegeFinance(awardName,amount,period,condition,0);
             toastNotification("Application Saved");
             clearData();
         } else {
@@ -84,11 +89,13 @@ public class EduNewFinance extends ActionBarActivity {
 
     private void clearData() {
         EditText text;
-        text = (EditText) findViewById(R.id.app_college_name);
+        text = (EditText) findViewById(R.id.edu_financeCondition);
         text.setText("");
-        text = (EditText) findViewById(R.id.application_due_date);
+        text = (EditText) findViewById(R.id.edu_awardPeriod);
         text.setText("");
-        text = (EditText) findViewById(R.id.reply_date);
+        text = (EditText) findViewById(R.id.edu_awardName);
+        text.setText("");
+        text = (EditText) findViewById(R.id.edu_aid_amount);
         text.setText("");
 
     }

@@ -35,20 +35,20 @@
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textEmailAddress"
-                android:hint="College Name"
+                android:inputType="textAutoCorrect"
+                android:hint="Award Name"
                 android:ems="10"
-                android:id="@+id/app_college_name"
+                android:id="@+id/edu_awardName"
                 android:paddingTop="16dp"/>
 
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="date"
+                android:inputType="textAutoCorrect"
                 android:ems="10"
-                android:id="@+id/application_due_date"
+                android:id="@+id/edu_awardPeriod"
                 android:paddingTop="16dp"
-                android:hint="Due Date"/>
+                android:hint="per: (Semester, year)"/>
 
             <EditText
                 android:layout_width="match_parent"
@@ -58,6 +58,15 @@
                 android:id="@+id/edu_aid_amount"
                 android:paddingTop="16dp"
                 android:hint="amount"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textAutoCorrect"
+                android:ems="10"
+                android:id="@+id/edu_financeCondition"
+                android:paddingTop="16dp"
+                android:hint="Conditions on Award"/>
 
         </LinearLayout>
     </ScrollView>dth="wrap_content"
