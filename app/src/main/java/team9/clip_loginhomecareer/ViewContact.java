@@ -1,6 +1,7 @@
 package team9.clip_loginhomecareer;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
@@ -14,11 +15,16 @@ import android.widget.Toast;
 
 public class ViewContact extends ActionBarActivity {
 	private int User_ID;
-	private Contact contact;
+	private Contact contact = null;
 	private DatabaseContract db;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		db = new DatabaseContract(this);
+		db.open();
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.display_contact_activity);
+
 		Bundle extras = getIntent().getExtras();
 		if(extras != null)
 		{
@@ -26,15 +32,13 @@ public class ViewContact extends ActionBarActivity {
 			db.open();
 			User_ID = extras.getInt("ID");
 			contact = (Contact)getIntent().getSerializableExtra("Contact");
-			Log.d("User ID: ", "" + User_ID);
-			Log.d("Contact passed: ", contact.toString());
+			Log.d("User ID ", "" + User_ID);
+			Log.d("Contact passed ", contact.getEmail());
 
 			setTitle(contact.getName());
 			setUpTextBoxes();
 		}
 
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.display_contact_activity);
 
 		Button edit = (Button) findViewById(R.id.edit_button);
 		edit.setOnClickListener(new View.OnClickListener() {
@@ -51,6 +55,33 @@ public class ViewContact extends ActionBarActivity {
 			}
 		});
 
+		final TextView phoneNumber = (TextView)findViewById(R.id.viewContact_phone);
+		phoneNumber.setOnClickListener(new View.OnClickListener(){
+			@Override
+			public void onClick(View arg0) {
+				String call = phoneNumber.getText().toString().replaceAll("-","");
+				Intent callIntent = new Intent(Intent.ACTION_CALL);
+				callIntent.setData(Uri.parse("tel:"+call));
+				contact.incrementUsed();
+				startActivity(callIntent);
+			}
+		});
+
+		final TextView emailAddress = (TextView)findViewById(R.id.viewContact_email);
+		emailAddress.setOnClickListener(new View.OnClickListener(){
+			@Override
+			public void onClick(View arg0) {
+				String em = emailAddress.getText().toString();
+				Intent i = new Intent(Intent.ACTION_SEND);
+				i.setType("message/rfc822");
+				i.putExtra(Intent.EXTRA_EMAIL, em);
+				try {
+					startActivity(Intent.createChooser(i, "Send mail..."));
+				} catch(android.content.ActivityNotFoundException ex) {
+					toast("No Email Client Found");
+				}
+			}
+		});
 	}
 
 	@Override
@@ -82,14 +113,16 @@ public class ViewContact extends ActionBarActivity {
 	}
 
 	private void setUpTextBoxes() {
-		TextView text = (TextView) findViewById(R.id.view_contact_met);
-		text.setText(contact.getMet());
-		text = (TextView) findViewById(R.id.view_contact_email);
-		text.setText(contact.getEmail());
-		text = (TextView) findViewById(R.id.view_contact_used);
-		text.setText(contact.getUsed());
-		text = (TextView) findViewById(R.id.view_contact_phone);
-		text.setText(contact.getPhone());
+		if(contact != null) {
+			TextView text = (TextView) findViewById(R.id.viewContact_met);
+			text.setText("" + contact.getMet());
+			text = (TextView) findViewById(R.id.viewContact_email);
+			text.setText(contact.getEmail());
+			text = (TextView) findViewById(R.id.viewContact_used);
+			text.setText("" + contact.getUsed());
+			text = (TextView) findViewById(R.id.viewContact_phone);
+			text.setText("" + contact.getPhone());
+		}
 	}
 
 	//Added By Edward

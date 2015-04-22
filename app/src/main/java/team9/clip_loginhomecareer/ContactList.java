@@ -112,12 +112,12 @@ public class ContactList extends ActionBarActivity {
 				if(cursor.getInt(6) == User_ID) {
 					temp = new Contact(cursor.getInt(0));
 					//_ID, name, phone, email, used, met
-					Log.d( "Contact Found: ", cursor.getString(1) );
+					Log.d( "Contact Found: ", cursor.getString(1));
 					temp.setName(cursor.getString(1));
-					temp.setPhone(cursor.getInt(2));
+					temp.setPhone(cursor.getLong(2));
 					temp.setEmail(cursor.getString(3));
 					temp.setUsed(cursor.getInt(4));
-					temp.setUsed(cursor.getInt(5));
+					temp.setMet(cursor.getInt(5));
 					list.add(temp);
 				}
 			} while (cursor.moveToNext());

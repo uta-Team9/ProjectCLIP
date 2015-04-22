@@ -14,7 +14,7 @@ public final class DatabaseContract {
 
     //Database Name and Version Number. Change V# if you add new columns
     private static final String DATABASE_NAME = "UserDatabase.db";
-    private static final int DATABASE_VERSION = 20; //database not yet implemented in code
+    private static final int DATABASE_VERSION = 21; //database not yet implemented in code
     //download and merge changes to update to current db before changing number
     //always save work! GitHub can be evil.
 
@@ -90,24 +90,23 @@ public final class DatabaseContract {
             "DROP TABLE IF EXISTS " + ContactEntries.TABLE_NAME;
 
     //GOALS
-    private static abstract class GoalEntries implements BaseColumns {
+    private static abstract class CareerGoalEntries implements BaseColumns {
         public static final String TABLE_NAME = "Goals";
-        public static final String _ID = "ID";
-        public static final String DESCRIPTION = "Description";
-        public static final String END_DATE = "End Date";
-        public static final String TERM_LENGTH = "Term Length";
-        public static final String HASH_ID = "HashID";
         public static final String[] ALL_COLUMNS =
-                {_ID, DESCRIPTION, END_DATE, TERM_LENGTH, HASH_ID};
+                {"ID", "Description", "EndDate", "TermLength", "HashID"};
     }
 
-    private static final String SQL_CREATE_GOAL_ENTRIES =
-            "CREATE TABLE " + GoalEntries.TABLE_NAME + " (" +
-                    GoalEntries._ID + " INTEGER PRIMARY KEY," +
+    private static final String SQL_CREATE_CAREER_GOAL_ENTRIES =
+            "CREATE TABLE " + CareerGoalEntries.TABLE_NAME + " (" +
+		            CareerGoalEntries.ALL_COLUMNS[0] + " INTEGER PRIMARY KEY," +
+		            CareerGoalEntries.ALL_COLUMNS[1] + TEXT_TYPE + COMMA_SEP +
+		            CareerGoalEntries.ALL_COLUMNS[2] + TEXT_TYPE + COMMA_SEP +
+		            CareerGoalEntries.ALL_COLUMNS[3] + TEXT_TYPE + COMMA_SEP +
+		            CareerGoalEntries.ALL_COLUMNS[4] + INT_TYPE +
                     //add entries following instructions above
                     ");";
-    private static final String SQL_DELETE_GOAL_ENTRIES =
-            "DROP TABLE IF EXISTS " + GoalEntries.TABLE_NAME;
+    private static final String SQL_DELETE_CAREER_GOAL_ENTRIES =
+            "DROP TABLE IF EXISTS " + CareerGoalEntries.TABLE_NAME;
 
     //IDENTITIES
     private static abstract class IdentityEntries implements BaseColumns {
@@ -245,7 +244,7 @@ public final class DatabaseContract {
 			"CREATE TABLE " + CollegeFinanceEntries.TABLE_NAME + " (" +
 					CollegeFinanceEntries._ID + " INTEGER PRIMARY KEY," +
 					CollegeFinanceEntries.COLUMN_AWARD_NAME + TEXT_TYPE + COMMA_SEP +
-					CollegeFinanceEntries.COLUMN_AMOUNT + INT_TYPE + COMMA_SEP +
+					CollegeFinanceEntries.COLUMN_AMOUNT + DOUBLE_TYPE + COMMA_SEP +
 					CollegeFinanceEntries.COLUMN_PERIOD + TEXT_TYPE + COMMA_SEP +
 					CollegeFinanceEntries.COLUMN_CONDITION + TEXT_TYPE + COMMA_SEP +
 					CollegeFinanceEntries.COLUMN_USER_ID + INT_TYPE +
@@ -780,7 +779,7 @@ public final class DatabaseContract {
 
 	// Change an existing row to be equal to new data.
 	public boolean updateContact(long rowId, String name, String email,
-	                             int phone,	int met, int used) {
+	                             long phone, int met, int used) {
 		String where = ContactEntries._ID + "=" + rowId;
 
 		/*
@@ -801,8 +800,92 @@ public final class DatabaseContract {
 		return db.update(ContactEntries.TABLE_NAME, newValues, where, null) != 0;
 	}
 
+	//CAREER GOALS
+	//"ID", "Description", "EndDate", "TermLength", "HashID"
+	/**
+	 * Insert a row of data into the career goal table
+	 * @param desc
+	 * @param endDate
+	 * @param isLongTerm
+	 * @param user
+	 * @return rowID, the long primary key
+	 */
+	public long insertCareerGoal(String desc, String endDate, boolean isLongTerm, int user ) {
+		// Create row's data:
+		ContentValues initialValues = new ContentValues();
+		initialValues.put(CareerGoalEntries.ALL_COLUMNS[1], desc);
+		initialValues.put(CareerGoalEntries.ALL_COLUMNS[2], endDate);
+		initialValues.put(CareerGoalEntries.ALL_COLUMNS[3], isLongTerm);
+		initialValues.put(CareerGoalEntries.ALL_COLUMNS[4], user);
+
+		// Insert it into the database.
+		return db.insert(CareerGoalEntries.TABLE_NAME, null, initialValues);
+	}
+
+	/**
+	 * Update a row in the career goal table
+	 * @param rowId long value primary key
+	 * @param desc
+	 * @param endDate
+	 * @param isLongTerm
+	 * @return true if successful
+	 */
+	public boolean updateCareerGoal(long rowId, String desc, String endDate, boolean isLongTerm) {
+		String where = CareerGoalEntries.ALL_COLUMNS[0] + "=" + rowId;
+		// TODO: Update data in the row with new fields.
+		// TODO: Also change the function's arguments to be what you need!
+		ContentValues newValues = new ContentValues();
+		newValues.put(CareerGoalEntries.ALL_COLUMNS[1], desc);
+		newValues.put(CareerGoalEntries.ALL_COLUMNS[2], endDate);
+		newValues.put(CareerGoalEntries.ALL_COLUMNS[3], isLongTerm);
+
+		// Insert it into the database.
+		return db.update(CareerGoalEntries.TABLE_NAME, newValues, where, null) != 0;
+	}
+
+	public Cursor getCareerGoal(long rowId) {
+		String where = CareerGoalEntries.ALL_COLUMNS[0] + "=" + rowId;
+		Cursor c = 	db.query(true, CareerGoalEntries.TABLE_NAME, CareerGoalEntries.ALL_COLUMNS,
+				where, null, null, null, null, null);
+		if (c != null) {
+			c.moveToFirst();
+		}
+		return c;
+	}
+
+	// Return all data in the database.
+	public Cursor getAllCareerGoals() {
+		String where = null;
+		Cursor c = 	db.query(CareerGoalEntries.TABLE_NAME, CareerGoalEntries.ALL_COLUMNS,
+				where, null, null, null, null);
+		if (c != null) {
+			c.moveToFirst();
+		}
+		return c;
+	}
+
+	// Delete a row from the database, by rowId (primary key)
+	public boolean deleteCareerGoal(long rowId) {
+		String where = CareerGoalEntries.ALL_COLUMNS[0] + "=" + rowId;
+		return db.delete(CareerGoalEntries.TABLE_NAME, where, null) != 0;
+	}
+
+	public void deleteAllCareerGoals() {
+		Cursor c = getAllCareerGoals();
+		long rowId = c.getColumnIndexOrThrow(CareerGoalEntries.ALL_COLUMNS[0]);
+		if (c.moveToFirst()) {
+			do {
+				deleteCareerGoal(c.getLong((int) rowId));
+			} while (c.moveToNext());
+		}
+		c.close();
+	}
+
+
+
 
 	//EDUCATION METHODS
+	//TODO: MARY
 	//COLUMN_INSTITUTION, COLUMN_COLLEGE_CITY, COLUMN_STUDY_FIELD, COLUMN_START_DATE, COLUMN_COMPLETION_DATE, COLUMN_USER_ID
 	/**
 	* Add a new set of values to the database.
@@ -995,7 +1078,7 @@ public final class DatabaseContract {
 	 * @param user
 	 * @return The DB table _ID row number.
 	 */
-	public long insertCollegeFinance(String awardName, int amount, String period, String condition, int user) {
+	public long insertCollegeFinance(String awardName, double amount, String period, String condition, int user) {
 		// TODO: Update data in the row with new fields.
 		// TODO: Also change the function's arguments to be what you need!
 		// Create row's data:
@@ -1051,7 +1134,7 @@ public final class DatabaseContract {
 	}
 
 	// Change an existing row to be equal to new data.
-	public boolean updateCollegeFinance(long rowId, String awardName, int amount, String period, String condition) {
+	public boolean updateCollegeFinance(long rowId, String awardName, double amount, String period, String condition) {
 		String where = CollegeFinanceEntries._ID + "=" + rowId;
 		// TODO: Update data in the row with new fields.
 		// TODO: Also change the function's arguments to be what you need!
@@ -1705,6 +1788,7 @@ public final class DatabaseContract {
 			db.execSQL(SQL_CREATE_LOGIN_ENTRIES);
 			//career
 			db.execSQL(SQL_CREATE_CONTRACT_ENTRIES);
+			db.execSQL(SQL_CREATE_CAREER_GOAL_ENTRIES);
 
 			//finance
 			db.execSQL(SQL_CREATE_CASH_ENTRIES);
@@ -1738,6 +1822,7 @@ public final class DatabaseContract {
 			db.execSQL(SQL_DELETE_LOGIN_ENTRIES);
 			//CAREER
 			db.execSQL(SQL_DELETE_CONTRACT_ENTRIES);
+			db.execSQL(SQL_DELETE_CAREER_GOAL_ENTRIES);
 			//FINANCE
 			db.execSQL(SQL_DELETE_CASH_ENTRIES);
 			db.execSQL(SQL_DELETE_STOCK_SECURITY_ENTRIES);

@@ -1,17 +1,17 @@
 package team9.clip_loginhomecareer;
 
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 
 
-public class NewFutureGoal extends ActionBarActivity {
+public class NewCareerGoal extends ActionBarActivity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.new_future_goal_activity);
+		setContentView(R.layout.new_career_goal_activity);
 	}
 
 
