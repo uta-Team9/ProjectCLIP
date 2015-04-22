@@ -1,22 +1,22 @@
 package team9.clip_loginhomecareer;
 
 import android.content.Intent;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
 
 public class HealthHomePage extends ActionBarActivity {
-    int medreport;
+    private int User_ID = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Bundle extras = getIntent().getExtras();
         if(extras!=null)
         {
-            medreport = extras.getInt("ID");
+            User_ID = extras.getInt("ID");
         }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_health_home_page);
@@ -50,18 +50,19 @@ public class HealthHomePage extends ActionBarActivity {
     public void sendMessage(View view)
     {
         Intent intent = new Intent(HealthHomePage.this, DoctorsVisits.class);
+	    intent.putExtra("ID", User_ID);
         startActivity(intent);
     }
     public void sendMessageMedReport(View view)
     {
         Intent intent = new Intent(HealthHomePage.this, MedicalReport.class);
-        intent.putExtra("ID", medreport);
+        intent.putExtra("ID", User_ID);
         startActivity(intent);
     }
     public void sendMessageWeightLossAndDietPlan(View view)
     {
         Intent intent = new Intent(HealthHomePage.this, WeightLossAndDietPlan.class);
-
+	    intent.putExtra("ID", User_ID);
         startActivity(intent);
     }
 

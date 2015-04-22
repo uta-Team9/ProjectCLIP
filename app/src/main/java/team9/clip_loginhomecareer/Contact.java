@@ -1,9 +1,11 @@
 package team9.clip_loginhomecareer;
 
+import java.io.Serializable;
+
 /**
  * Created by Edward on 4/16/2015.
  */
-public class Contact {
+public class Contact implements Serializable {
 	private String name;
 	private int met;
 	private String description;
@@ -11,6 +13,15 @@ public class Contact {
 	private String company;
 	private int phone;
 	private String email;
+	private long dbPosition;
+
+	public long getDbPosition() {
+		return dbPosition;
+	}
+
+	public void setDbPosition(long dbPosition) {
+		this.dbPosition = dbPosition;
+	}
 
 	public int getDatabaseID() {
 		return databaseID;
@@ -30,6 +41,16 @@ public class Contact {
 		used = 0;
 		company = "";
 		databaseID = 0;
+	}
+
+	public Contact(int dbID) {
+		name = "";
+		phone = 0;
+		met = 0;
+		description = "";
+		used = 0;
+		company = "";
+		databaseID = dbID;
 	}
 
 	public String toString() {

@@ -4,7 +4,8 @@
     android:id="@+id/scrollView2"
     android:layout_alignParentLeft="true"
     android:layout_alignParentStart="true"
-    xmlns:android="http://schemas.android.com/apk/res/android" >
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="#FFFFFFFF">
 
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
@@ -132,14 +133,14 @@
         <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:inputType="number"
             android:ems="10"
             android:id="@+id/editText7"
             android:layout_alignBottom="@+id/textView13"
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true"
             android:layout_toRightOf="@+id/textView13"
-            android:layout_toEndOf="@+id/textView13" />
+            android:layout_toEndOf="@+id/textView13"
+            android:inputType="text"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -191,9 +192,11 @@
             android:layout_below="@+id/textView14"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:layout_alignRight="@+id/textView12"
-            android:layout_alignEnd="@+id/textView12"
-            android:onClick="add_new"/>
+            android:onClick="add_new"
+            android:layout_alignRight="@+id/editText6"
+            android:layout_alignEnd="@+id/editText6"
+            android:textColor="#FFFFFFFF"
+            android:background="#ffbb1318"/>
 
 
     </RelativeLayout>
