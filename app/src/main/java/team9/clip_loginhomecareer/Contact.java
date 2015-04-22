@@ -11,7 +11,7 @@ public class Contact implements Serializable {
 	private String description;
 	private int used = 0;
 	private String company;
-	private int phone;
+	private long phone;
 	private String email;
 	private long dbPosition;
 
@@ -73,11 +73,11 @@ public class Contact implements Serializable {
 		this.name = name;
 	}
 
-	public int getPhone() {
+	public long getPhone() {
 		return phone;
 	}
 
-	public void setPhone(int phone) {
+	public void setPhone(long phone) {
 		this.phone = phone;
 	}
 
@@ -103,6 +103,14 @@ public class Contact implements Serializable {
 
 	public void setUsed(int used) {
 		this.used = used;
+	}
+
+	public void incrementUsed() {
+		this.used++;
+	}
+
+	public void decrementUsed() {
+		this.used--;
 	}
 
 	public String getCompany() {

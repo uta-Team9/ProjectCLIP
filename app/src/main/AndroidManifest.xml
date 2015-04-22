@@ -79,7 +79,7 @@
                 android:value="team9.clip_loginhomecareer.CareerHome" />
         </activity>
         <activity
-            android:name=".FutureGoalsList"
+            android:name=".CareerGoalsList"
             android:label="@string/title_activity_future_goals"
             android:parentActivityName=".CareerHome" >
             <meta-data
@@ -87,20 +87,20 @@
                 android:value="team9.clip_loginhomecareer.CareerHome" />
         </activity>
         <activity
-            android:name=".NewFutureGoal"
+            android:name=".NewCareerGoal"
             android:label="@string/title_activity_new_future_goal"
-            android:parentActivityName=".FutureGoalsList" >
+            android:parentActivityName=".CareerGoalsList" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".FutureGoalsList" />
+                android:value=".CareerGoalsList" />
         </activity>
         <activity
-            android:name=".ViewFutureGoal"
+            android:name=".ViewCareerGoal"
             android:label="@string/title_activity_view_future_goal"
-            android:parentActivityName=".FutureGoalsList" >
+            android:parentActivityName=".CareerGoalsList" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".FutureGoalsList" />
+                android:value=".CareerGoalsList" />
         </activity>
         <activity
             android:name=".ViewContact"

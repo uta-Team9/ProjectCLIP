@@ -34,7 +34,7 @@ public class CareerHome extends ActionBarActivity {
 				intent = new Intent(this, JobSearchList.class);
 				break;
 			case(R.id.view_goals_button):
-				intent = new Intent(this, FutureGoalsList.class);
+				intent = new Intent(this, CareerGoalsList.class);
 				break;
 			case(R.id.view_online_identities_button):
 				intent = new Intent(this, IdentitiesList.class);
