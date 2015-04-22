@@ -5,10 +5,10 @@
     android:orientation="vertical"
     android:weightSum="1"
     android:id="@+id/health"
-    android:background="#ffe0e0e0">
+    android:background="#FFFFFFFF">
 
 
-    <TextView
+    <!--TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Health Information"
@@ -18,10 +18,10 @@
         android:shadowColor="#ff000000"
         android:textColor="#ff020202"
         android:paddingLeft="20dp"
-        android:gravity="bottom" />
+        android:gravity="bottom" /-->
 
     <Button
-        android:layout_width="317dp"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:text="@string/title_activity_doctors_visits"
         android:layout_row="20"
@@ -32,12 +32,12 @@
         android:focusableInTouchMode="false"
         android:paddingLeft="30dp"
         android:layout_weight="0.10"
-        android:background="#ffe0e0e0"
+        android:background="#FFFFFFFF"
         android:clickable="true"/>
 
     <Button
         android:id="@+id/WeightLossAndHealthPlan"
-        android:layout_width="316dp"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:text="@string/title_activity_weight_loss_health_plan"
         android:layout_row="21"
@@ -45,12 +45,12 @@
         android:layout_gravity="left|center_horizontal"
         android:gravity="center_vertical|fill_vertical"
         android:paddingLeft="30dp"
-        android:background="#ffe0e0e0"
+        android:background="#FFFFFFFF"
         android:onClick="sendMessageWeightLossAndDietPlan"
         android:layout_weight="0.10" />
 
     <Button
-        android:layout_width="318dp"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:text="@string/title_activity_medicalReport"
         android:layout_row="24"
@@ -59,7 +59,7 @@
         android:layout_weight="0.13"
         android:gravity="center_vertical|fill_vertical"
         android:paddingLeft="30dp"
-        android:background="#ffe0e0e0"
+        android:background="#FFFFFFFF"
         android:onClick="sendMessageMedReport"/>
 
 

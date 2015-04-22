@@ -1,18 +1,38 @@
 package team9.clip_loginhomecareer;
 
 import android.content.Intent;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
+import android.widget.Toast;
 
 
 public class ViewContact extends ActionBarActivity {
+	private int User_ID;
+	private Contact contact;
+	private DatabaseContract db;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		Bundle extras = getIntent().getExtras();
+		if(extras != null)
+		{
+			db = new DatabaseContract(this);
+			db.open();
+			User_ID = extras.getInt("ID");
+			contact = (Contact)getIntent().getSerializableExtra("Contact");
+			Log.d("User ID: ", "" + User_ID);
+			Log.d("Contact passed: ", contact.toString());
+
+			setTitle(contact.getName());
+			setUpTextBoxes();
+		}
+
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.display_contact_activity);
 
@@ -30,8 +50,14 @@ public class ViewContact extends ActionBarActivity {
 				deleteInstance(v);
 			}
 		});
+
 	}
 
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+		db.close();
+	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -55,12 +81,34 @@ public class ViewContact extends ActionBarActivity {
 		return super.onOptionsItemSelected(item);
 	}
 
+	private void setUpTextBoxes() {
+		TextView text = (TextView) findViewById(R.id.view_contact_met);
+		text.setText(contact.getMet());
+		text = (TextView) findViewById(R.id.view_contact_email);
+		text.setText(contact.getEmail());
+		text = (TextView) findViewById(R.id.view_contact_used);
+		text.setText(contact.getUsed());
+		text = (TextView) findViewById(R.id.view_contact_phone);
+		text.setText(contact.getPhone());
+	}
+
 	//Added By Edward
 	public void editInstance(View v) {
 		Intent intent = new Intent(this, NewContact.class);
+		intent.putExtra("ID", User_ID);
+		intent.putExtra("Contact", contact);
 		startActivity(intent);
 	}
 
 	public void deleteInstance(View v) {
+		if(db.deleteContact(contact.getDatabaseID())) {
+			toast("contact removed");
+			finish();
+		} else
+			toast("Contact already removed");
+	}
+
+	private void toast(String description) {
+		Toast.makeText(getApplicationContext(), description, Toast.LENGTH_LONG).show();
 	}
 }

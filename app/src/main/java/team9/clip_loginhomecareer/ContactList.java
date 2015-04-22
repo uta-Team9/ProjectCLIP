@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
@@ -17,7 +18,7 @@ import java.util.ArrayList;
 
 public class ContactList extends ActionBarActivity {
 
-	private int User_ID = 0;
+	private int User_ID;
 	private DatabaseContract db;
 	private ArrayList<Contact> list = new ArrayList<>();
 	private ListView activityList;
@@ -45,21 +46,12 @@ public class ContactList extends ActionBarActivity {
 		});
 
 		buildList();
-
-		/*ArrayList<String> temp = new ArrayList<>();
-		for(Contact c : list) {
-			temp.add(c.toString());
-		}*/
-
-		ArrayAdapter<Contact> arrayAdapter = new ArrayAdapter<Contact>(
-				this, android.R.layout.simple_list_item_1, list);
-
-		activityList.setAdapter(arrayAdapter);
+		makeList();
 	}
 
 	protected void onDestroy() {
-		super.onDestroy();
 		closeDB();
+		super.onDestroy();
 	}
 
 	private void openDB() {
@@ -76,6 +68,11 @@ public class ContactList extends ActionBarActivity {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.menu_contact_list, menu);
 		return true;
+	}
+
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
 	}
 
 	@Override
@@ -96,7 +93,14 @@ public class ContactList extends ActionBarActivity {
 	public void createNewInstance(View v) {
 		Intent intent = new Intent(this, NewContact.class);
 		intent.putExtra("ID", User_ID);
-		startActivityForResult(intent, 2);
+		startActivity(intent);
+	}
+
+	public void viewContact(int position) {
+		Intent intent = new Intent(this, ViewContact.class);
+		intent.putExtra("Contact", list.get(position));
+		intent.putExtra("ID", User_ID);
+		startActivity(intent);
 	}
 
 	//putting together contact list
@@ -106,9 +110,9 @@ public class ContactList extends ActionBarActivity {
 		if (cursor.moveToFirst()) {
 			do {
 				if(cursor.getInt(6) == User_ID) {
-					temp = new Contact();
+					temp = new Contact(cursor.getInt(0));
 					//_ID, name, phone, email, used, met
-					Log.d( "Contact Saved: ", cursor.getString(1) );
+					Log.d( "Contact Found: ", cursor.getString(1) );
 					temp.setName(cursor.getString(1));
 					temp.setPhone(cursor.getInt(2));
 					temp.setEmail(cursor.getString(3));
@@ -119,6 +123,20 @@ public class ContactList extends ActionBarActivity {
 			} while (cursor.moveToNext());
 		}
 		cursor.close();
+	}
 
+	private void makeList() {
+		ArrayAdapter<Contact> arrayAdapter = new ArrayAdapter<>(
+				this, android.R.layout.simple_list_item_1, list);
+
+		activityList.setAdapter(arrayAdapter);
+
+		activityList.setClickable(true);
+		activityList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+			@Override
+			public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
+				viewContact(position);
+			}
+		});
 	}
 }

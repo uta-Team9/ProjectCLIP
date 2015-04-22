@@ -1,8 +1,8 @@
 package team9.clip_loginhomecareer;
 
 import android.database.Cursor;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -12,8 +12,8 @@ import android.widget.Toast;
 
 
 public class MedicalReport extends ActionBarActivity {
-  long  user;
-    int userId;
+	private long dbUserRow = 0;
+    private int User_ID = 0;
     private DatabaseContract db;
     private boolean hasData = false;
     @Override
@@ -26,16 +26,16 @@ public class MedicalReport extends ActionBarActivity {
         Bundle extras = getIntent().getExtras();
         if(extras!=null)
         {
-            userId = extras.getInt("ID");
+            User_ID = extras.getInt("ID");
         }
         Cursor c = db.getAllMedicalReports();
         if(c.moveToFirst())
         {
-            do {
-                if(c.getInt(7) == userId) {
-                    buildFields(c);
-                    hasData = true;
-                }
+            do if(c.getInt(8) == User_ID) {
+	            buildFields(c);
+	            dbUserRow = c.getInt(0);
+	            hasData = true;
+				break;
             } while (c.moveToNext());
         }
 
@@ -43,18 +43,20 @@ public class MedicalReport extends ActionBarActivity {
     }
 
     //@Override
-    /*protected void onDestroy() {
+    protected void onDestroy() {
         closeDB();
-    }*/
+	    super.onDestroy();
+    }
 
-    public void openDB() {
+    private void openDB() {
         db = new DatabaseContract(this);
         db.open();
     }
 
-    /*public void closeDB() {
+    private void closeDB() {
         db.close();
-    }*/
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -107,8 +109,6 @@ public class MedicalReport extends ActionBarActivity {
         if (validItems()) {
             text = (EditText) findViewById(R.id.add_LDL_cholesterol);
             String ldlCholesterol = text.getText().toString();
-            text.setText(ldlCholesterol);
-
             text = (EditText) findViewById(R.id.editText5);
             String hdlCholesterol = text.getText().toString();
             text = (EditText) findViewById(R.id.editText6);
@@ -122,11 +122,14 @@ public class MedicalReport extends ActionBarActivity {
             text = (EditText) findViewById(R.id.editText9);
             String bloodPressure = text.getText().toString();
 
-
-
-
-            Log.d("Enterd info", "app");
-             user = db.insertMedicalReport(bloodPressure, ldlCholesterol, hdlCholesterol, totalCholesterol, glucose, bloodType, allergies, userId);
+	        if(!hasData) {
+		        Log.d("Stored info for User ID", ""+User_ID);
+		        dbUserRow = db.insertMedicalReport(bloodPressure, ldlCholesterol, hdlCholesterol, totalCholesterol, glucose, bloodType, allergies, User_ID);
+		        hasData = true;
+	        } else {
+		        Log.d("Updated for User ID", ""+User_ID);
+		        db.updateMedicalReport(dbUserRow, bloodPressure, ldlCholesterol, hdlCholesterol, totalCholesterol, glucose, bloodPressure, allergies);
+	        }
 
             toastNotification("Medical Report Saved");
           //  clearData();
@@ -145,7 +148,7 @@ public class MedicalReport extends ActionBarActivity {
         Toast.makeText(getApplicationContext(), description, Toast.LENGTH_LONG).show();
     }
 
-   /* private void clearData()
+   private void clearData()
     {
         EditText text;
         text = (EditText) findViewById(R.id.add_LDL_cholesterol);
@@ -164,5 +167,4 @@ public class MedicalReport extends ActionBarActivity {
         text.setText("");
 
     }
-    */
 }

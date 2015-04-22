@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -74,14 +75,16 @@ public class NewContact extends ActionBarActivity {
 			text = (EditText) findViewById(R.id.new_contact_email);
 			String e = text.getText().toString();
 			text = (EditText) findViewById(R.id.new_contact_phone);
-			Integer p = Integer.parseInt(text.getText().toString());
-			text = (EditText) findViewById(R.id.new_contact_met);
-			Integer m = Integer.parseInt(text.getText().toString());
+			Long p = Long.parseLong(text.getText().toString());
+			DatePicker datePicker = (DatePicker) findViewById(R.id.new_contact_met);
+			String test = datePicker.getYear() + "" + datePicker.getMonth() + "" + datePicker.getDayOfMonth();
+			Integer m = Integer.parseInt(test);
 
 			db.insertContact(n, e, p.intValue(), m.intValue(), 0, User_ID);
 			Log.d("Contact Saved: ", "" + n);
 			toastNotification("Contact Saved");
 			clearData();
+			finish();
 		} else {
 			toastNotification("Invalid Information");
 		}
@@ -100,8 +103,7 @@ public class NewContact extends ActionBarActivity {
 		text.setText("");
 		text = (EditText) findViewById(R.id.new_contact_phone);
 		text.setText("");
-		text = (EditText) findViewById(R.id.new_contact_met);
-		text.setText("");
+		DatePicker picker = (DatePicker) findViewById(R.id.new_contact_met);
 	}
 
 	private void toastNotification(String description) {

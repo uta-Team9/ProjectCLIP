@@ -14,13 +14,14 @@ public final class DatabaseContract {
 
     //Database Name and Version Number. Change V# if you add new columns
     private static final String DATABASE_NAME = "UserDatabase.db";
-    private static final int DATABASE_VERSION = 15; //database not yet implemented in code
+    private static final int DATABASE_VERSION = 20; //database not yet implemented in code
     //download and merge changes to update to current db before changing number
     //always save work! GitHub can be evil.
 
     //Separators for SQL Creation
     private static final String TEXT_TYPE = " TEXT";
     private static final String INT_TYPE = " INTEGER";
+	private static final String LONG_TYPE = " LONG";
     private static final String DOUBLE_TYPE = " DOUBLE";
     private static final String COMMA_SEP = ",";
 
@@ -78,7 +79,7 @@ public final class DatabaseContract {
             "CREATE TABLE " + ContactEntries.TABLE_NAME + " (" +
                     ContactEntries._ID + " INTEGER PRIMARY KEY," +
                     ContactEntries.NAME + TEXT_TYPE + COMMA_SEP +
-                    ContactEntries.NUMBER + INT_TYPE + COMMA_SEP +
+                    ContactEntries.NUMBER + LONG_TYPE + COMMA_SEP +
                     ContactEntries.EMAIL + TEXT_TYPE + COMMA_SEP +
                     ContactEntries.USED + INT_TYPE + COMMA_SEP +
                     ContactEntries.MET + INT_TYPE + COMMA_SEP +
@@ -412,6 +413,7 @@ public final class DatabaseContract {
     }
 	private static final String SQL_CREATE_DOCTOR_VISIT_ENTRIES =
 			"CREATE TABLE " + DoctorVisitEntries.TABLE_NAME + " (" +
+					JobEntries._ID + " INTEGER PRIMARY KEY," +
 					DoctorVisitEntries.LAST_CHECK_UP_DATE + INT_TYPE + COMMA_SEP +
 					DoctorVisitEntries.HEALTH_INSURANCE_COMPANY + TEXT_TYPE + COMMA_SEP +
 					DoctorVisitEntries.HEALTH_INSURANCE_POLICY_NUM + INT_TYPE + COMMA_SEP +
@@ -437,6 +439,7 @@ public final class DatabaseContract {
     }
 	private static final String SQL_CREATE_MEDICATION_ENTRIES =
 			"CREATE TABLE " + MedicationEntries.TABLE_NAME + " (" +
+					MedicationEntries._ID + " INTEGER PRIMARY KEY," +
 					MedicationEntries.MEDICATION_NAME + TEXT_TYPE + COMMA_SEP +
 					MedicationEntries.DOSAGE + INT_TYPE + COMMA_SEP +
 					MedicationEntries.MEDICATION_DURATION + TEXT_TYPE + COMMA_SEP +
@@ -451,29 +454,21 @@ public final class DatabaseContract {
 	//MEDICAL REPORT ENTRIES
     public static abstract class MedicalReportEntries implements BaseColumns {
         public static final String TABLE_NAME = "MedicalReport";
-	    public static final String _ID = "ID";
-        public static final String BLOOD_PRESSURE = "BloodPressure";
-        public static final String LDL = "LDL";
-        public static final String HDL = "HDL";
-        public static final String CHOLESTEROL_TOTAL = "CholesterolTotal";
-        public static final String GLUCOSE = "Glucose";
-        public static final String BLOOD_TYPE = "BloodType";
-        public static final String ALLERGIES = "Allergies";
-	    public static final String HASH_ID = "HashID";
         public static final String[] ALL_COLUMNS =
-		        {_ID, BLOOD_PRESSURE, LDL, HDL, CHOLESTEROL_TOTAL, GLUCOSE,
-				        BLOOD_TYPE, ALLERGIES, HASH_ID};
+		        {"ID", "BloodPressure", "LDL", "HDL", "CholesterolTotal", "Glucose",
+				        "BloodType", "Allergies", "HashID"};
     }
 	private static final String SQL_CREATE_MEDICAL_REPORT_ENTRIES =
 			"CREATE TABLE " + MedicalReportEntries.TABLE_NAME + " (" +
-					MedicalReportEntries.BLOOD_PRESSURE + INT_TYPE + COMMA_SEP +
-					MedicalReportEntries.LDL + TEXT_TYPE + COMMA_SEP +
-					MedicalReportEntries.HDL + INT_TYPE + COMMA_SEP +
-					MedicalReportEntries.CHOLESTEROL_TOTAL + TEXT_TYPE + COMMA_SEP +
-					MedicalReportEntries.GLUCOSE + TEXT_TYPE + COMMA_SEP +
-					MedicalReportEntries.BLOOD_TYPE + TEXT_TYPE + COMMA_SEP +
-					MedicalReportEntries.ALLERGIES + TEXT_TYPE + COMMA_SEP +
-					MedicalReportEntries.HASH_ID + INT_TYPE
+					MedicalReportEntries.ALL_COLUMNS[0] + " INTEGER PRIMARY KEY," +
+					MedicalReportEntries.ALL_COLUMNS[1] + TEXT_TYPE + COMMA_SEP +
+					MedicalReportEntries.ALL_COLUMNS[2] + TEXT_TYPE + COMMA_SEP +
+					MedicalReportEntries.ALL_COLUMNS[3] + TEXT_TYPE + COMMA_SEP +
+					MedicalReportEntries.ALL_COLUMNS[4] + TEXT_TYPE + COMMA_SEP +
+					MedicalReportEntries.ALL_COLUMNS[5] + TEXT_TYPE + COMMA_SEP +
+					MedicalReportEntries.ALL_COLUMNS[6] + TEXT_TYPE + COMMA_SEP +
+					MedicalReportEntries.ALL_COLUMNS[7] + TEXT_TYPE + COMMA_SEP +
+					MedicalReportEntries.ALL_COLUMNS[8] + INT_TYPE
 					+");";
 	private static final String SQL_DELETE_MEDICAL_REPORT_ENTRIES =
 			"DROP TABLE IF EXISTS " + MedicalReportEntries.TABLE_NAME;
@@ -495,6 +490,7 @@ public final class DatabaseContract {
 	}
 	private static final String SQL_CREATE_APPOINTMENT_ENTRIES =
 			"CREATE TABLE " + AppointmentEntries.TABLE_NAME + " (" +
+					AppointmentEntries.ALL_COLUMNS[0] + " INTEGER PRIMARY KEY," +
 					AppointmentEntries.DOCTOR_NAME + TEXT_TYPE + COMMA_SEP +
 					AppointmentEntries.DATE_OF_APPOINTMENT + INT_TYPE + COMMA_SEP +
 					AppointmentEntries.TIME_OF_APPOINTMENT + INT_TYPE+ COMMA_SEP+
@@ -521,6 +517,7 @@ public final class DatabaseContract {
     }
 	private static final String SQL_CREATE_WEIGHT_LOSS_AND_DIET_PLAN_ENTRIES =
 			"CREATE TABLE " + WeightLossDietPlanEntries.TABLE_NAME + " (" +
+					WeightLossDietPlanEntries.ALL_COLUMNS[0] + " INTEGER PRIMARY KEY," +
 					WeightLossDietPlanEntries.DIET_NAME + TEXT_TYPE + COMMA_SEP +
 					WeightLossDietPlanEntries.DIET_START_DATE + INT_TYPE+ COMMA_SEP +
 					WeightLossDietPlanEntries.DIET_END_DATE + INT_TYPE + COMMA_SEP+
@@ -545,6 +542,7 @@ public final class DatabaseContract {
 	}
 	private static final String SQL_CREATE_EXERCISE_PLAN_ENTRIES =
 			"CREATE TABLE " + ExercisePlanEntries.TABLE_NAME + " (" +
+					ExercisePlanEntries.ALL_COLUMNS[0] + " INTEGER PRIMARY KEY," +
 					ExercisePlanEntries.EXERCISE_NAME + TEXT_TYPE + COMMA_SEP +
 					ExercisePlanEntries.CALORIES_BURNED + INT_TYPE+ COMMA_SEP +
 					ExercisePlanEntries.DURATION_WORKOUT + INT_TYPE + COMMA_SEP+
@@ -570,6 +568,7 @@ public final class DatabaseContract {
 	}
 	private static final String SQL_CREATE_RECIPE_ENTRIES =
 			"CREATE TABLE " + RecipeEntries.TABLE_NAME + " (" +
+					RecipeEntries.ALL_COLUMNS[0] + " INTEGER PRIMARY KEY," +
 					RecipeEntries.RECIPE_NAME + TEXT_TYPE + COMMA_SEP +
 					RecipeEntries.SERVINGS + INT_TYPE  + COMMA_SEP +
 					RecipeEntries.COOK_TIME + INT_TYPE + COMMA_SEP +
@@ -720,7 +719,7 @@ public final class DatabaseContract {
 	 * @param user
 	 * @return The DB table _ID row number.
 	 */
-	public long insertContact(String name, String email, int phone,	int met, int used, int user) {
+	public long insertContact(String name, String email, long phone, int met, int used, int user) {
 		/*
 		 * CHANGE 3:
 		 */
@@ -1790,14 +1789,14 @@ public final class DatabaseContract {
 			String cholestot, String glucose, String bloodtype, String allergies, int user ) {
 		// Create row's data:
 		ContentValues initialValues = new ContentValues();
-		initialValues.put(MedicalReportEntries.BLOOD_PRESSURE, bloodPressure);
-		initialValues.put(MedicalReportEntries.LDL, ldl);
-		initialValues.put(MedicalReportEntries.HDL, hdl);
-		initialValues.put(MedicalReportEntries.CHOLESTEROL_TOTAL, cholestot);
-		initialValues.put(MedicalReportEntries.GLUCOSE, glucose);
-		initialValues.put(MedicalReportEntries.BLOOD_TYPE, bloodtype);
-		initialValues.put(MedicalReportEntries.ALLERGIES, allergies);
-		initialValues.put(MedicalReportEntries.HASH_ID, user);
+		initialValues.put(MedicalReportEntries.ALL_COLUMNS[1], bloodPressure);
+		initialValues.put(MedicalReportEntries.ALL_COLUMNS[2], ldl);
+		initialValues.put(MedicalReportEntries.ALL_COLUMNS[3], hdl);
+		initialValues.put(MedicalReportEntries.ALL_COLUMNS[4], cholestot);
+		initialValues.put(MedicalReportEntries.ALL_COLUMNS[5], glucose);
+		initialValues.put(MedicalReportEntries.ALL_COLUMNS[6], bloodtype);
+		initialValues.put(MedicalReportEntries.ALL_COLUMNS[7], allergies);
+		initialValues.put(MedicalReportEntries.ALL_COLUMNS[8], user);
 
 		// Insert it into the database.
 		return db.insert(MedicalReportEntries.TABLE_NAME, null, initialValues);
@@ -1806,27 +1805,28 @@ public final class DatabaseContract {
 	/**
 	 * Update a area of the db.
 	 * @param rowId
-	 * @param medName
-	 * @param dosage
-	 * @param medDuration
-	 * @param medReason
-	 * @param pharmName
-	 * @param pharmPhone
+	 * @param bloodPressure
+	 * @param ldl
+	 * @param hdl
+	 * @param cholestot
+	 * @param glucose
+	 * @param bloodtype
+	 * @param allergiese
 	 * @return true if successful
 	 */
-	public boolean updateMedicalReport(long rowId, String medName, String dosage,
-	                    String medDuration, String medReason, String pharmName, String pharmPhone) {
+	public boolean updateMedicalReport(long rowId, String bloodPressure, String ldl, String hdl,
+	                                   String cholestot, String glucose, String bloodtype, String allergiese) {
 		String where = MedicalReportEntries._ID + "=" + rowId;
 		// TODO: Update data in the row with new fields.
 		// TODO: Also change the function's arguments to be what you need!
 		ContentValues newValues = new ContentValues();
-		newValues.put(MedicalReportEntries.BLOOD_PRESSURE, medName);
-		newValues.put(MedicalReportEntries.LDL, dosage);
-		newValues.put(MedicalReportEntries.HDL, medDuration);
-		newValues.put(MedicalReportEntries.CHOLESTEROL_TOTAL, medReason);
-		newValues.put(MedicalReportEntries.GLUCOSE, pharmName);
-		newValues.put(MedicalReportEntries.BLOOD_TYPE, pharmPhone);
-		newValues.put(MedicalReportEntries.ALLERGIES, pharmPhone);
+		newValues.put(MedicalReportEntries.ALL_COLUMNS[1], bloodPressure);
+		newValues.put(MedicalReportEntries.ALL_COLUMNS[2], ldl);
+		newValues.put(MedicalReportEntries.ALL_COLUMNS[3], hdl);
+		newValues.put(MedicalReportEntries.ALL_COLUMNS[4], cholestot);
+		newValues.put(MedicalReportEntries.ALL_COLUMNS[5], glucose);
+		newValues.put(MedicalReportEntries.ALL_COLUMNS[6], bloodtype);
+		newValues.put(MedicalReportEntries.ALL_COLUMNS[7], allergiese);
 
 		// Insert it into the database.
 		return db.update(MedicalReportEntries.TABLE_NAME, newValues, where, null) != 0;
@@ -1844,9 +1844,9 @@ public final class DatabaseContract {
 
 	// Return all data in the database.
 	public Cursor getAllMedicalReports() {
-		String where = null;
+		String where = "";
 		Cursor c = 	db.query(MedicalReportEntries.TABLE_NAME, MedicalReportEntries.ALL_COLUMNS,
-				where, null, null, null, null);
+				where, null, null, null, null, null);
 		if (c != null) {
 			c.moveToFirst();
 		}
