@@ -453,6 +453,14 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="team9.clip_loginhomecareer.EducationFinancesList" />
         </activity>
+        <activity
+            android:name=".ViewDegree"
+            android:label="@string/title_activity_view_degree"
+            android:parentActivityName=".DegreesList" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="team9.clip_loginhomecareer.DegreesList" />
+        </activity>
     </application>
 
 </manifest>

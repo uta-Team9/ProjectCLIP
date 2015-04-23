@@ -115,5 +115,6 @@
     <string name="title_activity_finance_other_new">New Other Finance</string>
     <string name="title_activity_education_finances_list">Education Finances List</string>
     <string name="title_activity_edu_new_finance">Add Education Finance Item</string>
+    <string name="title_activity_view_degree">View Degrees</string>
 
 </resources>
