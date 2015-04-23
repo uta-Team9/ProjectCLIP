@@ -15,6 +15,9 @@ public class Degree {
     public Degree() {
         college = "";
         grad_date = 0;
+        start_date = 0;
+        study_field = "";
+        degree_type = "";
         location = "";
         display_place = 0;
     }

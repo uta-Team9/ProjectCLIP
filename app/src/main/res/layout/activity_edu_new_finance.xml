@@ -16,7 +16,8 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:onClick="add_new"
-        android:textColor="#FF000000"/>
+        android:textColor="#FF000000"
+        android:background="#fff6e600"/>
 
     <ScrollView
         android:layout_width="match_parent"
