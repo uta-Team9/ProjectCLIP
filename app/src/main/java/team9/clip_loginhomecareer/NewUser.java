@@ -12,7 +12,7 @@ import android.widget.Toast;
 
 
 public class NewUser extends ActionBarActivity {
-	DatabaseContract myDB;
+	private DatabaseContract myDB;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +61,7 @@ public class NewUser extends ActionBarActivity {
 	public void saveUser(View v) {
 		if(tryToSave()) {
 			Toast.makeText(getApplicationContext(), "User Saved", Toast.LENGTH_SHORT).show();
+			finish();
 		} else {
 			Toast.makeText(getApplicationContext(), "User Not Saved", Toast.LENGTH_LONG).show();
 		}

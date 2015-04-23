@@ -7,17 +7,18 @@
                 android:paddingLeft="@dimen/activity_horizontal_margin"
                 android:paddingRight="@dimen/activity_horizontal_margin"
                 tools:context="team9.clip_loginhomecareer.CareerGoalsList"
-                android:background="#ff000000">
+                android:background="#ffffffff">
 
     <ListView
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:id="@+id/contacts_list"
+        android:id="@+id/career_goals_list"
         android:choiceMode="singleChoice"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:layout_above="@+id/new_instance_button"
-        android:background="#ffffffff"/>
+        android:background="#ffffffff"
+        android:layout_margin="8dp"/>
 
     <Button
         android:layout_width="fill_parent"
@@ -27,7 +28,7 @@
         android:id="@+id/new_instance_button"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:background="#ff504af1"
-        android:textColor="#ff000000"/>
+        android:background="#ff1904c0"
+        android:textColor="#ffffffff"/>
 
 </RelativeLayout>

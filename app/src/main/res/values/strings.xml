@@ -5,7 +5,7 @@
     <string name="hello_world">Hello world!</string>
 
     <!-- App login Area Titles -->
-    <string name="login_title">Login to CLIP</string>
+    <string name="login_title">CLIP</string>
     <string name="title_activity_new_user">Register</string>
     <string name="title_activity_password_recovery">Password Recovery</string>
 

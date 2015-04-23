@@ -1,7 +1,6 @@
 package team9.clip_loginhomecareer;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
@@ -55,7 +54,7 @@ public class ViewContact extends ActionBarActivity {
 			}
 		});
 
-		final TextView phoneNumber = (TextView)findViewById(R.id.viewContact_phone);
+/*		final TextView phoneNumber = (TextView)findViewById(R.id.viewContact_phone);
 		phoneNumber.setOnClickListener(new View.OnClickListener(){
 			@Override
 			public void onClick(View arg0) {
@@ -66,7 +65,7 @@ public class ViewContact extends ActionBarActivity {
 				startActivity(callIntent);
 			}
 		});
-
+*/
 		final TextView emailAddress = (TextView)findViewById(R.id.viewContact_email);
 		emailAddress.setOnClickListener(new View.OnClickListener(){
 			@Override
@@ -74,7 +73,7 @@ public class ViewContact extends ActionBarActivity {
 				String em = emailAddress.getText().toString();
 				Intent i = new Intent(Intent.ACTION_SEND);
 				i.setType("message/rfc822");
-				i.putExtra(Intent.EXTRA_EMAIL, em);
+				i.putExtra(Intent.EXTRA_EMAIL, new String[] {em});
 				try {
 					startActivity(Intent.createChooser(i, "Send mail..."));
 				} catch(android.content.ActivityNotFoundException ex) {
