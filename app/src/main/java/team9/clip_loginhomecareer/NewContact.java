@@ -122,7 +122,7 @@ public class NewContact extends ActionBarActivity {
 			text = (EditText) findViewById(R.id.new_contact_phone);
 			Long p = Long.parseLong(text.getText().toString());
 			DatePicker datePicker = (DatePicker) findViewById(R.id.new_contact_met);
-			String test = datePicker.getYear() + "-" + datePicker.getMonth() + "-" + datePicker.getDayOfMonth();
+			String test = datePicker.getYear() + "" + datePicker.getMonth() + "" + datePicker.getDayOfMonth();
 			Integer m = Integer.parseInt(test);
 
 			db.insertContact(n, e, p.intValue(), m.intValue(), 0, User_ID);

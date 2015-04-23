@@ -1,20 +1,42 @@
 package team9.clip_loginhomecareer;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListView;
+
+import java.util.ArrayList;
 
 
 public class CareerGoalsList extends ActionBarActivity {
+	private int User_ID;
+	private DatabaseContract db;
+	private ArrayList<CareerGoal> list = new ArrayList<>();
+	private ListView activityList;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		db = new DatabaseContract(this);
+		db.open();
+
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.list_career_goals_activity);
+
+		Bundle bundle = getIntent().getExtras();
+		if(bundle != null) {
+			User_ID = bundle.getInt("ID");
+			Log.d("Goal Received ID", ""+User_ID);
+		}
+
+		activityList = (ListView) findViewById(R.id.career_goals_list);
 
 		Button edit = (Button) findViewById(R.id.new_instance_button);
 		edit.setOnClickListener(new View.OnClickListener() {
@@ -23,6 +45,14 @@ public class CareerGoalsList extends ActionBarActivity {
 				createNewInstance(v);
 			}
 		});
+
+		buildList();
+		makeList();
+	}
+
+	protected void onDestroy() {
+		db.close();
+		super.onDestroy();
 	}
 
 
@@ -50,6 +80,51 @@ public class CareerGoalsList extends ActionBarActivity {
 
 	public void createNewInstance(View v) {
 		Intent intent = new Intent(this, NewCareerGoal.class);
+		startActivity(intent);
+	}
+
+	//putting together contact list
+	private void buildList() {
+		Cursor cursor = db.getAllCareerGoals();
+		CareerGoal temp = null;
+		if (cursor.moveToFirst()) {
+			do {
+				if(cursor.getInt(6) == User_ID) {
+					temp = new CareerGoal(cursor.getInt(0));
+					//"ID", "Description", "EndDate", "TermLength", "HashID"
+					Log.d( "Contact Found: ", cursor.getString(1));
+					temp.setDescription(cursor.getString(1));
+					temp.setDate(cursor.getString(2));
+					if(cursor.getInt(3) == 0)
+						temp.setLongTerm(true);
+					else
+						temp.setLongTerm(false);
+					list.add(temp);
+				}
+			} while (cursor.moveToNext());
+		}
+		cursor.close();
+	}
+
+	private void makeList() {
+		ArrayAdapter<CareerGoal> arrayAdapter = new ArrayAdapter<>(
+				this, android.R.layout.simple_list_item_1, list);
+
+		activityList.setAdapter(arrayAdapter);
+
+		activityList.setClickable(true);
+		activityList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+			@Override
+			public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
+				moveToView(position);
+			}
+		});
+	}
+
+	private void moveToView(int position) {
+		Intent intent = new Intent(this, ViewCareerGoal.class);
+		intent.putExtra("Object", list.get(position));
+		intent.putExtra("ID", User_ID);
 		startActivity(intent);
 	}
 }

@@ -20,7 +20,7 @@ public class ContactList extends ActionBarActivity {
 
 	private int User_ID;
 	private DatabaseContract db;
-	private ArrayList<Contact> list = new ArrayList<>();
+	private ArrayList<Contact> list;// = new ArrayList<>();
 	private ListView activityList;
 
 	@Override
@@ -29,8 +29,7 @@ public class ContactList extends ActionBarActivity {
 		Bundle extras = getIntent().getExtras();
 		if(extras != null)
         {
-			User_ID = extras.getInt("ID");
-			Log.d("User ID: ", "" + User_ID);
+	        doTheThing(extras);
 		}
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.list_contacts_activity);
@@ -47,6 +46,11 @@ public class ContactList extends ActionBarActivity {
 
 		buildList();
 		makeList();
+	}
+
+	private void doTheThing(Bundle extras) {
+		User_ID = extras.getInt("ID");
+		Log.d("User ID: ", "" + User_ID);
 	}
 
 	protected void onDestroy() {
@@ -105,6 +109,7 @@ public class ContactList extends ActionBarActivity {
 
 	//putting together contact list
 	private void buildList() {
+		list = new ArrayList<>();
 		Cursor cursor = db.getAllContacts();
 		Contact temp = null;
 		if (cursor.moveToFirst()) {

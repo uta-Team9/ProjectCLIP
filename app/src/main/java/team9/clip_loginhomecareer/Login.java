@@ -3,22 +3,25 @@ package team9.clip_loginhomecareer;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
+import android.app.Activity;
 import android.app.LoaderManager.LoaderCallbacks;
+import android.content.Context;
 import android.content.CursorLoader;
 import android.content.Intent;
 import android.content.Loader;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
-import android.support.v7.app.ActionBarActivity;
 import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
@@ -33,7 +36,14 @@ import java.util.List;
 /**
  * A login screen that offers login via email/password.
  */
-public class Login extends ActionBarActivity implements LoaderCallbacks<Cursor> {
+public class Login extends Activity implements LoaderCallbacks<Cursor> {
+
+	//ADDED FROM http://stackoverflow.com/questions/9370293/add-a-remember-me-checkbox
+	private String username,password;
+	private SharedPreferences loginPreferences;
+	private SharedPreferences.Editor loginPrefsEditor;
+	private Boolean saveLogin;
+	//END ADDED FROM
 
 	private DatabaseContract dB;
 	private int User_ID = 0;
@@ -63,6 +73,17 @@ public class Login extends ActionBarActivity implements LoaderCallbacks<Cursor> 
 			populateAutoComplete();
 
 		mPasswordView = (EditText) findViewById(R.id.password);
+		//ADDED FROM WEBSITE
+		loginPreferences = getSharedPreferences("loginPrefs", MODE_PRIVATE);
+		loginPrefsEditor = loginPreferences.edit();
+
+		saveLogin = loginPreferences.getBoolean("saveLogin", false);
+		if (saveLogin == true) {
+			mEmailView.setText(loginPreferences.getString("username", ""));
+			mPasswordView.setText(loginPreferences.getString("password", ""));
+			mRememberMe.setChecked(true);
+		}
+		//ADDED FROM WEBSITE
 		mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
 			@Override
 			public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
@@ -79,6 +100,24 @@ public class Login extends ActionBarActivity implements LoaderCallbacks<Cursor> 
 			@Override
 			public void onClick(View view) {
 				attemptLogin();
+
+				//ADDED FROM http://stackoverflow.com/questions/9370293/add-a-remember-me-checkbox
+				InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+				imm.hideSoftInputFromWindow(mEmailView.getWindowToken(), 0);
+
+				username = mEmailView.getText().toString();
+				password = mPasswordView.getText().toString();
+
+				if (mRememberMe.isChecked()) {
+					loginPrefsEditor.putBoolean("saveLogin", true);
+					loginPrefsEditor.putString("username", username);
+					loginPrefsEditor.putString("password", password);
+					loginPrefsEditor.commit();
+				} else {
+					loginPrefsEditor.clear();
+					loginPrefsEditor.commit();
+				}
+				//End of added
 			}
 		});
 
