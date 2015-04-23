@@ -96,7 +96,6 @@
                 android:layout_height="wrap_content"
                 android:text="Calculate Payable"
                 android:id="@+id/button7"
-                android:layout_marginRight="@+id/spn_lending_term"
                 android:onClick="calculate"/>
          </LinearLayout>
 

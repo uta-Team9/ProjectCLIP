@@ -52,7 +52,6 @@ public class Contact implements Serializable {
 		used = 0;
 		company = "";
 		databaseID = dbID;
-		Date date = new Date("1922");
 	}
 
 	public String toString() {
