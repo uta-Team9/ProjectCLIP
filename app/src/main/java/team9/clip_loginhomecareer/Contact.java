@@ -1,7 +1,6 @@
 package team9.clip_loginhomecareer;
 
 import java.io.Serializable;
-import java.util.Date;
 
 /**
  * Created by Edward on 4/16/2015.
@@ -52,7 +51,6 @@ public class Contact implements Serializable {
 		used = 0;
 		company = "";
 		databaseID = dbID;
-		Date date = new Date("1922");
 	}
 
 	public String toString() {
