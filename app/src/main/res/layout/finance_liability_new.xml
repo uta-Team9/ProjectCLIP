@@ -34,6 +34,9 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="16dp"
         android:layout_above="@+id/add">
 
     <LinearLayout
@@ -44,10 +47,58 @@
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:id="@+id/txt_lender"
+            android:hint="Enter lender name"
+            android:layout_above="@+id/txt_liability_amt"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:ems="10"
             android:id="@+id/txt_liability_amt"
             android:paddingTop="16dp"
-            android:hint="Liability Amount in $"/>
+            android:hint="Amount in $"
+            android:layout_above="@+id/txt_interest_rate"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:id="@+id/txt_interest_rate"
+            android:paddingTop="16dp"
+            android:hint="Interest rate e.g. 2.00, 9.00, 14.50"
+            android:layout_above="@+id/txt_liability_desc"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="match_parent"
+            android:weightSum="1">
+            <Spinner
+                android:layout_width="161dp"
+                android:layout_height="wrap_content"
+                android:entries="@array/lending_term"
+                android:id="@+id/spn_lending_term"
+                android:layout_alignTop="@+id/txt_liability_note"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_weight="0.58" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Calculate Payable"
+                android:id="@+id/button7"
+                android:layout_marginRight="@+id/spn_lending_term"
+                android:onClick="calculate"/>
+         </LinearLayout>
 
         <EditText
             android:layout_width="match_parent"
@@ -56,7 +107,10 @@
             android:hint="Description"
             android:ems="10"
             android:id="@+id/txt_liability_desc"
-            android:paddingTop="16dp"/>
+            android:paddingTop="16dp"
+            android:layout_above="@+id/spn_lending_term"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
 
         <EditText
             android:layout_width="match_parent"
@@ -64,8 +118,13 @@
             android:ems="10"
             android:id="@+id/txt_liability_note"
             android:paddingTop="16dp"
-            android:hint="Note"/>
+            android:hint="Note"
+            android:layout_centerVertical="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+
     </LinearLayout>
 </ScrollView>
+
 
 </RelativeLayout>

@@ -109,6 +109,13 @@
         <item>American Express</item>
         <item>Other</item>
     </string-array>
+    <string-array name="lending_term">
+        <item>12 Months</item>
+        <item>24 Months</item>
+        <item>36 Months</item>
+        <item>48 Months</item>
+        <item>60 Months</item>
+    </string-array>
     <string name="title_activity_finance_summary_view">Finance Summary</string>
     <string name="title_activity_finance_goal_new">New Goal</string>
     <string name="title_activity_finance_other_new">New Other Finance</string>
