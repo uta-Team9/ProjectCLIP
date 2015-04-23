@@ -4,25 +4,19 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.app.Activity;
-import android.app.LoaderManager.LoaderCallbacks;
 import android.content.Context;
-import android.content.CursorLoader;
 import android.content.Intent;
-import android.content.Loader;
 import android.content.SharedPreferences;
 import android.database.Cursor;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -30,13 +24,12 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.List;
 
 
 /**
  * A login screen that offers login via email/password.
  */
-public class Login extends Activity implements LoaderCallbacks<Cursor> {
+public class Login extends Activity {
 
 	//ADDED FROM http://stackoverflow.com/questions/9370293/add-a-remember-me-checkbox
 	private String username,password;
@@ -63,20 +56,16 @@ public class Login extends Activity implements LoaderCallbacks<Cursor> {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		openDB();
+
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.login_activity);
 
 		// Set up the login form.
 		mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
 		mRememberMe = (CheckBox) findViewById(R.id.remember_me);
-		if(mRememberMe.isChecked())
-			populateAutoComplete();
-
 		mPasswordView = (EditText) findViewById(R.id.password);
-		//ADDED FROM WEBSITE
-		loginPreferences = getSharedPreferences("loginPrefs", MODE_PRIVATE);
-		loginPrefsEditor = loginPreferences.edit();
 
+		//ADDED FROM WEBSITE
 		saveLogin = loginPreferences.getBoolean("saveLogin", false);
 		if (saveLogin == true) {
 			mEmailView.setText(loginPreferences.getString("username", ""));
@@ -84,6 +73,8 @@ public class Login extends Activity implements LoaderCallbacks<Cursor> {
 			mRememberMe.setChecked(true);
 		}
 		//ADDED FROM WEBSITE
+
+
 		mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
 			@Override
 			public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
@@ -118,6 +109,7 @@ public class Login extends Activity implements LoaderCallbacks<Cursor> {
 					loginPrefsEditor.commit();
 				}
 				//End of added
+
 			}
 		});
 
@@ -142,10 +134,6 @@ public class Login extends Activity implements LoaderCallbacks<Cursor> {
 		mProgressView = findViewById(R.id.login_progress);
 	}
 
-	private void populateAutoComplete() {
-		getLoaderManager().initLoader(0, null, this);
-	}
-
 	public void moveToRegister() {
 		Intent intent = new Intent(this, NewUser.class);
 		startActivity(intent);
@@ -153,7 +141,9 @@ public class Login extends Activity implements LoaderCallbacks<Cursor> {
 
 	public void moveToMainPage() {
 		Intent intent = new Intent(this, HomeScreen.class);
-		intent.putExtra("ID", this.User_ID);
+		loginPrefsEditor.putInt("ID", User_ID);
+		loginPrefsEditor.commit();
+		dB.close();
 		startActivity(intent);
 	}
 
@@ -217,7 +207,7 @@ public class Login extends Activity implements LoaderCallbacks<Cursor> {
 
 	private boolean isEmailValid(String email) {
 		//TODO: Replace this with your own logic
-		if(!email.contains(":") /*&& email.contains("@")*/)
+		if(!email.contains(":") && email.contains("@"))
 			return true;
 		return false;
 	}
@@ -232,11 +222,9 @@ public class Login extends Activity implements LoaderCallbacks<Cursor> {
 	private void openDB() {
 		dB = new DatabaseContract(this);
 		dB.open();
+		loginPreferences = getSharedPreferences("loginPrefs", MODE_PRIVATE);
+		loginPrefsEditor = loginPreferences.edit();
 	}
-	private void closeDB() {
-		dB.close();
-	}
-
 
 	/**
 	 * Shows the progress UI and hides the login form.
@@ -266,68 +254,14 @@ public class Login extends Activity implements LoaderCallbacks<Cursor> {
 					mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
 				}
 			});
+
+
 		} else {
 			// The ViewPropertyAnimator APIs are not available, so simply show
 			// and hide the relevant UI components.
 			mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
 			mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
 		}
-	}
-
-	@Override
-	public Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
-		return new CursorLoader(this,
-				// Retrieve data rows for the device user's 'profile' contact.
-				Uri.withAppendedPath(ContactsContract.Profile.CONTENT_URI,
-						ContactsContract.Contacts.Data.CONTENT_DIRECTORY), ProfileQuery.PROJECTION,
-
-				// Select only email addresses.
-				ContactsContract.Contacts.Data.MIMETYPE +
-						" = ?", new String[]{ContactsContract.CommonDataKinds.Email
-				.CONTENT_ITEM_TYPE},
-
-				// Show primary email addresses first. Note that there won't be
-				// a primary email address if the user hasn't specified one.
-				ContactsContract.Contacts.Data.IS_PRIMARY + " DESC");
-	}
-
-	@Override
-	public void onLoadFinished(Loader<Cursor> cursorLoader, Cursor cursor) {
-		List<String> emails = new ArrayList<String>();
-		cursor.moveToFirst();
-		while (!cursor.isAfterLast()) {
-			emails.add(cursor.getString(ProfileQuery.ADDRESS));
-			cursor.moveToNext();
-		}
-
-		CheckBox rm = (CheckBox) findViewById(R.id.remember_me);
-		if(rm.isChecked())
-			addEmailsToAutoComplete(emails);
-	}
-
-	@Override
-	public void onLoaderReset(Loader<Cursor> cursorLoader) {
-
-	}
-
-	private interface ProfileQuery {
-		String[] PROJECTION = {
-				ContactsContract.CommonDataKinds.Email.ADDRESS,
-				ContactsContract.CommonDataKinds.Email.IS_PRIMARY,
-		};
-
-		int ADDRESS = 0;
-		int IS_PRIMARY = 1;
-	}
-
-
-	private void addEmailsToAutoComplete(List<String> emailAddressCollection) {
-		//Create adapter to tell the AutoCompleteTextView what to show in its dropdown list.
-		ArrayAdapter<String> adapter =
-				new ArrayAdapter<String>(Login.this,
-						android.R.layout.simple_dropdown_item_1line, emailAddressCollection);
-
-		mEmailView.setAdapter(adapter);
 	}
 
 	/**
@@ -348,13 +282,6 @@ public class Login extends Activity implements LoaderCallbacks<Cursor> {
 		protected Boolean doInBackground(Void... params) {
 			// TODO: attempt authentication against a network service.
 
-			try {
-				// Simulate network access.
-				Thread.sleep(2000);
-			} catch (InterruptedException e) {
-				return false;
-			}
-
 			//putting together credentials list
 			Cursor cursor = dB.getAllLoginRows();
 			ArrayList<String> creds = new ArrayList<>();
@@ -373,8 +300,6 @@ public class Login extends Activity implements LoaderCallbacks<Cursor> {
 			}
 			cursor.close();
 
-			// TODO: register the new account here.
-			//register on different page
 			return false;
 		}
 
@@ -400,6 +325,3 @@ public class Login extends Activity implements LoaderCallbacks<Cursor> {
 		}
 	}
 }
-
-
-

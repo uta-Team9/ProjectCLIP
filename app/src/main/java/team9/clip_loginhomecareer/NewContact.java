@@ -14,7 +14,6 @@ import android.widget.Toast;
 
 public class NewContact extends ActionBarActivity {
 	//_ID, NAME, NUMBER, EMAIL, USED, MET, HASH_ID
-
 	private DatabaseContract db;
 	private int User_ID;
 	private Contact contact = null;
@@ -22,11 +21,10 @@ public class NewContact extends ActionBarActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		openDB();
+
 		Bundle extras = getIntent().getExtras();
 		if(extras != null) {
-			User_ID = extras.getInt("ID");
-			Log.d("User ID: ", "" + User_ID);
-			contact = (Contact)getIntent().getSerializableExtra("Contact");
+			contact = (Contact)extras.getSerializable("Contact");
 		}
 
 		super.onCreate(savedInstanceState);
@@ -40,18 +38,17 @@ public class NewContact extends ActionBarActivity {
 	}
 
 	protected void onDestroy() {
+		db.close();
 		super.onDestroy();
-		closeDB();
 	}
 
 	private void openDB() {
+		User_ID = getSharedPreferences("loginPrefs", MODE_PRIVATE).getInt("ID", -1);
+		Log.d("ID in New Contact", ""+User_ID);
+
 		db = new DatabaseContract(this);
 		db.open();
 	}
-	private void closeDB() {
-		db.close();
-	}
-
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -83,6 +80,16 @@ public class NewContact extends ActionBarActivity {
 			saveItems();
 	}
 
+	private void populateItems() {
+		EditText text;
+		text = (EditText) findViewById(R.id.new_contact_name);
+		text.setText(contact.getName());
+		text = (EditText) findViewById(R.id.new_contact_email);
+		text.setText(contact.getEmail());
+		text = (EditText) findViewById(R.id.new_contact_phone);
+		text.setText("" + contact.getPhone());
+	}
+
 	private void updateItems() {
 		EditText text;
 		text = (EditText) findViewById(R.id.new_contact_name);
@@ -100,16 +107,6 @@ public class NewContact extends ActionBarActivity {
 		toastNotification("Contact Updated");
 		clearData();
 		finish();
-	}
-
-	private void populateItems() {
-		EditText text;
-		text = (EditText) findViewById(R.id.new_contact_name);
-		text.setText(contact.getName());
-		text = (EditText) findViewById(R.id.new_contact_email);
-		text.setText(contact.getEmail());
-		text = (EditText) findViewById(R.id.new_contact_phone);
-		text.setText("" + contact.getPhone());
 	}
 
 	private void saveItems() {
