@@ -14,7 +14,7 @@ public final class DatabaseContract {
 
     //Database Name and Version Number. Change V# if you add new columns
     private static final String DATABASE_NAME = "UserDatabase.db";
-    private static final int DATABASE_VERSION = 22; //database not yet implemented in code
+    private static final int DATABASE_VERSION = 23; //database not yet implemented in code
     //download and merge changes to update to current db before changing number
     //always save work! GitHub can be evil.
 
@@ -93,7 +93,7 @@ public final class DatabaseContract {
     private static abstract class CareerGoalEntries implements BaseColumns {
         public static final String TABLE_NAME = "Goals";
         public static final String[] ALL_COLUMNS =
-                {"ID", "Description", "EndDate", "TermLength", "HashID"};
+                {"ID", "Title", "Description", "EndDate", "TermLength", "HashID"};
     }
 
     private static final String SQL_CREATE_CAREER_GOAL_ENTRIES =
@@ -102,7 +102,8 @@ public final class DatabaseContract {
 		            CareerGoalEntries.ALL_COLUMNS[1] + TEXT_TYPE + COMMA_SEP +
 		            CareerGoalEntries.ALL_COLUMNS[2] + TEXT_TYPE + COMMA_SEP +
 		            CareerGoalEntries.ALL_COLUMNS[3] + TEXT_TYPE + COMMA_SEP +
-		            CareerGoalEntries.ALL_COLUMNS[4] + INT_TYPE +
+		            CareerGoalEntries.ALL_COLUMNS[4] + TEXT_TYPE + COMMA_SEP +
+		            CareerGoalEntries.ALL_COLUMNS[5] + INT_TYPE +
                     //add entries following instructions above
                     ");";
     private static final String SQL_DELETE_CAREER_GOAL_ENTRIES =
@@ -806,22 +807,24 @@ public final class DatabaseContract {
 	}
 
 	//CAREER GOALS
-	//"ID", "Description", "EndDate", "TermLength", "HashID"
+	//"ID", "title", "Description", "EndDate", "TermLength", "HashID"
 	/**
 	 * Insert a row of data into the career goal table
+	 * @param title
 	 * @param desc
 	 * @param endDate
 	 * @param isLongTerm
 	 * @param user
 	 * @return rowID, the long primary key
 	 */
-	public long insertCareerGoal(String desc, String endDate, boolean isLongTerm, int user ) {
+	public long insertCareerGoal(String title, String desc, String endDate, boolean isLongTerm, int user ) {
 		// Create row's data:
 		ContentValues initialValues = new ContentValues();
-		initialValues.put(CareerGoalEntries.ALL_COLUMNS[1], desc);
-		initialValues.put(CareerGoalEntries.ALL_COLUMNS[2], endDate);
-		initialValues.put(CareerGoalEntries.ALL_COLUMNS[3], isLongTerm);
-		initialValues.put(CareerGoalEntries.ALL_COLUMNS[4], user);
+		initialValues.put(CareerGoalEntries.ALL_COLUMNS[1], title);
+		initialValues.put(CareerGoalEntries.ALL_COLUMNS[2], desc);
+		initialValues.put(CareerGoalEntries.ALL_COLUMNS[3], endDate);
+		initialValues.put(CareerGoalEntries.ALL_COLUMNS[4], isLongTerm);
+		initialValues.put(CareerGoalEntries.ALL_COLUMNS[5], user);
 
 		// Insert it into the database.
 		return db.insert(CareerGoalEntries.TABLE_NAME, null, initialValues);
@@ -830,19 +833,22 @@ public final class DatabaseContract {
 	/**
 	 * Update a row in the career goal table
 	 * @param rowId long value primary key
+	 * @param title
 	 * @param desc
 	 * @param endDate
 	 * @param isLongTerm
 	 * @return true if successful
 	 */
-	public boolean updateCareerGoal(long rowId, String desc, String endDate, boolean isLongTerm) {
+	public boolean updateCareerGoal(long rowId, String title, String desc, String endDate,
+	                                boolean isLongTerm) {
 		String where = CareerGoalEntries.ALL_COLUMNS[0] + "=" + rowId;
 		// TODO: Update data in the row with new fields.
 		// TODO: Also change the function's arguments to be what you need!
 		ContentValues newValues = new ContentValues();
-		newValues.put(CareerGoalEntries.ALL_COLUMNS[1], desc);
-		newValues.put(CareerGoalEntries.ALL_COLUMNS[2], endDate);
-		newValues.put(CareerGoalEntries.ALL_COLUMNS[3], isLongTerm);
+		newValues.put(CareerGoalEntries.ALL_COLUMNS[1], title);
+		newValues.put(CareerGoalEntries.ALL_COLUMNS[2], desc);
+		newValues.put(CareerGoalEntries.ALL_COLUMNS[3], endDate);
+		newValues.put(CareerGoalEntries.ALL_COLUMNS[4], isLongTerm);
 
 		// Insert it into the database.
 		return db.update(CareerGoalEntries.TABLE_NAME, newValues, where, null) != 0;

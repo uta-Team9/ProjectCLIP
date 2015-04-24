@@ -7,102 +7,58 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.ActionBarDrawerToggle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.Locale;
 
-
 public class HomeScreen extends ActionBarActivity implements ActionBar.TabListener {
+	//database stuff
 	private int User_ID;
 	private DatabaseContract db;
 
-	/**
-	 * The {@link android.support.v4.view.PagerAdapter} that will provide
-	 * fragments for each of the sections. We use a
-	 * {@link FragmentPagerAdapter} derivative, which will keep every
-	 * loaded fragment in memory. If this becomes too memory intensive, it
-	 * may be best to switch to a
-	 * {@link android.support.v4.app.FragmentStatePagerAdapter}.
-	 */
+	//Tab stuff
 	SectionsPagerAdapter mSectionsPagerAdapter;
-
-	/**
-	 * The {@link ViewPager} that will host the section contents.
-	 */
 	ViewPager mViewPager;
+
+	//drawer stuff
+	private String[] mCLIPModules = {"Career","Education","Health","Finance"};
+	private DrawerLayout drawerLayout;
+	private ListView drawerList;
+	private ActionBarDrawerToggle mDrawerToggle;
+
+	//
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		Bundle extras = getIntent().getExtras();
-		if(extras != null) {
-			User_ID = extras.getInt("ID");
-		}
+		openDB();
+
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.home_calendar_activity);
 
-		// Set up the action bar.
-		final ActionBar actionBar = getSupportActionBar();
-		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
-
-		// Create the adapter that will return a fragment for each of the three
-		// primary sections of the activity.
-		mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
-
-		// Set up the ViewPager with the sections adapter.
-		mViewPager = (ViewPager) findViewById(R.id.calendar_task_pager);
-		mViewPager.setAdapter(mSectionsPagerAdapter);
-
-		// When swiping between different sections, select the corresponding
-		// tab. We can also use ActionBar.Tab#select() to do this if we have
-		// a reference to the Tab.
-		mViewPager.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
-			@Override
-			public void onPageSelected(int position) {
-				//actionBar.setSelectedNavigationItem(position);
-				switch(position) {
-					case(0):
-						setContentView(R.layout.calendar_view);
-						break;
-					case(1):
-						setContentView(R.layout.task_view);
-						break;
-				}
-			}
-		});
-
-		// For each of the sections in the app, add a tab to the action bar.
-		for (int i = 0; i < mSectionsPagerAdapter.getCount(); i++) {
-			// Create a tab with text corresponding to the page title defined by
-			// the adapter. Also specify this Activity object, which implements
-			// the TabListener interface, as the callback (listener) for when
-			// this tab is selected.
-			actionBar.addTab(
-					actionBar.newTab()
-							.setText(mSectionsPagerAdapter.getPageTitle(i))
-							.setTabListener(this));
-		}
+		// Set up tabs
+		setupApplicationTabs();
+		// Set up Drawer
+		//setupApplicationDrawer();
 	}
 
-	private void openDB() {
-		db = new DatabaseContract(this);
-		db.open();
-	}
-	private void closeDB() {
+	@Override
+	protected void onDestroy() {
 		db.close();
-	}
-
-	public void onDestroy() {
 		super.onDestroy();
-
-		setContentView(R.layout.login_activity);
 	}
-
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -141,12 +97,55 @@ public class HomeScreen extends ActionBarActivity implements ActionBar.TabListen
 			intent.putExtra("ID", User_ID);
 			startActivity(intent);
 		}
-		//noinspection SimplifiableIfStatement
-		//if (id == R.id.action_settings) {
-		//	return true;
-		//}
 
-		return true; //super.onOptionsItemSelected(item);
+		return true;
+	}
+
+	/**
+	 * Set up the application tabs
+	 */
+	private void setupApplicationTabs() {
+		final ActionBar actionBar = getSupportActionBar();
+		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
+
+		// Create the adapter that will return a fragment for each of the three
+		// primary sections of the activity.
+		mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
+
+		// Set up the ViewPager with the sections adapter.
+		mViewPager = (ViewPager) findViewById(R.id.calendar_task_pager);
+		mViewPager.setAdapter(mSectionsPagerAdapter);
+
+		// When swiping between different sections, select the corresponding
+		// tab. We can also use ActionBar.Tab#select() to do this if we have
+		// a reference to the Tab.
+		mViewPager.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
+			@Override
+			public void onPageSelected(int position) {
+				//actionBar.setSelectedNavigationItem(position);
+				switch(position) {
+					case(0):
+						setContentView(R.layout.calendar_view);
+						break;
+					case(1):
+						setContentView(R.layout.task_view);
+						//TODO: populate list
+						break;
+				}
+			}
+		});
+
+		// For each of the sections in the app, add a tab to the action bar.
+		for (int i = 0; i < mSectionsPagerAdapter.getCount(); i++) {
+			// Create a tab with text corresponding to the page title defined by
+			// the adapter. Also specify this Activity object, which implements
+			// the TabListener interface, as the callback (listener) for when
+			// this tab is selected.
+			actionBar.addTab(
+					actionBar.newTab()
+							.setText(mSectionsPagerAdapter.getPageTitle(i))
+							.setTabListener(this));
+		}
 	}
 
 	@Override
@@ -157,19 +156,85 @@ public class HomeScreen extends ActionBarActivity implements ActionBar.TabListen
 	}
 
 	@Override
-	public void onTabUnselected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
-	}
+	public void onTabUnselected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {	}
 
 	@Override
-	public void onTabReselected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
+	public void onTabReselected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {	}
+
+	/**
+	 * Setup the application drawer
+	 */
+	private void setupApplicationDrawer() {
+		drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+		drawerList = (ListView) findViewById(R.id.home_screen_drawer);
+		ArrayAdapter<String> temp = new ArrayAdapter<>(
+				this,
+				android.R.layout.simple_list_item_1,
+				mCLIPModules);
+		drawerList.setAdapter(temp);
+		drawerList.setOnItemClickListener(new DrawerItemClickListener());
+
+		mDrawerToggle = new ActionBarDrawerToggle(
+				this,                  /* host Activity */
+				drawerLayout,         /* DrawerLayout object */
+				//R.mipmap.ic_launcher,  /* nav drawer icon to replace 'Up' caret */
+				R.string.drawer_open,  /* "open drawer" description */
+				R.string.drawer_close  /* "close drawer" description */
+		) {	};
+
+		drawerLayout.setDrawerListener(mDrawerToggle);
 	}
 
 	public void viewContactsList(View v) {
-		//setContentView(R.layout.list_contacts_activity);
-		Intent intent = new Intent(this, ContactList.class);
-		intent.putExtra("ID", User_ID);
-		startActivity(intent);
+		startActivity(new Intent(this, ContactList.class));
 	}
+
+	private void openDB() {
+		User_ID = getSharedPreferences("loginPrefs", MODE_PRIVATE).getInt("ID", -1);
+		Log.d("Home Screen ID", "" + User_ID);
+
+		db = new DatabaseContract(this);
+		db.open();
+	}
+
+	/**
+	 * Changes the view after selecting an item in the APP DRAWER
+	 */
+	private void selectItem(int position) {
+		// Highlight the selected item, update the title, and close the drawer
+		drawerList.setItemChecked(position, true);
+		Intent intent = null;
+
+		switch(mCLIPModules[position]) {
+			case("Career"):
+				intent = new Intent(this, CareerHome.class);
+				break;
+			case("Finance"):
+				intent = new Intent(this, FinanceHome.class);
+				break;
+			case("Health"):
+				intent = new Intent(this, HealthHomePage.class);
+				break;
+			case("Education"):
+				intent = new Intent(this, EduMain.class);
+				break;
+		}
+		drawerLayout.closeDrawer(drawerList);
+
+		if(intent != null) {
+			startActivity(intent);
+		}
+	}
+
+	/**
+	 * Send a toast notification to the user
+	 * @param description
+	 */
+	private void toastNotification(String description) {
+		Toast.makeText(getApplicationContext(), description, Toast.LENGTH_LONG).show();
+	}
+
+	/** INTERNAL CLASSES FOR APP NAVIGATION */
 
 	/**
 	 * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
@@ -240,4 +305,13 @@ public class HomeScreen extends ActionBarActivity implements ActionBar.TabListen
 		}
 	}
 
+	/**
+	 *
+	 */
+	private class DrawerItemClickListener implements ListView.OnItemClickListener {
+		@Override
+		public void onItemClick(AdapterView parent, View view, int position, long id) {
+			selectItem(position);
+		}
+	}
 }

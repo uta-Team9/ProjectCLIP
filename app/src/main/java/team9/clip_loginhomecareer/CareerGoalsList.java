@@ -10,7 +10,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ListView;
 
 import java.util.ArrayList;
@@ -19,42 +18,27 @@ import java.util.ArrayList;
 public class CareerGoalsList extends ActionBarActivity {
 	private int User_ID;
 	private DatabaseContract db;
-	private ArrayList<CareerGoal> list = new ArrayList<>();
+	private ArrayList<CareerGoal> list;
 	private ListView activityList;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		db = new DatabaseContract(this);
-		db.open();
+		openDB();
 
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.list_career_goals_activity);
 
-		Bundle bundle = getIntent().getExtras();
-		if(bundle != null) {
-			User_ID = bundle.getInt("ID");
-			Log.d("Goal Received ID", ""+User_ID);
-		}
-
 		activityList = (ListView) findViewById(R.id.career_goals_list);
 
-		Button edit = (Button) findViewById(R.id.new_instance_button);
-		edit.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				createNewInstance(v);
-			}
-		});
-
 		buildList();
-		makeList();
+		setList();
 	}
 
+	@Override
 	protected void onDestroy() {
 		db.close();
 		super.onDestroy();
 	}
-
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -78,35 +62,41 @@ public class CareerGoalsList extends ActionBarActivity {
 		return super.onOptionsItemSelected(item);
 	}
 
-	public void createNewInstance(View v) {
-		Intent intent = new Intent(this, NewCareerGoal.class);
-		startActivity(intent);
+	private void openDB() {
+		User_ID = getSharedPreferences("loginPrefs", MODE_PRIVATE).getInt("ID", -1);
+		Log.d("User ID ContactList", "" + User_ID);
+
+		db = new DatabaseContract(this);
+		db.open();
 	}
 
 	//putting together contact list
 	private void buildList() {
+		list = new ArrayList<>();
 		Cursor cursor = db.getAllCareerGoals();
 		CareerGoal temp = null;
+
 		if (cursor.moveToFirst()) {
-			do {
-				if(cursor.getInt(6) == User_ID) {
-					temp = new CareerGoal(cursor.getInt(0));
-					//"ID", "Description", "EndDate", "TermLength", "HashID"
-					Log.d( "Contact Found: ", cursor.getString(1));
-					temp.setDescription(cursor.getString(1));
-					temp.setDate(cursor.getString(2));
-					if(cursor.getInt(3) == 0)
+			do if(cursor.getInt(5) == User_ID) {
+
+				temp = new CareerGoal(cursor.getInt(0));
+					//"ID", "Title", "Description", "EndDate", "TermLength", "HashID"
+					Log.d( "CareerGoal Found: ", cursor.getString(1));
+					temp.setTitle(cursor.getString(1));
+					temp.setDescription(cursor.getString(2));
+					temp.setDate(cursor.getString(3));
+					if(cursor.getInt(4) == 0)
 						temp.setLongTerm(true);
 					else
 						temp.setLongTerm(false);
 					list.add(temp);
 				}
-			} while (cursor.moveToNext());
+			while (cursor.moveToNext());
 		}
 		cursor.close();
 	}
 
-	private void makeList() {
+	private void setList() {
 		ArrayAdapter<CareerGoal> arrayAdapter = new ArrayAdapter<>(
 				this, android.R.layout.simple_list_item_1, list);
 
@@ -122,9 +112,12 @@ public class CareerGoalsList extends ActionBarActivity {
 	}
 
 	private void moveToView(int position) {
-		Intent intent = new Intent(this, ViewCareerGoal.class);
-		intent.putExtra("Object", list.get(position));
-		intent.putExtra("ID", User_ID);
-		startActivity(intent);
+		startActivity(
+				new Intent(this, ViewCareerGoal.class).putExtra("CareerGoal", list.get(position))
+		);
+	}
+
+	public void createNewInstance(View v) {
+		startActivity(new Intent(this, NewCareerGoal.class));
 	}
 }

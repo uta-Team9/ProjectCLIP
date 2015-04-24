@@ -76,7 +76,7 @@ public class NewUser extends ActionBarActivity {
 		text = (EditText) findViewById(R.id.new_user_email);
 		String email = text.getText().toString();
 		//return false if, contains :, contains @, is registered
-		if(email.contains(":") || /*!email.contains("@") ||*/ isRegistered(email))
+		if(email.contains(":") || !email.contains("@") || isRegistered(email))
 			return resetFields(false); //reset email and password
 
 		//save password

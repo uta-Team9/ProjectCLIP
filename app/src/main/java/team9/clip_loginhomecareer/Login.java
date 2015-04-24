@@ -291,7 +291,7 @@ public class Login extends Activity {
 					creds.add((cursor.getString(2) + ":" + cursor.getString(3)));
 					if(cursor.getString(2).equals(mEmail)) {
 						if(cursor.getString(3).equals(mPassword)) {
-							User_ID = cursor.getInt(6);
+							User_ID = cursor.getInt(0); //set 0 for row, 5 for hash
 							cursor.close();
 							return true;
 						}

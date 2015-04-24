@@ -1,7 +1,6 @@
 package team9.clip_loginhomecareer;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
@@ -18,14 +17,9 @@ import java.util.ArrayList;
 
 public class ContactList extends ActionBarActivity {
 
-	private SharedPreferences idpref;
 	private int User_ID;
 	private DatabaseContract db;
-	private ArrayList<Contact> list;// = new ArrayList<>();
-
-	/**
-	 * UI ELEMENTS
-	 */
+	private ArrayList<Contact> list;
 	private ListView activityList;
 
 	@Override
@@ -37,16 +31,8 @@ public class ContactList extends ActionBarActivity {
 
 		activityList = (ListView) findViewById(R.id.contacts_list);
 
-/*		Button edit = (Button) findViewById(R.id.new_instance_button);
-		edit.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				createNewInstance(v);
-			}
-		});*/
-
 		buildList();
-		makeList();
+		setList();
 	}
 
 	//close db before activity exit
@@ -54,17 +40,6 @@ public class ContactList extends ActionBarActivity {
 		db.close();
 		super.onDestroy();
 	}
-
-	//instantiates the database and recovers User_ID from the shared preference file
-	private void openDB() {
-		idpref = getSharedPreferences("loginPrefs", MODE_PRIVATE);
-		User_ID = idpref.getInt("ID", -1);
-		Log.d("User ID: ", "" + User_ID);
-
-		db = new DatabaseContract(this);
-		db.open();
-	}
-
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -88,24 +63,13 @@ public class ContactList extends ActionBarActivity {
 		return super.onOptionsItemSelected(item);
 	}
 
-	/**
-	 * Move to activity to create the appropriate item when "New" button is pressed
-	 * @param v
-	 */
-	public void createNewInstance(View v) {
-		Intent intent = new Intent(this, NewContact.class);
-		intent.putExtra("ID", User_ID);
-		startActivity(intent);
-	}
+	//instantiates the database and recovers User_ID from the shared preference file
+	private void openDB() {
+		User_ID = getSharedPreferences("loginPrefs", MODE_PRIVATE).getInt("ID", -1);
+		Log.d("User ID ContactList", "" + User_ID);
 
-	/**
-	 * Move to activity to display info about a contact
-	 * @param position
-	 */
-	public void viewContact(int position) {
-		Intent intent = new Intent(this, ViewContact.class);
-		intent.putExtra("Contact", list.get(position));
-		startActivity(intent);
+		db = new DatabaseContract(this);
+		db.open();
 	}
 
 	//putting together contact list, cycle through db
@@ -133,7 +97,7 @@ public class ContactList extends ActionBarActivity {
 	}
 
 	//Add the adapter to the list ui
-	private void makeList() {
+	private void setList() {
 		//Possible to change simple_list_item_1 into our own xml object
 		ArrayAdapter<Contact> arrayAdapter = new ArrayAdapter<>(
 				this, android.R.layout.simple_list_item_1, list);
@@ -144,8 +108,26 @@ public class ContactList extends ActionBarActivity {
 		activityList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
-				viewContact(position);
+				moveToView(position);
 			}
 		});
+	}
+
+	/**
+	 *
+	 * @param position
+	 */
+	private void moveToView(int position) {
+		startActivity(
+				new Intent(this, ViewContact.class).putExtra("Contact", list.get(position))
+		);
+	}
+
+	/**
+	 * Move to activity to create the appropriate item when "New" button is pressed
+	 * @param v
+	 */
+	public void createNewInstance(View v) {
+		startActivity(new Intent(this, NewContact.class));
 	}
 }

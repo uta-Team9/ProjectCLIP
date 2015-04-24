@@ -7,7 +7,6 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -19,8 +18,8 @@ public class ViewContact extends ActionBarActivity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		db = new DatabaseContract(this);
-		db.open();
+		openDB();
+
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.display_contact_activity);
 
@@ -29,43 +28,13 @@ public class ViewContact extends ActionBarActivity {
 		{
 			db = new DatabaseContract(this);
 			db.open();
-			User_ID = extras.getInt("ID");
-			contact = (Contact)getIntent().getSerializableExtra("Contact");
-			Log.d("User ID ", "" + User_ID);
-			Log.d("Contact passed ", contact.getEmail());
+			contact = (Contact)extras.getSerializable("Contact");
+			Log.d("Contact received", contact.getEmail());
 
 			setTitle(contact.getName());
 			setUpTextBoxes();
 		}
 
-
-		Button edit = (Button) findViewById(R.id.edit_button);
-		edit.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				editInstance(v);
-			}
-		});
-		Button delete = (Button) findViewById(R.id.delete_button);
-		delete.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				deleteInstance(v);
-			}
-		});
-
-/*		final TextView phoneNumber = (TextView)findViewById(R.id.viewContact_phone);
-		phoneNumber.setOnClickListener(new View.OnClickListener(){
-			@Override
-			public void onClick(View arg0) {
-				String call = phoneNumber.getText().toString().replaceAll("-","");
-				Intent callIntent = new Intent(Intent.ACTION_CALL);
-				callIntent.setData(Uri.parse("tel:"+call));
-				contact.incrementUsed();
-				startActivity(callIntent);
-			}
-		});
-*/
 		final TextView emailAddress = (TextView)findViewById(R.id.viewContact_email);
 		emailAddress.setOnClickListener(new View.OnClickListener(){
 			@Override
@@ -85,8 +54,8 @@ public class ViewContact extends ActionBarActivity {
 
 	@Override
 	protected void onDestroy() {
-		super.onDestroy();
 		db.close();
+		super.onDestroy();
 	}
 
 	@Override
@@ -111,6 +80,14 @@ public class ViewContact extends ActionBarActivity {
 		return super.onOptionsItemSelected(item);
 	}
 
+	//Added By Edward
+	private void openDB() {
+		db = new DatabaseContract(this);
+		db.open();
+		User_ID = getSharedPreferences("loginPrefs", MODE_PRIVATE).getInt("ID", -1);
+		Log.d("ID in ViewContact", "" + User_ID);
+	}
+
 	private void setUpTextBoxes() {
 		if(contact != null) {
 			TextView text = (TextView) findViewById(R.id.viewContact_met);
@@ -124,12 +101,8 @@ public class ViewContact extends ActionBarActivity {
 		}
 	}
 
-	//Added By Edward
 	public void editInstance(View v) {
-		Intent intent = new Intent(this, NewContact.class);
-		intent.putExtra("ID", User_ID);
-		intent.putExtra("Contact", contact);
-		startActivity(intent);
+		startActivity(new Intent(this, NewContact.class).putExtra("Contact", contact));
 	}
 
 	public void deleteInstance(View v) {

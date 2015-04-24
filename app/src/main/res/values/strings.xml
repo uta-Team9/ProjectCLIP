@@ -8,6 +8,8 @@
     <string name="login_title">CLIP</string>
     <string name="title_activity_new_user">Register</string>
     <string name="title_activity_password_recovery">Password Recovery</string>
+    <string name="drawer_open">Open</string>
+    <string name="drawer_close">Close</string>
 
     <string-array name="security_questions">
         <item>Pick A Question.</item>
