@@ -14,11 +14,11 @@
         android:layout_below="@+id/textView2"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:layout_above="@+id/new_instance_button"
-        android:background="#ffffffff"/>
+        android:background="#ffffffff"
+        android:layout_above="@+id/button5"/>
 
     <Button
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Create New Application"
         android:id="@+id/button5"

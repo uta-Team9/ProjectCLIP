@@ -159,6 +159,7 @@ public class HomeScreen extends ActionBarActivity implements ActionBar.TabListen
 		// When the given tab is selected, switch to the corresponding page in
 		// the ViewPager.
 		mViewPager.setCurrentItem(tab.getPosition());
+		//setupApplicationDrawer();
 		if(tab.getPosition()==1) {
 			if(!built) {
 				buildList();
@@ -271,7 +272,7 @@ public class HomeScreen extends ActionBarActivity implements ActionBar.TabListen
 		taskList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
-				//moveToView(position);
+				selectItem(position);
 			}
 		});
 
