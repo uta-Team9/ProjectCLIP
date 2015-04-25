@@ -30,8 +30,8 @@
         android:layout_height="428dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_above="@+id/linearLayout"
-        android:layout_below="@+id/imageView">
+        android:layout_below="@+id/imageView"
+        android:layout_above="@+id/linearLayout">
 
         <LinearLayout
             android:id="@+id/email_login_form"
@@ -87,11 +87,12 @@
         android:orientation="horizontal"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:weightSum="2"
-        android:id="@+id/linearLayout"
-        android:layout_above="@+id/register_button"
+        android:weightSum="3"
+        android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true">
+        android:layout_alignParentStart="true"
+        android:id="@+id/linearLayout"
+        android:layout_above="@+id/register_button">
 
         <Button
             android:layout_width="wrap_content"
@@ -101,6 +102,17 @@
             android:layout_weight="1"
             style="?android:textAppearanceSmall"
             android:textStyle="bold"
+            android:background="#FFFFFFFF"
+            android:textColor="#FF000000"/>
+
+        <Button
+            style="?android:textAppearanceSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/register_button"
+            android:text="@string/login_register"
+            android:textStyle="bold"
+            android:layout_weight="1"
             android:background="#FFFFFFFF"
             android:textColor="#FF000000"/>
 
@@ -117,18 +129,6 @@
 
     </LinearLayout>
 
-    <Button
-        style="?android:textAppearanceSmall"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/register_button"
-        android:text="@string/login_register"
-        android:textStyle="bold"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:background="#FFFFFFFF"
-        android:textColor="#FF000000"/>
 
     <ImageView
         android:layout_width="wrap_content"

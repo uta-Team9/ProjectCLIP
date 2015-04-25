@@ -14,7 +14,7 @@ public final class DatabaseContract {
 
     //Database Name and Version Number. Change V# if you add new columns
     private static final String DATABASE_NAME = "UserDatabase.db";
-    private static final int DATABASE_VERSION = 21; //database not yet implemented in code
+    private static final int DATABASE_VERSION = 23; //database not yet implemented in code
     //download and merge changes to update to current db before changing number
     //always save work! GitHub can be evil.
 
@@ -93,7 +93,7 @@ public final class DatabaseContract {
     private static abstract class CareerGoalEntries implements BaseColumns {
         public static final String TABLE_NAME = "Goals";
         public static final String[] ALL_COLUMNS =
-                {"ID", "Description", "EndDate", "TermLength", "HashID"};
+                {"ID", "Title", "Description", "EndDate", "TermLength", "HashID"};
     }
 
     private static final String SQL_CREATE_CAREER_GOAL_ENTRIES =
@@ -102,7 +102,8 @@ public final class DatabaseContract {
 		            CareerGoalEntries.ALL_COLUMNS[1] + TEXT_TYPE + COMMA_SEP +
 		            CareerGoalEntries.ALL_COLUMNS[2] + TEXT_TYPE + COMMA_SEP +
 		            CareerGoalEntries.ALL_COLUMNS[3] + TEXT_TYPE + COMMA_SEP +
-		            CareerGoalEntries.ALL_COLUMNS[4] + INT_TYPE +
+		            CareerGoalEntries.ALL_COLUMNS[4] + TEXT_TYPE + COMMA_SEP +
+		            CareerGoalEntries.ALL_COLUMNS[5] + INT_TYPE +
                     //add entries following instructions above
                     ");";
     private static final String SQL_DELETE_CAREER_GOAL_ENTRIES =
@@ -341,19 +342,24 @@ public final class DatabaseContract {
 			"DROP TABLE IF EXISTS " + AssetEntries.TABLE_NAME;
 
 	//Liability (Using new method)
+	// String date, String lenderName, double amount, double interestRate,
+	// int lendingTerm, String desc, String note
 	private static abstract class LiabilityEntries implements BaseColumns {
 		public static final String TABLE_NAME = "LIABILITIES";
 		public static final String[] ALL_COLUMNS =
-				{"ID", "DATE", "AMOUNT", "DESCRIPTION", "NOTE", "USER_ID"};
+				{"ID", "DATE", "LENDER_NAME", "AMOUNT", "INTEREST_RATE", "LENDING_TERM", "DESCRIPTION", "NOTE", "USER_ID"};
 	}
 	private static final String SQL_CREATE_LIABILITY_ENTRIES =
 			"CREATE TABLE " + LiabilityEntries.TABLE_NAME + " (" +
 					LiabilityEntries.ALL_COLUMNS[0] + " INTEGER PRIMARY KEY," +
-					LiabilityEntries.ALL_COLUMNS[1] + INT_TYPE + COMMA_SEP +
-					LiabilityEntries.ALL_COLUMNS[2] + DOUBLE_TYPE + COMMA_SEP +
-					LiabilityEntries.ALL_COLUMNS[3] + TEXT_TYPE + COMMA_SEP +
-					LiabilityEntries.ALL_COLUMNS[4] + TEXT_TYPE + COMMA_SEP +
-					LiabilityEntries.ALL_COLUMNS[5] + INT_TYPE +
+					LiabilityEntries.ALL_COLUMNS[1] + TEXT_TYPE + COMMA_SEP +
+					LiabilityEntries.ALL_COLUMNS[2] + TEXT_TYPE + COMMA_SEP +
+					LiabilityEntries.ALL_COLUMNS[3] + DOUBLE_TYPE + COMMA_SEP +
+					LiabilityEntries.ALL_COLUMNS[4] + DOUBLE_TYPE + COMMA_SEP +
+					LiabilityEntries.ALL_COLUMNS[5] + INT_TYPE + COMMA_SEP +
+					LiabilityEntries.ALL_COLUMNS[6] + TEXT_TYPE + COMMA_SEP +
+					LiabilityEntries.ALL_COLUMNS[7] + TEXT_TYPE + COMMA_SEP +
+					LiabilityEntries.ALL_COLUMNS[8] + INT_TYPE +
 					");";
 	private static final String SQL_DELETE_LIABILITY_ENTRIES =
 			"DROP TABLE IF EXISTS " + LiabilityEntries.TABLE_NAME;
@@ -801,22 +807,24 @@ public final class DatabaseContract {
 	}
 
 	//CAREER GOALS
-	//"ID", "Description", "EndDate", "TermLength", "HashID"
+	//"ID", "title", "Description", "EndDate", "TermLength", "HashID"
 	/**
 	 * Insert a row of data into the career goal table
+	 * @param title
 	 * @param desc
 	 * @param endDate
 	 * @param isLongTerm
 	 * @param user
 	 * @return rowID, the long primary key
 	 */
-	public long insertCareerGoal(String desc, String endDate, boolean isLongTerm, int user ) {
+	public long insertCareerGoal(String title, String desc, String endDate, boolean isLongTerm, int user ) {
 		// Create row's data:
 		ContentValues initialValues = new ContentValues();
-		initialValues.put(CareerGoalEntries.ALL_COLUMNS[1], desc);
-		initialValues.put(CareerGoalEntries.ALL_COLUMNS[2], endDate);
-		initialValues.put(CareerGoalEntries.ALL_COLUMNS[3], isLongTerm);
-		initialValues.put(CareerGoalEntries.ALL_COLUMNS[4], user);
+		initialValues.put(CareerGoalEntries.ALL_COLUMNS[1], title);
+		initialValues.put(CareerGoalEntries.ALL_COLUMNS[2], desc);
+		initialValues.put(CareerGoalEntries.ALL_COLUMNS[3], endDate);
+		initialValues.put(CareerGoalEntries.ALL_COLUMNS[4], isLongTerm);
+		initialValues.put(CareerGoalEntries.ALL_COLUMNS[5], user);
 
 		// Insert it into the database.
 		return db.insert(CareerGoalEntries.TABLE_NAME, null, initialValues);
@@ -825,19 +833,22 @@ public final class DatabaseContract {
 	/**
 	 * Update a row in the career goal table
 	 * @param rowId long value primary key
+	 * @param title
 	 * @param desc
 	 * @param endDate
 	 * @param isLongTerm
 	 * @return true if successful
 	 */
-	public boolean updateCareerGoal(long rowId, String desc, String endDate, boolean isLongTerm) {
+	public boolean updateCareerGoal(long rowId, String title, String desc, String endDate,
+	                                boolean isLongTerm) {
 		String where = CareerGoalEntries.ALL_COLUMNS[0] + "=" + rowId;
 		// TODO: Update data in the row with new fields.
 		// TODO: Also change the function's arguments to be what you need!
 		ContentValues newValues = new ContentValues();
-		newValues.put(CareerGoalEntries.ALL_COLUMNS[1], desc);
-		newValues.put(CareerGoalEntries.ALL_COLUMNS[2], endDate);
-		newValues.put(CareerGoalEntries.ALL_COLUMNS[3], isLongTerm);
+		newValues.put(CareerGoalEntries.ALL_COLUMNS[1], title);
+		newValues.put(CareerGoalEntries.ALL_COLUMNS[2], desc);
+		newValues.put(CareerGoalEntries.ALL_COLUMNS[3], endDate);
+		newValues.put(CareerGoalEntries.ALL_COLUMNS[4], isLongTerm);
 
 		// Insert it into the database.
 		return db.update(CareerGoalEntries.TABLE_NAME, newValues, where, null) != 0;
@@ -1516,22 +1527,29 @@ public final class DatabaseContract {
 
 	//Liabilities
 	/**
-	 *
-	 * @param date
-	 * @param amount
-	 * @param desc
-	 * @param note
-	 * @param user
-	 * @return
+	 * insert into the database
+	 * @param date Date in string format
+	 * @param lenderName Name of lender
+	 * @param amount the amount being lent
+	 * @param interestRate the rate of the interest
+	 * @param lendingTerm How ever you want to store it
+	 * @param desc Description
+	 * @param note Note
+	 * @param user User's ID
+	 * @return the primary key
 	 */
-	public long insertLiability(int date, double amount, String desc, String note, int user ) {
+	public long insertLiability(String date, String lenderName, double amount, double interestRate,
+	                            int lendingTerm, String desc, String note, int user ) {
 		// Create row's data:
 		ContentValues initialValues = new ContentValues();
 		initialValues.put(LiabilityEntries.ALL_COLUMNS[1], date);
-		initialValues.put(LiabilityEntries.ALL_COLUMNS[2], amount);
-		initialValues.put(LiabilityEntries.ALL_COLUMNS[3], desc);
-		initialValues.put(LiabilityEntries.ALL_COLUMNS[4], note);
-		initialValues.put(LiabilityEntries.ALL_COLUMNS[5], user);
+		initialValues.put(LiabilityEntries.ALL_COLUMNS[2], lenderName);
+		initialValues.put(LiabilityEntries.ALL_COLUMNS[3], amount);
+		initialValues.put(LiabilityEntries.ALL_COLUMNS[4], interestRate);
+		initialValues.put(LiabilityEntries.ALL_COLUMNS[5], lendingTerm);
+		initialValues.put(LiabilityEntries.ALL_COLUMNS[6], desc);
+		initialValues.put(LiabilityEntries.ALL_COLUMNS[7], note);
+		initialValues.put(LiabilityEntries.ALL_COLUMNS[8], user);
 
 		// Insert it into the database.
 		return db.insert(LiabilityEntries.TABLE_NAME, null, initialValues);
@@ -1539,27 +1557,40 @@ public final class DatabaseContract {
 
 	/**
 	 *
-	 * @param rowId
+	 * @param rowId the primary key
 	 * @param date
+	 * @param lenderName
 	 * @param amount
+	 * @param interestRate
+	 * @param lendingTerm
 	 * @param desc
 	 * @param note
-	 * @return
+	 * @return true if succsesful
 	 */
-	public boolean updateLiability(long rowId, int date, double amount, String desc,String note) {
+	public boolean updateLiability(long rowId, String date, String lenderName, double amount, double interestRate,
+	                               int lendingTerm, String desc, String note) {
 		String where = LiabilityEntries.ALL_COLUMNS[0] + "=" + rowId;
 		// TODO: Update data in the row with new fields.
 		// TODO: Also change the function's arguments to be what you need!
-		ContentValues newValues = new ContentValues();
-		newValues.put(LiabilityEntries.ALL_COLUMNS[1], date);
-		newValues.put(LiabilityEntries.ALL_COLUMNS[2], amount);
-		newValues.put(LiabilityEntries.ALL_COLUMNS[3], desc);
-		newValues.put(LiabilityEntries.ALL_COLUMNS[4], note);
+		ContentValues initialValues = new ContentValues();
+		initialValues.put(LiabilityEntries.ALL_COLUMNS[1], date);
+		initialValues.put(LiabilityEntries.ALL_COLUMNS[2], lenderName);
+		initialValues.put(LiabilityEntries.ALL_COLUMNS[3], amount);
+		initialValues.put(LiabilityEntries.ALL_COLUMNS[4], interestRate);
+		initialValues.put(LiabilityEntries.ALL_COLUMNS[5], lendingTerm);
+		initialValues.put(LiabilityEntries.ALL_COLUMNS[6], desc);
+		initialValues.put(LiabilityEntries.ALL_COLUMNS[7], note);
 
 		// Insert it into the database.
-		return db.update(LiabilityEntries.TABLE_NAME, newValues, where, null) != 0;
+		return db.update(LiabilityEntries.TABLE_NAME, initialValues, where, null) != 0;
 	}
 
+	/**
+	 * Get a Cursor array with columns of
+	 * @param rowId
+	 * @return Cursor with the columns of String date, String lenderName, double amount, double interestRate,
+	 * int lendingTerm, String desc, String note
+	 */
 	public Cursor getLiability(long rowId) {
 		String where = LiabilityEntries.ALL_COLUMNS[0] + "=" + rowId;
 		Cursor c = 	db.query(true, LiabilityEntries.TABLE_NAME, LiabilityEntries.ALL_COLUMNS,

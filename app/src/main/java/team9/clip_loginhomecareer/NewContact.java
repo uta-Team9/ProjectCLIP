@@ -14,23 +14,30 @@ import android.widget.Toast;
 
 public class NewContact extends ActionBarActivity {
 	//_ID, NAME, NUMBER, EMAIL, USED, MET, HASH_ID
-
 	private DatabaseContract db;
 	private int User_ID;
 	private Contact contact = null;
+	private EditText TEXT_NAME;
+	private EditText TEXT_EMAIL;
+	private EditText TEXT_PHONE;
+	private DatePicker PICKER;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		openDB();
+
 		Bundle extras = getIntent().getExtras();
 		if(extras != null) {
-			User_ID = extras.getInt("ID");
-			Log.d("User ID: ", "" + User_ID);
-			contact = (Contact)getIntent().getSerializableExtra("Contact");
+			contact = (Contact)extras.getSerializable("Contact");
 		}
 
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.new_contact_activity);
+
+		TEXT_NAME = (EditText) findViewById(R.id.new_contact_name);
+		TEXT_EMAIL = (EditText) findViewById(R.id.new_contact_email);
+		TEXT_PHONE = (EditText) findViewById(R.id.new_contact_phone);
+		PICKER = (DatePicker) findViewById(R.id.new_contact_met);
 
 		if(contact != null) {
 			Button b = (Button)findViewById(R.id.add);
@@ -39,19 +46,11 @@ public class NewContact extends ActionBarActivity {
 		}
 	}
 
+	@Override
 	protected void onDestroy() {
-		super.onDestroy();
-		closeDB();
-	}
-
-	private void openDB() {
-		db = new DatabaseContract(this);
-		db.open();
-	}
-	private void closeDB() {
 		db.close();
+		super.onDestroy();
 	}
-
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -83,17 +82,28 @@ public class NewContact extends ActionBarActivity {
 			saveItems();
 	}
 
+	//Added Extra Methods
+	private void openDB() {
+		User_ID = getSharedPreferences("loginPrefs", MODE_PRIVATE).getInt("ID", -1);
+		Log.d("ID in New Contact", ""+User_ID);
+
+		db = new DatabaseContract(this);
+		db.open();
+	}
+
+	private void populateItems() {
+		TEXT_NAME.setText(contact.getName());
+		TEXT_EMAIL.setText(contact.getEmail());
+		TEXT_PHONE.setText("" + contact.getPhone());
+	}
+
 	private void updateItems() {
-		EditText text;
-		text = (EditText) findViewById(R.id.new_contact_name);
-		String n = text.getText().toString();
-		text = (EditText) findViewById(R.id.new_contact_email);
-		String e = text.getText().toString();
-		text = (EditText) findViewById(R.id.new_contact_phone);
-		Long p = Long.parseLong(text.getText().toString());
-		DatePicker datePicker = (DatePicker) findViewById(R.id.new_contact_met);
-		String test = datePicker.getYear() + "" + datePicker.getMonth() + "" + datePicker.getDayOfMonth();
-		Integer m = Integer.parseInt(test);
+		String n = TEXT_NAME.getText().toString();
+		String e = TEXT_EMAIL.getText().toString();
+		Long p = Long.parseLong(TEXT_PHONE.getText().toString());
+		Integer m = Integer.parseInt(
+				PICKER.getYear() + "" + PICKER.getMonth() + "" + PICKER.getDayOfMonth()
+		);
 
 		db.updateContact(contact.getDatabaseID(), n, e, p.intValue(), m.intValue(), contact.getUsed());
 		Log.d("Contact Saved: ", "" + n);
@@ -102,28 +112,13 @@ public class NewContact extends ActionBarActivity {
 		finish();
 	}
 
-	private void populateItems() {
-		EditText text;
-		text = (EditText) findViewById(R.id.new_contact_name);
-		text.setText(contact.getName());
-		text = (EditText) findViewById(R.id.new_contact_email);
-		text.setText(contact.getEmail());
-		text = (EditText) findViewById(R.id.new_contact_phone);
-		text.setText("" + contact.getPhone());
-	}
-
 	private void saveItems() {
-		EditText text;
 		if(validItems()) {
-			text = (EditText) findViewById(R.id.new_contact_name);
-			String n = text.getText().toString();
-			text = (EditText) findViewById(R.id.new_contact_email);
-			String e = text.getText().toString();
-			text = (EditText) findViewById(R.id.new_contact_phone);
-			Long p = Long.parseLong(text.getText().toString());
-			DatePicker datePicker = (DatePicker) findViewById(R.id.new_contact_met);
-			String test = datePicker.getYear() + "" + datePicker.getMonth() + "" + datePicker.getDayOfMonth();
-			Integer m = Integer.parseInt(test);
+			String n = TEXT_NAME.getText().toString();
+			String e = TEXT_EMAIL.getText().toString();
+			Long p = Long.parseLong(TEXT_PHONE.getText().toString());
+			String temp = PICKER.getYear() + "" + PICKER.getMonth() + "" + PICKER.getDayOfMonth();
+			Integer m = Integer.parseInt(temp);
 
 			db.insertContact(n, e, p.intValue(), m.intValue(), 0, User_ID);
 			Log.d("Contact Saved: ", "" + n);
@@ -141,14 +136,9 @@ public class NewContact extends ActionBarActivity {
 	}
 
 	private void clearData() {
-		EditText text;
-		text = (EditText) findViewById(R.id.new_contact_name);
-		text.setText("");
-		text = (EditText) findViewById(R.id.new_contact_email);
-		text.setText("");
-		text = (EditText) findViewById(R.id.new_contact_phone);
-		text.setText("");
-		DatePicker picker = (DatePicker) findViewById(R.id.new_contact_met);
+		TEXT_NAME.setText("");
+		TEXT_EMAIL.setText("");
+		TEXT_PHONE.setText("");
 	}
 
 	private void toastNotification(String description) {

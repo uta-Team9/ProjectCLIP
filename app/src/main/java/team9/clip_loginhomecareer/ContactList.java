@@ -10,7 +10,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ListView;
 
 import java.util.ArrayList;
@@ -20,63 +19,33 @@ public class ContactList extends ActionBarActivity {
 
 	private int User_ID;
 	private DatabaseContract db;
-	private ArrayList<Contact> list;// = new ArrayList<>();
+	private ArrayList<Contact> list;
 	private ListView activityList;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		openDB();
-		Bundle extras = getIntent().getExtras();
-		if(extras != null)
-        {
-	        doTheThing(extras);
-		}
+
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.list_contacts_activity);
 
 		activityList = (ListView) findViewById(R.id.contacts_list);
 
-		Button edit = (Button) findViewById(R.id.new_instance_button);
-		edit.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				createNewInstance(v);
-			}
-		});
-
 		buildList();
-		makeList();
+		setList();
 	}
 
-	private void doTheThing(Bundle extras) {
-		User_ID = extras.getInt("ID");
-		Log.d("User ID: ", "" + User_ID);
-	}
-
+	//close db before activity exit
 	protected void onDestroy() {
-		closeDB();
+		db.close();
 		super.onDestroy();
 	}
-
-	private void openDB() {
-		db = new DatabaseContract(this);
-		db.open();
-	}
-	private void closeDB() {
-		db.close();
-	}
-
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.menu_contact_list, menu);
 		return true;
-	}
-
-	@Override
-	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-
 	}
 
 	@Override
@@ -94,27 +63,24 @@ public class ContactList extends ActionBarActivity {
 		return super.onOptionsItemSelected(item);
 	}
 
-	public void createNewInstance(View v) {
-		Intent intent = new Intent(this, NewContact.class);
-		intent.putExtra("ID", User_ID);
-		startActivity(intent);
+	//instantiates the database and recovers User_ID from the shared preference file
+	private void openDB() {
+		User_ID = getSharedPreferences("loginPrefs", MODE_PRIVATE).getInt("ID", -1);
+		Log.d("User ID ContactList", "" + User_ID);
+
+		db = new DatabaseContract(this);
+		db.open();
 	}
 
-	public void viewContact(int position) {
-		Intent intent = new Intent(this, ViewContact.class);
-		intent.putExtra("Contact", list.get(position));
-		intent.putExtra("ID", User_ID);
-		startActivity(intent);
-	}
-
-	//putting together contact list
+	//putting together contact list, cycle through db
 	private void buildList() {
 		list = new ArrayList<>();
 		Cursor cursor = db.getAllContacts();
 		Contact temp = null;
+
 		if (cursor.moveToFirst()) {
-			do {
-				if(cursor.getInt(6) == User_ID) {
+			do if(cursor.getInt(6) == User_ID) {
+
 					temp = new Contact(cursor.getInt(0));
 					//_ID, name, phone, email, used, met
 					Log.d( "Contact Found: ", cursor.getString(1));
@@ -125,12 +91,14 @@ public class ContactList extends ActionBarActivity {
 					temp.setMet(cursor.getInt(5));
 					list.add(temp);
 				}
-			} while (cursor.moveToNext());
+			while (cursor.moveToNext());
 		}
 		cursor.close();
 	}
 
-	private void makeList() {
+	//Add the adapter to the list ui
+	private void setList() {
+		//Possible to change simple_list_item_1 into our own xml object
 		ArrayAdapter<Contact> arrayAdapter = new ArrayAdapter<>(
 				this, android.R.layout.simple_list_item_1, list);
 
@@ -140,8 +108,26 @@ public class ContactList extends ActionBarActivity {
 		activityList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
-				viewContact(position);
+				moveToView(position);
 			}
 		});
+	}
+
+	/**
+	 *
+	 * @param position
+	 */
+	private void moveToView(int position) {
+		startActivity(
+				new Intent(this, ViewContact.class).putExtra("Contact", list.get(position))
+		);
+	}
+
+	/**
+	 * Move to activity to create the appropriate item when "New" button is pressed
+	 * @param v
+	 */
+	public void createNewInstance(View v) {
+		startActivity(new Intent(this, NewContact.class));
 	}
 }

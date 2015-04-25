@@ -6,7 +6,8 @@ import java.io.Serializable;
  * Created by Edward on 4/22/2015.
  */
 public class CareerGoal implements Serializable {
-	//"ID", "Description", "EndDate", "TermLength", "HashID"
+	//"ID", "Title", "Description", "EndDate", "TermLength", "HashID"
+	private String title;
 	private String date;
 	private String description;
 	private long rowID;
@@ -14,14 +15,23 @@ public class CareerGoal implements Serializable {
 
 	public CareerGoal(long rowID) {
 		this.rowID = rowID;
+		title = "";
 		date = "";
 		description = "";
 		isLongTerm = false; //assume short term
 	}
 
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
 	@Override
 	public String toString() {
-		return this.description + " By " + date;
+		return this.title + " By " + date;
 	}
 
 	public String getDate() {
@@ -48,7 +58,7 @@ public class CareerGoal implements Serializable {
 		this.isLongTerm = isLongTerm;
 	}
 
-	public long getRowID() {
+	public long getDatabaseID() {
 		return rowID;
 	}
 }

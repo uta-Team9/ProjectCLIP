@@ -1,4 +1,10 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.DrawerLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/drawer_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <!-- Main content layout -->
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
                 android:layout_height="fill_parent"
@@ -9,27 +15,38 @@
                 tools:context="team9.clip_loginhomecareer.HomeScreen$PlaceholderFragment"
                 android:background="#ffffffff">
 
-    <CalendarView
-        android:layout_width="match_parent"
-        android:layout_height="fill_parent"
-        android:id="@+id/calendarView"
-        android:showWeekNumber="false"
-        android:focusedMonthDateColor="#ff000000"
-        android:weekNumberColor="#ff000000"
-        android:weekSeparatorLineColor="#ff000000"
-        android:layout_above="@+id/view_contacts_calendar"/>
+        <CalendarView
+            android:layout_width="match_parent"
+            android:layout_height="fill_parent"
+            android:id="@+id/calendarView"
+            android:showWeekNumber="false"
+            android:focusedMonthDateColor="#ff000000"
+            android:weekNumberColor="#ff000000"
+            android:weekSeparatorLineColor="#ff000000"
+            android:layout_above="@+id/view_contacts_calendar"/>
 
-    <Button
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="View Contacts"
-        android:id="@+id/view_contacts_calendar"
-        android:background="#ff000000"
-        android:textColor="#ffffffff"
-        android:shadowColor="#ffffffff"
-        android:onClick="viewContactsList"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"/>
+        <Button
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="View Contacts"
+            android:id="@+id/view_contacts_calendar"
+            android:background="#ff000000"
+            android:textColor="#ffffffff"
+            android:shadowColor="#ffffffff"
+            android:onClick="viewContactsList"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"/>
 
-</RelativeLayout>
+    </RelativeLayout>
+    <!-- The navigation drawer -->
+    <ListView android:id="@+id/home_screen_drawer"
+              android:layout_width="240dp"
+              android:layout_height="match_parent"
+              android:layout_gravity="start"
+              android:choiceMode="singleChoice"
+              android:divider="@android:color/transparent"
+              android:dividerHeight="0dp"
+              android:background="#ffffffff"
+              android:entries="@array/CLIP_modules"/>
+</android.support.v4.widget.DrawerLayout>

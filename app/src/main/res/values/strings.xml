@@ -8,6 +8,8 @@
     <string name="login_title">CLIP</string>
     <string name="title_activity_new_user">Register</string>
     <string name="title_activity_password_recovery">Password Recovery</string>
+    <string name="drawer_open">Open</string>
+    <string name="drawer_close">Close</string>
 
     <string-array name="security_questions">
         <item>Pick A Question.</item>
@@ -22,6 +24,13 @@
     <string name="title_section1">Calendar</string>
     <string name="title_section2">Task View</string>
     <string name="title_activity_day_view">View Day</string>
+
+    <string-array name="CLIP_modules">
+        <item>Career</item>
+        <item>Health</item>
+        <item>Education</item>
+        <item>Finance</item>
+    </string-array>
 
     <!-- Settings -->
     <string name="action_settings">Settings</string>
@@ -79,8 +88,8 @@
     <string name="title_activity_healthy_recipes_list">Healthy Recipes List</string>
     <string name="title_activity_degrees_list">My Degrees</string>
     <string name="title_activity_finance_cash_view">Cash Information</string>
-    <string name="title_activity_new_degree_activity">New Degree</string>
-    <string name="title_activity_edu_apps_list">College Applications</string>
+    <string name="title_activity_new_degree_activity">new_degree_activity</string>
+    <string name="title_activity_edu_apps_list">edu_apps_list</string>
     <string name="title_activity_finance_goals">Finance Goals</string>
     <string name="title_activity_finances_cash_new">Add Cash</string>
     <string name="title_activity_finance_assets_view">Assets</string>
@@ -109,12 +118,14 @@
         <item>American Express</item>
         <item>Other</item>
     </string-array>
-
+    <string-array name="lending_term">
+        <item>12 Months</item>
+        <item>24 Months</item>
+        <item>36 Months</item>
+        <item>48 Months</item>
+        <item>60 Months</item>
+    </string-array>
     <string name="title_activity_finance_summary_view">Finance Summary</string>
     <string name="title_activity_finance_goal_new">New Goal</string>
     <string name="title_activity_finance_other_new">New Other Finance</string>
-    <string name="title_activity_education_finances_list">Education Finances List</string>
-    <string name="title_activity_edu_new_finance">Add Education Finance Item</string>
-    <string name="title_activity_view_degree">View Degrees</string>
-
 </resources>
