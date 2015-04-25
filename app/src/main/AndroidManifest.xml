@@ -427,19 +427,17 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="team9.clip_loginhomecareer.CollegeAppsList" />
         </activity>
-        <!--
-        activity
+        <activity
             android:name=".edu_new_app"
             android:label="Create New Application"
             android:parentActivityName=".CollegeAppsList" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="team9.clip_loginhomecareer.CollegeAppsList" />
-        </activity
-        -->
+        </activity>
         <activity
             android:name=".EducationFinancesList"
-            android:label="@string/title_activity_education_finances_list"
+            android:label="Education Finances"
             android:parentActivityName=".EduMain" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -447,7 +445,7 @@
         </activity>
         <activity
             android:name=".EduNewFinance"
-            android:label="@string/title_activity_edu_new_finance"
+            android:label="New Finance Item"
             android:parentActivityName=".EducationFinancesList" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -455,19 +453,12 @@
         </activity>
         <activity
             android:name=".ViewDegree"
-            android:label="@string/title_activity_view_degree"
+            android:label="Degree Details"
             android:parentActivityName=".DegreesList" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="team9.clip_loginhomecareer.DegreesList" />
         </activity>
-        <activity android:name=".CollegeAppsList"
-                  android:label="College Applications"
-                  android:parentActivityName=".EduMain">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="team9.clip_loginhomecareer.EduMain" />
-         </activity>
     </application>
 
 </manifest>

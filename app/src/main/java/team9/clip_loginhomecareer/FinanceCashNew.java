@@ -1,9 +1,8 @@
 package team9.clip_loginhomecareer;
 
 import android.content.Intent;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.util.Log;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -62,7 +61,7 @@ public class FinanceCashNew extends ActionBarActivity {
             String note = text.getText().toString();
 
             //TODO: get date and userID for saving
-            db.insertCash(amount, source, note, 2015, 0);
+            db.insertCash(amount, source, note, 2015, 0, 0, 0);
             //Log.d("Contact Saved: ", "" + source);
             toastNotification("Contact Saved");
             //clearData();
