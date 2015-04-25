@@ -25,6 +25,13 @@
     <string name="title_section2">Task View</string>
     <string name="title_activity_day_view">View Day</string>
 
+    <string-array name="CLIP_modules">
+        <item>Career</item>
+        <item>Health</item>
+        <item>Education</item>
+        <item>Finance</item>
+    </string-array>
+
     <!-- Settings -->
     <string name="action_settings">Settings</string>
 

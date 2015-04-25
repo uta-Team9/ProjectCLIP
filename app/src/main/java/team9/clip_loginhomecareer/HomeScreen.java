@@ -1,6 +1,7 @@
 package team9.clip_loginhomecareer;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -22,6 +23,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.Locale;
 
 public class HomeScreen extends ActionBarActivity implements ActionBar.TabListener {
@@ -40,6 +42,9 @@ public class HomeScreen extends ActionBarActivity implements ActionBar.TabListen
 	private ActionBarDrawerToggle mDrawerToggle;
 
 	//
+	private ListView taskList;
+	private ArrayList<String> list;
+	private boolean built = false;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +57,7 @@ public class HomeScreen extends ActionBarActivity implements ActionBar.TabListen
 		setupApplicationTabs();
 		// Set up Drawer
 		//setupApplicationDrawer();
+		// Set up task view list
 	}
 
 	@Override
@@ -153,6 +159,14 @@ public class HomeScreen extends ActionBarActivity implements ActionBar.TabListen
 		// When the given tab is selected, switch to the corresponding page in
 		// the ViewPager.
 		mViewPager.setCurrentItem(tab.getPosition());
+		if(tab.getPosition()==1) {
+			if(!built) {
+				buildList();
+				built = true;
+			}
+			taskList = (ListView) findViewById(R.id.task_view_list);
+			setList();
+		}
 	}
 
 	@Override
@@ -224,6 +238,43 @@ public class HomeScreen extends ActionBarActivity implements ActionBar.TabListen
 		if(intent != null) {
 			startActivity(intent);
 		}
+	}
+
+	/** List Methods */
+	private void buildList() {
+		list = new ArrayList<>();
+		Cursor cursor = db.getAllCareerGoals();
+		if(cursor.moveToFirst()) {
+			do if(cursor.getInt(5) == User_ID) {
+				list.add(new String(cursor.getString(1)));
+			} while(cursor.moveToNext());
+		}
+
+		cursor = db.getAllFinancialGoals();
+		if(cursor.moveToFirst()) {
+			do if(cursor.getInt(6) == 0) {
+				list.add(new String(cursor.getString(3)));
+			} while(cursor.moveToNext());
+		}
+
+		cursor.close();
+	}
+
+	private void setList() {
+		//Possible to change simple_list_item_1 into our own xml object
+		ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(
+				this, android.R.layout.simple_list_item_1, list);
+
+		taskList.setAdapter(arrayAdapter);
+
+		taskList.setClickable(true);
+		taskList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+			@Override
+			public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
+				//moveToView(position);
+			}
+		});
+
 	}
 
 	/**
