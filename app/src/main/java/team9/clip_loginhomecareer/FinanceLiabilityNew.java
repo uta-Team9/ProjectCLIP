@@ -55,7 +55,7 @@ public class FinanceLiabilityNew extends ActionBarActivity {
             String note = text.getText().toString();
 
             //TODO: get date and userID for saving
-            db.insertCash(amount, source, note, 2015, 0);
+         //   db.insertCash(amount, source, note, 2015, 0);
             //Log.d("Contact Saved: ", "" + source);
             toastNotification("Contact Saved");
             //clearData();

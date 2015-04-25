@@ -30,16 +30,15 @@
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="fill_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_above="@+id/add_asset">
 
-        <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="date"
-        android:hint="Purchase Date"
-        android:ems="10"
-        android:id="@+id/txt_purchase_date"
-        android:paddingTop="16dp"/>
+        <DatePicker
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="24dp"
+            android:id="@+id/date_picker"
+            android:calendarViewShown="false"/>
 
         <Spinner
             android:layout_width="match_parent"
@@ -51,9 +50,18 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="date"
-            android:hint="Asset Value"
+            android:hint="Purchase Value"
             android:ems="10"
             android:id="@+id/txt_asset_value"
+            android:paddingTop="16dp"/>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="date"
+            android:hint="Current Value"
+            android:ems="10"
+            android:id="@+id/txt_asset__market_value"
+            android:layout_above = "@+id/txt_asset_note"
             android:paddingTop="16dp"/>
         <EditText
             android:layout_width="match_parent"

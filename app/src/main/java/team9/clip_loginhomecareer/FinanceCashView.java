@@ -71,7 +71,8 @@ public class FinanceCashView extends ActionBarActivity {
         if(c.moveToFirst()) {
             do{
                 //4 2 1 3
-                list.add(new String("Date:" + c.getInt(4) + " " + c.getString(2) + " $" +
+                //{_ID, COLUMN_CASH_AMOUNT, COLUMN_SOURCE, COLUMN_NOTE, COLUMN_YEAR, COLUMN_MONTH, COLUMN_DAY, COLUMN_USER_ID};
+                list.add(new String(c.getInt(5)+1 +"/"+ c.getInt(6) +"/"+ c.getInt(4) +" Cash Source: " + c.getString(2) + " Amount: $" +
                 c.getDouble(1) + " Notes:" + c.getString(3)));
             }while(c.moveToNext());
         }

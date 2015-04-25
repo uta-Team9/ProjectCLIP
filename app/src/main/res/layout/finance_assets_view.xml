@@ -9,19 +9,19 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Assets Value:"
+        android:text="Current Asset Value:"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:textSize="24dp"
         android:background="#FFFFFFFF"
         android:layout_margin="8dp"
-        android:id="@+id/txt_asset_view" />
+        android:id="@+id/txt_total_current_value" />
 
     <ListView
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:id="@+id/list_asset_view"
+        android:id="@+id/lst_asset_view"
         android:choiceMode="singleChoice"
         android:background="#ffffffff"
         android:layout_alignParentLeft="true"
@@ -32,7 +32,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:text="Add Asset"
-        android:id="@+id/new_instance_button"
+        android:id="@+id/add_asset"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:background="#ff504af1"
