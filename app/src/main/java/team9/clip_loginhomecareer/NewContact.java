@@ -77,9 +77,9 @@ public class NewContact extends ActionBarActivity {
 	//_ID, NAME, EMAIL, NUMBER, MET, USED, HASH_ID
 	public void add_new(View v) {
 		if(contact != null) {
-			updateItems();
-		}else
-			saveItems();
+            updateItems();
+        }else
+            saveItems();
 	}
 
 	//Added Extra Methods
