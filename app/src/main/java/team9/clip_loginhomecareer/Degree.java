@@ -15,7 +15,7 @@ public class Degree implements Serializable{
     private String degree_type;
     private long dbPosition;
 
-    public Degree() {
+    public Degree(long dbPosition) {
         college = "";
         grad_date = 0;
         start_date = 0;
@@ -23,6 +23,7 @@ public class Degree implements Serializable{
         degree_type = "";
         location = "";
         display_place = 0;
+        this.dbPosition = dbPosition;
     }
 
     public String toString() {
@@ -31,23 +32,10 @@ public class Degree implements Serializable{
 
         return info;
     }
-    public long getDbPosition() {
+
+    public long getDatabaseID() {
         return dbPosition;
     }
-
-    public void setDbPosition(long dbPosition) {
-        this.dbPosition = dbPosition;
-    }
-
-    public int getDatabaseID() {
-        return databaseID;
-    }
-
-    public void setDatabaseID(int databaseID) {
-        this.databaseID = databaseID;
-    }
-
-    private int databaseID;
 
     public String getStudy_field() {
         return study_field;

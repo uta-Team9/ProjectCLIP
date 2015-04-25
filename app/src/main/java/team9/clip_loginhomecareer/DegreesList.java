@@ -88,7 +88,7 @@ public class DegreesList extends ActionBarActivity {
         if (cursor.moveToFirst()) {
             do {
                 if(cursor.getInt(7) == User_ID) {
-                    temp = new Degree();
+                    temp = new Degree(cursor.getLong(0));
                     //_ID, COLUMN_INSTITUTION, COLUMN_COLLEGE_CITY, COLUMN_STUDY_FIELD,
                     //COLUMN_DEGREE, COLUMN_START_DATE, COLUMN_COMPLETION_DATE, COLUMN_USER_ID};
                     temp.setCollege(cursor.getString(1));

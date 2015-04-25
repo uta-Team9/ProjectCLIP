@@ -164,8 +164,8 @@ public class new_degree_activity extends ActionBarActivity {
         //Integer m = Integer.parseInt(
          //       PICKER.getYear() + "" + PICKER.getMonth() + "" + PICKER.getDayOfMonth()
        // );
-        db.updateCollege(degree.getDatabaseID(), I, loc, fos, lev, sD, gD);
-        toastNotification("Degree Updated");
+        if(db.updateCollege(degree.getDatabaseID(), I, loc, fos, lev, sD.intValue(), gD.intValue()) == false) toastNotification("Update done Failed");
+        //toastNotification("Degree Updated");
         clearData();
         finish();
     }
