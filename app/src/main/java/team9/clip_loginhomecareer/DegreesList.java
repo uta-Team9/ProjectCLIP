@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
@@ -45,6 +46,7 @@ public class DegreesList extends ActionBarActivity {
         degrees = (ListView) findViewById(R.id.degree_list);
 
         buildList();
+        setList();
 
 		/*ArrayList<String> temp = new ArrayList<>();
 		for(Contact c : list) {
@@ -115,5 +117,25 @@ public class DegreesList extends ActionBarActivity {
     public void createNewInstance(View v) {
         Intent intent = new Intent(this,new_degree_activity.class);
         startActivity(intent);
+    }
+    private void setList() {
+        //Possible to change simple_list_item_1 into our own xml object
+        ArrayAdapter<Degree> arrayAdapter = new ArrayAdapter<>(
+                this, android.R.layout.simple_list_item_1, degreeArrayList);
+
+        degrees.setAdapter(arrayAdapter);
+
+        degrees.setClickable(true);
+        degrees.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
+                moveToView(position);
+            }
+        });
+    }
+    private void moveToView(int position) {
+        startActivity(
+                new Intent(this, ViewDegree.class).putExtra("Degree", degreeArrayList.get(position))
+        );
     }
 }

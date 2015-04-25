@@ -23,30 +23,14 @@ public class ViewDegree extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_degree);
         Bundle extras = getIntent().getExtras();
-        if(extras != null)
-        {
+        if(extras != null) {
             db = new DatabaseContract(this);
             db.open();
-            degree = (Degree)extras.getSerializable("Degree");
+            degree = (Degree) extras.getSerializable("Degree");
 
             setTitle(degree.getCollege());
-            setUpTextBoxes();}
-
-        final TextView emailAddress = (TextView)findViewById(R.id.viewContact_email);
-        emailAddress.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View arg0) {
-                String em = emailAddress.getText().toString();
-                Intent i = new Intent(Intent.ACTION_SEND);
-                i.setType("message/rfc822");
-                i.putExtra(Intent.EXTRA_EMAIL, new String[] {em});
-                try {
-                    startActivity(Intent.createChooser(i, "Send mail..."));
-                } catch(android.content.ActivityNotFoundException ex) {
-                    toast("No Email Client Found");
-                }
-            }
-        });
+            setUpTextBoxes();
+        }
     }
 
 
@@ -80,13 +64,17 @@ public class ViewDegree extends ActionBarActivity {
     }
     private void setUpTextBoxes() {
         if(degree != null) {
-            TextView text = (TextView) findViewById(R.id.viewContact_met);
+            TextView text = (TextView) findViewById(R.id.edu_detail_college);
             text.setText("" + degree.getCollege());
-            text = (TextView) findViewById(R.id.viewContact_email);
-            text.setText(degree.getLocation());
-            text = (TextView) findViewById(R.id.viewContact_used);
+            text = (TextView) findViewById(R.id.edu_detail_location);
+            text.setText("" + degree.getLocation());
+            text = (TextView) findViewById(R.id.edu_detail_fos);
+            text.setText("" + degree.getStudy_field());
+            text = (TextView) findViewById(R.id.edu_detail_matr);
             text.setText("" + degree.getStart_date());
-            text = (TextView) findViewById(R.id.viewContact_phone);
+            text = (TextView) findViewById(R.id.edu_detail_gradDate);
+            text.setText("" + degree.getGrad_date());
+            text = (TextView) findViewById(R.id.edu_detail_degree_level);
             text.setText("" + degree.getDegree_type());
         }
     }
