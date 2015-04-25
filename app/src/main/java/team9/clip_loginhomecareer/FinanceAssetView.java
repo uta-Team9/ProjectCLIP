@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -18,8 +19,9 @@ public class FinanceAssetView extends ActionBarActivity {
     private DatabaseContract db;
     private ListView onScreenList;
     private ArrayList<String> list = new ArrayList<>();
-    private Double total;
+    private Double total = 0.00;
     private EditText text;
+    private TextView assetAtTopOfPage;
 
     public Double getTotal() {
         return total;
@@ -35,12 +37,13 @@ public class FinanceAssetView extends ActionBarActivity {
         setContentView(R.layout.finance_assets_view);
         db = new DatabaseContract(this);
         db.open();
+        assetAtTopOfPage = (TextView)findViewById(R.id.txt_total_current_value);
         buildList();
         onScreenList = (ListView) findViewById(R.id.lst_asset_view);
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(
                 this, android.R.layout.simple_list_item_1, list);
         onScreenList.setAdapter(arrayAdapter);
-        text = (EditText)findViewById(R.id.txt_total_current_value);
+
 
     }
 
@@ -77,7 +80,7 @@ public class FinanceAssetView extends ActionBarActivity {
     }
     public void buildList() {
         Cursor c = db.getAllCash();
-        Double total = 0.00, value, market_value;
+        Double value = 0.00, market_value = 0.00;
         int month, year, day;
         String type, notes;
         if (c.moveToFirst()) {
@@ -97,7 +100,7 @@ public class FinanceAssetView extends ActionBarActivity {
                // db.deleteAsset(rowIdArray.get(0));
             } while (c.moveToNext());
         }
-        text.setText("Current Asset Value: " +getTotal());
+        assetAtTopOfPage.setText("Current Asset Value: $" + this.total);
         c.close();
     }
 }
