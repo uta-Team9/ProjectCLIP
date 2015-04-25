@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -18,14 +19,15 @@ public class FinanceAssetView extends ActionBarActivity {
     private DatabaseContract db;
     private ListView onScreenList;
     private ArrayList<String> list = new ArrayList<>();
-    private Double total;
+    private double total = 0.00;
     private EditText text;
+    private TextView assetAtTopOfPage;
 
-    public Double getTotal() {
+    public double getTotal() {
         return total;
     }
 
-    public void setTotal(Double total) {
+    public void setTotal(double total) {
         this.total += total;
     }
 
@@ -35,13 +37,12 @@ public class FinanceAssetView extends ActionBarActivity {
         setContentView(R.layout.finance_assets_view);
         db = new DatabaseContract(this);
         db.open();
+        assetAtTopOfPage = (TextView)findViewById(R.id.txt_total_current_value);
         buildList();
         onScreenList = (ListView) findViewById(R.id.lst_asset_view);
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(
                 this, android.R.layout.simple_list_item_1, list);
         onScreenList.setAdapter(arrayAdapter);
-        text = (EditText)findViewById(R.id.txt_total_current_value);
-
     }
 
     protected void onDestroy() {
@@ -76,8 +77,8 @@ public class FinanceAssetView extends ActionBarActivity {
         startActivity(intent);
     }
     public void buildList() {
-        Cursor c = db.getAllCash();
-        Double total = 0.00, value, market_value;
+        Cursor c = db.getAllAssets();
+        double value = 0.00, market_value = 0.00;
         int month, year, day;
         String type, notes;
         if (c.moveToFirst()) {
@@ -90,14 +91,14 @@ public class FinanceAssetView extends ActionBarActivity {
                 type = c.getString(4);
                 notes = c.getString(7);
                 // {"ID", "YEAR", "MONTH", "DAY", "TYPE", "VALUE", "MARKET_VALUE", "NOTE", "USER_ID"};
-                list.add(new String(month + "/" + day + "/" + year + " " + type + "Purchased value: $" +
-                        value + "Current value: $" + market_value + " Notes:" + notes));
+                list.add(new String(month + "/" + day + "/" + year + " " + type + " Purchased value: $" +
+                        value + " Current value: $" + market_value + " Notes:" + notes));
                 setTotal(market_value);
                 //rowIdArray.add(c.getLong(0));
                // db.deleteAsset(rowIdArray.get(0));
             } while (c.moveToNext());
         }
-        text.setText("Current Asset Value: " +getTotal());
+        assetAtTopOfPage.setText("Current Asset Value: $" + this.total);
         c.close();
     }
 }
