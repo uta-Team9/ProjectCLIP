@@ -14,7 +14,7 @@ public final class DatabaseContract {
 
     //Database Name and Version Number. Change V# if you add new columns
     private static final String DATABASE_NAME = "UserDatabase.db";
-    private static final int DATABASE_VERSION = 24; //database not yet implemented in code
+    private static final int DATABASE_VERSION = 25; //database not yet implemented in code
     //download and merge changes to update to current db before changing number
     //always save work! GitHub can be evil.
 
@@ -112,18 +112,17 @@ public final class DatabaseContract {
     //IDENTITIES
     private static abstract class IdentityEntries implements BaseColumns {
         public static final String TABLE_NAME = "Identities";
-        public static final String _ID = "ID";
-        public static final String LOGIN = "Login";
-        public static final String WEBSITE = "Website";
-        public static final String PASSWORD = "Password";
-        public static final String HASH_ID = "HashID";
         public static final String[] ALL_COLUMNS =
-                {_ID, LOGIN, WEBSITE, PASSWORD, HASH_ID};
+                {"ID", "Login", "Website", "Password", "HashID"};
     }
 
     private static final String SQL_CREATE_IDENTITY_ENTRIES =
             "CREATE TABLE " + IdentityEntries.TABLE_NAME + " (" +
-                    IdentityEntries._ID + " INTEGER PRIMARY KEY," +
+                    IdentityEntries.ALL_COLUMNS[0] + " INTEGER PRIMARY KEY," +
+		            IdentityEntries.ALL_COLUMNS[1] + TEXT_TYPE + COMMA_SEP +
+		            IdentityEntries.ALL_COLUMNS[2] + TEXT_TYPE + COMMA_SEP +
+		            IdentityEntries.ALL_COLUMNS[3] + TEXT_TYPE + COMMA_SEP +
+		            IdentityEntries.ALL_COLUMNS[4] + INT_TYPE + COMMA_SEP +
                     //add entries following instructions above
                     ");";
     private static final String SQL_DELETE_IDENTITY_ENTRIES =
@@ -132,18 +131,17 @@ public final class DatabaseContract {
     //JOBS
     private static abstract class JobEntries implements BaseColumns {
         public static final String TABLE_NAME = "JobSearches";
-        public static final String _ID = "ID";
-        public static final String COMPANY = "Company";
-        public static final String STATUS = "Status";
-        public static final String APPLIED = "Applied";
-        public static final String HASH_ID = "HashID";
         public static final String[] ALL_COLUMNS =
-                {_ID, COMPANY, STATUS, APPLIED, HASH_ID};
+                {"ID", "Company", "Status", "Applied", "HashID"};
     }
 
     private static final String SQL_CREATE_JOB_ENTRIES =
             "CREATE TABLE " + JobEntries.TABLE_NAME + " (" +
-                    JobEntries._ID + " INTEGER PRIMARY KEY," +
+                    JobEntries.ALL_COLUMNS[0] + " INTEGER PRIMARY KEY," +
+		            JobEntries.ALL_COLUMNS[1] + TEXT_TYPE + COMMA_SEP +
+		            JobEntries.ALL_COLUMNS[2] + TEXT_TYPE + COMMA_SEP +
+		            JobEntries.ALL_COLUMNS[3] + TEXT_TYPE + COMMA_SEP +
+		            JobEntries.ALL_COLUMNS[4] + INT_TYPE +
                     //add entries following instructions above
                     ");";
     private static final String SQL_DELETE_JOB_ENTRIES =
@@ -152,21 +150,20 @@ public final class DatabaseContract {
     //COMPANIES
     private static abstract class CompanyEntries implements BaseColumns {
         public static final String TABLE_NAME = "Companies";
-        public static final String _ID = "ID";
-        public static final String NAME = "Name";
-        public static final String ADDRESS = "Address";
-        public static final String PHONE = "Phone";
-        public static final String DESCRIPTION = "Description";
-        public static final String APPLIED_DATE = "Applied Date";
-        public static final String INTERVIEW_DATE = "Interview Date";
-        public static final String HASH_ID = "HashID";
         public static final String[] ALL_COLUMNS =
-                {_ID, NAME, ADDRESS, PHONE, DESCRIPTION, APPLIED_DATE, INTERVIEW_DATE, HASH_ID};
+                {"ID", "Name", "Address", "Phone", "Description", "AppliedDate", "InterviewDate", "HashID"};
     }
 
     private static final String SQL_CREATE_COMPANY_ENTRIES =
             "CREATE TABLE " + CompanyEntries.TABLE_NAME + " (" +
-                    CompanyEntries._ID + " INTEGER PRIMARY KEY," +
+                    CompanyEntries.ALL_COLUMNS[0] + " INTEGER PRIMARY KEY," +
+		            CompanyEntries.ALL_COLUMNS[1] + TEXT_TYPE + COMMA_SEP +
+		            CompanyEntries.ALL_COLUMNS[2] + TEXT_TYPE + COMMA_SEP +
+		            CompanyEntries.ALL_COLUMNS[3] + TEXT_TYPE + COMMA_SEP +
+		            CompanyEntries.ALL_COLUMNS[4] + TEXT_TYPE + COMMA_SEP +
+		            CompanyEntries.ALL_COLUMNS[5] + TEXT_TYPE + COMMA_SEP +
+		            CompanyEntries.ALL_COLUMNS[6] + TEXT_TYPE + COMMA_SEP +
+		            CompanyEntries.ALL_COLUMNS[7] + INT_TYPE +
                     //add entries following instructions above
                     ");";
     private static final String SQL_DELETE_COMPANY_ENTRIES =
@@ -903,7 +900,262 @@ public final class DatabaseContract {
 		c.close();
 	}
 
+	//OnlineIdentities
+	//ID, WEBSITE, LOGIN, PASSWORD, HASH
+	/**
+	 * Insert a row of data into the career goal table
+	 * @param website
+	 * @param login
+	 * @param password
+	 * @param user the User_ID
+	 * @return rowID, the long primary key
+	 */
+	public long insertOnlineIdentity(String website, String login, String password, int user ) {
+		// Create row's data:
+		ContentValues initialValues = new ContentValues();
+		initialValues.put(IdentityEntries.ALL_COLUMNS[1], website);
+		initialValues.put(IdentityEntries.ALL_COLUMNS[2], login);
+		initialValues.put(IdentityEntries.ALL_COLUMNS[3], password);
+		initialValues.put(IdentityEntries.ALL_COLUMNS[4], user);
 
+		// Insert it into the database.
+		return db.insert(IdentityEntries.TABLE_NAME, null, initialValues);
+	}
+
+	/**
+	 * Update a row in the career goal table
+	 * @param rowId long value primary key
+	 * @param website
+	 * @param login
+	 * @param password
+	 * @return true if successful
+	 */
+	public boolean updateOnlineIdentity(long rowId, String website, String login, String password) {
+		String where = IdentityEntries.ALL_COLUMNS[0] + "=" + rowId;
+		// TODO: Update data in the row with new fields.
+		// TODO: Also change the function's arguments to be what you need!
+		ContentValues newValues = new ContentValues();
+		newValues.put(IdentityEntries.ALL_COLUMNS[1], website);
+		newValues.put(IdentityEntries.ALL_COLUMNS[2], login);
+		newValues.put(IdentityEntries.ALL_COLUMNS[3], password);
+
+		// Insert it into the database.
+		return db.update(IdentityEntries.TABLE_NAME, newValues, where, null) != 0;
+	}
+
+	public Cursor getOnlineIdentity(long rowId) {
+		String where = IdentityEntries.ALL_COLUMNS[0] + "=" + rowId;
+		Cursor c = 	db.query(true, IdentityEntries.TABLE_NAME, IdentityEntries.ALL_COLUMNS,
+				where, null, null, null, null, null);
+		if (c != null) {
+			c.moveToFirst();
+		}
+		return c;
+	}
+
+	// Return all data in the database.
+	public Cursor getAllOnlineIdentities() {
+		String where = null;
+		Cursor c = 	db.query(IdentityEntries.TABLE_NAME, IdentityEntries.ALL_COLUMNS,
+				where, null, null, null, null);
+		if (c != null) {
+			c.moveToFirst();
+		}
+		return c;
+	}
+
+	// Delete a row from the database, by rowId (primary key)
+	public boolean deleteOnlineIdentity(long rowId) {
+		String where = IdentityEntries.ALL_COLUMNS[0] + "=" + rowId;
+		return db.delete(IdentityEntries.TABLE_NAME, where, null) != 0;
+	}
+
+	public void deleteAllOnlineIdentities() {
+		Cursor c = getAllOnlineIdentities();
+		long rowId = c.getColumnIndexOrThrow(IdentityEntries.ALL_COLUMNS[0]);
+		if (c.moveToFirst()) {
+			do {
+				deleteOnlineIdentity(c.getLong((int) rowId));
+			} while (c.moveToNext());
+		}
+		c.close();
+	}
+
+	//Job Searches
+	//"ID", "Company", "Status", "Applied", "HashID"
+	/**
+	 * Insert a row of data into the career goal table
+	 * @param company
+	 * @param status
+	 * @param appliedDate
+	 * @param user
+	 * @return rowID, the long primary key
+	 */
+	public long insertJobSearch(String company, String status, String appliedDate, int user ) {
+		// Create row's data:
+		ContentValues initialValues = new ContentValues();
+		initialValues.put(JobEntries.ALL_COLUMNS[1], company);
+		initialValues.put(JobEntries.ALL_COLUMNS[2], status);
+		initialValues.put(JobEntries.ALL_COLUMNS[3], appliedDate);
+		initialValues.put(JobEntries.ALL_COLUMNS[4], user);
+
+		// Insert it into the database.
+		return db.insert(JobEntries.TABLE_NAME, null, initialValues);
+	}
+
+	/**
+	 * Update a row in the career goal table
+	 * @param rowId long value primary key
+	 * @param company
+	 * @param status
+	 * @param appliedDate
+	 * @return true if successful
+	 */
+	public boolean updateJobSearch(long rowId, String company, String status, String appliedDate) {
+		String where = CareerGoalEntries.ALL_COLUMNS[0] + "=" + rowId;
+		// TODO: Update data in the row with new fields.
+		// TODO: Also change the function's arguments to be what you need!
+		ContentValues newValues = new ContentValues();
+		newValues.put(JobEntries.ALL_COLUMNS[1], company);
+		newValues.put(JobEntries.ALL_COLUMNS[2], status);
+		newValues.put(JobEntries.ALL_COLUMNS[3], appliedDate);
+
+		// Insert it into the database.
+		return db.update(JobEntries.TABLE_NAME, newValues, where, null) != 0;
+	}
+
+	public Cursor getJobSearch(long rowId) {
+		String where = JobEntries.ALL_COLUMNS[0] + "=" + rowId;
+		Cursor c = 	db.query(true, JobEntries.TABLE_NAME, JobEntries.ALL_COLUMNS,
+				where, null, null, null, null, null);
+		if (c != null) {
+			c.moveToFirst();
+		}
+		return c;
+	}
+
+	// Return all data in the database.
+	public Cursor getAllJobSearches() {
+		String where = null;
+		Cursor c = 	db.query(JobEntries.TABLE_NAME, JobEntries.ALL_COLUMNS,
+				where, null, null, null, null);
+		if (c != null) {
+			c.moveToFirst();
+		}
+		return c;
+	}
+
+	// Delete a row from the database, by rowId (primary key)
+	public boolean deleteJobSearch(long rowId) {
+		String where = JobEntries.ALL_COLUMNS[0] + "=" + rowId;
+		return db.delete(JobEntries.TABLE_NAME, where, null) != 0;
+	}
+
+	public void deleteAllJobSearches() {
+		Cursor c = getAllJobSearches();
+		long rowId = c.getColumnIndexOrThrow(JobEntries.ALL_COLUMNS[0]);
+		if (c.moveToFirst()) {
+			do {
+				deleteJobSearch(c.getLong((int) rowId));
+			} while (c.moveToNext());
+		}
+		c.close();
+	}
+
+	//Company Information
+	//"ID", "Name", "Address", "Phone", "Description", "AppliedDate", "InterviewDate", "HashID"
+	/**
+	 * Insert a row of data into the career goal table
+	 * @param name
+	 * @param  address
+	 * @param phone
+	 * @param desc
+	 * @param appliedDate
+	 * @param interviewDate
+	 * @param user
+	 * @return rowID, the long primary key
+	 */
+	public long insertCompany(String name, String address, String phone, String desc,
+	                             String appliedDate, String interviewDate, int user ) {
+		// Create row's data:
+		ContentValues initialValues = new ContentValues();
+		initialValues.put(CompanyEntries.ALL_COLUMNS[1], name);
+		initialValues.put(CompanyEntries.ALL_COLUMNS[2], address);
+		initialValues.put(CompanyEntries.ALL_COLUMNS[3], phone);
+		initialValues.put(CompanyEntries.ALL_COLUMNS[4], desc);
+		initialValues.put(CompanyEntries.ALL_COLUMNS[5], appliedDate);
+		initialValues.put(CompanyEntries.ALL_COLUMNS[6], interviewDate);
+		initialValues.put(CompanyEntries.ALL_COLUMNS[7], user);
+
+		// Insert it into the database.
+		return db.insert(CompanyEntries.TABLE_NAME, null, initialValues);
+	}
+
+	/**
+	 * Update a row in the career goal table
+	 * @param rowId long value primary key
+	 * @param name
+	 * @param address
+	 * @param phone
+	 * @param desc
+	 * @param appliedDate
+	 * @param interviewDate
+	 * @return true if successful
+	 */
+	public boolean updateCompany(long rowId, String name, String address, String phone, String desc,
+	                                String appliedDate, String interviewDate) {
+		String where = CompanyEntries.ALL_COLUMNS[0] + "=" + rowId;
+		// TODO: Update data in the row with new fields.
+		// TODO: Also change the function's arguments to be what you need!
+		ContentValues initialValues = new ContentValues();
+		initialValues.put(CompanyEntries.ALL_COLUMNS[1], name);
+		initialValues.put(CompanyEntries.ALL_COLUMNS[2], address);
+		initialValues.put(CompanyEntries.ALL_COLUMNS[3], phone);
+		initialValues.put(CompanyEntries.ALL_COLUMNS[4], desc);
+		initialValues.put(CompanyEntries.ALL_COLUMNS[5], appliedDate);
+		initialValues.put(CompanyEntries.ALL_COLUMNS[6], interviewDate);
+
+		// Insert it into the database.
+		return db.update(CompanyEntries.TABLE_NAME, initialValues, where, null) != 0;
+	}
+
+	public Cursor getCompany(long rowId) {
+		String where = CompanyEntries.ALL_COLUMNS[0] + "=" + rowId;
+		Cursor c = 	db.query(true, CompanyEntries.TABLE_NAME, CompanyEntries.ALL_COLUMNS,
+				where, null, null, null, null, null);
+		if (c != null) {
+			c.moveToFirst();
+		}
+		return c;
+	}
+
+	// Return all data in the database.
+	public Cursor getAllCompanies() {
+		String where = null;
+		Cursor c = 	db.query(CompanyEntries.TABLE_NAME, CompanyEntries.ALL_COLUMNS,
+				where, null, null, null, null);
+		if (c != null) {
+			c.moveToFirst();
+		}
+		return c;
+	}
+
+	// Delete a row from the database, by rowId (primary key)
+	public boolean deleteCompany(long rowId) {
+		String where = CompanyEntries.ALL_COLUMNS[0] + "=" + rowId;
+		return db.delete(CompanyEntries.TABLE_NAME, where, null) != 0;
+	}
+
+	public void deleteAllCompanies() {
+		Cursor c = getAllCompanies();
+		long rowId = c.getColumnIndexOrThrow(CompanyEntries.ALL_COLUMNS[0]);
+		if (c.moveToFirst()) {
+			do {
+				deleteCompany(c.getLong((int) rowId));
+			} while (c.moveToNext());
+		}
+		c.close();
+	}
 
 
 	//EDUCATION METHODS

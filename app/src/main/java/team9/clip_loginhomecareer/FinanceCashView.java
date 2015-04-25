@@ -9,6 +9,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -18,6 +19,16 @@ public class FinanceCashView extends ActionBarActivity {
     private DatabaseContract db;
     private ListView onScreenList;
     private ArrayList<String> list = new ArrayList<>();
+    private TextView txtbalance;
+    private double totalamount = 0.00;
+
+    public double getTotalamount() {
+        return totalamount;
+    }
+
+    public void setTotalamount(double totalamount) {
+        this.totalamount += totalamount;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,8 +36,9 @@ public class FinanceCashView extends ActionBarActivity {
         db.open();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.finance_cash_view);
-        buildList();
+        txtbalance = (TextView)findViewById(R.id.txt_balance);
 
+        buildList();
         onScreenList = (ListView) findViewById(R.id.lst_cash);
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(
                 this, android.R.layout.simple_list_item_1, list);
@@ -68,13 +80,25 @@ public class FinanceCashView extends ActionBarActivity {
 
     public void buildList(){
         Cursor c = db.getAllCash();
+        int month, day, year;
+        double amount = 0.00;
+        String source, notes;
         if(c.moveToFirst()) {
             do{
+                month = c.getInt(5)+1;
+                day = c.getInt(6);
+                year = c.getInt(4);
+                amount = c.getDouble(1);
+                source = c.getString(2);
+                notes = c.getString(3);
                 //4 2 1 3
-                list.add(new String("Date:" + c.getInt(4) + " " + c.getString(2) + " $" +
-                c.getDouble(1) + " Notes:" + c.getString(3)));
+                //{_ID, COLUMN_CASH_AMOUNT, COLUMN_SOURCE, COLUMN_NOTE, COLUMN_YEAR, COLUMN_MONTH, COLUMN_DAY, COLUMN_USER_ID};
+                list.add(new String(month +"/"+ day +"/"+ year +" Cash Source: " + source + " Amount: $" +
+                amount + " Notes:" + notes));
+                setTotalamount(amount);
             }while(c.moveToNext());
         }
+        txtbalance.setText("Total cash: $" + this.totalamount);
         c.close();
     }
 

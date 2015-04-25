@@ -1,17 +1,19 @@
 package team9.clip_loginhomecareer;
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
+import java.util.Calendar;
 
 
 public class FinanceCashNew extends ActionBarActivity {
-
+    private int User_ID;
     private DatabaseContract db;
 
     @Override
@@ -52,6 +54,12 @@ public class FinanceCashNew extends ActionBarActivity {
 
     public void add_new(View v) {
         EditText text;
+        Calendar cal = Calendar.getInstance();
+        int year = cal.get(Calendar.YEAR);
+        int month = cal.get(Calendar.MONTH);
+        int day = cal.get(Calendar.DAY_OF_MONTH);
+        User_ID = getSharedPreferences("loginPrefs", MODE_PRIVATE).getInt("ID", -1);
+
         if(validItems()) {
             text = (EditText) findViewById(R.id.txt_cash_source);
             String source = text.getText().toString();
@@ -61,9 +69,11 @@ public class FinanceCashNew extends ActionBarActivity {
             String note = text.getText().toString();
 
             //TODO: get date and userID for saving
-            db.insertCash(amount, source, note, 2015, 0, 0, 0);
+            db.insertCash(amount, source, note, year, month, day, User_ID);
             //Log.d("Contact Saved: ", "" + source);
-            toastNotification("Contact Saved");
+            toastNotification("Cash amount saved");
+            text = (EditText)findViewById(R.id.txt_cash_source);
+            text.setText("");
             //clearData();
         } else {
             toastNotification("Invalid Information");

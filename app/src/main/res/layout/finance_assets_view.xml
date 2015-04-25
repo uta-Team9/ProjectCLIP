@@ -4,35 +4,41 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
-    tools:context="team9.clip_loginhomecareer.FinanceAssetView">
+    tools:context="team9.clip_loginhomecareer.FinanceAssetView"
+    android:background="#ffffffff">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Assets Value:"
+        android:text="Current Asset Value:"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:textSize="24dp"
         android:background="#FFFFFFFF"
-        android:layout_margin="8dp"
-        android:id="@+id/txt_asset_view" />
+        android:id="@+id/txt_total_current_value"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
     <ListView
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:id="@+id/list_asset_view"
+        android:id="@+id/lst_asset_view"
         android:choiceMode="singleChoice"
         android:background="#ffffffff"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/txt_asset_view"/>
+        android:layout_above="@+id/add_asset"
+        android:layout_below="@+id/txt_total_current_value" />
 
     <Button
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:text="Add Asset"
-        android:id="@+id/new_instance_button"
+        android:id="@+id/add_asset"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:background="#ff504af1"

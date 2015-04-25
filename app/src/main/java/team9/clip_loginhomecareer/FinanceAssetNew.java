@@ -6,17 +6,34 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.DatePicker;
+import android.widget.EditText;
+import android.widget.Spinner;
+import android.widget.Toast;
+
+import java.util.Calendar;
 
 
 public class FinanceAssetNew extends ActionBarActivity {
+    //  {"ID", "YEAR", "MONTH", "DAY", "TYPE", "VALUE", "MARKET_VALUE", "NOTE", "USER_ID"};
+    private DatePicker dp;
+    private int User_ID;
+    private DatabaseContract db;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.finance_asset_new);
+        dp = (DatePicker) findViewById(R.id.date_picker);
+        db = new DatabaseContract(this);
+        db.open();
     }
 
-
+    protected void onDestroy() {
+        super.onDestroy();
+        db.close();
+    }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -38,9 +55,66 @@ public class FinanceAssetNew extends ActionBarActivity {
 
         return super.onOptionsItemSelected(item);
     }
+    public void add_new(View v)
+    {
+        int year = dp.getYear();
+        int month = dp.getMonth();
+        int day = dp.getDayOfMonth();
+        EditText text;
+        String type;
+        int typenum;
+        User_ID = getSharedPreferences("loginPrefs", MODE_PRIVATE).getInt("ID", -1);
+
+        if(validItems()) {
+            Spinner spn = (Spinner) findViewById(R.id.asset_type_spinner);           
+            typenum = spn.getSelectedItemPosition();
+            switch (typenum)
+            {
+                case 1:
+                    type = "Car";
+                    break;
+                case 2:
+                    type = "Boat";
+                    break;
+                case 3:
+                    type = "House";
+                    break;
+                case 4:
+                    type = "Land";
+                    break;
+                default:
+                    type = " ";
+                    break;
+            }
+            text = (EditText) findViewById(R.id.txt_asset_value);
+            Double value = Double.parseDouble(text.getText().toString());
+
+            text = (EditText) findViewById(R.id.txt_asset__market_value);
+            Double market_value = Double.parseDouble(text.getText().toString());
+
+            text = (EditText) findViewById(R.id.txt_asset_note);
+            String note = text.getText().toString();
+           // {"ID", "YEAR", "MONTH", "DAY", "TYPE", "VALUE", "MARKET_VALUE", "NOTE", "USER_ID"};
+            //TODO: get date and userID for saving
+            db.insertAsset(year, month, day, type, value, market_value, note, User_ID);
+            //Log.d("Contact Saved: ", "" + source);
+            toastNotification("Asset Information saved");
+            //clearData();
+        } else {
+            toastNotification("Invalid Information");
+        }
+    }
     public void cancel(View v) {
         Intent intent = null;
         intent = new Intent(this, FinanceAssetView.class);
         startActivity(intent);
+    }
+    private boolean validItems() {
+        //TODO: Check for invalid input data
+        return true;
+    }
+
+    private void toastNotification(String description) {
+        Toast.makeText(getApplicationContext(), description, Toast.LENGTH_LONG).show();
     }
 }
