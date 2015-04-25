@@ -36,8 +36,11 @@
             android:layout_marginTop="20dp"
             android:layout_alignParentTop="true"
             android:layout_toRightOf="@+id/textView2"
-            android:layout_toEndOf="@+id/textView2"
-            android:onClick="goToAppointmentList"/>
+            android:onClick="goToAppointmentList"
+            android:textColor="#FFFFFFFF"
+            android:background="#ffbb1318"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -80,10 +83,14 @@
             android:layout_height="wrap_content"
             android:text="View All Medications"
             android:id="@+id/button2"
+            android:onClick="goToMedicationsList"
+            android:background="#ffbb1318"
+            android:textColor="#FFFFFFFF"
             android:layout_above="@+id/textView5"
+            android:layout_alignRight="@+id/lastCheckUpDate"
+            android:layout_alignEnd="@+id/lastCheckUpDate"
             android:layout_toRightOf="@+id/view_contact_email"
-            android:layout_toEndOf="@+id/view_contact_email"
-            android:onClick="goToMedicationsList"/>
+            android:layout_toEndOf="@+id/view_contact_email" />
 
         <TextView
             android:layout_width="wrap_content"

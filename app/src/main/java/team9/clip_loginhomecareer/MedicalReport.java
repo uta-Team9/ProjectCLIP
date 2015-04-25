@@ -43,6 +43,7 @@ public class MedicalReport extends ActionBarActivity {
 
     }
 
+
     //@Override
     protected void onDestroy() {
         closeDB();
@@ -131,7 +132,7 @@ public class MedicalReport extends ActionBarActivity {
 		        hasData = true;
 	        } else {
 		        Log.d("Updated for User ID", ""+User_ID);
-		        db.updateMedicalReport(dbUserRow, bloodPressure, ldlCholesterol, hdlCholesterol, totalCholesterol, glucose, bloodPressure, allergies);
+		        db.updateMedicalReport(dbUserRow, bloodPressure, ldlCholesterol, hdlCholesterol, totalCholesterol, glucose, bloodType, allergies);
 	        }
 
             toastNotification("Medical Report Saved");
@@ -143,6 +144,7 @@ public class MedicalReport extends ActionBarActivity {
             toastNotification("Invalid Information");
         }
     }
+
     private boolean validItems() {
         //TODO: Check for invalid input data
         return true;
@@ -150,7 +152,7 @@ public class MedicalReport extends ActionBarActivity {
     private void toastNotification(String description) {
         Toast.makeText(getApplicationContext(), description, Toast.LENGTH_LONG).show();
     }
-
+/*
    private void clearData()
     {
         EditText text;
@@ -170,4 +172,5 @@ public class MedicalReport extends ActionBarActivity {
         text.setText("");
 
     }
+    */
 }
