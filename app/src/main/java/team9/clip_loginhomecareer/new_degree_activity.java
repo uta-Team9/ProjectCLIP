@@ -60,12 +60,12 @@ public class new_degree_activity extends ActionBarActivity {
     }
 
     public void add_new(View v) {
-        String inst;
-        String loc;
-        String ds;
-        String major;
-        Integer grad;
-        Integer matr;
+        String inst= "";
+        String loc = "";
+        String ds = "";
+        String major = "";
+        Integer grad = 0;
+        Integer matr = 0;
         EditText text;
 
         if (validItems()) {

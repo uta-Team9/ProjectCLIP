@@ -1,17 +1,52 @@
 package team9.clip_loginhomecareer;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
+import android.widget.Toast;
 
 
 public class ViewDegree extends ActionBarActivity {
+    private int User_ID;
+    private Degree degree = null;
+    private DatabaseContract db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        openDB();
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_degree);
+        Bundle extras = getIntent().getExtras();
+        if(extras != null)
+        {
+            db = new DatabaseContract(this);
+            db.open();
+            degree = (Degree)extras.getSerializable("Degree");
+
+            setTitle(degree.getCollege());
+            setUpTextBoxes();}
+
+        final TextView emailAddress = (TextView)findViewById(R.id.viewContact_email);
+        emailAddress.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View arg0) {
+                String em = emailAddress.getText().toString();
+                Intent i = new Intent(Intent.ACTION_SEND);
+                i.setType("message/rfc822");
+                i.putExtra(Intent.EXTRA_EMAIL, new String[] {em});
+                try {
+                    startActivity(Intent.createChooser(i, "Send mail..."));
+                } catch(android.content.ActivityNotFoundException ex) {
+                    toast("No Email Client Found");
+                }
+            }
+        });
     }
 
 
@@ -36,4 +71,31 @@ public class ViewDegree extends ActionBarActivity {
 
         return super.onOptionsItemSelected(item);
     }
+    //Added By Edward
+    private void openDB() {
+        db = new DatabaseContract(this);
+        db.open();
+        User_ID = getSharedPreferences("loginPrefs", MODE_PRIVATE).getInt("ID", -1);
+        Log.d("ID in ViewContact", "" + User_ID);
+    }
+    private void setUpTextBoxes() {
+        if(degree != null) {
+            TextView text = (TextView) findViewById(R.id.viewContact_met);
+            text.setText("" + degree.getCollege());
+            text = (TextView) findViewById(R.id.viewContact_email);
+            text.setText(degree.getLocation());
+            text = (TextView) findViewById(R.id.viewContact_used);
+            text.setText("" + degree.getStart_date());
+            text = (TextView) findViewById(R.id.viewContact_phone);
+            text.setText("" + degree.getDegree_type());
+        }
+    }
+
+    public void editInstance(View v) {
+        startActivity(new Intent(this, new_degree_activity.class).putExtra("Degree", degree));
+    }
+    private void toast(String description) {
+        Toast.makeText(getApplicationContext(), description, Toast.LENGTH_LONG).show();
+    }
+
 }

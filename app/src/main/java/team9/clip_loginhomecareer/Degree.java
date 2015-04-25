@@ -1,9 +1,11 @@
 package team9.clip_loginhomecareer;
 
+import java.io.Serializable;
+
 /**
  * Created by Mary on 4/18/2015.
  */
-public class Degree {
+public class Degree implements Serializable{
     private String college;
     private int grad_date;
     private int start_date;
@@ -11,6 +13,7 @@ public class Degree {
     private int display_place;
     private String study_field;
     private String degree_type;
+    private long dbPosition;
 
     public Degree() {
         college = "";
@@ -28,6 +31,23 @@ public class Degree {
 
         return info;
     }
+    public long getDbPosition() {
+        return dbPosition;
+    }
+
+    public void setDbPosition(long dbPosition) {
+        this.dbPosition = dbPosition;
+    }
+
+    public int getDatabaseID() {
+        return databaseID;
+    }
+
+    public void setDatabaseID(int databaseID) {
+        this.databaseID = databaseID;
+    }
+
+    private int databaseID;
 
     public String getStudy_field() {
         return study_field;
