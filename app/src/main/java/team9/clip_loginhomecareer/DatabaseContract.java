@@ -14,7 +14,7 @@ public final class DatabaseContract {
 
     //Database Name and Version Number. Change V# if you add new columns
     private static final String DATABASE_NAME = "UserDatabase.db";
-    private static final int DATABASE_VERSION = 23; //database not yet implemented in code
+    private static final int DATABASE_VERSION = 24; //database not yet implemented in code
     //download and merge changes to update to current db before changing number
     //always save work! GitHub can be evil.
 
@@ -264,10 +264,13 @@ public final class DatabaseContract {
         public static final String COLUMN_CASH_AMOUNT = "CASH_AMOUNT";
         public static final String COLUMN_SOURCE = "SOURCE";
         public static final String COLUMN_NOTE = "NOTE";
-        public static final String COLUMN_DATE = "DATE";
+        public static final String COLUMN_YEAR = "YEAR";
+	    public static final String COLUMN_MONTH = "MONTH";
+	    public static final String COLUMN_DAY = "DAY";
         public static final String COLUMN_USER_ID = "USER_ID";
         public static final String[] ALL_COLUMNS =
-                {_ID, COLUMN_CASH_AMOUNT, COLUMN_SOURCE, COLUMN_NOTE, COLUMN_DATE, COLUMN_USER_ID};
+                {_ID, COLUMN_CASH_AMOUNT, COLUMN_SOURCE, COLUMN_NOTE, COLUMN_YEAR,
+		                COLUMN_MONTH, COLUMN_DAY, COLUMN_USER_ID};
     }
     private static final String SQL_CREATE_CASH_ENTRIES =
             "CREATE TABLE " + CashEntries.TABLE_NAME + " (" +
@@ -275,7 +278,9 @@ public final class DatabaseContract {
                     CashEntries.COLUMN_CASH_AMOUNT + DOUBLE_TYPE + COMMA_SEP +
                     CashEntries.COLUMN_SOURCE + TEXT_TYPE + COMMA_SEP +
                     CashEntries.COLUMN_NOTE + TEXT_TYPE + COMMA_SEP +
-                    CashEntries.COLUMN_DATE + INT_TYPE + COMMA_SEP +
+                    CashEntries.COLUMN_YEAR + INT_TYPE + COMMA_SEP +
+		            CashEntries.COLUMN_MONTH + INT_TYPE + COMMA_SEP +
+		            CashEntries.COLUMN_DAY + INT_TYPE + COMMA_SEP +
                     CashEntries.COLUMN_USER_ID + INT_TYPE +
                     ");";
     private static final String SQL_DELETE_CASH_ENTRIES =
@@ -285,19 +290,21 @@ public final class DatabaseContract {
 	private static abstract class StockSecurityEntries implements BaseColumns {
 		public static final String TABLE_NAME = "STOCK_SECURITIES";
 		public static final String[] ALL_COLUMNS =
-				{"ID", "STOCK_DATE", "STOCK_NAME", "STOCK_NO_OF_UNITS", "STOCK_PURCHASE_PRICE",
+				{"ID", "YEAR", "MONTH", "DAY", "STOCK_NAME", "STOCK_NO_OF_UNITS", "STOCK_PURCHASE_PRICE",
 				"STOCK_CURRENT_PRICE","STOCK_NOTE", "USER_ID"};
 	}
 	private static final String SQL_CREATE_STOCK_SECURITY_ENTRIES =
 			"CREATE TABLE " + StockSecurityEntries.TABLE_NAME + " (" +
 					StockSecurityEntries.ALL_COLUMNS[0] + " INTEGER PRIMARY KEY," +
 					StockSecurityEntries.ALL_COLUMNS[1] + INT_TYPE + COMMA_SEP +
-					StockSecurityEntries.ALL_COLUMNS[2] + TEXT_TYPE + COMMA_SEP +
+					StockSecurityEntries.ALL_COLUMNS[2] + INT_TYPE + COMMA_SEP +
 					StockSecurityEntries.ALL_COLUMNS[3] + INT_TYPE + COMMA_SEP +
-					StockSecurityEntries.ALL_COLUMNS[4] + DOUBLE_TYPE + COMMA_SEP +
-					StockSecurityEntries.ALL_COLUMNS[5] + DOUBLE_TYPE + COMMA_SEP +
-					StockSecurityEntries.ALL_COLUMNS[6] + TEXT_TYPE + COMMA_SEP +
-					StockSecurityEntries.ALL_COLUMNS[7] + INT_TYPE +
+					StockSecurityEntries.ALL_COLUMNS[4] + TEXT_TYPE + COMMA_SEP +
+					StockSecurityEntries.ALL_COLUMNS[5] + INT_TYPE + COMMA_SEP +
+					StockSecurityEntries.ALL_COLUMNS[6] + DOUBLE_TYPE + COMMA_SEP +
+					StockSecurityEntries.ALL_COLUMNS[7] + DOUBLE_TYPE + COMMA_SEP +
+					StockSecurityEntries.ALL_COLUMNS[8] + TEXT_TYPE + COMMA_SEP +
+					StockSecurityEntries.ALL_COLUMNS[9] + INT_TYPE +
 					");";
 	private static final String SQL_DELETE_STOCK_SECURITY_ENTRIES =
 			"DROP TABLE IF EXISTS " + StockSecurityEntries.TABLE_NAME;
@@ -326,17 +333,19 @@ public final class DatabaseContract {
 	private static abstract class AssetEntries implements BaseColumns {
 		public static final String TABLE_NAME = "ASSETS";
 		public static final String[] ALL_COLUMNS =
-				{"ID", "DATE", "TYPE", "VALUE", "MARKET_VALUE", "NOTE", "USER_ID"};
+				{"ID", "YEAR", "MONTH", "DAY", "TYPE", "VALUE", "MARKET_VALUE", "NOTE", "USER_ID"};
 	}
 	private static final String SQL_CREATE_ASSET_ENTRIES =
 			"CREATE TABLE " + AssetEntries.TABLE_NAME + " (" +
 					AssetEntries.ALL_COLUMNS[0] + " INTEGER PRIMARY KEY," +
 					AssetEntries.ALL_COLUMNS[1] + INT_TYPE + COMMA_SEP +
-					AssetEntries.ALL_COLUMNS[2] + TEXT_TYPE + COMMA_SEP +
-					AssetEntries.ALL_COLUMNS[3] + DOUBLE_TYPE + COMMA_SEP +
-					AssetEntries.ALL_COLUMNS[4] + DOUBLE_TYPE + COMMA_SEP +
-					AssetEntries.ALL_COLUMNS[5] + TEXT_TYPE + COMMA_SEP +
-					AssetEntries.ALL_COLUMNS[6] + INT_TYPE +
+					AssetEntries.ALL_COLUMNS[2] + INT_TYPE + COMMA_SEP +
+					AssetEntries.ALL_COLUMNS[3] + INT_TYPE + COMMA_SEP +
+					AssetEntries.ALL_COLUMNS[4] + TEXT_TYPE + COMMA_SEP +
+					AssetEntries.ALL_COLUMNS[5] + DOUBLE_TYPE + COMMA_SEP +
+					AssetEntries.ALL_COLUMNS[6] + DOUBLE_TYPE + COMMA_SEP +
+					AssetEntries.ALL_COLUMNS[7] + TEXT_TYPE + COMMA_SEP +
+					AssetEntries.ALL_COLUMNS[8] + INT_TYPE +
 					");";
 	private static final String SQL_DELETE_ASSET_ENTRIES =
 			"DROP TABLE IF EXISTS " + AssetEntries.TABLE_NAME;
@@ -368,7 +377,7 @@ public final class DatabaseContract {
 	private static abstract class CreditCardEntries implements BaseColumns {
 		public static final String TABLE_NAME = "CREDIT_CARDS";
 		public static final String[] ALL_COLUMNS =
-				{"ID", "DATE", "PROVIDER", "BALANCE", "EXPIRATION_DATE", "NOTE", "USER_ID"};
+				{"ID", "YEAR", "MONTH", "DAY", "PROVIDER", "BALANCE", "EXPIRATION_DATE", "NOTE", "USER_ID"};
 	}
 	private static final String SQL_CREATE_CREDIT_CARD_ENTRIES =
 			"CREATE TABLE " + CreditCardEntries.TABLE_NAME + " (" +
@@ -387,16 +396,18 @@ public final class DatabaseContract {
 	private static abstract class FinancialMiscEntries implements BaseColumns {
 		public static final String TABLE_NAME = "ASSET";
 		public static final String[] ALL_COLUMNS =
-				{"ID", "DATE", "DESCRIPTION", "AMOUNT", "NOTE", "USER_ID"};
+				{"ID", "YEAR", "MONTH", "DAY", "DESCRIPTION", "AMOUNT", "NOTE", "USER_ID"};
 	}
 	private static final String SQL_CREATE_FINANCIAL_MISC_ENTRIES =
 			"CREATE TABLE " + FinancialMiscEntries.TABLE_NAME + " (" +
 					FinancialMiscEntries.ALL_COLUMNS[0] + " INTEGER PRIMARY KEY," +
 					FinancialMiscEntries.ALL_COLUMNS[1] + INT_TYPE + COMMA_SEP +
-					FinancialMiscEntries.ALL_COLUMNS[2] + TEXT_TYPE + COMMA_SEP +
-					FinancialMiscEntries.ALL_COLUMNS[3] + DOUBLE_TYPE + COMMA_SEP +
+					FinancialMiscEntries.ALL_COLUMNS[2] + INT_TYPE + COMMA_SEP +
+					FinancialMiscEntries.ALL_COLUMNS[3] + INT_TYPE + COMMA_SEP +
 					FinancialMiscEntries.ALL_COLUMNS[4] + TEXT_TYPE + COMMA_SEP +
-					FinancialMiscEntries.ALL_COLUMNS[5] + INT_TYPE +
+					FinancialMiscEntries.ALL_COLUMNS[5] + DOUBLE_TYPE + COMMA_SEP +
+					FinancialMiscEntries.ALL_COLUMNS[6] + TEXT_TYPE + COMMA_SEP +
+					FinancialMiscEntries.ALL_COLUMNS[7] + INT_TYPE +
 					");";
 	private static final String SQL_DELETE_FINANCIAL_MISC_ENTRIES =
 			"DROP TABLE IF EXISTS " + FinancialMiscEntries.TABLE_NAME;
@@ -1165,11 +1176,14 @@ public final class DatabaseContract {
 	 * @param value
 	 * @param source
 	 * @param note
-	 * @param date yyyymmdd
+	 * @param year
+	 * @param month
+	 * @param day
 	 * @param user ID of user
 	 * @return The Primary Key number.
 	 */
-	public long insertCash(double value, String source, String note, int date, int user) {
+	public long insertCash(double value, String source, String note, int year, int month,
+	                       int day, int user) {
 		// TODO: Update data in the row with new fields.
 		// TODO: Also change the function's arguments to be what you need!
 		// Create row's data:
@@ -1177,7 +1191,9 @@ public final class DatabaseContract {
 		initialValues.put(CashEntries.COLUMN_CASH_AMOUNT, value);
 		initialValues.put(CashEntries.COLUMN_SOURCE, source);
 		initialValues.put(CashEntries.COLUMN_NOTE, note);
-		initialValues.put(CashEntries.COLUMN_DATE, date);
+		initialValues.put(CashEntries.COLUMN_YEAR, year);
+		initialValues.put(CashEntries.COLUMN_MONTH, month);
+		initialValues.put(CashEntries.COLUMN_DAY, day);
 		initialValues.put(CashEntries.COLUMN_USER_ID, user);
 
 		// Insert it into the database.
@@ -1230,10 +1246,13 @@ public final class DatabaseContract {
 	 * @param value
 	 * @param source
 	 * @param note
-	 * @param date yyyymmdd
+	 * @param year
+	 * @param month
+	 * @param day
 	 * @return true if successful
 	 */
-	public boolean updateCash(long rowId, double value, String source, String note, int date) {
+	public boolean updateCash(long rowId, double value, String source, String note, int year,
+	                          int month, int day) {
 		String where = CashEntries._ID + "=" + rowId;
 
 		/*
@@ -1246,7 +1265,9 @@ public final class DatabaseContract {
 		newValues.put(CashEntries.COLUMN_CASH_AMOUNT, value);
 		newValues.put(CashEntries.COLUMN_SOURCE, source);
 		newValues.put(CashEntries.COLUMN_NOTE, note);
-		newValues.put(CashEntries.COLUMN_DATE, date);
+		newValues.put(CashEntries.COLUMN_YEAR, year);
+		newValues.put(CashEntries.COLUMN_MONTH, month);
+		newValues.put(CashEntries.COLUMN_DAY, day);
 
 
 		// Insert it into the database.
@@ -1256,7 +1277,9 @@ public final class DatabaseContract {
 	//Stock Securities
 	/**
 	 * insert a new row
-	 * @param date
+	 * @param year
+	 * @param month
+	 * @param day
 	 * @param stockName
 	 * @param units
 	 * @param purchasePrice
@@ -1265,17 +1288,19 @@ public final class DatabaseContract {
 	 * @param user
 	 * @return long, primary key
 	 */
-	public long insertStockSecurity(int date, String stockName, int units, double purchasePrice,
+	public long insertStockSecurity(int year, int month, int day, String stockName, int units, double purchasePrice,
 			double currentPrice, String note, int user) {
 		// Create row's data:
 		ContentValues initialValues = new ContentValues();
-		initialValues.put(StockSecurityEntries.ALL_COLUMNS[1], date);
-		initialValues.put(StockSecurityEntries.ALL_COLUMNS[2], stockName);
-		initialValues.put(StockSecurityEntries.ALL_COLUMNS[3], units);
-		initialValues.put(StockSecurityEntries.ALL_COLUMNS[4], purchasePrice);
-		initialValues.put(StockSecurityEntries.ALL_COLUMNS[5], currentPrice);
-		initialValues.put(StockSecurityEntries.ALL_COLUMNS[6], note);
-		initialValues.put(StockSecurityEntries.ALL_COLUMNS[7], user);
+		initialValues.put(StockSecurityEntries.ALL_COLUMNS[1], year);
+		initialValues.put(StockSecurityEntries.ALL_COLUMNS[2], month);
+		initialValues.put(StockSecurityEntries.ALL_COLUMNS[3], day);
+		initialValues.put(StockSecurityEntries.ALL_COLUMNS[4], stockName);
+		initialValues.put(StockSecurityEntries.ALL_COLUMNS[5], units);
+		initialValues.put(StockSecurityEntries.ALL_COLUMNS[6], purchasePrice);
+		initialValues.put(StockSecurityEntries.ALL_COLUMNS[7], currentPrice);
+		initialValues.put(StockSecurityEntries.ALL_COLUMNS[8], note);
+		initialValues.put(StockSecurityEntries.ALL_COLUMNS[9], user);
 
 		// Insert it into the database.
 		return db.insert(StockSecurityEntries.TABLE_NAME, null, initialValues);
@@ -1284,7 +1309,9 @@ public final class DatabaseContract {
 	/**
 	 * Update a area of the db
 	 * @param rowId
-	 * @param date
+	 * @param year
+	 * @param month
+	 * @param day
 	 * @param stockName
 	 * @param units
 	 * @param purchasePrice
@@ -1292,18 +1319,20 @@ public final class DatabaseContract {
 	 * @param note
 	 * @return true if successful
 	 */
-	public boolean updateStockSecurity(long rowId, int date, String stockName, int units, double purchasePrice,
+	public boolean updateStockSecurity(long rowId, int year, int month, int day, String stockName, int units, double purchasePrice,
 	                                   double currentPrice, String note) {
 		String where = StockSecurityEntries._ID + "=" + rowId;
 		// TODO: Update data in the row with new fields.
 		// TODO: Also change the function's arguments to be what you need!
 		ContentValues newValues = new ContentValues();
-		newValues.put(StockSecurityEntries.ALL_COLUMNS[1], date);
-		newValues.put(StockSecurityEntries.ALL_COLUMNS[2], stockName);
-		newValues.put(StockSecurityEntries.ALL_COLUMNS[3], units);
-		newValues.put(StockSecurityEntries.ALL_COLUMNS[4], purchasePrice);
-		newValues.put(StockSecurityEntries.ALL_COLUMNS[5], currentPrice);
-		newValues.put(StockSecurityEntries.ALL_COLUMNS[6], note);
+		newValues.put(StockSecurityEntries.ALL_COLUMNS[1], year);
+		newValues.put(StockSecurityEntries.ALL_COLUMNS[2], month);
+		newValues.put(StockSecurityEntries.ALL_COLUMNS[3], day);
+		newValues.put(StockSecurityEntries.ALL_COLUMNS[4], stockName);
+		newValues.put(StockSecurityEntries.ALL_COLUMNS[5], units);
+		newValues.put(StockSecurityEntries.ALL_COLUMNS[6], purchasePrice);
+		newValues.put(StockSecurityEntries.ALL_COLUMNS[7], currentPrice);
+		newValues.put(StockSecurityEntries.ALL_COLUMNS[8], note);
 
 		// Insert it into the database.
 		return db.update(StockSecurityEntries.TABLE_NAME, newValues, where, null) != 0;
@@ -1383,17 +1412,17 @@ public final class DatabaseContract {
 	 * @param note
 	 * @return true if successful
 	 */
-	public boolean updateFinancialGoal(long rowId, int date, boolean shortTerm, String desc,
-	                                   int fulfillBy, String note) {
+	public boolean updateFinancialGoal(long rowId, int date, boolean shortTerm,
+	                                   String desc, int fulfillBy, String note) {
 		String where = FinancialGoalEntries.ALL_COLUMNS[0] + "=" + rowId;
 		// TODO: Update data in the row with new fields.
 		// TODO: Also change the function's arguments to be what you need!
 		ContentValues newValues = new ContentValues();
 		newValues.put(FinancialGoalEntries.ALL_COLUMNS[1], date);
-		newValues.put(FinancialGoalEntries.ALL_COLUMNS[2], shortTerm);
-		newValues.put(FinancialGoalEntries.ALL_COLUMNS[3], desc);
-		newValues.put(FinancialGoalEntries.ALL_COLUMNS[4], fulfillBy);
-		newValues.put(FinancialGoalEntries.ALL_COLUMNS[5], note);
+		newValues.put(FinancialGoalEntries.ALL_COLUMNS[4], shortTerm);
+		newValues.put(FinancialGoalEntries.ALL_COLUMNS[5], desc);
+		newValues.put(FinancialGoalEntries.ALL_COLUMNS[6], fulfillBy);
+		newValues.put(FinancialGoalEntries.ALL_COLUMNS[7], note);
 
 		// Insert it into the database.
 		return db.update(FinancialGoalEntries.TABLE_NAME, newValues, where, null) != 0;
@@ -1440,7 +1469,9 @@ public final class DatabaseContract {
 	//Assets
 	/**
 	 *
-	 * @param date
+	 * @param year
+	 * @param month
+	 * @param day
 	 * @param type
 	 * @param value
 	 * @param marketValue
@@ -1448,15 +1479,17 @@ public final class DatabaseContract {
 	 * @param user
 	 * @return
 	 */
-	public long insertAsset(int date, String type, double value, double marketValue, String note, int user ) {
+	public long insertAsset(int year, int month, int day, String type, double value, double marketValue, String note, int user ) {
 		// Create row's data:
 		ContentValues initialValues = new ContentValues();
-		initialValues.put(AssetEntries.ALL_COLUMNS[1], date);
-		initialValues.put(AssetEntries.ALL_COLUMNS[2], type);
-		initialValues.put(AssetEntries.ALL_COLUMNS[3], value);
-		initialValues.put(AssetEntries.ALL_COLUMNS[4], marketValue);
-		initialValues.put(AssetEntries.ALL_COLUMNS[5], note);
-		initialValues.put(AssetEntries.ALL_COLUMNS[6], user);
+		initialValues.put(AssetEntries.ALL_COLUMNS[1], year);
+		initialValues.put(AssetEntries.ALL_COLUMNS[2], month);
+		initialValues.put(AssetEntries.ALL_COLUMNS[3], day);
+		initialValues.put(AssetEntries.ALL_COLUMNS[4], type);
+		initialValues.put(AssetEntries.ALL_COLUMNS[5], value);
+		initialValues.put(AssetEntries.ALL_COLUMNS[6], marketValue);
+		initialValues.put(AssetEntries.ALL_COLUMNS[7], note);
+		initialValues.put(AssetEntries.ALL_COLUMNS[8], user);
 
 		// Insert it into the database.
 		return db.insert(AssetEntries.TABLE_NAME, null, initialValues);
@@ -1465,23 +1498,28 @@ public final class DatabaseContract {
 	/**
 	 *
 	 * @param rowId
-	 * @param date
+	 * @param year
+	 * @param month
+	 * @param day
 	 * @param type
 	 * @param value
 	 * @param marketValue
 	 * @param note
 	 * @return
 	 */
-	public boolean updateAsset(long rowId, int date, String type, double value, double marketValue, String note) {
+	public boolean updateAsset(long rowId, int year, int month, int day, String type, double value,
+	                           double marketValue, String note) {
 		String where = AssetEntries.ALL_COLUMNS[0] + "=" + rowId;
 		// TODO: Update data in the row with new fields.
 		// TODO: Also change the function's arguments to be what you need!
 		ContentValues newValues = new ContentValues();
-		newValues.put(AssetEntries.ALL_COLUMNS[1], date);
-		newValues.put(AssetEntries.ALL_COLUMNS[2], type);
-		newValues.put(AssetEntries.ALL_COLUMNS[3], value);
-		newValues.put(AssetEntries.ALL_COLUMNS[4], marketValue);
-		newValues.put(AssetEntries.ALL_COLUMNS[5], note);
+		newValues.put(AssetEntries.ALL_COLUMNS[1], year);
+		newValues.put(AssetEntries.ALL_COLUMNS[2], month);
+		newValues.put(AssetEntries.ALL_COLUMNS[3], day);
+		newValues.put(AssetEntries.ALL_COLUMNS[4], type);
+		newValues.put(AssetEntries.ALL_COLUMNS[5], value);
+		newValues.put(AssetEntries.ALL_COLUMNS[6], marketValue);
+		newValues.put(AssetEntries.ALL_COLUMNS[7], note);
 
 		// Insert it into the database.
 		return db.update(AssetEntries.TABLE_NAME, newValues, where, null) != 0;
@@ -1632,7 +1670,9 @@ public final class DatabaseContract {
 	//Credit Card
 	/**
 	 *
-	 * @param date
+	 * @param year
+	 * @param month
+	 * @param day
 	 * @param provider
 	 * @param balance
 	 * @param note
@@ -1640,16 +1680,18 @@ public final class DatabaseContract {
 	 * @param user
 	 * @return
 	 */
-	public long insertCreditCard(int date, String provider, double balance, String note,
+	public long insertCreditCard(int year, int month, int day, String provider, double balance, String note,
 	                             int expireDate, int user ) {
 		// Create row's data:
 		ContentValues initialValues = new ContentValues();
-		initialValues.put(CreditCardEntries.ALL_COLUMNS[1], date);
-		initialValues.put(CreditCardEntries.ALL_COLUMNS[2], provider);
-		initialValues.put(CreditCardEntries.ALL_COLUMNS[3], balance);
-		initialValues.put(CreditCardEntries.ALL_COLUMNS[4], note);
-		initialValues.put(CreditCardEntries.ALL_COLUMNS[5], expireDate);
-		initialValues.put(CreditCardEntries.ALL_COLUMNS[6], user);
+		initialValues.put(CreditCardEntries.ALL_COLUMNS[1], year);
+		initialValues.put(CreditCardEntries.ALL_COLUMNS[2], month);
+		initialValues.put(CreditCardEntries.ALL_COLUMNS[3], day);
+		initialValues.put(CreditCardEntries.ALL_COLUMNS[4], provider);
+		initialValues.put(CreditCardEntries.ALL_COLUMNS[5], balance);
+		initialValues.put(CreditCardEntries.ALL_COLUMNS[6], note);
+		initialValues.put(CreditCardEntries.ALL_COLUMNS[7], expireDate);
+		initialValues.put(CreditCardEntries.ALL_COLUMNS[8], user);
 
 		// Insert it into the database.
 		return db.insert(CreditCardEntries.TABLE_NAME, null, initialValues);
@@ -1658,20 +1700,24 @@ public final class DatabaseContract {
 	/**
 	 *
 	 * @param rowId
-	 * @param date
+	 * @param year
+	 * @param month
+	 * @param day
 	 * @param provider
 	 * @param balance
 	 * @param note
 	 * @param expireDate
 	 * @return
 	 */
-	public boolean updateCreditCard(long rowId, int date, String provider, double balance, String note,
+	public boolean updateCreditCard(long rowId, int year, int month, int day, String provider, double balance, String note,
 	                                int expireDate) {
 		String where = CreditCardEntries.ALL_COLUMNS[0] + "=" + rowId;
 		// TODO: Update data in the row with new fields.
 		// TODO: Also change the function's arguments to be what you need!
 		ContentValues newValues = new ContentValues();
-		newValues.put(CreditCardEntries.ALL_COLUMNS[1], date);
+		newValues.put(CreditCardEntries.ALL_COLUMNS[1], year);
+		newValues.put(CreditCardEntries.ALL_COLUMNS[2], month);
+		newValues.put(CreditCardEntries.ALL_COLUMNS[3], day);
 		newValues.put(CreditCardEntries.ALL_COLUMNS[2], provider);
 		newValues.put(CreditCardEntries.ALL_COLUMNS[3], balance);
 		newValues.put(CreditCardEntries.ALL_COLUMNS[4], note);
@@ -1722,21 +1768,25 @@ public final class DatabaseContract {
 	//Financial Misc
 	/**
 	 *
-	 * @param date
+	 * @param year
+	 * @param month
+	 * @param day
 	 * @param desc
 	 * @param amount
 	 * @param note
 	 * @param user
 	 * @return
 	 */
-	public long insertFinancialMisc(int date, String desc, double amount, String note, int user) {
+	public long insertFinancialMisc(int year, int month, int day, String desc, double amount, String note, int user) {
 		// Create row's data:
 		ContentValues initialValues = new ContentValues();
-		initialValues.put(FinancialMiscEntries.ALL_COLUMNS[1], date);
-		initialValues.put(FinancialMiscEntries.ALL_COLUMNS[2], desc);
-		initialValues.put(FinancialMiscEntries.ALL_COLUMNS[3], amount);
-		initialValues.put(FinancialMiscEntries.ALL_COLUMNS[4], note);
-		initialValues.put(FinancialMiscEntries.ALL_COLUMNS[5], user);
+		initialValues.put(FinancialMiscEntries.ALL_COLUMNS[1], year);
+		initialValues.put(FinancialMiscEntries.ALL_COLUMNS[2], month);
+		initialValues.put(FinancialMiscEntries.ALL_COLUMNS[3], day);
+		initialValues.put(FinancialMiscEntries.ALL_COLUMNS[4], desc);
+		initialValues.put(FinancialMiscEntries.ALL_COLUMNS[5], amount);
+		initialValues.put(FinancialMiscEntries.ALL_COLUMNS[6], note);
+		initialValues.put(FinancialMiscEntries.ALL_COLUMNS[7], user);
 
 		// Insert it into the database.
 		return db.insert(FinancialMiscEntries.TABLE_NAME, null, initialValues);
@@ -1745,18 +1795,22 @@ public final class DatabaseContract {
 	/**
 	 *
 	 * @param rowId
-	 * @param date
+	 * @param year
+	 * @param month
+	 * @param day
 	 * @param desc
 	 * @param amount
 	 * @param note
 	 * @return
 	 */
-	public boolean updateFinancialMisc(long rowId, int date, String desc, double amount, String note) {
+	public boolean updateFinancialMisc(long rowId, int year, int month, int day, String desc, double amount, String note) {
 		String where = FinancialMiscEntries.ALL_COLUMNS[0] + "=" + rowId;
 		// TODO: Update data in the row with new fields.
 		// TODO: Also change the function's arguments to be what you need!
 		ContentValues newValues = new ContentValues();
-		newValues.put(FinancialMiscEntries.ALL_COLUMNS[1], date);
+		newValues.put(FinancialMiscEntries.ALL_COLUMNS[1], year);
+		newValues.put(FinancialMiscEntries.ALL_COLUMNS[2], month);
+		newValues.put(FinancialMiscEntries.ALL_COLUMNS[3], day);
 		newValues.put(FinancialMiscEntries.ALL_COLUMNS[2], desc);
 		newValues.put(FinancialMiscEntries.ALL_COLUMNS[3], amount);
 		newValues.put(FinancialMiscEntries.ALL_COLUMNS[4], note);

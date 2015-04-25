@@ -9,7 +9,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ListView;
 
 import java.util.ArrayList;
@@ -38,14 +37,6 @@ public class CollegeAppsList extends ActionBarActivity {
         }
 
         applicationsList = (ListView) findViewById(R.id.applications_list);
-
-        Button edit = (Button) findViewById(R.id.new_instance_button);
-        edit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                createNewInstance(v);
-            }
-        });
 
         buildList();
 
