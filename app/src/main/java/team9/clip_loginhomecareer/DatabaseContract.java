@@ -14,7 +14,7 @@ public final class DatabaseContract {
 
     //Database Name and Version Number. Change V# if you add new columns
     private static final String DATABASE_NAME = "UserDatabase.db";
-    private static final int DATABASE_VERSION = 25; //database not yet implemented in code
+    private static final int DATABASE_VERSION = 26; //database not yet implemented in code
     //download and merge changes to update to current db before changing number
     //always save work! GitHub can be evil.
 
@@ -310,7 +310,7 @@ public final class DatabaseContract {
 	private static abstract class FinancialGoalEntries implements BaseColumns {
 		public static final String TABLE_NAME = "FINANCIAL_GOALS";
 		public static final String[] ALL_COLUMNS =
-				{"ID", "GOAL_DATE", "IS_SHORT_TERM", "DESCRIPTION", "FULFILL_BY_DATE",
+				{"ID", "IS_FULFILLED", "IS_SHORT_TERM", "DESCRIPTION", "YEAR", "MONTH", "DAY",
 						"GOAL_NOTE", "USER_ID"};
 	}
 	private static final String SQL_CREATE_FINANCIAL_GOAL_ENTRIES =
@@ -320,8 +320,10 @@ public final class DatabaseContract {
 					FinancialGoalEntries.ALL_COLUMNS[2] + INT_TYPE + COMMA_SEP +
 					FinancialGoalEntries.ALL_COLUMNS[3] + TEXT_TYPE + COMMA_SEP +
 					FinancialGoalEntries.ALL_COLUMNS[4] + INT_TYPE + COMMA_SEP +
-					FinancialGoalEntries.ALL_COLUMNS[5] + TEXT_TYPE + COMMA_SEP +
-					FinancialGoalEntries.ALL_COLUMNS[6] + INT_TYPE +
+					FinancialGoalEntries.ALL_COLUMNS[5] + INT_TYPE + COMMA_SEP +
+					FinancialGoalEntries.ALL_COLUMNS[6] + INT_TYPE + COMMA_SEP +
+					FinancialGoalEntries.ALL_COLUMNS[7] + TEXT_TYPE + COMMA_SEP +
+					FinancialGoalEntries.ALL_COLUMNS[8] + INT_TYPE +
 					");";
 	private static final String SQL_DELETE_FINANCIAL_GOAL_ENTRIES =
 			"DROP TABLE IF EXISTS " + FinancialGoalEntries.TABLE_NAME;
@@ -1631,24 +1633,28 @@ public final class DatabaseContract {
 	//Financial Goals
 	/**
 	 *
-	 * @param date
+	 * @param isFulfilled
 	 * @param shortTerm
 	 * @param desc
-	 * @param fulfillBy
+	 * @param year
+	 * @param month
+	 * @param day
 	 * @param note
 	 * @param user
 	 * @return
 	 */
-	public long insertFinancialGoal(int date, boolean shortTerm, String desc, int fulfillBy,
-	                                String note, int user) {
+	public long insertFinancialGoal(boolean isFulfilled, boolean shortTerm, String desc, int year,
+	                                int month, int day, String note, int user) {
 		// Create row's data:
 		ContentValues initialValues = new ContentValues();
-		initialValues.put(FinancialGoalEntries.ALL_COLUMNS[1], date);
+		initialValues.put(FinancialGoalEntries.ALL_COLUMNS[1], isFulfilled);
 		initialValues.put(FinancialGoalEntries.ALL_COLUMNS[2], shortTerm);
 		initialValues.put(FinancialGoalEntries.ALL_COLUMNS[3], desc);
-		initialValues.put(FinancialGoalEntries.ALL_COLUMNS[4], fulfillBy);
-		initialValues.put(FinancialGoalEntries.ALL_COLUMNS[5], note);
-		initialValues.put(FinancialGoalEntries.ALL_COLUMNS[6], user);
+		initialValues.put(FinancialGoalEntries.ALL_COLUMNS[4], year);
+		initialValues.put(FinancialGoalEntries.ALL_COLUMNS[5], month);
+		initialValues.put(FinancialGoalEntries.ALL_COLUMNS[6], day);
+		initialValues.put(FinancialGoalEntries.ALL_COLUMNS[7], note);
+		initialValues.put(FinancialGoalEntries.ALL_COLUMNS[8], user);
 
 		// Insert it into the database.
 		return db.insert(FinancialGoalEntries.TABLE_NAME, null, initialValues);
@@ -1657,23 +1663,27 @@ public final class DatabaseContract {
 	/**
 	 * Update a area of the db.
 	 * @param rowId the primary key as long
-	 * @param date
+	 * @param isFulfilled
 	 * @param shortTerm
 	 * @param desc
-	 * @param fulfillBy
+	 * @param year
+	 * @param month
+	 * @param day
 	 * @param note
 	 * @return true if successful
 	 */
-	public boolean updateFinancialGoal(long rowId, int date, boolean shortTerm,
-	                                   String desc, int fulfillBy, String note) {
+	public boolean updateFinancialGoal(long rowId, boolean isFulfilled, boolean shortTerm,
+	                                   String desc, int year, int month, int day, String note) {
 		String where = FinancialGoalEntries.ALL_COLUMNS[0] + "=" + rowId;
 		// TODO: Update data in the row with new fields.
 		// TODO: Also change the function's arguments to be what you need!
 		ContentValues newValues = new ContentValues();
-		newValues.put(FinancialGoalEntries.ALL_COLUMNS[1], date);
-		newValues.put(FinancialGoalEntries.ALL_COLUMNS[4], shortTerm);
-		newValues.put(FinancialGoalEntries.ALL_COLUMNS[5], desc);
-		newValues.put(FinancialGoalEntries.ALL_COLUMNS[6], fulfillBy);
+		newValues.put(FinancialGoalEntries.ALL_COLUMNS[1], isFulfilled);
+		newValues.put(FinancialGoalEntries.ALL_COLUMNS[2], shortTerm);
+		newValues.put(FinancialGoalEntries.ALL_COLUMNS[3], desc);
+		newValues.put(FinancialGoalEntries.ALL_COLUMNS[4], year);
+		newValues.put(FinancialGoalEntries.ALL_COLUMNS[5], month);
+		newValues.put(FinancialGoalEntries.ALL_COLUMNS[6], day);
 		newValues.put(FinancialGoalEntries.ALL_COLUMNS[7], note);
 
 		// Insert it into the database.
