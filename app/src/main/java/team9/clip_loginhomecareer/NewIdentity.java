@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -33,6 +34,12 @@ public class NewIdentity extends ActionBarActivity {
 		TEXT_WEB = (EditText) findViewById(R.id.newIdent_website);
 		TEXT_LOGIN = (EditText) findViewById(R.id.newIdent_login);
 		TEXT_PASSWORD = (EditText) findViewById(R.id.newIdent_password);
+
+		if(OI != null) {
+			Button b = (Button) findViewById(R.id.add);
+			b.setText("Update");
+			populateItems();
+		}
 	}
 
 	@Override
