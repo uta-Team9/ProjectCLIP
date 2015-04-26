@@ -41,8 +41,8 @@
         android:id="@+id/add_asset"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:background="#00ff00"
-        android:textColor="#ff000000"
+        android:background="#336600"
+        android:textColor="#ffffffff"
         android:onClick="createNewInstance"/>
 
 </RelativeLayout>
