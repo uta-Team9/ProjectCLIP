@@ -17,13 +17,6 @@ public class EduMain extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edu_main);
-        totalDegree = (TextView) findViewById(R.id.mainDegree);
-
-        // call the counting total function
-
-        totalDegree.setText("");
-
-
 
     }
 

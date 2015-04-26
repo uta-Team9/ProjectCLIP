@@ -68,12 +68,24 @@
                 android:paddingTop="16dp"
                 android:hint="Level of Degree (AA, BS)"/>
 
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/editText11"
+                android:text="Start Date" />
+
             <DatePicker
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/edu_start_date"
                 android:calendarViewShown="false"
                 android:contentDescription="Start Date" />
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/editText12"
+                android:text="Graduation Date" />
 
             <DatePicker
                 android:layout_width="wrap_content"
