@@ -14,7 +14,7 @@ public final class DatabaseContract {
 
     //Database Name and Version Number. Change V# if you add new columns
     private static final String DATABASE_NAME = "UserDatabase.db";
-    private static final int DATABASE_VERSION = 28;
+    private static final int DATABASE_VERSION = 29;
     //download and merge changes to update to current db before changing number
     //always save work! GitHub can be evil.
 
@@ -428,7 +428,7 @@ public final class DatabaseContract {
     }
 	private static final String SQL_CREATE_DOCTOR_VISIT_ENTRIES =
 			"CREATE TABLE " + DoctorVisitEntries.TABLE_NAME + " (" +
-					JobEntries._ID + " INTEGER PRIMARY KEY," +
+					DoctorVisitEntries._ID + " INTEGER PRIMARY KEY," +
 					DoctorVisitEntries.LAST_CHECK_UP_DATE + INT_TYPE + COMMA_SEP +
 					DoctorVisitEntries.HEALTH_INSURANCE_COMPANY + TEXT_TYPE + COMMA_SEP +
 					DoctorVisitEntries.HEALTH_INSURANCE_POLICY_NUM + INT_TYPE + COMMA_SEP +

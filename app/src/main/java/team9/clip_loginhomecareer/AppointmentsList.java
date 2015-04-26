@@ -77,21 +77,19 @@ public class AppointmentsList extends ActionBarActivity
         list = new ArrayList<>();
         Cursor cursor = db.getAllAppointments();
         Appointment temp = null;
-
+		//_ID, DOCTOR_NAME, DATE_OF_APPOINTMENT, TIME_OF_APPOINTMENT, REASON_FOR_APPOINTMENT, OFFICE_ADDRESS, DOCTOR_PHONE, HASH_ID
         if (cursor.moveToFirst()) {
-            do if(cursor.getInt(6) == User_ID) {
+            do if(cursor.getInt(7) == User_ID) {
 
                 temp = new Appointment(cursor.getInt(0));
-                //_ID, name, phone, email, used, met
                 Log.d( "Appointment Found: ", cursor.getString(1));
                 temp.setDoctorName(cursor.getString(1));
                 temp.setDate(cursor.getInt(2));
                 temp.setTime(cursor.getInt(3));
                 temp.setReason(cursor.getString(4));
                 temp.setOfficeAddress(cursor.getString(5));
-                temp.setPhone(cursor.getInt(5));
+                temp.setPhone(cursor.getInt(6));
                 list.add(temp);
-
             }
             while (cursor.moveToNext());
         }
