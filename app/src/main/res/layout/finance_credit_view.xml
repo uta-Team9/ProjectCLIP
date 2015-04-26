@@ -24,8 +24,8 @@
         android:id="@+id/add_cash"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:background="#ff504af1"
-        android:textColor="#ff000000"
+        android:background="#336600"
+        android:textColor="#ffffffff"
         android:onClick="createNewInstance"/>
 
     <TextView
