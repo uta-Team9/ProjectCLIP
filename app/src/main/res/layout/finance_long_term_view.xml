@@ -23,7 +23,7 @@
         android:id="@+id/add_goal"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:background="#ff504af1"
+        android:background="#00ff00"
         android:textColor="#ff000000"
         android:onClick="createNewInstance"/>
 

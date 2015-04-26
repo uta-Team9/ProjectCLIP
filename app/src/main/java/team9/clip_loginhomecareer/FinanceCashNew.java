@@ -72,8 +72,9 @@ public class FinanceCashNew extends ActionBarActivity {
             db.insertCash(amount, source, note, year, month, day, User_ID);
             //Log.d("Contact Saved: ", "" + source);
             toastNotification("Cash amount saved");
-            text = (EditText)findViewById(R.id.txt_cash_source);
-            text.setText("");
+            ((EditText) findViewById(R.id.txt_cash_source)).setText("");
+            ((EditText) findViewById(R.id.txt_cash_amt)).setText("");
+            ((EditText) findViewById(R.id.txt_cash_note)).setText("");
             //clearData();
         } else {
             toastNotification("Invalid Information");
