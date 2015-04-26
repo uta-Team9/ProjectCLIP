@@ -6,10 +6,16 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.RadioButton;
+import android.widget.Toast;
+
+import java.util.Calendar;
 
 
 public class FinanceGoalNew extends ActionBarActivity {
+    private int User_ID;
+    private DatabaseContract db;
     boolean isShortTerm;
 
     @Override
@@ -60,5 +66,43 @@ public class FinanceGoalNew extends ActionBarActivity {
         Intent intent = null;
         intent = new Intent(this, FinanceGoalView.class);
         startActivity(intent);
+    }
+    public void add_new(View v) {
+        EditText text;
+        Calendar cal = Calendar.getInstance();
+        int year = cal.get(Calendar.YEAR);
+        int month = cal.get(Calendar.MONTH);
+        int day = cal.get(Calendar.DAY_OF_MONTH);
+        User_ID = getSharedPreferences("loginPrefs", MODE_PRIVATE).getInt("ID", -1);
+
+        if(validItems()) {
+            text = (EditText) findViewById(R.id.txt_cash_source);
+            String source = text.getText().toString();
+            text = (EditText) findViewById(R.id.txt_cash_amt);
+            Double amount = Double.parseDouble(text.getText().toString());
+            text = (EditText) findViewById(R.id.txt_cash_note);
+            String note = text.getText().toString();
+
+            //TODO: get date and userID for saving
+            db.insertCash(amount, source, note, year, month, day, User_ID);
+            //Log.d("Contact Saved: ", "" + source);
+            toastNotification("Cash amount saved");
+            ((EditText) findViewById(R.id.txt_cash_source)).setText("");
+            ((EditText) findViewById(R.id.txt_cash_amt)).setText("");
+            ((EditText) findViewById(R.id.txt_cash_note)).setText("");
+            //clearData();
+        } else {
+            toastNotification("Invalid Information");
+        }
+
+    }
+
+    private boolean validItems() {
+        //TODO: Check for invalid input data
+        return true;
+    }
+
+    private void toastNotification(String description) {
+        Toast.makeText(getApplicationContext(), description, Toast.LENGTH_LONG).show();
     }
 }

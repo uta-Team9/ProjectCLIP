@@ -74,7 +74,7 @@ public class FinanceCashNew extends ActionBarActivity {
             toastNotification("Cash amount saved");
             ((EditText) findViewById(R.id.txt_cash_source)).setText("");
             ((EditText) findViewById(R.id.txt_cash_amt)).setText("");
-            ((EditText) findViewById(R.id.txt_cash_note)).setText("");
+            ((EditText) findViewById(R.id.txt_cash_amt)).setText("");
             //clearData();
         } else {
             toastNotification("Invalid Information");
