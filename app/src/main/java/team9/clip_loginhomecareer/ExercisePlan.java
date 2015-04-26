@@ -25,12 +25,6 @@ public class ExercisePlan extends ActionBarActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_exercise_plan);
 
-        Bundle extras = getIntent().getExtras();
-        if(extras!=null)
-        {
-            User_ID = extras.getInt("ID");
-        }
-
         Cursor c = db.getAllExercisePlans();
         if(c.moveToFirst())
         {
@@ -49,6 +43,7 @@ public class ExercisePlan extends ActionBarActivity
     }
 
     private void openDB() {
+        User_ID = getSharedPreferences("loginPrefs", MODE_PRIVATE).getInt("ID", -1);
         db = new DatabaseContract(this);
         db.open();
     }

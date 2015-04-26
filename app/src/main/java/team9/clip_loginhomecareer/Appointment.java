@@ -1,178 +1,111 @@
 package team9.clip_loginhomecareer;
 
-import android.database.Cursor;
-import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
-import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
-import android.widget.EditText;
-import android.widget.Toast;
+import java.io.Serializable;
 
 
-public class Appointment extends ActionBarActivity
+public class Appointment implements Serializable
 {
-    private long dbUserRow = 0;
-    private int User_ID = 0;
-    private DatabaseContract db;
-    private boolean hasData = false;
+   private String doctorName;
+   private int date;
+   private int time;
+   private String reason;
+   private String officeAddress;
+   private int phone;
+   private int used = 0;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
-        openDB();
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_appointment);
-
-        Bundle extras = getIntent().getExtras();
-        if(extras!=null)
-        {
-            User_ID = extras.getInt("ID");
-        }
-
-        Cursor c = db.getAllAppointments();
-        if(c.moveToFirst())
-        {
-            do if(c.getInt(7) == User_ID) {
-                buildFields(c);
-                dbUserRow = c.getInt(0);
-                hasData = true;
-                break;
-            } while (c.moveToNext());
-        }
+    public Appointment() {
+        doctorName= "";
+        date = 0;
+        time = 0;
+        reason = "";
+        officeAddress = "";
+        phone = 0;
+        databaseID = 0;
+        used = 0;
     }
 
-    protected void onDestroy() {
-        closeDB();
-        super.onDestroy();
+    public Appointment(int dbID) {
+        doctorName= "";
+        date = 0;
+        time = 0;
+        reason = "";
+        officeAddress = "";
+        phone = 0;
+        used = 0;
+        databaseID = dbID;
+    }
+    public int getDatabaseID() {
+        return databaseID;
     }
 
-    private void openDB() {
-        db = new DatabaseContract(this);
-        db.open();
+    public void setDatabaseID(int databaseID) {
+        this.databaseID = databaseID;
     }
 
-    private void closeDB() {
-        db.close();
+    private int databaseID;
+
+
+    public String getDoctorName() {
+        return doctorName;
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_appointment, menu);
-        return true;
+    public void setDoctorName(String doctorName) {
+        doctorName = doctorName;
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
+    public int getDate() {
+        return date;
     }
 
-    public void buildFields(Cursor c)
-    {
-        EditText text;
-        text = (EditText) findViewById(R.id.editText9);
-        text.setText(c.getString(1));
-
-        text = (EditText) findViewById(R.id.editText4);
-        text.setText(c.getString(2));
-
-        text = (EditText) findViewById(R.id.editText5);
-        text.setText(c.getString(3));
-
-        text = (EditText) findViewById(R.id.editText10);
-        text.setText(c.getString(4));
-
-        text = (EditText) findViewById(R.id.editText);
-        text.setText(c.getString(5));
-
-        text = (EditText) findViewById(R.id.editText7);
-        text.setText(c.getString(6));
-
-
-
+    public void setDate(int date) {
+        this.date = date;
     }
 
-    public void add_new(View v) {
-        EditText text;
-        if (validItems()) {
-            text = (EditText) findViewById(R.id.editText9);
-            String doctor = text.getText().toString();
-            text = (EditText) findViewById(R.id.editText4);
-
-            Integer date = 0;
-            try
-            {
-                 date = Integer.parseInt(text.getText().toString());
-            }
-            catch(NumberFormatException e){
-
-            }
-
-            text = (EditText) findViewById(R.id.editText5);
-            Integer time = Integer.parseInt(text.getText().toString());
-            text = (EditText) findViewById(R.id.editText10);
-            String reason = text.getText().toString();
-            text = (EditText) findViewById(R.id.editText);
-            String address = text.getText().toString();
-            text = (EditText) findViewById(R.id.editText7);
-            Integer phone = Integer.parseInt(text.getText().toString());
-
-
-            if(!hasData) {
-                Log.d("Stored info for User ID", "" + User_ID);
-                dbUserRow = db.insertAppointment(doctor, date, time, reason,address, phone, User_ID);
-                hasData = true;
-            } else {
-                Log.d("Updated for User ID", ""+User_ID);
-                db.updateAppointment(dbUserRow, doctor, date,time,reason,address, phone);
-            }
-
-            toastNotification("Appointment Saved");
-            //  clearData();
-        }
-
-        else
-        {
-            toastNotification("Invalid Information");
-        }
+    public int getTime() {
+        return time;
     }
 
-    private boolean validItems() {
-        //TODO: Check for invalid input data
-        return true;
-    }
-    private void toastNotification(String description) {
-        Toast.makeText(getApplicationContext(), description, Toast.LENGTH_LONG).show();
+    public void setTime(int time) {
+        this.time = time;
     }
 
-   private void clearData()
-    {
-        EditText text;
-        text = (EditText) findViewById(R.id.editText9);
-        text.setText("");
-        text = (EditText) findViewById(R.id.editText4);
-        text.setText("");
-        text = (EditText) findViewById(R.id.editText5);
-        text.setText("");
-        text = (EditText) findViewById(R.id.editText10);
-        text.setText("");
-        text = (EditText) findViewById(R.id.editText);
-        text.setText("");
-        text = (EditText) findViewById(R.id.editText7);
-        text.setText("");
-
+    public String getReason() {
+        return reason;
     }
 
+    public void setReason(String reason) {
+        this.reason = reason;
+    }
+
+    public String getOfficeAddress() {
+        return officeAddress;
+    }
+
+    public void setOfficeAddress(String officeAddress) {
+        this.officeAddress = officeAddress;
+    }
+
+    public int getPhone() {
+        return phone;
+    }
+
+    public void setPhone(int phone) {
+        this.phone = phone;
+    }
+
+    public int getUsed() {
+        return used;
+    }
+
+    public void setUsed(int used) {
+        this.used = used;
+    }
+
+    public void incrementUsed() {
+        this.used++;
+    }
+
+    public void decrementUsed() {
+        this.used--;
+    }
 }

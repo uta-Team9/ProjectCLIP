@@ -15,7 +15,8 @@
     android:layout_alignParentLeft="true"
     android:layout_alignParentStart="true"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:background="#FFFFFFFF">
+    android:background="#FFFFFFFF"
+    android:layout_above="@+id/button6">
 
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
@@ -46,12 +47,12 @@
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="LDL Cholesterol:"
             android:id="@+id/textView9"
-            android:layout_marginTop="42dp"
 
             android:paddingLeft="15dp"
             android:layout_below="@+id/textView8"
             android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true" />
+            android:layout_alignParentStart="true"
+            android:paddingTop="30dp" />
 
         <EditText
             android:layout_width="wrap_content"
@@ -70,12 +71,12 @@
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="HDL Cholesterol: "
             android:id="@+id/textView10"
-            android:layout_marginTop="54dp"
+
+            android:paddingLeft="15dp"
             android:layout_below="@+id/textView9"
             android:layout_alignParentLeft="true"
-
             android:layout_alignParentStart="true"
-            android:paddingLeft="15dp" />
+            android:paddingTop="30dp" />
 
         <EditText
             android:layout_width="wrap_content"
@@ -95,11 +96,11 @@
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="Total Cholesterol: "
             android:id="@+id/textView11"
-            android:layout_below="@+id/editText5"
+            android:paddingLeft="15dp"
+            android:layout_below="@+id/textView10"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:layout_marginTop="52dp"
-            android:paddingLeft="15dp" />
+            android:paddingTop="30dp" />
 
         <EditText
             android:layout_width="wrap_content"
@@ -120,13 +121,11 @@
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="Glucose: "
             android:id="@+id/textView12"
-            android:layout_below="@+id/textView11"
+            android:paddingLeft="15dp"
+            android:layout_below="@+id/editText6"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:layout_marginTop="54dp"
-            android:layout_alignRight="@+id/textView8"
-            android:layout_alignEnd="@+id/textView8"
-            android:paddingLeft="15dp" />
+            android:paddingTop="30dp" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -134,11 +133,11 @@
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="Blood Type: "
             android:id="@+id/textView13"
+            android:paddingLeft="15dp"
             android:layout_below="@+id/textView12"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:layout_marginTop="40dp"
-            android:paddingLeft="15dp" />
+            android:paddingTop="30dp" />
 
         <EditText
             android:layout_width="wrap_content"
@@ -152,28 +151,14 @@
             android:layout_toEndOf="@+id/textView13"
             android:inputType="text"/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Allergies: "
-            android:id="@+id/textView14"
-            android:paddingTop="50dp"
-            android:layout_below="@+id/textView13"
-            android:layout_alignRight="@+id/textView11"
-            android:layout_alignEnd="@+id/textView11"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:paddingLeft="15dp" />
-
         <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/editText8"
-            android:layout_above="@+id/button6"
+            android:layout_alignParentBottom="true"
             android:layout_toRightOf="@+id/textView13"
-            android:layout_alignRight="@+id/add_LDL_cholesterol"
-            android:layout_alignEnd="@+id/add_LDL_cholesterol" />
+            android:layout_alignRight="@+id/editText7"
+            android:layout_alignEnd="@+id/editText7" />
 
         <EditText
             android:layout_width="wrap_content"
@@ -194,23 +179,33 @@
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true" />
 
-
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Allergies: "
+            android:id="@+id/textView14"
+            android:paddingTop="70dp"
+            android:paddingLeft="15dp"
+            android:layout_alignTop="@+id/editText7"
+            android:layout_alignRight="@+id/textView12"
+            android:layout_alignEnd="@+id/textView12" />
 
 
     </RelativeLayout>
 </ScrollView>
     <Button
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="Save"
-    android:id="@+id/button6"
-    android:layout_below="@+id/textView14"
-    android:layout_alignParentLeft="true"
-    android:layout_alignParentStart="true"
-    android:onClick="add_new"
-    android:layout_alignRight="@+id/editText6"
-    android:layout_alignEnd="@+id/editText6"
-    android:textColor="#FFFFFFFF"
-    android:background="#ffbb1318"/>
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Save"
+        android:id="@+id/button6"
+        android:onClick="add_new"
+        android:textColor="#FFFFFFFF"
+        android:background="#ffbb1318"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
-    </RelativeLayout>
+</RelativeLayout>

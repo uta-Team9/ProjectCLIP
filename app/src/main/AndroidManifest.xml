@@ -211,12 +211,21 @@
                 android:value="team9.clip_loginhomecareer.DoctorsVisits" />
         </activity>
         <activity
-            android:name=".Appointment"
-            android:label="@string/title_activity_appointment"
+            android:name=".NewAppointment"
+            android:label="New Appointment"
             android:parentActivityName=".AppointmentsList" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="team9.clip_loginhomecareer.AppointmentsList" />
+        </activity>
+
+        <activity
+            android:name=".ViewAppointment"
+            android:label="View Appointment"
+            android:parentActivityName=".AppointmentsList" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".AppointmentsList" />
         </activity>
         <activity
             android:name=".MedicationsList"
