@@ -25,6 +25,12 @@ public class DoctorsVisits extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_doctors_visits);
 
+        Bundle extras = getIntent().getExtras();
+        if(extras!=null)
+        {
+            User_ID = extras.getInt("ID");
+        }
+
         Cursor c = db.getAllDoctorVisits();
         if(c.moveToFirst())
         {
@@ -117,7 +123,7 @@ public class DoctorsVisits extends ActionBarActivity {
                 db.updateDoctorVisit(dbUserRow, lastCheckUpDate, insuranceCompany, insurancePolicyNum);
             }
 
-            toastNotification("Doctor Visit Saved");
+            toastNotification("Doctor's Visit Saved");
             //  clearData();
         }
 
@@ -136,17 +142,4 @@ public class DoctorsVisits extends ActionBarActivity {
     private void toastNotification(String description) {
         Toast.makeText(getApplicationContext(), description, Toast.LENGTH_LONG).show();
     }
-/*
-   private void clearData()
-    {
-        EditText text;
-        text = (EditText) findViewById(R.id.lastCheckUpDate);
-        text.setText("");
-        text = (EditText) findViewById(R.id.editText2);
-        text.setText("");
-        text = (EditText) findViewById(R.id.editText3);
-        text.setText("");
-
-    }
-*/
 }
