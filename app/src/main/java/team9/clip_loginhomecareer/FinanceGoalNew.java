@@ -1,8 +1,8 @@
 package team9.clip_loginhomecareer;
 
 import android.content.Intent;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -20,10 +20,17 @@ public class FinanceGoalNew extends ActionBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+	    openDB();
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.finance_goal_new);
     }
 
+	@Override
+	protected void onDestroy() {
+		db.close();
+		super.onDestroy();
+	}
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -46,6 +53,14 @@ public class FinanceGoalNew extends ActionBarActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+	private void openDB() {
+		User_ID = getSharedPreferences("loginPrefs", MODE_PRIVATE).getInt("ID", -1);
+
+		db = new DatabaseContract(this);
+		db.open();
+	}
+
     public void onRadioButtonClicked(View view) {
         // Is the button now checked?
         boolean checked = ((RadioButton) view).isChecked();
@@ -73,7 +88,6 @@ public class FinanceGoalNew extends ActionBarActivity {
         int year = cal.get(Calendar.YEAR);
         int month = cal.get(Calendar.MONTH);
         int day = cal.get(Calendar.DAY_OF_MONTH);
-        User_ID = getSharedPreferences("loginPrefs", MODE_PRIVATE).getInt("ID", -1);
 
         if(validItems()) {
             text = (EditText) findViewById(R.id.txt_cash_source);

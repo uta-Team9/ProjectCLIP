@@ -14,7 +14,7 @@ public final class DatabaseContract {
 
     //Database Name and Version Number. Change V# if you add new columns
     private static final String DATABASE_NAME = "UserDatabase.db";
-    private static final int DATABASE_VERSION = 26; //database not yet implemented in code
+    private static final int DATABASE_VERSION = 28;
     //download and merge changes to update to current db before changing number
     //always save work! GitHub can be evil.
 
@@ -79,10 +79,10 @@ public final class DatabaseContract {
             "CREATE TABLE " + ContactEntries.TABLE_NAME + " (" +
                     ContactEntries._ID + " INTEGER PRIMARY KEY," +
                     ContactEntries.NAME + TEXT_TYPE + COMMA_SEP +
-                    ContactEntries.NUMBER + LONG_TYPE + COMMA_SEP +
+                    ContactEntries.NUMBER + TEXT_TYPE + COMMA_SEP +
                     ContactEntries.EMAIL + TEXT_TYPE + COMMA_SEP +
                     ContactEntries.USED + INT_TYPE + COMMA_SEP +
-                    ContactEntries.MET + INT_TYPE + COMMA_SEP +
+                    ContactEntries.MET + TEXT_TYPE + COMMA_SEP +
                     ContactEntries.HASH_ID + INT_TYPE +
                     //add entries following instructions above
                     ");";
@@ -122,7 +122,7 @@ public final class DatabaseContract {
 		            IdentityEntries.ALL_COLUMNS[1] + TEXT_TYPE + COMMA_SEP +
 		            IdentityEntries.ALL_COLUMNS[2] + TEXT_TYPE + COMMA_SEP +
 		            IdentityEntries.ALL_COLUMNS[3] + TEXT_TYPE + COMMA_SEP +
-		            IdentityEntries.ALL_COLUMNS[4] + INT_TYPE + COMMA_SEP +
+		            IdentityEntries.ALL_COLUMNS[4] + INT_TYPE +
                     //add entries following instructions above
                     ");";
     private static final String SQL_DELETE_IDENTITY_ENTRIES =
@@ -729,12 +729,12 @@ public final class DatabaseContract {
 	 * @param name
 	 * @param email
 	 * @param phone
-	 * @param met
+	 * @param dateMet
 	 * @param used
 	 * @param user
 	 * @return The DB table _ID row number.
 	 */
-	public long insertContact(String name, String email, long phone, int met, int used, int user) {
+	public long insertContact(String name, String email, String phone, String dateMet, int used, int user) {
 		/*
 		 * CHANGE 3:
 		 */
@@ -745,7 +745,7 @@ public final class DatabaseContract {
 		initialValues.put(ContactEntries.NAME, name);
 		initialValues.put(ContactEntries.EMAIL, email);
 		initialValues.put(ContactEntries.NUMBER, phone);
-		initialValues.put(ContactEntries.MET, met);
+		initialValues.put(ContactEntries.MET, dateMet);
 		initialValues.put(ContactEntries.USED, used);
 		initialValues.put(ContactEntries.HASH_ID, user);
 
@@ -795,7 +795,7 @@ public final class DatabaseContract {
 
 	// Change an existing row to be equal to new data.
 	public boolean updateContact(long rowId, String name, String email,
-	                             long phone, int met, int used) {
+	                             String phone, String dateMet, int used) {
 		String where = ContactEntries._ID + "=" + rowId;
 
 		/*
@@ -808,7 +808,7 @@ public final class DatabaseContract {
 		newValues.put(ContactEntries.NAME, name);
 		newValues.put(ContactEntries.EMAIL, email);
 		newValues.put(ContactEntries.NUMBER, phone);
-		newValues.put(ContactEntries.MET, met);
+		newValues.put(ContactEntries.MET, dateMet);
 		newValues.put(ContactEntries.USED, used);
 
 
@@ -2136,6 +2136,9 @@ public final class DatabaseContract {
 			//career
 			db.execSQL(SQL_CREATE_CONTRACT_ENTRIES);
 			db.execSQL(SQL_CREATE_CAREER_GOAL_ENTRIES);
+			db.execSQL(SQL_CREATE_JOB_ENTRIES);
+			db.execSQL(SQL_CREATE_IDENTITY_ENTRIES);
+			db.execSQL(SQL_CREATE_COMPANY_ENTRIES);
 
 			//finance
 			db.execSQL(SQL_CREATE_CASH_ENTRIES);
@@ -2170,6 +2173,9 @@ public final class DatabaseContract {
 			//CAREER
 			db.execSQL(SQL_DELETE_CONTRACT_ENTRIES);
 			db.execSQL(SQL_DELETE_CAREER_GOAL_ENTRIES);
+			db.execSQL(SQL_DELETE_IDENTITY_ENTRIES);
+			db.execSQL(SQL_DELETE_JOB_ENTRIES);
+			db.execSQL(SQL_DELETE_COMPANY_ENTRIES);
 			//FINANCE
 			db.execSQL(SQL_DELETE_CASH_ENTRIES);
 			db.execSQL(SQL_DELETE_STOCK_SECURITY_ENTRIES);

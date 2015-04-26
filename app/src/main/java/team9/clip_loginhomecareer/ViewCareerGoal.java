@@ -30,8 +30,6 @@ public class ViewCareerGoal extends ActionBarActivity {
 		Bundle extras = getIntent().getExtras();
 		if(extras != null)
 		{
-			db = new DatabaseContract(this);
-			db.open();
 			goal = (CareerGoal)extras.getSerializable("CareerGoal");
 			Log.d("Goal received", goal.getDescription());
 
@@ -59,27 +57,7 @@ public class ViewCareerGoal extends ActionBarActivity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-        Intent intent;
 
-        //noinspection SimplifiableIfStatement
-        switch(id) {
-            case(R.id.action_settings):
-                intent = new Intent(this, Settings.class);
-                startActivity(intent);
-                break;
-            case(R.id.action_Career):
-                setContentView(R.layout.home_career_activity);
-                break;
-            case(R.id.action_Finance):
-
-                break;
-            case(R.id.action_Health):
-                intent= new Intent(this, HealthHomePage.class);
-                break;
-            case(R.id.action_Education):
-
-                break;
-        }
         if (id == R.id.action_settings) {
             return true;
         }

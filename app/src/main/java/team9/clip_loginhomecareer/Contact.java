@@ -7,11 +7,11 @@ import java.io.Serializable;
  */
 public class Contact implements Serializable {
 	private String name;
-	private int met;
+	private String met;
 	private String description;
 	private int used = 0;
 	private String company;
-	private long phone;
+	private String phone;
 	private String email;
 	private long dbPosition;
 
@@ -35,8 +35,8 @@ public class Contact implements Serializable {
 
 	public Contact() {
 		name = "";
-		phone = 0;
-		met = 0;
+		phone = "";
+		met = "";
 		description = "";
 		used = 0;
 		company = "";
@@ -45,8 +45,8 @@ public class Contact implements Serializable {
 
 	public Contact(int dbID) {
 		name = "";
-		phone = 0;
-		met = 0;
+		phone = "";
+		met = "";
 		description = "";
 		used = 0;
 		company = "";
@@ -73,19 +73,19 @@ public class Contact implements Serializable {
 		this.name = name;
 	}
 
-	public long getPhone() {
+	public String getPhone() {
 		return phone;
 	}
 
-	public void setPhone(long phone) {
+	public void setPhone(String phone) {
 		this.phone = phone;
 	}
 
-	public int getMet() {
+	public String getDateMet() {
 		return met;
 	}
 
-	public void setMet(int met) {
+	public void setDateMet(String met) {
 		this.met = met;
 	}
 

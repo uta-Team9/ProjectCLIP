@@ -29,15 +29,20 @@ public class CareerGoalsList extends ActionBarActivity {
 		setContentView(R.layout.list_career_goals_activity);
 
 		activityList = (ListView) findViewById(R.id.career_goals_list);
-
-		buildList();
-		setList();
 	}
 
 	@Override
 	protected void onDestroy() {
 		db.close();
 		super.onDestroy();
+	}
+
+	@Override
+	protected void onResume() {
+		super.onResume();
+
+		buildList();
+		setList();
 	}
 
 	@Override

@@ -24,7 +24,8 @@
         </activity>
         <activity
             android:name=".HomeScreen"
-            android:label="@string/title_activity_home_screen" >
+            android:label="@string/title_activity_home_screen"
+            android:logo="@mipmap/ic_launcher">
         </activity>
         <activity
             android:name=".NewUser"
@@ -49,6 +50,7 @@
         <activity
             android:name=".CareerHome"
             android:label="@string/title_activity_career_home"
+            android:logo="@mipmap/ic_launcher"
             android:parentActivityName=".HomeScreen" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -161,6 +163,7 @@
         <activity
             android:name=".EduMain"
             android:label="@string/title_activity_edu_main"
+            android:logo="@mipmap/ic_launcher"
             android:parentActivityName=".HomeScreen" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -169,6 +172,7 @@
         <activity
             android:name=".HealthHomePage"
             android:label="@string/title_activity_health_home_page"
+            android:logo="@mipmap/ic_launcher"
             android:parentActivityName=".HomeScreen" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -270,6 +274,7 @@
         <activity
             android:name=".FinanceHome"
             android:label="@string/title_activity_finance_home"
+            android:logo="@mipmap/ic_launcher"
             android:parentActivityName=".HomeScreen" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"

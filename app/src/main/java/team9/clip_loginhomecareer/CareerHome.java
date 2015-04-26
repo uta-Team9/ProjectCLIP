@@ -6,6 +6,7 @@ import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 
 public class CareerHome extends ActionBarActivity {
@@ -39,6 +40,9 @@ public class CareerHome extends ActionBarActivity {
 			case(R.id.view_online_identities_button):
 				intent = new Intent(this, IdentitiesList.class);
 				break;
+			case(R.id.view_career_companies_button):
+				Toast.makeText(getApplicationContext(), "feature not complete", Toast.LENGTH_LONG).show();
+				break;
 		}
 
 		if(intent != null) {
@@ -61,7 +65,7 @@ public class CareerHome extends ActionBarActivity {
 		// automatically handle clicks on the Home/Up button, so long
 		// as you specify a parent activity in AndroidManifest.xml.
 		int id = item.getItemId();
-		Intent intent;
+		Intent intent = null;
 
 		//noinspection SimplifiableIfStatement
 		switch(id) {
@@ -73,18 +77,17 @@ public class CareerHome extends ActionBarActivity {
 				setContentView(R.layout.home_career_activity);
 				break;
 			case(R.id.action_Finance):
-
+				intent= new Intent(this, FinanceHome.class);
 				break;
 			case(R.id.action_Health):
                 intent= new Intent(this, HealthHomePage.class);
 				break;
 			case(R.id.action_Education):
-
+				intent= new Intent(this, EduMain.class);
 				break;
 		}
-		if (id == R.id.action_settings) {
-			return true;
-		}
+		if(intent != null)
+			startActivity(intent);
 
 		return super.onOptionsItemSelected(item);
 	}

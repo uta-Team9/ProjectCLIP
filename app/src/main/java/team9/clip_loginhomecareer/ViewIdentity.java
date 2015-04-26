@@ -1,37 +1,47 @@
 package team9.clip_loginhomecareer;
 
 import android.content.Intent;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
+import android.widget.TextView;
+import android.widget.Toast;
 
 
 public class ViewIdentity extends ActionBarActivity {
+	private DatabaseContract db;
+	private int User_ID;
+	private OnlineIdentity identity = null;
+	private TextView LOGIN;
+	private TextView WEBSITE;
+	private TextView PASSWORD;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		openDB();
+
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.display_identity_activity);
 
-		Button edit = (Button) findViewById(R.id.edit_button);
-		edit.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				editInstance(v);
-			}
-		});
-		Button delete = (Button) findViewById(R.id.delete_button);
-		delete.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				deleteInstance(v);
-			}
-		});
+		Bundle extras = getIntent().getExtras();
+		if(extras != null)
+		{
+			identity = (OnlineIdentity)extras.getSerializable("OnlineIdentity");
+			Log.d("Identity received", identity.getWebsite());
+
+			setTitle("View Identity");
+			setUpTextBoxes();
+		}
 	}
 
+	@Override
+	protected void onDestroy() {
+		db.close();
+		super.onDestroy();
+	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -73,12 +83,41 @@ public class ViewIdentity extends ActionBarActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
 	//Added By Edward
+	private void openDB() {
+		User_ID = getSharedPreferences("loginPrefs", MODE_PRIVATE).getInt("ID", -1);
+		Log.d("ID in New Identity", "" + User_ID);
+
+		db = new DatabaseContract(this);
+		db.open();
+	}
+
+	private void setUpTextBoxes() {
+		if(identity != null) {
+			//initialize boxes using findViewById and setText(goal.get())
+			WEBSITE = (TextView) findViewById(R.id.viewIdentity_website);
+			WEBSITE.setText(identity.getWebsite());
+			LOGIN = (TextView) findViewById(R.id.viewIdentity_login);
+			LOGIN.setText(identity.getAccount());
+			PASSWORD = (TextView) findViewById(R.id.viewIdentity_password);
+			PASSWORD.setText(identity.getPassword());
+		}
+	}
+
 	public void editInstance(View v) {
-		Intent intent = new Intent(this, NewIdentity.class);
-		startActivity(intent);
+		startActivity(new Intent(this, NewIdentity.class).putExtra("OnlineIdentity", identity));
 	}
 
 	public void deleteInstance(View v) {
+		if(db.deleteOnlineIdentity(identity.getDatabaseID())) {
+			toast("Identity removed");
+			finish();
+		} else
+			toast("Identity already removed");
+	}
+
+	private void toast(String description) {
+		Toast.makeText(getApplicationContext(), description, Toast.LENGTH_LONG).show();
 	}
 }

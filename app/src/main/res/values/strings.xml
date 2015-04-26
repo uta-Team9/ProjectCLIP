@@ -20,7 +20,7 @@
     </string-array>
 
     <!-- Home Screen Titles -->
-    <string name="title_activity_home_screen">Welcome to CLIP</string>
+    <string name="title_activity_home_screen">Welcome</string>
     <string name="title_section1">Calendar</string>
     <string name="title_section2">Task View</string>
     <string name="title_activity_day_view">View Day</string>
@@ -58,15 +58,9 @@
     <string name="title_activity_new_identity">New Identity</string>
 
     <!-- future goals -->
-    <string name="title_activity_future_goals">Future Goals</string>
-    <string name="title_activity_view_future_goal">View Goal</string>
-    <string name="title_activity_new_future_goal">New Future Goal</string>
-
-    <!-- Colors -->
-    <string name="color_black">#ff000000</string>
-    <string name="color_white">#ffffffff</string>
-    <string name="color_career_section">#FFF7FF1F</string>
-    <string name="color_blue">#ff504af1</string>
+    <string name="title_activity_future_goals">Career Goals</string>
+    <string name="title_activity_view_future_goal">View Career Goal</string>
+    <string name="title_activity_new_future_goal">New Career Goal</string>
 
     <!-- Education section -->
     <string name="title_activity_edu_main">Education</string>

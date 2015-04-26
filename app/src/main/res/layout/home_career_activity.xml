@@ -12,31 +12,30 @@
     <TextView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="View Jobs"
+        android:text="View Job Searches"
         android:id="@+id/view_jobs_button"
         android:padding="16dp"
         android:clickable="true"
         android:onClick="moveViews"
-        android:layout_below="@+id/view_goals_button"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
         android:textSize="18dp"
-        android:textColor="#ff000000"/>
+        android:textColor="#ff1904c0"
+        android:layout_below="@+id/view_career_companies_button"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"/>
 
     <TextView
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="View Contacts"
         android:id="@+id/view_contacts_button"
         android:padding="16dp"
         android:clickable="true"
-        android:layout_below="@+id/view_jobs_button"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
         android:onClick="moveViews"
         android:textSize="18dp"
-        android:textColor="#ff000000"/>
-    <!--android:textColor="#ffffffff"/-->
+        android:textColor="#ff1904c0"
+        android:layout_below="@+id/view_goals_button"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"/>
 
     <TextView
         android:layout_width="fill_parent"
@@ -50,8 +49,7 @@
         android:layout_marginTop="18dp"
         android:onClick="moveViews"
         android:textSize="18dp"
-        android:textColor="#ff000000"/>
-    <!--android:textColor="#ffffffff"/-->
+        android:textColor="#ff1904c0"/>
 
     <TextView
         android:layout_width="fill_parent"
@@ -61,11 +59,24 @@
         android:padding="16dp"
         android:clickable="true"
         android:onClick="moveViews"
+        android:textSize="18dp"
+        android:textColor="#ff1904c0"
+        android:layout_below="@+id/view_jobs_button"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="View Companies"
+        android:id="@+id/view_career_companies_button"
+        android:padding="16dp"
+        android:clickable="true"
+        android:onClick="moveViews"
+        android:textSize="18dp"
+        android:textColor="#ff1904c0"
         android:layout_below="@+id/view_contacts_button"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:textSize="18dp"
-        android:textColor="#ff000000"/>
-    <!--android:textColor="#ffffffff"/-->
+        android:layout_alignParentStart="true"/>
 
 </RelativeLayout>

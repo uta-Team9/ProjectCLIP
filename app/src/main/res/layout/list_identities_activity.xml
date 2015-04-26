@@ -12,7 +12,7 @@
     <ListView
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:id="@+id/contacts_list"
+        android:id="@+id/identities_list"
         android:choiceMode="singleChoice"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
@@ -26,8 +26,8 @@
         android:id="@+id/new_instance_button"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:background="#ff504af1"
-        android:textColor="#ff000000"
+        android:background="#ff1904c0"
+        android:textColor="#ffffffff"
         android:onClick="createNewInstance"/>
 
 </RelativeLayout>

@@ -100,12 +100,10 @@ public class NewContact extends ActionBarActivity {
 	private void updateItems() {
 		String n = TEXT_NAME.getText().toString();
 		String e = TEXT_EMAIL.getText().toString();
-		Long p = Long.parseLong(TEXT_PHONE.getText().toString());
-		Integer m = Integer.parseInt(
-				PICKER.getYear() + "" + PICKER.getMonth() + "" + PICKER.getDayOfMonth()
-		);
+		String p = TEXT_PHONE.getText().toString();
+		String m = PICKER.getYear() + "-" + PICKER.getMonth() + "-" + PICKER.getDayOfMonth();
 
-		db.updateContact(contact.getDatabaseID(), n, e, p.intValue(), m.intValue(), contact.getUsed());
+		db.updateContact(contact.getDatabaseID(), n, e, p, m, contact.getUsed());
 		Log.d("Contact Saved: ", "" + n);
 		toastNotification("Contact Updated");
 		clearData();
@@ -116,11 +114,10 @@ public class NewContact extends ActionBarActivity {
 		if(validItems()) {
 			String n = TEXT_NAME.getText().toString();
 			String e = TEXT_EMAIL.getText().toString();
-			Long p = Long.parseLong(TEXT_PHONE.getText().toString());
-			String temp = PICKER.getYear() + "" + PICKER.getMonth() + "" + PICKER.getDayOfMonth();
-			Integer m = Integer.parseInt(temp);
+			String p = TEXT_PHONE.getText().toString();
+			String m = PICKER.getYear() + "-" + PICKER.getMonth() + "-" + PICKER.getDayOfMonth();
 
-			db.insertContact(n, e, p.intValue(), m.intValue(), 0, User_ID);
+			db.insertContact(n, e, p, m, 0, User_ID);
 			Log.d("Contact Saved: ", "" + n);
 			toastNotification("Contact Saved");
 			clearData();

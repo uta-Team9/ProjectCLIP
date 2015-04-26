@@ -79,7 +79,7 @@ public class NewCareerGoal extends ActionBarActivity {
 	//ADDED METHODS
 	private void openDB() {
 		User_ID = getSharedPreferences("loginPrefs", MODE_PRIVATE).getInt("ID", -1);
-		Log.d("ID in New Contact", "" + User_ID);
+		Log.d("ID in NewGoal", "" + User_ID);
 
 		db = new DatabaseContract(this);
 		db.open();

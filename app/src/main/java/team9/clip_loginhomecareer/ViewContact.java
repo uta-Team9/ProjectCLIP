@@ -91,13 +91,13 @@ public class ViewContact extends ActionBarActivity {
 	private void setUpTextBoxes() {
 		if(contact != null) {
 			TextView text = (TextView) findViewById(R.id.viewContact_met);
-			text.setText("" + contact.getMet());
+			text.setText(contact.getDateMet());
 			text = (TextView) findViewById(R.id.viewContact_email);
 			text.setText(contact.getEmail());
 			text = (TextView) findViewById(R.id.viewContact_used);
 			text.setText("" + contact.getUsed());
 			text = (TextView) findViewById(R.id.viewContact_phone);
-			text.setText("" + contact.getPhone());
+			text.setText(contact.getPhone());
 		}
 	}
 
