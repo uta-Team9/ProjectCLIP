@@ -25,6 +25,7 @@ public class EducationFinancesList extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         db = new DatabaseContract(this);
         db.open();
+        User_ID = getSharedPreferences("loginPrefs", MODE_PRIVATE).getInt("ID", -1);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_education_finances_list);
 

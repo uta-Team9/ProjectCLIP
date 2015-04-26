@@ -38,7 +38,7 @@ public class DegreesList extends ActionBarActivity {
         Bundle extras = getIntent().getExtras();
         if(extras != null)
         {
-            User_ID = extras.getInt("ID");
+            User_ID = getSharedPreferences("loginPrefs", MODE_PRIVATE).getInt("ID", -1);
             Log.d("User ID: ", "" + User_ID);
         }
 

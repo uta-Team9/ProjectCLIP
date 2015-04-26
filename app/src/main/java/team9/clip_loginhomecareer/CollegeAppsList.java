@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -32,8 +31,7 @@ public class CollegeAppsList extends ActionBarActivity {
         Bundle extras = getIntent().getExtras();
         if(extras != null)
         {
-            User_ID = extras.getInt("ID");
-            Log.d("User ID: ", "" + User_ID);
+            User_ID = getSharedPreferences("loginPrefs", MODE_PRIVATE).getInt("ID", -1);
         }
 
         applicationsList = (ListView) findViewById(R.id.applications_list);

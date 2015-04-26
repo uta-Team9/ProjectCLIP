@@ -85,5 +85,11 @@ public class ViewDegree extends ActionBarActivity {
     private void toast(String description) {
         Toast.makeText(getApplicationContext(), description, Toast.LENGTH_LONG).show();
     }
-
+    public void deleteInstance(View v) {
+        if(db.deleteCollege(degree.getDatabaseID())) {
+            toast("Degree removed");
+            finish();
+        } else
+            toast("Degree already removed");
+    }
 }

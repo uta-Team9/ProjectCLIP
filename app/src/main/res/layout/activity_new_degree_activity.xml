@@ -15,7 +15,8 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:onClick="add_new"
-        android:textColor="#FF000000"/>
+        android:textColor="#FF000000"
+        android:background="#fffffa32" />
 
     <ScrollView
         android:layout_width="match_parent"
@@ -34,7 +35,7 @@
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textEmailAddress"
+                android:inputType="textAutoCorrect"
                 android:hint="College Name"
                 android:ems="10"
                 android:id="@+id/new_college_name"
@@ -43,7 +44,7 @@
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textEmailAddress"
+                android:inputType="textAutoCorrect"
                 android:ems="10"
                 android:id="@+id/new_college_location"
                 android:paddingTop="16dp"
@@ -52,7 +53,7 @@
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textEmailAddress"
+                android:inputType="textAutoCorrect"
                 android:ems="10"
                 android:id="@+id/new_college_field_of_study"
                 android:paddingTop="16dp"
@@ -61,29 +62,25 @@
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textEmailAddress"
+                android:inputType="textAutoCorrect"
                 android:ems="10"
                 android:id="@+id/new_college_degree_sought"
                 android:paddingTop="16dp"
                 android:hint="Level of Degree (AA, BS)"/>
 
-            <EditText
-                android:layout_width="match_parent"
+            <DatePicker
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:inputType="date"
-                android:ems="10"
-                android:id="@+id/new_college_start_date"
-                android:paddingTop="16dp"
-                android:hint="Start Date"/>
+                android:id="@+id/edu_start_date"
+                android:calendarViewShown="false"
+                android:contentDescription="Start Date" />
 
-            <EditText
-                android:layout_width="match_parent"
+            <DatePicker
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:inputType="date"
-                android:ems="10"
-                android:id="@+id/new_college_grad_date"
-                android:paddingTop="16dp"
-                android:hint="Graduation Date"/>
+                android:id="@+id/edu_grad_date"
+                android:calendarViewShown="false"
+                android:contentDescription="Graduation Date" />
 
         </LinearLayout>
     </ScrollView>dth="wrap_content"
