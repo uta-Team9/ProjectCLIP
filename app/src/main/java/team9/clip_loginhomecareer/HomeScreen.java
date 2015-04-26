@@ -70,7 +70,7 @@ public class HomeScreen extends ActionBarActivity implements ActionBar.TabListen
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.main_menu, menu);
-		return true;
+		return super.onCreateOptionsMenu(menu);
 	}
 
 	@Override
@@ -99,11 +99,8 @@ public class HomeScreen extends ActionBarActivity implements ActionBar.TabListen
 				break;
 		}
 
-		if(intent != null) {
-			intent.putExtra("ID", User_ID);
+		if(intent != null)
 			startActivity(intent);
-		}
-
 		return true;
 	}
 
