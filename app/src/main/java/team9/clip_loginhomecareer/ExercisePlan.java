@@ -11,7 +11,8 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 
-public class ExercisePlan extends ActionBarActivity {
+public class ExercisePlan extends ActionBarActivity
+{
     private long dbUserRow = 0;
     private int User_ID = 0;
     private DatabaseContract db;
