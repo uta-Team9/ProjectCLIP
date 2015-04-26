@@ -99,6 +99,9 @@ public class FinanceAssetNew extends ActionBarActivity {
             db.insertAsset(year, month, day, type, value, market_value, note, User_ID);
             //Log.d("Contact Saved: ", "" + source);
             toastNotification("Asset Information saved");
+            ((EditText) findViewById(R.id.txt_asset_value)).setText("");
+            ((EditText) findViewById(R.id.txt_asset__market_value)).setText("");
+            ((EditText) findViewById(R.id.txt_asset_note)).setText("");
             //clearData();
         } else {
             toastNotification("Invalid Information");

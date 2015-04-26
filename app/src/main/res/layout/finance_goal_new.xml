@@ -17,7 +17,7 @@
             android:layout_height="wrap_content"
             android:text="Short Term"
             android:textSize="24dp"
-            android:background="#FFFFFFFF"
+            android:textColor="#ff000000"
             android:layout_margin="8dp"
             android:onClick="onRadioButtonClicked"/>
         <RadioButton android:id="@+id/rdo_long_term_goal"
@@ -25,7 +25,7 @@
             android:layout_height="wrap_content"
             android:text="Long Term"
             android:textSize="24dp"
-            android:background="#FFFFFFFF"
+            android:textColor="#ff000000"
             android:layout_margin="8dp"
             android:onClick="onRadioButtonClicked"/>
     </RadioGroup>
@@ -61,16 +61,25 @@
         android:id="@+id/txt_goal_note"
         android:paddingTop="16dp"
         android:layout_centerVertical="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_below="@id/txt_fulfill_by"/>
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="2"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:id="@+id/linearLayout">
     <Button
-        android:layout_width="match_parent"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:text="Add"
         android:id="@+id/add_goal_new"
         android:onClick="add_new"
-        android:textColor="#FF000000"
+        android:background="#336600"
+        android:textColor="#ffffffff"
         android:layout_above="@+id/cancel"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
@@ -80,8 +89,17 @@
         android:text="Cancel"
         android:id="@+id/cancel"
         android:onClick="cancel"
-        android:textColor="#FF000000"
+        android:background="#336600"
+        android:textColor="#ffffffff"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
+    </LinearLayout>
+
+    <DatePicker
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/datePicker"
+        android:layout_below="@+id/txt_fulfill_by"
+        android:layout_centerHorizontal="true" />
 </RelativeLayout>
