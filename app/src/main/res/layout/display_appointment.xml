@@ -35,7 +35,7 @@
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="name"
-                android:textColor="#ff1904c0"
+                android:textColor="#ffbb1318"
                 android:layout_marginLeft="64dp"
                 android:id="@+id/view_doctorName"/>
 
@@ -52,7 +52,7 @@
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="date"
-                android:textColor="#ff1904c0"
+                android:textColor="#ffbb1318"
                 android:layout_marginLeft="64dp"
                 android:id="@+id/view_apptdate" />
 
@@ -69,7 +69,7 @@
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="time"
-                android:textColor="#ff1904c0"
+                android:textColor="#ffbb1318"
                 android:layout_marginLeft="64dp"
                 android:id="@+id/view_time"/>
 
@@ -86,7 +86,7 @@
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="reason description"
-                android:textColor="#ff1904c0"
+                android:textColor="#ffbb1318"
                 android:layout_marginLeft="64dp"
                 android:id="@+id/view_reason"/>
 
@@ -103,7 +103,7 @@
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="address"
-                android:textColor="#ff1904c0"
+                android:textColor="#ffbb1318"
                 android:layout_marginLeft="64dp"
                 android:id="@+id/view_officeAddress"/>
 
@@ -120,7 +120,7 @@
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="phone number"
-                android:textColor="#ff1904c0"
+                android:textColor="#ffbb1318"
                 android:layout_marginLeft="64dp"
                 android:id="@+id/view_doctorphoneNum"/>
         </LinearLayout>
@@ -142,7 +142,7 @@
             android:text="Edit"
             android:id="@+id/edit_button"
             android:textColor="#FFFFFFFF"
-            android:background="#ff1904c0"
+            android:background="#ffbb1318"
             android:onClick="editInstance"/>
 
         <Button
@@ -152,7 +152,7 @@
             android:text="Delete"
             android:id="@+id/delete_button"
             android:textColor="#FFFFFFFF"
-            android:background="#ff1904c0"
+            android:background="#ffbb1318"
             android:onClick="deleteInstance"/>
     </LinearLayout>
 
