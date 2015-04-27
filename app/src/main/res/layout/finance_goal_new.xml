@@ -40,11 +40,10 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_below="@id/radioGroup"/>
-    <EditText
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:inputType="date"
-        android:hint="Fulfill by"
+        android:text="Fulfill by"
         android:ems="10"
         android:id="@+id/txt_fulfill_by"
         android:paddingTop="16dp"
