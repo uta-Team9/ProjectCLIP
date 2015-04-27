@@ -14,7 +14,7 @@ public final class DatabaseContract {
 
     //Database Name and Version Number. Change V# if you add new columns
     private static final String DATABASE_NAME = "UserDatabase.db";
-    private static final int DATABASE_VERSION = 29;
+    private static final int DATABASE_VERSION = 30;
     //download and merge changes to update to current db before changing number
     //always save work! GitHub can be evil.
 
@@ -376,17 +376,18 @@ public final class DatabaseContract {
 	private static abstract class CreditCardEntries implements BaseColumns {
 		public static final String TABLE_NAME = "CREDIT_CARDS";
 		public static final String[] ALL_COLUMNS =
-				{"ID", "YEAR", "MONTH", "DAY", "PROVIDER", "BALANCE", "EXPIRATION_DATE", "NOTE", "USER_ID"};
+				{"ID", "PROVIDER", "BALANCE", "YEAR", "MONTH", "DAY", "NOTE", "USER_ID"};
 	}
 	private static final String SQL_CREATE_CREDIT_CARD_ENTRIES =
 			"CREATE TABLE " + CreditCardEntries.TABLE_NAME + " (" +
 					CreditCardEntries.ALL_COLUMNS[0] + " INTEGER PRIMARY KEY," +
-					CreditCardEntries.ALL_COLUMNS[1] + INT_TYPE + COMMA_SEP +
-					CreditCardEntries.ALL_COLUMNS[2] + TEXT_TYPE + COMMA_SEP +
-					CreditCardEntries.ALL_COLUMNS[3] + DOUBLE_TYPE + COMMA_SEP +
+					CreditCardEntries.ALL_COLUMNS[1] + TEXT_TYPE + COMMA_SEP +
+					CreditCardEntries.ALL_COLUMNS[2] + DOUBLE_TYPE + COMMA_SEP +
+					CreditCardEntries.ALL_COLUMNS[3] + INT_TYPE + COMMA_SEP +
 					CreditCardEntries.ALL_COLUMNS[4] + INT_TYPE + COMMA_SEP +
-					CreditCardEntries.ALL_COLUMNS[5] + TEXT_TYPE + COMMA_SEP +
-					CreditCardEntries.ALL_COLUMNS[6] + INT_TYPE +
+                    CreditCardEntries.ALL_COLUMNS[5] + INT_TYPE + COMMA_SEP +
+					CreditCardEntries.ALL_COLUMNS[6] + TEXT_TYPE + COMMA_SEP +
+					CreditCardEntries.ALL_COLUMNS[7] + INT_TYPE +
 					");";
 	private static final String SQL_DELETE_CREDIT_CARD_ENTRIES =
 			"DROP TABLE IF EXISTS " + CreditCardEntries.TABLE_NAME;

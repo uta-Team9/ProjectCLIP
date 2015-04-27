@@ -106,6 +106,7 @@
         <item>Land</item>
     </string-array>
     <string-array name="card_provider">
+        <item>Select Card Name</item>
         <item>Visa</item>
         <item>Master Card</item>
         <item>Discover</item>
