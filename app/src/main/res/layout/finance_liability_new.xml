@@ -71,6 +71,7 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:id="@+id/txt_liability_amt"
+            android:inputType="numberDecimal"
             android:paddingTop="16dp"
             android:hint="Amount in $"
             android:layout_above="@+id/txt_interest_rate"

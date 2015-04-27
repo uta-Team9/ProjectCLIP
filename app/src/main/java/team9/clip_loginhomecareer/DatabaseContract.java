@@ -14,7 +14,7 @@ public final class DatabaseContract {
 
     //Database Name and Version Number. Change V# if you add new columns
     private static final String DATABASE_NAME = "UserDatabase.db";
-    private static final int DATABASE_VERSION = 31;
+    private static final int DATABASE_VERSION = 32;
     //download and merge changes to update to current db before changing number
     //always save work! GitHub can be evil.
 
@@ -1841,18 +1841,20 @@ public final class DatabaseContract {
 	 * @param user User's ID
 	 * @return the primary key
 	 */
-	public long insertLiability(String date, String lenderName, double amount, double interestRate,
+	public long insertLiability(int year, int month, int day, String lenderName, double amount, double interestRate,
 	                            int lendingTerm, String desc, String note, int user ) {
 		// Create row's data:
 		ContentValues initialValues = new ContentValues();
-		initialValues.put(LiabilityEntries.ALL_COLUMNS[1], date);
-		initialValues.put(LiabilityEntries.ALL_COLUMNS[2], lenderName);
-		initialValues.put(LiabilityEntries.ALL_COLUMNS[3], amount);
-		initialValues.put(LiabilityEntries.ALL_COLUMNS[4], interestRate);
-		initialValues.put(LiabilityEntries.ALL_COLUMNS[5], lendingTerm);
-		initialValues.put(LiabilityEntries.ALL_COLUMNS[6], desc);
-		initialValues.put(LiabilityEntries.ALL_COLUMNS[7], note);
-		initialValues.put(LiabilityEntries.ALL_COLUMNS[8], user);
+		initialValues.put(LiabilityEntries.ALL_COLUMNS[1], year);
+        initialValues.put(LiabilityEntries.ALL_COLUMNS[2], month);
+        initialValues.put(LiabilityEntries.ALL_COLUMNS[3], day);
+		initialValues.put(LiabilityEntries.ALL_COLUMNS[4], lenderName);
+		initialValues.put(LiabilityEntries.ALL_COLUMNS[5], amount);
+		initialValues.put(LiabilityEntries.ALL_COLUMNS[6], interestRate);
+		initialValues.put(LiabilityEntries.ALL_COLUMNS[7], lendingTerm);
+		initialValues.put(LiabilityEntries.ALL_COLUMNS[8], desc);
+		initialValues.put(LiabilityEntries.ALL_COLUMNS[9], note);
+		initialValues.put(LiabilityEntries.ALL_COLUMNS[10], user);
 
 		// Insert it into the database.
 		return db.insert(LiabilityEntries.TABLE_NAME, null, initialValues);
