@@ -93,7 +93,7 @@ public class FinanceCreditNew extends ActionBarActivity {
 
            // {"ID", "PROVIDER", "BALANCE", "YEAR", "MONTH", "DAY", "NOTE", "USER_ID"};
             //TODO: get date and userID for saving
-            //db.insertCreditCard(type, amount, year, month, day, note, User_ID);
+            db.insertCreditCard(type, amount, year, month, day, note, User_ID);
             //Log.d("Contact Saved: ", "" + source);
             toastNotification("Credit information saved");
             ((EditText) findViewById(R.id.txt_credit_amt)).setText("");

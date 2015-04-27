@@ -57,6 +57,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Cash source"
+                android:inputType="text"
                 android:ems="10"
                 android:id="@+id/txt_cash_source"
                 android:paddingTop="16dp"/>
@@ -64,6 +65,7 @@
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:inputType="numberDecimal"
                 android:ems="10"
                 android:id="@+id/txt_cash_amt"
                 android:paddingTop="16dp"
@@ -72,6 +74,7 @@
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:inputType="text"
                 android:ems="10"
                 android:id="@+id/txt_cash_note"
                 android:paddingTop="16dp"

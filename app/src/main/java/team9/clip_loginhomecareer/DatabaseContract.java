@@ -14,7 +14,7 @@ public final class DatabaseContract {
 
     //Database Name and Version Number. Change V# if you add new columns
     private static final String DATABASE_NAME = "UserDatabase.db";
-    private static final int DATABASE_VERSION = 30;
+    private static final int DATABASE_VERSION = 31;
     //download and merge changes to update to current db before changing number
     //always save work! GitHub can be evil.
 
@@ -355,19 +355,21 @@ public final class DatabaseContract {
 	private static abstract class LiabilityEntries implements BaseColumns {
 		public static final String TABLE_NAME = "LIABILITIES";
 		public static final String[] ALL_COLUMNS =
-				{"ID", "DATE", "LENDER_NAME", "AMOUNT", "INTEREST_RATE", "LENDING_TERM", "DESCRIPTION", "NOTE", "USER_ID"};
+				{"ID", "YEAR", "MONTH", "DAY", "LENDER_NAME", "AMOUNT", "INTEREST_RATE", "LENDING_TERM", "DESCRIPTION", "NOTE", "USER_ID"};
 	}
 	private static final String SQL_CREATE_LIABILITY_ENTRIES =
 			"CREATE TABLE " + LiabilityEntries.TABLE_NAME + " (" +
 					LiabilityEntries.ALL_COLUMNS[0] + " INTEGER PRIMARY KEY," +
-					LiabilityEntries.ALL_COLUMNS[1] + TEXT_TYPE + COMMA_SEP +
-					LiabilityEntries.ALL_COLUMNS[2] + TEXT_TYPE + COMMA_SEP +
-					LiabilityEntries.ALL_COLUMNS[3] + DOUBLE_TYPE + COMMA_SEP +
-					LiabilityEntries.ALL_COLUMNS[4] + DOUBLE_TYPE + COMMA_SEP +
-					LiabilityEntries.ALL_COLUMNS[5] + INT_TYPE + COMMA_SEP +
-					LiabilityEntries.ALL_COLUMNS[6] + TEXT_TYPE + COMMA_SEP +
-					LiabilityEntries.ALL_COLUMNS[7] + TEXT_TYPE + COMMA_SEP +
-					LiabilityEntries.ALL_COLUMNS[8] + INT_TYPE +
+					LiabilityEntries.ALL_COLUMNS[1] + INT_TYPE + COMMA_SEP +
+                    LiabilityEntries.ALL_COLUMNS[2] + INT_TYPE + COMMA_SEP +
+                    LiabilityEntries.ALL_COLUMNS[3] + INT_TYPE + COMMA_SEP +
+					LiabilityEntries.ALL_COLUMNS[4] + TEXT_TYPE + COMMA_SEP +
+					LiabilityEntries.ALL_COLUMNS[5] + DOUBLE_TYPE + COMMA_SEP +
+					LiabilityEntries.ALL_COLUMNS[6] + DOUBLE_TYPE + COMMA_SEP +
+					LiabilityEntries.ALL_COLUMNS[7] + INT_TYPE + COMMA_SEP +
+					LiabilityEntries.ALL_COLUMNS[8] + TEXT_TYPE + COMMA_SEP +
+					LiabilityEntries.ALL_COLUMNS[9] + TEXT_TYPE + COMMA_SEP +
+					LiabilityEntries.ALL_COLUMNS[10] + INT_TYPE +
 					");";
 	private static final String SQL_DELETE_LIABILITY_ENTRIES =
 			"DROP TABLE IF EXISTS " + LiabilityEntries.TABLE_NAME;

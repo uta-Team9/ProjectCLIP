@@ -6,12 +6,16 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
+
+import java.util.Calendar;
 
 
 public class FinanceLiabilityNew extends ActionBarActivity {
-
+    private int User_ID;
     private DatabaseContract db;
 
     @Override
@@ -21,7 +25,10 @@ public class FinanceLiabilityNew extends ActionBarActivity {
         db = new DatabaseContract(this);
         db.open();
     }
-
+    protected void onDestroy() {
+        super.onDestroy();
+        db.close();
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -46,18 +53,51 @@ public class FinanceLiabilityNew extends ActionBarActivity {
     }
     public void add_new(View v) {
         EditText text;
+        Calendar cal = Calendar.getInstance();
+        int year = cal.get(Calendar.YEAR);
+        int month = cal.get(Calendar.MONTH);
+        int day = cal.get(Calendar.DAY_OF_MONTH);
+        User_ID = getSharedPreferences("loginPrefs", MODE_PRIVATE).getInt("ID", -1);
+        int typenum;
+        String type;
+
         if(validItems()) {
-            text = (EditText) findViewById(R.id.txt_cash_source);
-            String source = text.getText().toString();
-            text = (EditText) findViewById(R.id.txt_cash_amt);
+
+            Spinner spn = (Spinner) findViewById(R.id.card_provider_spinner);
+            typenum = spn.getSelectedItemPosition();
+            switch (typenum)
+            {
+                case 1:
+                    type = "Visa";
+                    break;
+                case 2:
+                    type = "Master Card";
+                    break;
+                case 3:
+                    type = "Discover";
+                    break;
+                case 4:
+                    type = "American Express";
+                    break;
+                case 5:
+                    type = "Other";
+                    break;
+                default:
+                    type = " ";
+                    break;
+            }
+            text = (EditText) findViewById(R.id.txt_credit_amt);
             Double amount = Double.parseDouble(text.getText().toString());
-            text = (EditText) findViewById(R.id.txt_cash_note);
-            String note = text.getText().toString();
+            String note = ((EditText) findViewById(R.id.txt_credit_note)).getText().toString();
+
+            // 	{"ID", "YEAR", "MONTH", "DAY", "LENDER_NAME", "AMOUNT", "INTEREST_RATE", "LENDING_TERM", "DESCRIPTION", "NOTE", "USER_ID"};
 
             //TODO: get date and userID for saving
-         //   db.insertCash(amount, source, note, 2015, 0);
+            db.insertCreditCard(type, amount, year, month, day, note, User_ID);
             //Log.d("Contact Saved: ", "" + source);
-            toastNotification("Contact Saved");
+            toastNotification("Credit information saved");
+            ((EditText) findViewById(R.id.txt_credit_amt)).setText("");
+            ((EditText) findViewById(R.id.txt_credit_note)).setText("");
             //clearData();
         } else {
             toastNotification("Invalid Information");
