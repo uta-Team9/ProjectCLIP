@@ -7,12 +7,12 @@
                 android:paddingLeft="@dimen/activity_horizontal_margin"
                 android:paddingRight="@dimen/activity_horizontal_margin"
                 tools:context="team9.clip_loginhomecareer.JobSearchList"
-                ><!--android:background="#ff000000"-->
+                android:background="#ffffffff">
 
     <ListView
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:id="@+id/contacts_list"
+        android:id="@+id/job_search_list"
         android:choiceMode="singleChoice"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
@@ -26,6 +26,7 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:onClick="createNewInstance"
-        android:background="#ff504af1"/>
+        android:background="#ff1904c0"
+        android:textColor="#ffffffff"/>
 
 </RelativeLayout>

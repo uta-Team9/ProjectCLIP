@@ -42,7 +42,8 @@
         android:orientation="vertical"
         android:layout_width="fill_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/linearLayout">
+        android:layout_above="@+id/linearLayout"
+        android:weightSum="1">
 
     <Spinner
         android:layout_width="match_parent"
@@ -65,13 +66,22 @@
         android:id="@+id/txt_credit_note"
         android:paddingTop="16dp"/>
 
-        <EditText
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="date"
-            android:hint="Expiration Date"
+            android:text="Expiration Date"
+            android:textSize="16dp"
             android:ems="10"
             android:id="@+id/txt_expire_date"
-            android:paddingTop="16dp"/>
+            android:paddingTop="16dp"
+            android:layout_weight="0.06" />
+
+        <DatePicker
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/dp_credit_exp"
+            android:calendarViewShown="false"/>
+
     </LinearLayout>
 </RelativeLayout>

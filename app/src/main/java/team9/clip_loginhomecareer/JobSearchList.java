@@ -1,30 +1,49 @@
 package team9.clip_loginhomecareer;
 
 import android.content.Intent;
-import android.support.v7.app.ActionBarActivity;
+import android.database.Cursor;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+
+import java.util.ArrayList;
 
 
 public class JobSearchList extends ActionBarActivity {
+	private int User_ID;
+	private DatabaseContract db;
+	private ArrayList<JobSearch> list;
+	private ListView activityList;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		openDB();
+
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.list_jobs_activity);
 
-		Button edit = (Button) findViewById(R.id.new_instance_button);
-		edit.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				createNewInstance(v);
-			}
-		});
+		activityList = (ListView) findViewById(R.id.job_search_list);
 	}
 
+	@Override
+	protected void onDestroy() {
+		db.close();
+		super.onDestroy();
+	}
+
+	@Override
+	protected void onResume() {
+		super.onResume();
+
+		buildList();
+		setList();
+	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -39,27 +58,8 @@ public class JobSearchList extends ActionBarActivity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-        Intent intent;
 
         //noinspection SimplifiableIfStatement
-        switch(id) {
-            case(R.id.action_settings):
-                intent = new Intent(this, Settings.class);
-                startActivity(intent);
-                break;
-            case(R.id.action_Career):
-                setContentView(R.layout.home_career_activity);
-                break;
-            case(R.id.action_Finance):
-
-                break;
-            case(R.id.action_Health):
-                intent= new Intent(this, HealthHomePage.class);
-                break;
-            case(R.id.action_Education):
-
-                break;
-        }
         if (id == R.id.action_settings) {
             return true;
         }
@@ -67,8 +67,58 @@ public class JobSearchList extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
+	private void openDB() {
+		User_ID = getSharedPreferences("loginPrefs", MODE_PRIVATE).getInt("ID", -1);
+		Log.d("User ID ContactList", "" + User_ID);
+
+		db = new DatabaseContract(this);
+		db.open();
+	}
+
+	//putting together contact list
+	private void buildList() {
+		list = new ArrayList<>();
+		Cursor cursor = db.getAllJobSearches();
+		JobSearch temp = null;
+
+		if (cursor.moveToFirst()) {
+			do if(cursor.getInt(4) == User_ID) {
+
+				temp = new JobSearch(cursor.getInt(0));
+				//"ID", "Company", "Status", "Applied", "HashID"
+				Log.d( "JobSearch Found", cursor.getString(1));
+				temp.setCompany(cursor.getString(1));
+				temp.setStatus(cursor.getString(2));
+				temp.setDateApplied(cursor.getString(3));
+				list.add(temp);
+			}
+			while (cursor.moveToNext());
+		}
+		cursor.close();
+	}
+
+	private void setList() {
+		ArrayAdapter<JobSearch> arrayAdapter = new ArrayAdapter<>(
+				this, android.R.layout.simple_list_item_1, list);
+
+		activityList.setAdapter(arrayAdapter);
+
+		activityList.setClickable(true);
+		activityList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+			@Override
+			public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
+				moveToView(position);
+			}
+		});
+	}
+
+	private void moveToView(int position) {
+		startActivity(
+				new Intent(this, ViewJobSearch.class).putExtra("JobSearch", list.get(position))
+		);
+	}
+
 	public void createNewInstance(View v) {
-		Intent intent = new Intent(this, NewJobSearch.class);
-		startActivity(intent);
+		startActivity(new Intent(this, NewJobSearch.class));
 	}
 }

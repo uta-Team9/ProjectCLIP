@@ -21,22 +21,40 @@
             android:id="@+id/calendarView"
             android:showWeekNumber="false"
             android:focusedMonthDateColor="#ff000000"
-            android:weekNumberColor="#ff000000"
             android:weekSeparatorLineColor="#ff000000"
-            android:layout_above="@+id/view_contacts_calendar"/>
+            android:layout_above="@+id/linearLayout"/>
 
-        <Button
+        <LinearLayout
+            android:orientation="horizontal"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="View Contacts"
-            android:id="@+id/view_contacts_calendar"
-            android:background="#ff000000"
-            android:textColor="#ffffffff"
-            android:shadowColor="#ffffffff"
-            android:onClick="viewContactsList"
+            android:weightSum="2"
             android:layout_alignParentBottom="true"
             android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"/>
+            android:layout_alignParentStart="true"
+            android:id="@+id/linearLayout">
+            <Button
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="New Event"
+                android:id="@+id/newEvent"
+                android:textColor="#FFFFFFFF"
+                android:background="#ff000000"
+                android:onClick="newEvent"/>
+            <Button
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="View Contacts"
+                android:id="@+id/view_contacts_Task"
+                android:background="#ff000000"
+                android:textColor="#FFFFFFFF"
+                android:onClick="viewContactsList"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"/>
+        </LinearLayout>
 
     </RelativeLayout>
     <!-- The navigation drawer -->

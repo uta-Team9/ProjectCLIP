@@ -14,7 +14,7 @@ public final class DatabaseContract {
 
     //Database Name and Version Number. Change V# if you add new columns
     private static final String DATABASE_NAME = "UserDatabase.db";
-    private static final int DATABASE_VERSION = 25; //database not yet implemented in code
+    private static final int DATABASE_VERSION = 30;
     //download and merge changes to update to current db before changing number
     //always save work! GitHub can be evil.
 
@@ -79,10 +79,10 @@ public final class DatabaseContract {
             "CREATE TABLE " + ContactEntries.TABLE_NAME + " (" +
                     ContactEntries._ID + " INTEGER PRIMARY KEY," +
                     ContactEntries.NAME + TEXT_TYPE + COMMA_SEP +
-                    ContactEntries.NUMBER + LONG_TYPE + COMMA_SEP +
+                    ContactEntries.NUMBER + TEXT_TYPE + COMMA_SEP +
                     ContactEntries.EMAIL + TEXT_TYPE + COMMA_SEP +
                     ContactEntries.USED + INT_TYPE + COMMA_SEP +
-                    ContactEntries.MET + INT_TYPE + COMMA_SEP +
+                    ContactEntries.MET + TEXT_TYPE + COMMA_SEP +
                     ContactEntries.HASH_ID + INT_TYPE +
                     //add entries following instructions above
                     ");";
@@ -122,7 +122,7 @@ public final class DatabaseContract {
 		            IdentityEntries.ALL_COLUMNS[1] + TEXT_TYPE + COMMA_SEP +
 		            IdentityEntries.ALL_COLUMNS[2] + TEXT_TYPE + COMMA_SEP +
 		            IdentityEntries.ALL_COLUMNS[3] + TEXT_TYPE + COMMA_SEP +
-		            IdentityEntries.ALL_COLUMNS[4] + INT_TYPE + COMMA_SEP +
+		            IdentityEntries.ALL_COLUMNS[4] + INT_TYPE +
                     //add entries following instructions above
                     ");";
     private static final String SQL_DELETE_IDENTITY_ENTRIES =
@@ -310,7 +310,7 @@ public final class DatabaseContract {
 	private static abstract class FinancialGoalEntries implements BaseColumns {
 		public static final String TABLE_NAME = "FINANCIAL_GOALS";
 		public static final String[] ALL_COLUMNS =
-				{"ID", "GOAL_DATE", "IS_SHORT_TERM", "DESCRIPTION", "FULFILL_BY_DATE",
+				{"ID", "IS_FULFILLED", "IS_SHORT_TERM", "DESCRIPTION", "YEAR", "MONTH", "DAY",
 						"GOAL_NOTE", "USER_ID"};
 	}
 	private static final String SQL_CREATE_FINANCIAL_GOAL_ENTRIES =
@@ -320,8 +320,10 @@ public final class DatabaseContract {
 					FinancialGoalEntries.ALL_COLUMNS[2] + INT_TYPE + COMMA_SEP +
 					FinancialGoalEntries.ALL_COLUMNS[3] + TEXT_TYPE + COMMA_SEP +
 					FinancialGoalEntries.ALL_COLUMNS[4] + INT_TYPE + COMMA_SEP +
-					FinancialGoalEntries.ALL_COLUMNS[5] + TEXT_TYPE + COMMA_SEP +
-					FinancialGoalEntries.ALL_COLUMNS[6] + INT_TYPE +
+					FinancialGoalEntries.ALL_COLUMNS[5] + INT_TYPE + COMMA_SEP +
+					FinancialGoalEntries.ALL_COLUMNS[6] + INT_TYPE + COMMA_SEP +
+					FinancialGoalEntries.ALL_COLUMNS[7] + TEXT_TYPE + COMMA_SEP +
+					FinancialGoalEntries.ALL_COLUMNS[8] + INT_TYPE +
 					");";
 	private static final String SQL_DELETE_FINANCIAL_GOAL_ENTRIES =
 			"DROP TABLE IF EXISTS " + FinancialGoalEntries.TABLE_NAME;
@@ -374,17 +376,18 @@ public final class DatabaseContract {
 	private static abstract class CreditCardEntries implements BaseColumns {
 		public static final String TABLE_NAME = "CREDIT_CARDS";
 		public static final String[] ALL_COLUMNS =
-				{"ID", "YEAR", "MONTH", "DAY", "PROVIDER", "BALANCE", "EXPIRATION_DATE", "NOTE", "USER_ID"};
+				{"ID", "PROVIDER", "BALANCE", "YEAR", "MONTH", "DAY", "NOTE", "USER_ID"};
 	}
 	private static final String SQL_CREATE_CREDIT_CARD_ENTRIES =
 			"CREATE TABLE " + CreditCardEntries.TABLE_NAME + " (" +
 					CreditCardEntries.ALL_COLUMNS[0] + " INTEGER PRIMARY KEY," +
-					CreditCardEntries.ALL_COLUMNS[1] + INT_TYPE + COMMA_SEP +
-					CreditCardEntries.ALL_COLUMNS[2] + TEXT_TYPE + COMMA_SEP +
-					CreditCardEntries.ALL_COLUMNS[3] + DOUBLE_TYPE + COMMA_SEP +
+					CreditCardEntries.ALL_COLUMNS[1] + TEXT_TYPE + COMMA_SEP +
+					CreditCardEntries.ALL_COLUMNS[2] + DOUBLE_TYPE + COMMA_SEP +
+					CreditCardEntries.ALL_COLUMNS[3] + INT_TYPE + COMMA_SEP +
 					CreditCardEntries.ALL_COLUMNS[4] + INT_TYPE + COMMA_SEP +
-					CreditCardEntries.ALL_COLUMNS[5] + TEXT_TYPE + COMMA_SEP +
-					CreditCardEntries.ALL_COLUMNS[6] + INT_TYPE +
+                    CreditCardEntries.ALL_COLUMNS[5] + INT_TYPE + COMMA_SEP +
+					CreditCardEntries.ALL_COLUMNS[6] + TEXT_TYPE + COMMA_SEP +
+					CreditCardEntries.ALL_COLUMNS[7] + INT_TYPE +
 					");";
 	private static final String SQL_DELETE_CREDIT_CARD_ENTRIES =
 			"DROP TABLE IF EXISTS " + CreditCardEntries.TABLE_NAME;
@@ -426,7 +429,7 @@ public final class DatabaseContract {
     }
 	private static final String SQL_CREATE_DOCTOR_VISIT_ENTRIES =
 			"CREATE TABLE " + DoctorVisitEntries.TABLE_NAME + " (" +
-					JobEntries._ID + " INTEGER PRIMARY KEY," +
+					DoctorVisitEntries._ID + " INTEGER PRIMARY KEY," +
 					DoctorVisitEntries.LAST_CHECK_UP_DATE + INT_TYPE + COMMA_SEP +
 					DoctorVisitEntries.HEALTH_INSURANCE_COMPANY + TEXT_TYPE + COMMA_SEP +
 					DoctorVisitEntries.HEALTH_INSURANCE_POLICY_NUM + INT_TYPE + COMMA_SEP +
@@ -727,12 +730,12 @@ public final class DatabaseContract {
 	 * @param name
 	 * @param email
 	 * @param phone
-	 * @param met
+	 * @param dateMet
 	 * @param used
 	 * @param user
 	 * @return The DB table _ID row number.
 	 */
-	public long insertContact(String name, String email, long phone, int met, int used, int user) {
+	public long insertContact(String name, String email, String phone, String dateMet, int used, int user) {
 		/*
 		 * CHANGE 3:
 		 */
@@ -743,7 +746,7 @@ public final class DatabaseContract {
 		initialValues.put(ContactEntries.NAME, name);
 		initialValues.put(ContactEntries.EMAIL, email);
 		initialValues.put(ContactEntries.NUMBER, phone);
-		initialValues.put(ContactEntries.MET, met);
+		initialValues.put(ContactEntries.MET, dateMet);
 		initialValues.put(ContactEntries.USED, used);
 		initialValues.put(ContactEntries.HASH_ID, user);
 
@@ -793,7 +796,7 @@ public final class DatabaseContract {
 
 	// Change an existing row to be equal to new data.
 	public boolean updateContact(long rowId, String name, String email,
-	                             long phone, int met, int used) {
+	                             String phone, String dateMet, int used) {
 		String where = ContactEntries._ID + "=" + rowId;
 
 		/*
@@ -806,7 +809,7 @@ public final class DatabaseContract {
 		newValues.put(ContactEntries.NAME, name);
 		newValues.put(ContactEntries.EMAIL, email);
 		newValues.put(ContactEntries.NUMBER, phone);
-		newValues.put(ContactEntries.MET, met);
+		newValues.put(ContactEntries.MET, dateMet);
 		newValues.put(ContactEntries.USED, used);
 
 
@@ -1632,24 +1635,28 @@ public final class DatabaseContract {
 	//Financial Goals
 	/**
 	 *
-	 * @param date
+	 * @param isFulfilled
 	 * @param shortTerm
 	 * @param desc
-	 * @param fulfillBy
+	 * @param year
+	 * @param month
+	 * @param day
 	 * @param note
 	 * @param user
 	 * @return
 	 */
-	public long insertFinancialGoal(int date, boolean shortTerm, String desc, int fulfillBy,
-	                                String note, int user) {
+	public long insertFinancialGoal(boolean isFulfilled, boolean shortTerm, String desc, int year,
+	                                int month, int day, String note, int user) {
 		// Create row's data:
 		ContentValues initialValues = new ContentValues();
-		initialValues.put(FinancialGoalEntries.ALL_COLUMNS[1], date);
+		initialValues.put(FinancialGoalEntries.ALL_COLUMNS[1], isFulfilled);
 		initialValues.put(FinancialGoalEntries.ALL_COLUMNS[2], shortTerm);
 		initialValues.put(FinancialGoalEntries.ALL_COLUMNS[3], desc);
-		initialValues.put(FinancialGoalEntries.ALL_COLUMNS[4], fulfillBy);
-		initialValues.put(FinancialGoalEntries.ALL_COLUMNS[5], note);
-		initialValues.put(FinancialGoalEntries.ALL_COLUMNS[6], user);
+		initialValues.put(FinancialGoalEntries.ALL_COLUMNS[4], year);
+		initialValues.put(FinancialGoalEntries.ALL_COLUMNS[5], month);
+		initialValues.put(FinancialGoalEntries.ALL_COLUMNS[6], day);
+		initialValues.put(FinancialGoalEntries.ALL_COLUMNS[7], note);
+		initialValues.put(FinancialGoalEntries.ALL_COLUMNS[8], user);
 
 		// Insert it into the database.
 		return db.insert(FinancialGoalEntries.TABLE_NAME, null, initialValues);
@@ -1658,23 +1665,27 @@ public final class DatabaseContract {
 	/**
 	 * Update a area of the db.
 	 * @param rowId the primary key as long
-	 * @param date
+	 * @param isFulfilled
 	 * @param shortTerm
 	 * @param desc
-	 * @param fulfillBy
+	 * @param year
+	 * @param month
+	 * @param day
 	 * @param note
 	 * @return true if successful
 	 */
-	public boolean updateFinancialGoal(long rowId, int date, boolean shortTerm,
-	                                   String desc, int fulfillBy, String note) {
+	public boolean updateFinancialGoal(long rowId, boolean isFulfilled, boolean shortTerm,
+	                                   String desc, int year, int month, int day, String note) {
 		String where = FinancialGoalEntries.ALL_COLUMNS[0] + "=" + rowId;
 		// TODO: Update data in the row with new fields.
 		// TODO: Also change the function's arguments to be what you need!
 		ContentValues newValues = new ContentValues();
-		newValues.put(FinancialGoalEntries.ALL_COLUMNS[1], date);
-		newValues.put(FinancialGoalEntries.ALL_COLUMNS[4], shortTerm);
-		newValues.put(FinancialGoalEntries.ALL_COLUMNS[5], desc);
-		newValues.put(FinancialGoalEntries.ALL_COLUMNS[6], fulfillBy);
+		newValues.put(FinancialGoalEntries.ALL_COLUMNS[1], isFulfilled);
+		newValues.put(FinancialGoalEntries.ALL_COLUMNS[2], shortTerm);
+		newValues.put(FinancialGoalEntries.ALL_COLUMNS[3], desc);
+		newValues.put(FinancialGoalEntries.ALL_COLUMNS[4], year);
+		newValues.put(FinancialGoalEntries.ALL_COLUMNS[5], month);
+		newValues.put(FinancialGoalEntries.ALL_COLUMNS[6], day);
 		newValues.put(FinancialGoalEntries.ALL_COLUMNS[7], note);
 
 		// Insert it into the database.
@@ -1921,30 +1932,29 @@ public final class DatabaseContract {
 	}
 
 	//Credit Card
+	//{"ID", "PROVIDER", "BALANCE", "YEAR", "MONTH", "DAY", "NOTE", "USER_ID"};
+
 	/**
 	 *
+	 * @param provider
+	 * @param balance
 	 * @param year
 	 * @param month
 	 * @param day
-	 * @param provider
-	 * @param balance
 	 * @param note
-	 * @param expireDate
 	 * @param user
 	 * @return
 	 */
-	public long insertCreditCard(int year, int month, int day, String provider, double balance, String note,
-	                             int expireDate, int user ) {
+	public long insertCreditCard(String provider, double balance, int year, int month, int day, String note, int user ) {
 		// Create row's data:
 		ContentValues initialValues = new ContentValues();
-		initialValues.put(CreditCardEntries.ALL_COLUMNS[1], year);
-		initialValues.put(CreditCardEntries.ALL_COLUMNS[2], month);
-		initialValues.put(CreditCardEntries.ALL_COLUMNS[3], day);
-		initialValues.put(CreditCardEntries.ALL_COLUMNS[4], provider);
-		initialValues.put(CreditCardEntries.ALL_COLUMNS[5], balance);
+		initialValues.put(CreditCardEntries.ALL_COLUMNS[1], provider);
+		initialValues.put(CreditCardEntries.ALL_COLUMNS[2], balance);
+		initialValues.put(CreditCardEntries.ALL_COLUMNS[3], year);
+		initialValues.put(CreditCardEntries.ALL_COLUMNS[4], month);
+		initialValues.put(CreditCardEntries.ALL_COLUMNS[5], day);
 		initialValues.put(CreditCardEntries.ALL_COLUMNS[6], note);
-		initialValues.put(CreditCardEntries.ALL_COLUMNS[7], expireDate);
-		initialValues.put(CreditCardEntries.ALL_COLUMNS[8], user);
+		initialValues.put(CreditCardEntries.ALL_COLUMNS[7], user);
 
 		// Insert it into the database.
 		return db.insert(CreditCardEntries.TABLE_NAME, null, initialValues);
@@ -1953,31 +1963,28 @@ public final class DatabaseContract {
 	/**
 	 *
 	 * @param rowId
+	 * @param provider
+	 * @param balance
 	 * @param year
 	 * @param month
 	 * @param day
-	 * @param provider
-	 * @param balance
 	 * @param note
-	 * @param expireDate
 	 * @return
 	 */
-	public boolean updateCreditCard(long rowId, int year, int month, int day, String provider, double balance, String note,
-	                                int expireDate) {
+	public boolean updateCreditCard(long rowId, String provider, double balance, int year, int month, int day, String note) {
 		String where = CreditCardEntries.ALL_COLUMNS[0] + "=" + rowId;
 		// TODO: Update data in the row with new fields.
 		// TODO: Also change the function's arguments to be what you need!
-		ContentValues newValues = new ContentValues();
-		newValues.put(CreditCardEntries.ALL_COLUMNS[1], year);
-		newValues.put(CreditCardEntries.ALL_COLUMNS[2], month);
-		newValues.put(CreditCardEntries.ALL_COLUMNS[3], day);
-		newValues.put(CreditCardEntries.ALL_COLUMNS[2], provider);
-		newValues.put(CreditCardEntries.ALL_COLUMNS[3], balance);
-		newValues.put(CreditCardEntries.ALL_COLUMNS[4], note);
-		newValues.put(CreditCardEntries.ALL_COLUMNS[5], expireDate);
+		ContentValues initialValues = new ContentValues();
+		initialValues.put(CreditCardEntries.ALL_COLUMNS[1], provider);
+		initialValues.put(CreditCardEntries.ALL_COLUMNS[2], balance);
+		initialValues.put(CreditCardEntries.ALL_COLUMNS[3], year);
+		initialValues.put(CreditCardEntries.ALL_COLUMNS[4], month);
+		initialValues.put(CreditCardEntries.ALL_COLUMNS[5], day);
+		initialValues.put(CreditCardEntries.ALL_COLUMNS[6], note);
 
 		// Insert it into the database.
-		return db.update(CreditCardEntries.TABLE_NAME, newValues, where, null) != 0;
+		return db.update(CreditCardEntries.TABLE_NAME, initialValues, where, null) != 0;
 	}
 
 	public Cursor getCreditCard(long rowId) {
@@ -2127,6 +2134,9 @@ public final class DatabaseContract {
 			//career
 			db.execSQL(SQL_CREATE_CONTRACT_ENTRIES);
 			db.execSQL(SQL_CREATE_CAREER_GOAL_ENTRIES);
+			db.execSQL(SQL_CREATE_JOB_ENTRIES);
+			db.execSQL(SQL_CREATE_IDENTITY_ENTRIES);
+			db.execSQL(SQL_CREATE_COMPANY_ENTRIES);
 
 			//finance
 			db.execSQL(SQL_CREATE_CASH_ENTRIES);
@@ -2161,6 +2171,9 @@ public final class DatabaseContract {
 			//CAREER
 			db.execSQL(SQL_DELETE_CONTRACT_ENTRIES);
 			db.execSQL(SQL_DELETE_CAREER_GOAL_ENTRIES);
+			db.execSQL(SQL_DELETE_IDENTITY_ENTRIES);
+			db.execSQL(SQL_DELETE_JOB_ENTRIES);
+			db.execSQL(SQL_DELETE_COMPANY_ENTRIES);
 			//FINANCE
 			db.execSQL(SQL_DELETE_CASH_ENTRIES);
 			db.execSQL(SQL_DELETE_STOCK_SECURITY_ENTRIES);

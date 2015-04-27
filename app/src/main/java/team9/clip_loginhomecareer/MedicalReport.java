@@ -143,6 +143,8 @@ public class MedicalReport extends ActionBarActivity {
         {
             toastNotification("Invalid Information");
         }
+
+        finish();
     }
 
     private boolean validItems() {

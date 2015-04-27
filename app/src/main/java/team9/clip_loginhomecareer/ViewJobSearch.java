@@ -1,36 +1,47 @@
 package team9.clip_loginhomecareer;
 
 import android.content.Intent;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
+import android.widget.TextView;
+import android.widget.Toast;
 
 
 public class ViewJobSearch extends ActionBarActivity {
+	//"ID", "Company", "Status", "Applied", "HashID"
+	private DatabaseContract db;
+	private int User_ID;
+	private JobSearch jobSearch = null;
+	private TextView COMPANY;
+	private TextView STATUS;
+	private TextView DATE;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		openDB();
+
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.display_job_search_activity);
 
-		Button edit = (Button) findViewById(R.id.edit_button);
-		edit.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				editInstance(v);
-			}
-		});
-		Button delete = (Button) findViewById(R.id.delete_button);
-		delete.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				deleteInstance(v);
-			}
-		});
+		Bundle extras = getIntent().getExtras();
+		if(extras != null)
+		{
+			jobSearch = (JobSearch)extras.getSerializable("JobSearch");
+			Log.d("Job Search received", jobSearch.getCompany());
 
+			setTitle("Job Search");
+			setUpTextBoxes();
+		}
+	}
+
+	@Override
+	protected void onDestroy() {
+		db.close();
+		super.onDestroy();
 	}
 
 
@@ -49,37 +60,47 @@ public class ViewJobSearch extends ActionBarActivity {
         int id = item.getItemId();
         Intent intent;
 
-        //noinspection SimplifiableIfStatement
-        switch(id) {
-            case(R.id.action_settings):
-                intent = new Intent(this, Settings.class);
-                startActivity(intent);
-                break;
-            case(R.id.action_Career):
-                setContentView(R.layout.home_career_activity);
-                break;
-            case(R.id.action_Finance):
-
-                break;
-            case(R.id.action_Health):
-                intent= new Intent(this, HealthHomePage.class);
-                break;
-            case(R.id.action_Education):
-
-                break;
-        }
         if (id == R.id.action_settings) {
             return true;
         }
 
         return super.onOptionsItemSelected(item);
     }
+
 	//Added By Edward
+	private void openDB() {
+		User_ID = getSharedPreferences("loginPrefs", MODE_PRIVATE).getInt("ID", -1);
+		Log.d("ID in New JS", "" + User_ID);
+
+		db = new DatabaseContract(this);
+		db.open();
+	}
+
+	private void setUpTextBoxes() {
+		if(jobSearch != null) {
+			//initialize boxes using findViewById and setText(goal.get())
+			STATUS = (TextView) findViewById(R.id.viewJobSearch_status);
+			STATUS.setText(jobSearch.getStatus());
+			DATE = (TextView) findViewById(R.id.viewJobSearch_applied);
+			DATE.setText(jobSearch.getDateApplied());
+			COMPANY = (TextView) findViewById(R.id.viewJobSearch_company);
+			COMPANY.setText(jobSearch.getCompany());
+		}
+	}
+
 	public void editInstance(View v) {
-		Intent intent = new Intent(this, NewJobSearch.class);
-		startActivity(intent);
+		startActivity(new Intent(this, NewJobSearch.class).putExtra("JobSearch", jobSearch));
 	}
 
 	public void deleteInstance(View v) {
+		if(db.deleteJobSearch(jobSearch.getDatabaseID())) {
+			toast("Job Search removed");
+			finish();
+		} else
+			toast("Job Search already removed");
+	}
+
+	private void toast(String description) {
+		Toast.makeText(getApplicationContext(), description, Toast.LENGTH_LONG).show();
 	}
 }

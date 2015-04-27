@@ -1,8 +1,10 @@
 package team9.clip_loginhomecareer;
 
+import java.util.ArrayList;
 import java.util.Locale;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
@@ -11,14 +13,25 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+import android.widget.TextView;
 
 
 public class FinanceGoalView extends ActionBarActivity implements ActionBar.TabListener {
+    private DatabaseContract db;
+    private ListView shortGoalList;
+    private ListView longGoalList;
+    private ArrayList<String> shortlist;// = new ArrayList<>();
+    private ArrayList<String> longlist;// = new ArrayList<>();
+    private boolean isShortTerm;
 
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -39,6 +52,12 @@ public class FinanceGoalView extends ActionBarActivity implements ActionBar.TabL
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.finance_goal_view);
+        db = new DatabaseContract(this);
+        db.open();
+
+        shortlist = new ArrayList<>();
+        longlist = new ArrayList<>();
+        buildList();
 
         // Set up the action bar.
         final ActionBar actionBar = getSupportActionBar();
@@ -83,7 +102,10 @@ public class FinanceGoalView extends ActionBarActivity implements ActionBar.TabL
         }
     }
 
-
+    protected void onDestroy() {
+        db.close();
+        super.onDestroy();
+    }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -111,6 +133,16 @@ public class FinanceGoalView extends ActionBarActivity implements ActionBar.TabL
         // When the given tab is selected, switch to the corresponding page in
         // the ViewPager.
         mViewPager.setCurrentItem(tab.getPosition());
+        if(tab.getPosition()==1)
+        {
+            longGoalList = (ListView) findViewById(R.id.lst_long_goal);
+            setLongList();
+        }
+        else
+        {
+            shortGoalList = (ListView) findViewById(R.id.lst_short_goal);
+            setSortList();
+        }
     }
 
     @Override
@@ -194,5 +226,86 @@ public class FinanceGoalView extends ActionBarActivity implements ActionBar.TabL
         intent = new Intent(this, FinanceGoalNew.class);
         startActivity(intent);
     }
+    public void buildList(){
+        Cursor c = db.getAllFinancialGoals();
+        int month, day, year;
+        boolean isShortTerm;
+        boolean isFulFilled;
+        String desc, notes;
+        if(c.moveToFirst()) {
+            do{
+                if(c.getInt(1) == 0)
+                    isFulFilled = false;
+                else
+                    isFulFilled = true;
+                if(c.getInt(2) == 1)
+                    isShortTerm = true;
+                else
+                    isShortTerm = false;
+                desc = c.getString(3);
+                month = c.getInt(5)+1;
+                day = c.getInt(6);
+                year = c.getInt(4);
+                notes = c.getString(3);
+                //4 2 1 3
+                //{"ID", "IS_FULFILLED", "IS_SHORT_TERM", "DESCRIPTION", "YEAR", "MONTH", "DAY", "GOAL_NOTE", "USER_ID"};
+                if(isShortTerm) {
+                    shortlist.add(new String(desc + " " + month + "/" + day + "/" + year + " Notes: " + notes));
+                }
+                else {
+                    longlist.add(new String(desc + " " + month + "/" + day + "/" + year + " Notes: " + notes));
+                }
+            }while(c.moveToNext());
+        }
+        c.close();
+    }
 
+
+    /*
+    public void help()
+    {
+        shortGoalList = (ListView) findViewById(R.id.lst_short_goal);
+        longGoalList = (ListView) findViewById(R.id.lst_long_goal);
+        ArrayAdapter<String> arrayAdapterShort = new ArrayAdapter<String>(
+                this, android.R.layout.simple_list_item_1, shortlist);
+        ArrayAdapter<String> arrayAdapterLong = new ArrayAdapter<String>(
+                this, android.R.layout.simple_list_item_1, longtlist);
+        shortGoalList.setAdapter(arrayAdapterShort);
+        longGoalList.setAdapter(arrayAdapterLong);
+    }
+    */
+    private void setSortList() {
+        //Possible to change simple_list_item_1 into our own xml object
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(
+                this, android.R.layout.simple_list_item_1, shortlist);
+
+        shortGoalList.setAdapter(arrayAdapter);
+
+        shortGoalList.setClickable(true);
+        shortGoalList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
+                //Intent intent = new Intent(this, FinanceGoalEditView.class);
+                String test = shortlist.get(position);
+                //intent.put(test);
+                Log.d("selected item", test);
+            }
+        });
+    }
+    private void setLongList() {
+        //Possible to change simple_list_item_1 into our own xml object
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(
+                this, android.R.layout.simple_list_item_1, longlist);
+        longGoalList.setAdapter(arrayAdapter);
+        longGoalList.setClickable(true);
+        longGoalList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
+                //Intent intent = new Intent(this, FinanceGoalEditView.class);
+                String test = longlist.get(position);
+                //intent.put(test);
+                Log.d("selected item", test);
+            }
+        });
+    }
 }

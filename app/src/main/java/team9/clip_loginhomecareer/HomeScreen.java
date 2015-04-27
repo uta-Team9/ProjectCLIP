@@ -70,7 +70,7 @@ public class HomeScreen extends ActionBarActivity implements ActionBar.TabListen
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.main_menu, menu);
-		return true;
+		return super.onCreateOptionsMenu(menu);
 	}
 
 	@Override
@@ -99,11 +99,8 @@ public class HomeScreen extends ActionBarActivity implements ActionBar.TabListen
 				break;
 		}
 
-		if(intent != null) {
-			intent.putExtra("ID", User_ID);
+		if(intent != null)
 			startActivity(intent);
-		}
-
 		return true;
 	}
 
@@ -200,16 +197,20 @@ public class HomeScreen extends ActionBarActivity implements ActionBar.TabListen
 		drawerLayout.setDrawerListener(mDrawerToggle);
 	}
 
-	public void viewContactsList(View v) {
-		startActivity(new Intent(this, ContactList.class));
-	}
-
 	private void openDB() {
 		User_ID = getSharedPreferences("loginPrefs", MODE_PRIVATE).getInt("ID", -1);
 		Log.d("Home Screen ID", "" + User_ID);
 
 		db = new DatabaseContract(this);
 		db.open();
+	}
+
+	public void viewContactsList(View v) {
+		startActivity(new Intent(this, ContactList.class));
+	}
+
+	public void newEvent(View v) {
+
 	}
 
 	/**
@@ -253,8 +254,15 @@ public class HomeScreen extends ActionBarActivity implements ActionBar.TabListen
 
 		cursor = db.getAllFinancialGoals();
 		if(cursor.moveToFirst()) {
-			do if(cursor.getInt(6) == 0) {
+			do if(cursor.getInt(8) == User_ID) {
 				list.add(new String(cursor.getString(3)));
+			} while(cursor.moveToNext());
+		}
+
+		cursor = db.getAllAppointments();
+		if(cursor.moveToFirst()) {
+			do if(cursor.getInt(7) == User_ID) {
+				list.add(new String("With " + cursor.getString(1) + " at " + cursor.getString(3)));
 			} while(cursor.moveToNext());
 		}
 
@@ -268,11 +276,11 @@ public class HomeScreen extends ActionBarActivity implements ActionBar.TabListen
 
 		taskList.setAdapter(arrayAdapter);
 
-		taskList.setClickable(true);
+		taskList.setClickable(false);
 		taskList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
-				selectItem(position);
+				//selectItem(position);
 			}
 		});
 

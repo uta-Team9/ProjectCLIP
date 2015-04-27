@@ -14,18 +14,38 @@
               android:paddingRight="@dimen/activity_horizontal_margin"
               tools:context=".team9.clip_loginhomecareer.HomeScreen$PlaceholderFragment"
               android:background="#ffffffff">
-        <Button
+
+        <LinearLayout
+            android:orientation="horizontal"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="View Contacts"
-            android:id="@+id/view_contacts_Task"
-            android:background="#ff000000"
-            android:textColor="#FFFFFFFF"
-            android:onClick="viewContactsList"
+            android:weightSum="2"
             android:layout_alignParentBottom="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:shadowColor="#ffffffff"/>
+            android:id="@+id/linearLayout">
+            <Button
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="New Event"
+                android:id="@+id/newEvent"
+                android:textColor="#FFFFFFFF"
+                android:background="#ff000000"
+                android:onClick="newEvent"/>
+            <Button
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="View Contacts"
+                android:id="@+id/view_contacts_Task"
+                android:background="#ff000000"
+                android:textColor="#FFFFFFFF"
+                android:onClick="viewContactsList"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"/>
+        </LinearLayout>
 
         <ListView
             android:layout_width="wrap_content"
@@ -34,7 +54,7 @@
             android:layout_alignParentTop="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:layout_above="@+id/view_contacts_Task"/>
+            android:layout_above="@+id/linearLayout"/>
     </RelativeLayout>
     <!-- The navigation drawer -->
     <ListView android:id="@+id/home_screen_drawer"
