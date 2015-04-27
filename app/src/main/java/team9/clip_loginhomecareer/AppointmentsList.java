@@ -32,6 +32,8 @@ public class AppointmentsList extends ActionBarActivity
 
         activityList = (ListView) findViewById(R.id.listView_appointment);
 
+
+
         buildList();
         setList();
     }
@@ -73,30 +75,31 @@ public class AppointmentsList extends ActionBarActivity
         db.open();
     }
 
-    private void buildList() {
-        list = new ArrayList<>();
-        Cursor cursor = db.getAllAppointments();
-        Appointment temp = null;
-		//_ID, DOCTOR_NAME, DATE_OF_APPOINTMENT, TIME_OF_APPOINTMENT, REASON_FOR_APPOINTMENT, OFFICE_ADDRESS, DOCTOR_PHONE, HASH_ID
-        if (cursor.moveToFirst()) {
-            do if(cursor.getInt(7) == User_ID) {
+     private void buildList () {
+          list = new ArrayList<>();
+          Cursor cursor = db.getAllAppointments();
+          Appointment temp = null;
+          //_ID, DOCTOR_NAME, DATE_OF_APPOINTMENT, TIME_OF_APPOINTMENT, REASON_FOR_APPOINTMENT, OFFICE_ADDRESS, DOCTOR_PHONE, HASH_ID
+          if (cursor.moveToFirst()) {
+              do if (cursor.getInt(7) == User_ID) {
 
-                temp = new Appointment(cursor.getInt(0));
-                Log.d( "Appointment Found: ", cursor.getString(1));
-                temp.setDoctorName(cursor.getString(1));
-                temp.setDate(cursor.getInt(2));
-                temp.setTime(cursor.getInt(3));
-                temp.setReason(cursor.getString(4));
-                temp.setOfficeAddress(cursor.getString(5));
-                temp.setPhone(cursor.getInt(6));
-                list.add(temp);
-            }
-            while (cursor.moveToNext());
-        }
-        cursor.close();
-    }
+                  temp = new Appointment(cursor.getInt(0));
+                  Log.d("Appointment Found: ", cursor.getString(1));
+                  temp.setDoctorName(cursor.getString(1));
+                  temp.setDate(cursor.getInt(2));
+                  temp.setTime(cursor.getInt(3));
+                  temp.setReason(cursor.getString(4));
+                  temp.setOfficeAddress(cursor.getString(5));
+                  temp.setPhone(cursor.getInt(6));
+                  list.add(temp);
+              }
+              while (cursor.moveToNext());
+          }
+          cursor.close();
+      }
 
-    //Add the adapter to the list ui
+      //Add the adapter to the list ui
+
     private void setList() {
         //Possible to change simple_list_item_1 into our own xml object
         ArrayAdapter<Appointment> arrayAdapter = new ArrayAdapter<>(
@@ -111,6 +114,12 @@ public class AppointmentsList extends ActionBarActivity
                 moveToView(position);
             }
         });
+    }
+
+    protected void onResume() {
+        super.onResume();
+        buildList();
+        setList();
     }
 
     /**

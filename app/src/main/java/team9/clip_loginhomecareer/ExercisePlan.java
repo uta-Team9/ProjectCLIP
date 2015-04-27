@@ -132,6 +132,8 @@ public class ExercisePlan extends ActionBarActivity
     private void toastNotification(String description) {
         Toast.makeText(getApplicationContext(), description, Toast.LENGTH_LONG).show();
     }
+
+
 /*
    private void clearData()
     {
