@@ -1931,30 +1931,29 @@ public final class DatabaseContract {
 	}
 
 	//Credit Card
+	//{"ID", "PROVIDER", "BALANCE", "YEAR", "MONTH", "DAY", "NOTE", "USER_ID"};
+
 	/**
 	 *
+	 * @param provider
+	 * @param balance
 	 * @param year
 	 * @param month
 	 * @param day
-	 * @param provider
-	 * @param balance
 	 * @param note
-	 * @param expireDate
 	 * @param user
 	 * @return
 	 */
-	public long insertCreditCard(int year, int month, int day, String provider, double balance, String note,
-	                             int expireDate, int user ) {
+	public long insertCreditCard(String provider, double balance, int year, int month, int day, String note, int user ) {
 		// Create row's data:
 		ContentValues initialValues = new ContentValues();
-		initialValues.put(CreditCardEntries.ALL_COLUMNS[1], year);
-		initialValues.put(CreditCardEntries.ALL_COLUMNS[2], month);
-		initialValues.put(CreditCardEntries.ALL_COLUMNS[3], day);
-		initialValues.put(CreditCardEntries.ALL_COLUMNS[4], provider);
-		initialValues.put(CreditCardEntries.ALL_COLUMNS[5], balance);
+		initialValues.put(CreditCardEntries.ALL_COLUMNS[1], provider);
+		initialValues.put(CreditCardEntries.ALL_COLUMNS[2], balance);
+		initialValues.put(CreditCardEntries.ALL_COLUMNS[3], year);
+		initialValues.put(CreditCardEntries.ALL_COLUMNS[4], month);
+		initialValues.put(CreditCardEntries.ALL_COLUMNS[5], day);
 		initialValues.put(CreditCardEntries.ALL_COLUMNS[6], note);
-		initialValues.put(CreditCardEntries.ALL_COLUMNS[7], expireDate);
-		initialValues.put(CreditCardEntries.ALL_COLUMNS[8], user);
+		initialValues.put(CreditCardEntries.ALL_COLUMNS[7], user);
 
 		// Insert it into the database.
 		return db.insert(CreditCardEntries.TABLE_NAME, null, initialValues);
@@ -1963,31 +1962,28 @@ public final class DatabaseContract {
 	/**
 	 *
 	 * @param rowId
+	 * @param provider
+	 * @param balance
 	 * @param year
 	 * @param month
 	 * @param day
-	 * @param provider
-	 * @param balance
 	 * @param note
-	 * @param expireDate
 	 * @return
 	 */
-	public boolean updateCreditCard(long rowId, int year, int month, int day, String provider, double balance, String note,
-	                                int expireDate) {
+	public boolean updateCreditCard(long rowId, String provider, double balance, int year, int month, int day, String note) {
 		String where = CreditCardEntries.ALL_COLUMNS[0] + "=" + rowId;
 		// TODO: Update data in the row with new fields.
 		// TODO: Also change the function's arguments to be what you need!
-		ContentValues newValues = new ContentValues();
-		newValues.put(CreditCardEntries.ALL_COLUMNS[1], year);
-		newValues.put(CreditCardEntries.ALL_COLUMNS[2], month);
-		newValues.put(CreditCardEntries.ALL_COLUMNS[3], day);
-		newValues.put(CreditCardEntries.ALL_COLUMNS[2], provider);
-		newValues.put(CreditCardEntries.ALL_COLUMNS[3], balance);
-		newValues.put(CreditCardEntries.ALL_COLUMNS[4], note);
-		newValues.put(CreditCardEntries.ALL_COLUMNS[5], expireDate);
+		ContentValues initialValues = new ContentValues();
+		initialValues.put(CreditCardEntries.ALL_COLUMNS[1], provider);
+		initialValues.put(CreditCardEntries.ALL_COLUMNS[2], balance);
+		initialValues.put(CreditCardEntries.ALL_COLUMNS[3], year);
+		initialValues.put(CreditCardEntries.ALL_COLUMNS[4], month);
+		initialValues.put(CreditCardEntries.ALL_COLUMNS[5], day);
+		initialValues.put(CreditCardEntries.ALL_COLUMNS[6], note);
 
 		// Insert it into the database.
-		return db.update(CreditCardEntries.TABLE_NAME, newValues, where, null) != 0;
+		return db.update(CreditCardEntries.TABLE_NAME, initialValues, where, null) != 0;
 	}
 
 	public Cursor getCreditCard(long rowId) {

@@ -262,7 +262,7 @@ public class HomeScreen extends ActionBarActivity implements ActionBar.TabListen
 		cursor = db.getAllAppointments();
 		if(cursor.moveToFirst()) {
 			do if(cursor.getInt(7) == User_ID) {
-				list.add(new String(cursor.getString(3)));
+				list.add(new String("With " + cursor.getString(1) + " at " + cursor.getString(3)));
 			} while(cursor.moveToNext());
 		}
 
