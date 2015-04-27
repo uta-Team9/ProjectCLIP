@@ -99,7 +99,7 @@ public class ViewAppointment extends ActionBarActivity
     }
 
     public void deleteInstance(View v) {
-        if(db.deleteContact(appointment.getDatabaseID())) {
+        if(db.deleteAppointment(appointment.getDatabaseID())) {
             toast("Appointment removed");
             finish();
         } else

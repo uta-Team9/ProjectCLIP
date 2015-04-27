@@ -21,7 +21,6 @@
             android:id="@+id/calendarView"
             android:showWeekNumber="false"
             android:focusedMonthDateColor="#ff000000"
-            android:weekNumberColor="#ff000000"
             android:weekSeparatorLineColor="#ff000000"
             android:layout_above="@+id/linearLayout"/>
 
