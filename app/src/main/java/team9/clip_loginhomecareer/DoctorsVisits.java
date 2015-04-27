@@ -72,6 +72,39 @@ public class DoctorsVisits extends ActionBarActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
+        if(id == R.id.action_Career)
+        {
+
+            EditText text;
+            if (validItems()) {
+                text = (EditText) findViewById(R.id.lastCheckUpDate);
+                int lastCheckUpDate = Integer.parseInt(text.getText().toString());
+                text = (EditText) findViewById(R.id.editText2);
+                String insuranceCompany = text.getText().toString();
+                text = (EditText) findViewById(R.id.editText3);
+                int insurancePolicyNum = Integer.parseInt(text.getText().toString());
+
+                if(!hasData) {
+                    Log.d("Stored info for User ID", "" + User_ID);
+                    dbUserRow = db.insertDoctorVisit(lastCheckUpDate, insuranceCompany, insurancePolicyNum, User_ID);
+                    hasData = true;
+                } else {
+                    Log.d("Updated for User ID", ""+User_ID);
+                    db.updateDoctorVisit(dbUserRow, lastCheckUpDate, insuranceCompany, insurancePolicyNum);
+                }
+
+                toastNotification("Doctor's Visit Saved");
+                //  clearData();
+            }
+
+            else
+            {
+                toastNotification("Invalid Information");
+            }
+
+            finish();
+
+        }
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
@@ -104,36 +137,6 @@ public class DoctorsVisits extends ActionBarActivity {
         text.setText(c.getString(3));
     }
 
-    public void add_new(View v) {
-        EditText text;
-        if (validItems()) {
-            text = (EditText) findViewById(R.id.lastCheckUpDate);
-            int lastCheckUpDate = Integer.parseInt(text.getText().toString());
-            text = (EditText) findViewById(R.id.editText2);
-            String insuranceCompany = text.getText().toString();
-            text = (EditText) findViewById(R.id.editText3);
-            int insurancePolicyNum = Integer.parseInt(text.getText().toString());
-
-            if(!hasData) {
-                Log.d("Stored info for User ID", "" + User_ID);
-                dbUserRow = db.insertDoctorVisit(lastCheckUpDate, insuranceCompany, insurancePolicyNum, User_ID);
-                hasData = true;
-            } else {
-                Log.d("Updated for User ID", ""+User_ID);
-                db.updateDoctorVisit(dbUserRow, lastCheckUpDate, insuranceCompany, insurancePolicyNum);
-            }
-
-            toastNotification("Doctor's Visit Saved");
-            //  clearData();
-        }
-
-        else
-        {
-            toastNotification("Invalid Information");
-        }
-
-       finish();
-    }
 
     private boolean validItems() {
         //TODO: Check for invalid input data
