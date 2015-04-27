@@ -14,6 +14,13 @@ public class EduApp {
         reply_expected = 0;
     }
 
+    @Override
+    public String toString() {
+        return  "college=" + college + "\n" +
+                "deadline=" + deadline + "\n" +
+                "reply_expected=" + reply_expected;
+    }
+
     public void setCollege(String college) {
         this.college = college;
     }

@@ -9,37 +9,25 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 
-public class EduNewApp extends ActionBarActivity {
-
+public class EduNewFinance extends ActionBarActivity {
+    double amount =0;
+    String period = "";
+    String awardName = "";
+    String condition =   "";
     private DatabaseContract db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         openDB();
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_edu_new_app);
-
+        setContentView(R.layout.activity_edu_new_finance);
     }
 
-    @Override
-    protected void onDestroy() {
-        closeDB();
-        super.onDestroy();
-    }
-
-    public void openDB() {
-        db = new DatabaseContract(this);
-        db.open();
-    }
-
-    public void closeDB() {
-        db.close();
-    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_edu_new_app, menu);
+        getMenuInflater().inflate(R.menu.menu_edu_new_finance, menu);
         return true;
     }
 
@@ -57,26 +45,52 @@ public class EduNewApp extends ActionBarActivity {
 
         return super.onOptionsItemSelected(item);
     }
-
     public void add_new(View v) {
         EditText text;
-        if (validItems()) {
-            text = (EditText) findViewById(R.id.app_college_name);
-            String inst = text.getText().toString();
-            text = (EditText) findViewById(R.id.application_due_date);
-            Integer due = Integer.parseInt(text.getText().toString());
-            text = (EditText) findViewById(R.id.reply_date);
-            Integer reply = Integer.parseInt(text.getText().toString());
+        if (true) {
+            text = (EditText) findViewById(R.id.edu_awardName);
+            awardName = text.getText().toString();
+            text = (EditText) findViewById(R.id.edu_aid_amount);
+            amount = Double.parseDouble(text.getText().toString());
+            text = (EditText) findViewById(R.id.edu_awardPeriod);
+            period = text.getText().toString();
+            text = (EditText) findViewById(R.id.edu_financeCondition);
+            condition = text.getText().toString();
 
-            db.insertCollegeApplication(inst, due, reply, 0);
+            if((!awardName.equals("")) || (amount != 0)){
+                db.insertCollegeFinance(awardName,amount,period,condition,0);
+
+            }else{
+                toastNotification("Invalid Information");
+
+            }
+
+            db.insertCollegeFinance(awardName,amount,period,condition,0);
             toastNotification("Application Saved");
             clearData();
         } else {
             toastNotification("Invalid Information");
         }
     }
+    @Override
+    protected void onDestroy() {
+        closeDB();
+        super.onDestroy();
+    }
 
+    public void openDB() {
+        db = new DatabaseContract(this);
+        db.open();
+    }
+
+    public void closeDB() {
+        db.close();
+    }
     private boolean validItems() {
+
+
+
+
         //TODO: Check for invalid input data
         return true;
     }
@@ -87,11 +101,13 @@ public class EduNewApp extends ActionBarActivity {
 
     private void clearData() {
         EditText text;
-        text = (EditText) findViewById(R.id.app_college_name);
+        text = (EditText) findViewById(R.id.edu_financeCondition);
         text.setText("");
-        text = (EditText) findViewById(R.id.application_due_date);
+        text = (EditText) findViewById(R.id.edu_awardPeriod);
         text.setText("");
-        text = (EditText) findViewById(R.id.reply_date);
+        text = (EditText) findViewById(R.id.edu_awardName);
+        text.setText("");
+        text = (EditText) findViewById(R.id.edu_aid_amount);
         text.setText("");
 
     }

@@ -1177,7 +1177,8 @@ public final class DatabaseContract {
 	* @param user ID of user
 	* @return The Primary Key number.
 	*/
-	public long insertColleges(String institute, String city, String field, String degree, int startDate, int finishDate, int user) {
+	public long insertColleges(String institute, String city, String field, String degree,
+                               int startDate, int finishDate, int user) {
 		// TODO: Update data in the row with new fields.
 		// TODO: Also change the function's arguments to be what you need!
 		// Create row's data:
@@ -1252,12 +1253,12 @@ public final class DatabaseContract {
 		// TODO: Also change the function's arguments to be what you need!
 		// Create row's data:
 		ContentValues newValues = new ContentValues();
-		newValues.put(CollegeEntries.COLUMN_INSTITUTION, institute);
-		newValues.put(CollegeEntries.COLUMN_COLLEGE_CITY, city);
-		newValues.put(CollegeEntries.COLUMN_STUDY_FIELD, field);
+        newValues.put(CollegeEntries.COLUMN_INSTITUTION, institute);
+        newValues.put(CollegeEntries.COLUMN_COLLEGE_CITY, city);
+        newValues.put(CollegeEntries.COLUMN_STUDY_FIELD, field);
         newValues.put(CollegeEntries.COLUMN_DEGREE, degree);
-		newValues.put(CollegeEntries.COLUMN_START_DATE, startDate);
-		newValues.put(CollegeEntries.COLUMN_COMPLETION_DATE, finishDate);
+        newValues.put(CollegeEntries.COLUMN_START_DATE, startDate);
+        newValues.put(CollegeEntries.COLUMN_COMPLETION_DATE, finishDate);
 
 
 		// Insert it into the database.

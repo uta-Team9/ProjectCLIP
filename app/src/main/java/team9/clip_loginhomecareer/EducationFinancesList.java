@@ -12,29 +12,24 @@ import android.widget.ListView;
 
 import java.util.ArrayList;
 
-/**
- * Created by Mary on 4/18/2015.
- */
-public class CollegeAppsList extends ActionBarActivity {
 
+public class EducationFinancesList extends ActionBarActivity {
     private int User_ID = 0;
     private DatabaseContract db;
-    private ArrayList<EduApp> list = new ArrayList<>();
-    private ListView applicationsList;
+    private ArrayList<EduFinanceItem> EduFinanceArrayList = new ArrayList<>();
+    private ListView EduFinancials;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        db = new DatabaseContract(this);
+        db.open();
+        User_ID = getSharedPreferences("loginPrefs", MODE_PRIVATE).getInt("ID", -1);
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_edu_apps_list);
+        setContentView(R.layout.activity_education_finances_list);
 
-        openDB();
-        Bundle extras = getIntent().getExtras();
-        if(extras != null)
-        {
-            User_ID = getSharedPreferences("loginPrefs", MODE_PRIVATE).getInt("ID", -1);
-        }
-
-        applicationsList = (ListView) findViewById(R.id.applications_list);
+        EduFinancials = (ListView) findViewById(R.id.edu_finances_list);
 
         buildList();
 
@@ -43,15 +38,15 @@ public class CollegeAppsList extends ActionBarActivity {
 			temp.add(c.toString());
 		}*/
 
-        ArrayAdapter<EduApp> arrayAdapter = new ArrayAdapter<EduApp>(
-                this, android.R.layout.simple_list_item_1, list);
+        ArrayAdapter<EduFinanceItem> arrayAdapter = new ArrayAdapter<EduFinanceItem>(
+                this, android.R.layout.simple_list_item_1, EduFinanceArrayList);
 
-        applicationsList.setAdapter(arrayAdapter);
+        EduFinancials.setAdapter(arrayAdapter);
     }
 
     @Override
     protected void onDestroy() {
-        closeDB();
+        db.close();
         super.onDestroy();
     }
 
@@ -59,7 +54,7 @@ public class CollegeAppsList extends ActionBarActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_edu_apps_list, menu);
+        getMenuInflater().inflate(R.menu.menu_education_finances_list, menu);
         return true;
     }
 
@@ -77,44 +72,27 @@ public class CollegeAppsList extends ActionBarActivity {
 
         return super.onOptionsItemSelected(item);
     }
-
-
-    public void createNewApplication(View v) {
-        Intent intent = new Intent(this,EduNewApp.class);
-        startActivity(intent);
-    }
-    private void openDB() {
-        db = new DatabaseContract(this);
-        db.open();
-    }
-    private void closeDB() {
-        db.close();
-    }
-
     private void buildList() {
-        Cursor cursor = db.getAllCollegeApplications();
-        EduApp temp = null;
+        Cursor cursor = db.getAllCollegeFinances();
+        EduFinanceItem temp = null;
         if (cursor.moveToFirst()) {
             do {
-                if(true) {
-                    temp = new EduApp();
-                    //_ID, college, due date, reply date
-                    temp.setCollege(cursor.getString(1));
-                    temp.setDeadline(cursor.getInt(2));
-                    temp.setReply_expected(cursor.getInt(3));
-                    list.add(temp);
+                if(cursor.getInt(5) == User_ID) {
+                    temp = new EduFinanceItem();
+                    //_ID, COLUMN_AWARD_NAME, COLUMN_AMOUNT, COLUMN_PERIOD, COLUMN_CONDITION, COLUMN_USER_ID;
+                    temp.setAwardName(cursor.getString(1));
+                    temp.setAmount(cursor.getInt(2));
+                    temp.setCondition(cursor.getString(4));
+                    temp.setPeriod(cursor.getString(3));
+                    EduFinanceArrayList.add(temp);
                 }
             } while (cursor.moveToNext());
         }
         cursor.close();
 
     }
-
-
     public void createNewInstance(View v) {
-        Intent intent = new Intent(this, EduNewApp.class);
-        intent.putExtra("ID", User_ID);
+        Intent intent = new Intent(this,EduNewFinance.class);
         startActivity(intent);
     }
 }
-

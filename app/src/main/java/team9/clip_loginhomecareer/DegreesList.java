@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
@@ -37,7 +38,7 @@ public class DegreesList extends ActionBarActivity {
         Bundle extras = getIntent().getExtras();
         if(extras != null)
         {
-            User_ID = extras.getInt("ID");
+            User_ID = getSharedPreferences("loginPrefs", MODE_PRIVATE).getInt("ID", -1);
             Log.d("User ID: ", "" + User_ID);
         }
 
@@ -45,6 +46,7 @@ public class DegreesList extends ActionBarActivity {
         degrees = (ListView) findViewById(R.id.degree_list);
 
         buildList();
+        setList();
 
 		/*ArrayList<String> temp = new ArrayList<>();
 		for(Contact c : list) {
@@ -86,7 +88,7 @@ public class DegreesList extends ActionBarActivity {
         if (cursor.moveToFirst()) {
             do {
                 if(cursor.getInt(7) == User_ID) {
-                    temp = new Degree();
+                    temp = new Degree(cursor.getLong(0));
                     //_ID, COLUMN_INSTITUTION, COLUMN_COLLEGE_CITY, COLUMN_STUDY_FIELD,
                     //COLUMN_DEGREE, COLUMN_START_DATE, COLUMN_COMPLETION_DATE, COLUMN_USER_ID};
                     temp.setCollege(cursor.getString(1));
@@ -115,5 +117,25 @@ public class DegreesList extends ActionBarActivity {
     public void createNewInstance(View v) {
         Intent intent = new Intent(this,new_degree_activity.class);
         startActivity(intent);
+    }
+    private void setList() {
+        //Possible to change simple_list_item_1 into our own xml object
+        ArrayAdapter<Degree> arrayAdapter = new ArrayAdapter<>(
+                this, android.R.layout.simple_list_item_1, degreeArrayList);
+
+        degrees.setAdapter(arrayAdapter);
+
+        degrees.setClickable(true);
+        degrees.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
+                moveToView(position);
+            }
+        });
+    }
+    private void moveToView(int position) {
+        startActivity(
+                new Intent(this, ViewDegree.class).putExtra("Degree", degreeArrayList.get(position))
+        );
     }
 }
