@@ -7,6 +7,7 @@ import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
@@ -37,6 +38,7 @@ public class CollegeAppsList extends ActionBarActivity {
         applicationsList = (ListView) findViewById(R.id.applications_list);
 
         buildList();
+        setList();
 
 		/*ArrayList<String> temp = new ArrayList<>();
 		for(Contact c : list) {
@@ -110,7 +112,21 @@ public class CollegeAppsList extends ActionBarActivity {
 
     }
 
+    private void setList() {
+        //Possible to change simple_list_item_1 into our own xml object
+        ArrayAdapter<CollegeAppsList> arrayAdapter = new ArrayAdapter<CollegeAppsList>(
+                this, android.R.layout.simple_list_item_1, list);
 
+        applicationsList.setAdapter(arrayAdapter);
+
+        applicationsList.setClickable(true);
+        applicationsList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
+                moveToView(position);
+            }
+        });
+    }
     public void createNewInstance(View v) {
         Intent intent = new Intent(this, EduNewApp.class);
         intent.putExtra("ID", User_ID);
