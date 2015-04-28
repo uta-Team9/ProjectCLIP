@@ -13,6 +13,7 @@ public class Appointment implements Serializable
    private int phone;
    private int used = 0;
 
+
     public Appointment() {
         doctorName= "";
         date = 0;
@@ -50,7 +51,7 @@ public class Appointment implements Serializable
     }
 
     public void setDoctorName(String doctorName) {
-        doctorName = doctorName;
+        this.doctorName = doctorName;
     }
 
     public int getDate() {
@@ -107,5 +108,11 @@ public class Appointment implements Serializable
 
     public void decrementUsed() {
         this.used--;
+    }
+
+    @Override
+    public String toString()
+    {
+      return doctorName;
     }
 }
