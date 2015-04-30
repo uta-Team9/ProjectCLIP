@@ -93,19 +93,52 @@ public class CollegeAppsList extends ActionBarActivity {
         db.close();
     }
 
+    public int getUser_ID() {
+        return User_ID;
+    }
+
+    public void setUser_ID(int user_ID) {
+        User_ID = user_ID;
+    }
+
+    public DatabaseContract getDb() {
+        return db;
+    }
+
+    public void setDb(DatabaseContract db) {
+        this.db = db;
+    }
+
+    public ArrayList<EduApp> getList() {
+        return list;
+    }
+
+    public void setList(ArrayList<EduApp> list) {
+        this.list = list;
+    }
+
+    public ListView getApplicationsList() {
+        return applicationsList;
+    }
+
+    public void setApplicationsList(ListView applicationsList) {
+        this.applicationsList = applicationsList;
+    }
+
     private void buildList() {
         Cursor cursor = db.getAllCollegeApplications();
         EduApp temp = null;
         if (cursor.moveToFirst()) {
             do {
                 if(true) {
-                    temp = new EduApp();
+                    temp = new EduApp(cursor.getInt(0));
                     //_ID, college, due date, reply date
                     temp.setCollege(cursor.getString(1));
                     temp.setDeadline(cursor.getInt(2));
                     temp.setReply_expected(cursor.getInt(3));
                     list.add(temp);
                 }
+                //db.deleteCollegeApplication(temp.getDbRow());
             } while (cursor.moveToNext());
         }
         cursor.close();
@@ -114,7 +147,7 @@ public class CollegeAppsList extends ActionBarActivity {
 
     private void setList() {
         //Possible to change simple_list_item_1 into our own xml object
-        ArrayAdapter<CollegeAppsList> arrayAdapter = new ArrayAdapter<CollegeAppsList>(
+        ArrayAdapter<EduApp> arrayAdapter = new ArrayAdapter<>(
                 this, android.R.layout.simple_list_item_1, list);
 
         applicationsList.setAdapter(arrayAdapter);
@@ -131,6 +164,11 @@ public class CollegeAppsList extends ActionBarActivity {
         Intent intent = new Intent(this, EduNewApp.class);
         intent.putExtra("ID", User_ID);
         startActivity(intent);
+    }
+    private void moveToView(int position) {
+        startActivity(
+                new Intent(this, ViewAppl.class).putExtra("Application", list.get(position))
+        );
     }
 }
 

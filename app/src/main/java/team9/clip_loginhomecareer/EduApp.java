@@ -1,17 +1,25 @@
 package team9.clip_loginhomecareer;
 
+import java.io.Serializable;
+
 /**
  * Created by Mary on 4/18/2015.
  */
-public class EduApp {
+public class EduApp implements Serializable {
     private String college;
     private int deadline;
     private int reply_expected;
+    private long dbRow;
 
-    public EduApp(){
+    public EduApp(long id){
         college = "";
         deadline = 0;
         reply_expected = 0;
+        dbRow = id;
+    }
+
+    public long getDbRow() {
+        return dbRow;
     }
 
     @Override
