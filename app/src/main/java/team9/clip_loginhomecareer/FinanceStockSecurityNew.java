@@ -6,16 +6,28 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
+import android.widget.Toast;
+
+import java.util.Calendar;
 
 
 public class FinanceStockSecurityNew extends ActionBarActivity {
+    private int User_ID;
+    private DatabaseContract db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.finance_stock_security_new);
+        db = new DatabaseContract(this);
+        db.open();
     }
 
+    protected void onDestroy() {
+        super.onDestroy();
+        db.close();
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -42,5 +54,42 @@ public class FinanceStockSecurityNew extends ActionBarActivity {
         Intent intent = null;
         intent = new Intent(this, FinanceStockSecurityView.class);
         startActivity(intent);
+    }
+    public void add_new(View v) {
+        EditText text;
+        Calendar cal = Calendar.getInstance();
+        int year = cal.get(Calendar.YEAR);
+        int month = cal.get(Calendar.MONTH);
+        int day = cal.get(Calendar.DAY_OF_MONTH);
+        User_ID = getSharedPreferences("loginPrefs", MODE_PRIVATE).getInt("ID", -1);
+
+        if(validItems()) {
+            String stock_name = ((EditText) findViewById(R.id.txt_stock_name)).getText().toString();
+            int no_units = Integer.parseInt(((EditText) findViewById(R.id.txt_no_of_units)).getText().toString());
+            double purchase_price = Double.parseDouble(((EditText) findViewById(R.id.txt_purchase_price_per_unit)).getText().toString());
+            double current_price = Double.parseDouble(((EditText) findViewById(R.id.txt_current_price_per_unit)).getText().toString());
+            String note = ((EditText)findViewById(R.id.txt_stock_note)).getText().toString();
+//{"ID", "YEAR", "MONTH", "DAY", "STOCK_NAME", "STOCK_NO_OF_UNITS", "STOCK_PURCHASE_PRICE", "STOCK_CURRENT_PRICE","STOCK_NOTE", "USER_ID"};
+            //TODO: get date and userID for saving
+            db.insertStockSecurity(year, month, day, stock_name, no_units, purchase_price, current_price, note, User_ID);
+            //Log.d("Contact Saved: ", "" + source);
+            toastNotification("Stock information saved");
+            ((EditText) findViewById(R.id.txt_stock_name)).setText("");
+            ((EditText) findViewById(R.id.txt_no_of_units)).setText("");
+            ((EditText) findViewById(R.id.txt_purchase_price_per_unit)).setText("");
+            ((EditText) findViewById(R.id.txt_current_price_per_unit)).setText("");
+            ((EditText) findViewById(R.id.txt_stock_note)).setText("");
+            //clearData();
+        } else {
+            toastNotification("Invalid Information");
+        }
+    }
+    private boolean validItems() {
+        //TODO: Check for invalid input data
+        return true;
+    }
+
+    private void toastNotification(String description) {
+        Toast.makeText(getApplicationContext(), description, Toast.LENGTH_LONG).show();
     }
 }

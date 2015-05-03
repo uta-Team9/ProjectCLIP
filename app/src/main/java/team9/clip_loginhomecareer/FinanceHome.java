@@ -1,11 +1,12 @@
 package team9.clip_loginhomecareer;
 
 import android.content.Intent;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 
 public class FinanceHome extends ActionBarActivity {
@@ -50,7 +51,8 @@ public class FinanceHome extends ActionBarActivity {
                 intent = new Intent(this, FinanceStockSecurityView.class);
                 break;
             case(R.id.txt_financial_goals):
-                intent = new Intent(this, FinanceGoalView.class);
+                //intent = new Intent(this, FinanceGoalView.class);
+	            Toast.makeText(getApplicationContext(), "feature not complete", Toast.LENGTH_LONG).show();
                 break;
             case(R.id.txt_financial_summary):
                 intent = new Intent(this, FinanceSummaryView.class);

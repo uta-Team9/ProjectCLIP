@@ -42,18 +42,17 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/scrollView3"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
+        android:layout_alignParentLeft="false"
         android:layout_alignParentStart="true"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_above="@+id/add">
+        android:layout_alignParentTop="true"
+        android:layout_above="@+id/linearLayout">
 
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="fill_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
         <EditText
             android:layout_width="match_parent"
@@ -71,6 +70,7 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:id="@+id/txt_liability_amt"
+            android:inputType="numberDecimal"
             android:paddingTop="16dp"
             android:hint="Amount in $"
             android:layout_above="@+id/txt_interest_rate"
@@ -82,6 +82,7 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:id="@+id/txt_interest_rate"
+            android:inputType="numberDecimal"
             android:paddingTop="16dp"
             android:hint="Interest rate e.g. 2.00, 9.00, 14.50"
             android:layout_above="@+id/txt_liability_desc"

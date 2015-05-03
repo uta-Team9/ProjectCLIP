@@ -89,9 +89,9 @@ public class FinanceCashNew extends ActionBarActivity {
 
 
     private boolean validItems() {
-        //TODO: Check for invalid input data
-        return true;
-    }
+    //TODO: Check for invalid input data
+    return true;
+}
 
     private void toastNotification(String description) {
         Toast.makeText(getApplicationContext(), description, Toast.LENGTH_LONG).show();

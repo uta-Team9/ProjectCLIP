@@ -10,7 +10,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Finance Summary as of"
+        android:text="Finance Summary as of "
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
@@ -27,8 +27,7 @@
         android:padding="16dp"
         android:id="@+id/textView"
         android:layout_below="@+id/txt_finance_summary"
-        android:layout_alignLeft="@+id/txt_finance_summary"
-        android:layout_alignStart="@+id/txt_finance_summary" />
+        android:layout_centerHorizontal="true" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -38,8 +37,10 @@
         android:padding="16dp"
         android:id="@+id/txt_total_cash"
         android:layout_below="@+id/textView"
-        android:layout_alignRight="@+id/textView"
-        android:layout_alignEnd="@+id/textView" />
+        android:layout_alignLeft="@+id/txt_finance_summary"
+        android:layout_alignStart="@+id/txt_finance_summary"
+        android:layout_alignRight="@+id/txt_finance_summary"
+        android:layout_alignEnd="@+id/txt_finance_summary" />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -49,7 +50,9 @@
         android:id="@+id/txt_total_asset"
         android:layout_below="@+id/txt_total_cash"
         android:layout_alignLeft="@+id/txt_total_cash"
-        android:layout_alignStart="@+id/txt_total_cash" />
+        android:layout_alignStart="@+id/txt_total_cash"
+        android:layout_alignRight="@+id/txt_finance_summary"
+        android:layout_alignEnd="@+id/txt_finance_summary" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -60,7 +63,9 @@
         android:id="@+id/txt_total_stocks"
         android:layout_below="@+id/txt_total_asset"
         android:layout_alignLeft="@+id/txt_total_asset"
-        android:layout_alignStart="@+id/txt_total_asset" />
+        android:layout_alignStart="@+id/txt_total_asset"
+        android:layout_alignRight="@+id/txt_finance_summary"
+        android:layout_alignEnd="@+id/txt_finance_summary" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -70,7 +75,35 @@
         android:padding="16dp"
         android:id="@+id/txt_total_liabilities"
         android:layout_below="@+id/txt_total_stocks"
-        android:layout_alignLeft="@+id/txt_total_asset"
-        android:layout_alignStart="@+id/txt_total_asset" />
+        android:layout_alignLeft="@+id/txt_total_stocks"
+        android:layout_alignStart="@+id/txt_total_stocks"
+        android:layout_alignRight="@+id/txt_finance_summary"
+        android:layout_alignEnd="@+id/txt_finance_summary" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Credit Cards: "
+        android:textSize="16dp"
+        android:padding="16dp"
+        android:id="@+id/txt_total_credits"
+        android:layout_below="@+id/txt_total_liabilities"
+        android:layout_alignLeft="@+id/txt_total_stocks"
+        android:layout_alignStart="@+id/txt_total_stocks"
+        android:layout_alignRight="@+id/txt_finance_summary"
+        android:layout_alignEnd="@+id/txt_finance_summary" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="PRINT SUMMARY"
+        android:id="@+id/b"
+        android:background="#336600"
+        android:textColor="#ffffffff"
+        android:onClick="printContent"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
 </RelativeLayout>
