@@ -248,8 +248,16 @@
                 android:value="team9.clip_loginhomecareer.WeightLossAndDietPlan" />
         </activity>
         <activity
-            android:name=".ExercisePlan"
+            android:name=".ViewExercisePlan"
             android:label="@string/title_activity_exercise_plan"
+            android:parentActivityName=".ExercisePlansList" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="team9.clip_loginhomecareer.ExercisePlansList" />
+        </activity>
+        <activity
+            android:name=".NewExercisePlan"
+            android:label="New Exercise Plan"
             android:parentActivityName=".ExercisePlansList" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
