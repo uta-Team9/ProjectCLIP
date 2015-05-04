@@ -67,4 +67,9 @@ public class ExercisePlan implements Serializable
     public void setMuscleTarget(String muscleTarget) {
         this.muscleTarget = muscleTarget;
     }
+
+    public String toString()
+    {
+        return exerciseName;
+    }
 }
