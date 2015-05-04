@@ -28,8 +28,7 @@
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:text="Exercise Name"
                 android:layout_marginTop="24dp"
-                android:layout_marginLeft="8dp"
-                android:id="@+id/" />
+                android:layout_marginLeft="8dp" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -46,8 +45,7 @@
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:text="Calories Burned"
                 android:layout_marginTop="24dp"
-                android:layout_marginLeft="8dp"
-                android:id="@+id/" />
+                android:layout_marginLeft="8dp" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -64,8 +62,7 @@
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:text="Duration of Workout"
                 android:layout_marginTop="24dp"
-                android:layout_marginLeft="8dp"
-                android:id="@+id/" />
+                android:layout_marginLeft="8dp" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -82,8 +79,7 @@
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:text="Muscle Group Target"
                 android:layout_marginTop="24dp"
-                android:layout_marginLeft="8dp"
-                android:id="@+id/" />
+                android:layout_marginLeft="8dp" />
 
             <TextView
                 android:layout_width="wrap_content"
