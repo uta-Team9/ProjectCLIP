@@ -114,9 +114,9 @@ public class new_degree_activity extends ActionBarActivity {
             text = (EditText) findViewById(R.id.new_college_field_of_study);
             major = text.getText().toString();
             date = (DatePicker) findViewById(R.id.edu_grad_date);
-            grad = Integer.parseInt("" + date);
+            grad = Integer.parseInt(date.getYear() + "" + date.getMonth() + "" + date.getDayOfMonth());
             date = (DatePicker) findViewById(R.id.edu_start_date);
-            matr = Integer.parseInt(("" + date));
+            matr = Integer.parseInt(date.getYear() + "" + date.getMonth() + "" + date.getDayOfMonth());
 
             db.insertColleges(inst, loc, major, ds, matr, grad, 0);
             toastNotification("Degree Saved");

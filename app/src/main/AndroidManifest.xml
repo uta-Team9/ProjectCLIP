@@ -449,14 +449,6 @@
                 android:value="team9.clip_loginhomecareer.CollegeAppsList" />
         </activity>
         <activity
-            android:name=".edu_new_app"
-            android:label="Create New Application"
-            android:parentActivityName=".CollegeAppsList" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="team9.clip_loginhomecareer.CollegeAppsList" />
-        </activity>
-        <activity
             android:name=".EducationFinancesList"
             android:label="Education Finances"
             android:parentActivityName=".EduMain" >

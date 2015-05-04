@@ -25,7 +25,7 @@ public class ViewAppl extends ActionBarActivity {
         if(extras != null) {
             db = new DatabaseContract(this);
             db.open();
-            CollApp = (EduApp) extras.getSerializable("College Application");
+            CollApp = (EduApp) extras.getSerializable("Application");
 
             setTitle(CollApp.getCollege());
             setUpTextBoxes();

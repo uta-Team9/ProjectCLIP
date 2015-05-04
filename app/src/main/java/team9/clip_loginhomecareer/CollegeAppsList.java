@@ -162,7 +162,6 @@ public class CollegeAppsList extends ActionBarActivity {
     }
     public void createNewInstance(View v) {
         Intent intent = new Intent(this, EduNewApp.class);
-        intent.putExtra("ID", User_ID);
         startActivity(intent);
     }
     private void moveToView(int position) {
