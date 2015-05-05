@@ -25,7 +25,7 @@ public class EduNewApp extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         Bundle extras = getIntent().getExtras();
         if(extras != null) {
-            eduApp = (EduApp)extras.getSerializable("Application");
+            eduApp = (EduApp)extras.getSerializable("College Application");
         }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_appl);

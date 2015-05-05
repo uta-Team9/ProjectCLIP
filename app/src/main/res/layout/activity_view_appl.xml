@@ -60,7 +60,7 @@
                 android:id="@+id/LabelCollegeApp" />
 
             <EditText
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="college"
@@ -68,19 +68,20 @@
 
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:text="Due Date"
                 android:id="@+id/textView16" />
 
             <EditText
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/application_due_date" />
+                android:id="@+id/application_due_date"
+                android:hint="Application Due Date" />
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:text="Reply Date"
@@ -89,10 +90,11 @@
                 android:enabled="true" />
 
             <EditText
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/edu_appl_reply"
-                android:enabled="true" />
+                android:enabled="true"
+                android:hint="Expected Reply Date" />
 
         </LinearLayout>
     </ScrollView>

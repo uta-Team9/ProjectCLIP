@@ -52,28 +52,22 @@
                 android:text="Due Date"
                 android:id="@+id/textView3" />
 
-            <EditText
+            <DatePicker
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/application_due_date" />
+                android:id="@+id/application_due_date"
+                android:calendarViewShown="false"
+                android:clickable="false"
+                android:longClickable="false"
+                android:measureAllChildren="true"
+                android:focusable="false"
+                android:focusableInTouchMode="false" />
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="Reply Expected By"
-                android:id="@+id/textView7"
-                android:singleLine="false" />
-
-            <EditText
-                android:layout_width="match_parent"
+            <DatePicker
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/edu_appl_reply"
-                android:textIsSelectable="false"
-                android:singleLine="false"
-                android:selectAllOnFocus="false"
-                android:phoneNumber="false"
-                android:password="false" />
+                android:calendarViewShown="false" />
 
         </LinearLayout>
     </ScrollView>dth="wrap_content"
