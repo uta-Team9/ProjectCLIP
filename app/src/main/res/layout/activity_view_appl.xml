@@ -59,7 +59,7 @@
                 android:text="College"
                 android:id="@+id/LabelCollegeApp" />
 
-            <TextView
+            <EditText
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
@@ -74,26 +74,26 @@
                 android:text="Due Date"
                 android:id="@+id/textView16" />
 
-            <TextView
+            <DatePicker
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="Medium Text"
-                android:id="@+id/edu_appl_due" />
+                android:id="@+id/application_due_date"
+                android:calendarViewShown="false" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:text="Reply Date"
-                android:id="@+id/textView15" />
+                android:id="@+id/textView15"
+                android:editable="true"
+                android:enabled="true" />
 
-            <TextView
+            <DatePicker
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="Medium Text"
-                android:id="@+id/edu_appl_reply" />
+                android:id="@+id/edu_appl_reply"
+                android:calendarViewShown="false"/>
 
         </LinearLayout>
     </ScrollView>

@@ -66,7 +66,7 @@ public class ViewAppl extends ActionBarActivity {
             text.setText("" + CollApp.getCollege());
             text = (TextView) findViewById(R.id.edu_appl_reply);
             text.setText("" + CollApp.getReply_expected());
-            text = (TextView) findViewById(R.id.edu_appl_due);
+            text = (TextView) findViewById(R.id.application_due_date);
             text.setText("" + CollApp.getDeadline());
 
         }
