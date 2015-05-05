@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -64,9 +65,9 @@ public class ViewAppl extends ActionBarActivity {
         if(CollApp != null) {
             TextView text = (TextView) findViewById(R.id.edu_detail_collApp);
             text.setText("" + CollApp.getCollege());
-            text = (TextView) findViewById(R.id.edu_appl_reply);
+            text = (EditText) findViewById(R.id.edu_appl_reply);
             text.setText("" + CollApp.getReply_expected());
-            text = (TextView) findViewById(R.id.application_due_date);
+            text = (EditText) findViewById(R.id.application_due_date);
             text.setText("" + CollApp.getDeadline());
 
         }
