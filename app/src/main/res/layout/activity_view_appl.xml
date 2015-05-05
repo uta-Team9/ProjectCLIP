@@ -74,11 +74,10 @@
                 android:text="Due Date"
                 android:id="@+id/textView16" />
 
-            <DatePicker
+            <EditText
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/application_due_date"
-                android:calendarViewShown="false" />
+                android:id="@+id/application_due_date" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -89,11 +88,11 @@
                 android:editable="true"
                 android:enabled="true" />
 
-            <DatePicker
+            <EditText
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/edu_appl_reply"
-                android:calendarViewShown="false"/>
+                android:enabled="true" />
 
         </LinearLayout>
     </ScrollView>
