@@ -36,25 +36,22 @@ public class CollegeAppsList extends ActionBarActivity {
         }
 
         applicationsList = (ListView) findViewById(R.id.applications_list);
-
-        buildList();
-        setList();
-
-		/*ArrayList<String> temp = new ArrayList<>();
-		for(Contact c : list) {
-			temp.add(c.toString());
-		}*/
-
-        ArrayAdapter<EduApp> arrayAdapter = new ArrayAdapter<EduApp>(
-                this, android.R.layout.simple_list_item_1, list);
-
-        applicationsList.setAdapter(arrayAdapter);
     }
+
+
 
     @Override
     protected void onDestroy() {
         closeDB();
         super.onDestroy();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        buildList();
+        setList();
     }
 
 
@@ -126,11 +123,13 @@ public class CollegeAppsList extends ActionBarActivity {
     }
 
     private void buildList() {
+        list = new ArrayList<>();
         Cursor cursor = db.getAllCollegeApplications();
         EduApp temp = null;
+
         if (cursor.moveToFirst()) {
             do {
-                if(true) {
+                if(cursor.getInt(4) == User_ID) {
                     temp = new EduApp(cursor.getInt(0));
                     //_ID, college, due date, reply date
                     temp.setCollege(cursor.getString(1));
@@ -160,13 +159,13 @@ public class CollegeAppsList extends ActionBarActivity {
             }
         });
     }
-    public void createNewInstance(View v) {
-        Intent intent = new Intent(this, EduNewApp.class);
-        startActivity(intent);
-    }
+ //   public void createNewInstance(View v) {
+//        Intent intent = new Intent(this, EduNewApp.class);
+//        startActivity(intent);
+//    }
     private void moveToView(int position) {
         startActivity(
-                new Intent(this, ViewAppl.class).putExtra("Application", list.get(position))
+                new Intent(this, ViewAppl.class).putExtra("College Application", list.get(position))
         );
     }
 }

@@ -7,37 +7,43 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 
-public class ViewAppl extends ActionBarActivity {
+public class ViewEduFinance extends ActionBarActivity {
     private int User_ID;
-    private EduApp CollApp = null;
+    private EduFinanceItem eduMoney = null;
     private DatabaseContract db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         openDB();
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_view_appl);
+        setContentView(R.layout.activity_view_edu_finance);
         Bundle extras = getIntent().getExtras();
         if(extras != null) {
             db = new DatabaseContract(this);
             db.open();
-            CollApp = (EduApp) extras.getSerializable("College Application");
+            eduMoney = (EduFinanceItem) extras.getSerializable("Education Finance");
 
-            setTitle(CollApp.getCollege());
+            setTitle(eduMoney.getAwardName());
             setUpTextBoxes();
         }
     }
 
+    public int getUser_ID() {
+        return User_ID;
+    }
+
+    public void setUser_ID(int user_ID) {
+        User_ID = user_ID;
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_view_appl, menu);
+        getMenuInflater().inflate(R.menu.menu_view_edu_finance, menu);
         return true;
     }
 
@@ -59,30 +65,31 @@ public class ViewAppl extends ActionBarActivity {
         db = new DatabaseContract(this);
         db.open();
         User_ID = getSharedPreferences("loginPrefs", MODE_PRIVATE).getInt("ID", -1);
-        Log.d("ID in ViewAppl", "" + User_ID);
+        Log.d("ID in ViewEduFinance", "" + User_ID);
     }
     private void setUpTextBoxes() {
-        if(CollApp != null) {
-            TextView text = (TextView) findViewById(R.id.edu_detail_collApp);
-            text.setText("" + CollApp.getCollege());
-            text = (EditText) findViewById(R.id.edu_appl_reply);
-            text.setText("" + CollApp.getReply_expected());
-            text = (EditText) findViewById(R.id.application_due_date);
-            text.setText("" + CollApp.getDeadline());
-
+        if(eduMoney != null) {
+            TextView text = (TextView) findViewById(R.id.edu_detail_money);
+            text.setText("" + eduMoney.getAwardName());
+            text = (TextView) findViewById(R.id.edu_money_amount);
+            text.setText("" + eduMoney.getAmount());
+            text = (TextView) findViewById(R.id.edu_money_period);
+            text.setText("" + eduMoney.getPeriod());
+            text = (TextView) findViewById(R.id.edu_money_notes);
+            text.setText("" + eduMoney.getCondition());
         }
     }
     public void editInstance(View v) {
-        startActivity(new Intent(this, EduNewApp.class).putExtra("College Application", CollApp));
+        startActivity(new Intent(this, EduNewFinance.class).putExtra("Education Finance", eduMoney));
     }
     private void toast(String description) {
         Toast.makeText(getApplicationContext(), description, Toast.LENGTH_LONG).show();
     }
     public void deleteInstance(View v) {
-        if(db.deleteCollegeApplication(CollApp.getDbRow())) {
-            toast("Application removed");
+        if(db.deleteCollegeFinance(eduMoney.getDatabaseID())) {
+            toast("Funds source removed");
             finish();
         } else
-            toast("Application already removed");
+            toast("Funds source already removed");
     }
 }

@@ -28,7 +28,7 @@ public class EduNewApp extends ActionBarActivity {
             eduApp = (EduApp)extras.getSerializable("College Application");
         }
         setContentView(R.layout.activity_edu_new_app);
-        TEXT_COLLEGE = (EditText) findViewById(R.id.edu_detail_collApp);
+        TEXT_COLLEGE = (EditText) findViewById(R.id.app_college_name);
         PICKER_DUE = (DatePicker) findViewById(R.id.application_due_date);
         PICKER_REPLY = (DatePicker) findViewById(R.id.edu_appl_reply);
 
@@ -130,14 +130,12 @@ public class EduNewApp extends ActionBarActivity {
         } else {
             toastNotification("Invalid Information");
         }
+        finish();
     }
     private void clearData() {
         EditText text;
+
         text = (EditText) findViewById(R.id.app_college_name);
-        text.setText("");
-        text = (EditText) findViewById(R.id.application_due_date);
-        text.setText("");
-        text = (EditText) findViewById(R.id.edu_appl_reply);
         text.setText("");
 
     }

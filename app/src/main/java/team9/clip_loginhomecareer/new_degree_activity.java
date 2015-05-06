@@ -57,6 +57,7 @@ public class new_degree_activity extends ActionBarActivity {
     }
 
     public void openDB() {
+        User_ID = getSharedPreferences("loginPrefs", MODE_PRIVATE).getInt("ID", -1);
         db = new DatabaseContract(this);
         db.open();
     }
@@ -118,7 +119,7 @@ public class new_degree_activity extends ActionBarActivity {
             date = (DatePicker) findViewById(R.id.edu_start_date);
             matr = Integer.parseInt(date.getYear() + "" + date.getMonth() + "" + date.getDayOfMonth());
 
-            db.insertColleges(inst, loc, major, ds, matr, grad, 0);
+            db.insertColleges(inst, loc, major, ds, matr, grad, User_ID);
             toastNotification("Degree Saved");
             clearData();
         } else {

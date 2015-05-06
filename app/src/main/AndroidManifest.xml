@@ -480,6 +480,14 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="team9.clip_loginhomecareer.CollegeAppsList" />
         </activity>
+        <activity
+            android:name=".ViewEduFinance"
+            android:label="@string/title_activity_view_edu_finance"
+            android:parentActivityName=".EducationFinancesList" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="team9.clip_loginhomecareer.EducationFinancesList" />
+        </activity>
     </application>
 
 </manifest>

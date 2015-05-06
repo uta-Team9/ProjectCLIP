@@ -125,5 +125,6 @@
     <string name="title_activity_finance_goal_new">New Goal</string>
     <string name="title_activity_finance_other_new">New Other Finance</string>
     <string name="title_activity_view_appl">View Application</string>
+    <string name="title_activity_view_edu_finance">Education Finance Details</string>
 
 </resources>

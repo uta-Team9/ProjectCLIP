@@ -7,6 +7,7 @@ import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
@@ -31,17 +32,6 @@ public class EducationFinancesList extends ActionBarActivity {
 
         EduFinancials = (ListView) findViewById(R.id.edu_finances_list);
 
-        buildList();
-
-		/*ArrayList<String> temp = new ArrayList<>();
-		for(Contact c : list) {
-			temp.add(c.toString());
-		}*/
-
-        ArrayAdapter<EduFinanceItem> arrayAdapter = new ArrayAdapter<EduFinanceItem>(
-                this, android.R.layout.simple_list_item_1, EduFinanceArrayList);
-
-        EduFinancials.setAdapter(arrayAdapter);
     }
 
     @Override
@@ -73,12 +63,13 @@ public class EducationFinancesList extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
     private void buildList() {
+        EduFinanceArrayList=new ArrayList<>();
         Cursor cursor = db.getAllCollegeFinances();
         EduFinanceItem temp = null;
         if (cursor.moveToFirst()) {
             do {
                 if(cursor.getInt(5) == User_ID) {
-                    temp = new EduFinanceItem();
+                    temp = new EduFinanceItem(cursor.getLong(0));
                     //_ID, COLUMN_AWARD_NAME, COLUMN_AMOUNT, COLUMN_PERIOD, COLUMN_CONDITION, COLUMN_USER_ID;
                     temp.setAwardName(cursor.getString(1));
                     temp.setAmount(cursor.getInt(2));
@@ -90,6 +81,33 @@ public class EducationFinancesList extends ActionBarActivity {
         }
         cursor.close();
 
+    }
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        buildList();
+        setList();
+    }
+    private void setList() {
+        //Possible to change simple_list_item_1 into our own xml object
+        ArrayAdapter<EduFinanceItem> arrayAdapter = new ArrayAdapter<>(
+                this, android.R.layout.simple_list_item_1, EduFinanceArrayList);
+
+        EduFinancials.setAdapter(arrayAdapter);
+
+        EduFinancials.setClickable(true);
+        EduFinancials.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
+                moveToView(position);
+            }
+        });
+    }
+    private void moveToView(int position) {
+        startActivity(
+                new Intent(this, ViewEduFinance.class).putExtra("Education Finance", EduFinanceArrayList.get(position))
+        );
     }
     public void createNewInstance(View v) {
         Intent intent = new Intent(this,EduNewFinance.class);

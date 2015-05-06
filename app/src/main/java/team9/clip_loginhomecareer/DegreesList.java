@@ -38,7 +38,6 @@ public class DegreesList extends ActionBarActivity {
         Bundle extras = getIntent().getExtras();
         if(extras != null)
         {
-            User_ID = getSharedPreferences("loginPrefs", MODE_PRIVATE).getInt("ID", -1);
             Log.d("User ID: ", "" + User_ID);
         }
 
@@ -106,6 +105,7 @@ public class DegreesList extends ActionBarActivity {
     }
 
     private void openDB() {
+        User_ID = getSharedPreferences("loginPrefs", MODE_PRIVATE).getInt("ID", -1);
         db = new DatabaseContract(this);
         db.open();
     }
