@@ -27,8 +27,7 @@ public class EduNewApp extends ActionBarActivity {
         if(extras != null) {
             eduApp = (EduApp)extras.getSerializable("College Application");
         }
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_view_appl);
+        setContentView(R.layout.activity_edu_new_app);
         TEXT_COLLEGE = (EditText) findViewById(R.id.edu_detail_collApp);
         PICKER_DUE = (DatePicker) findViewById(R.id.application_due_date);
         PICKER_REPLY = (DatePicker) findViewById(R.id.edu_appl_reply);
@@ -38,7 +37,6 @@ public class EduNewApp extends ActionBarActivity {
             b.setText("Update");
             populateItems();
         }
-        setContentView(R.layout.activity_edu_new_app);
 
     }
 
