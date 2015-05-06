@@ -63,6 +63,12 @@
                 android:focusable="false"
                 android:focusableInTouchMode="false" />
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Expected reply date"
+                android:id="@+id/textView7" />
+
             <DatePicker
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

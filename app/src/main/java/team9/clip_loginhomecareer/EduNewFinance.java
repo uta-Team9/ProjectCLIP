@@ -87,7 +87,7 @@ public class EduNewFinance extends ActionBarActivity {
             }
 
             db.insertCollegeFinance(awardName, amount, period, condition, User_ID);
-            toastNotification("Application Saved");
+            toastNotification("Finance Item Saved");
             clearData();
         } else {
             toastNotification("Invalid Information");
