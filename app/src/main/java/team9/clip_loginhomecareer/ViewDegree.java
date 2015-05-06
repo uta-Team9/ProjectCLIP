@@ -60,7 +60,7 @@ public class ViewDegree extends ActionBarActivity {
         db = new DatabaseContract(this);
         db.open();
         User_ID = getSharedPreferences("loginPrefs", MODE_PRIVATE).getInt("ID", -1);
-        Log.d("ID in ViewContact", "" + User_ID);
+        Log.d("ID in ViewDegree", "" + User_ID);
     }
     private void setUpTextBoxes() {
         if(degree != null) {
