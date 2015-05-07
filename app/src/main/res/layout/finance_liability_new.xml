@@ -107,10 +107,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Calculate Payable"
-                android:id="@+id/button7"
+                android:id="@+id/btn_calculate_payable"
                 android:background="#336600"
                 android:textColor="#ffffffff"
-                android:onClick="calculate"/>
+                android:onClick="calculatePayable"/>
          </LinearLayout>
 
         <EditText

@@ -1,5 +1,8 @@
 package team9.clip_loginhomecareer;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -11,6 +14,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 
 
@@ -51,6 +55,7 @@ public class FinanceLiabilityNew extends ActionBarActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
     public void add_new(View v) {
         EditText text;
         Calendar cal = Calendar.getInstance();
@@ -122,4 +127,50 @@ public class FinanceLiabilityNew extends ActionBarActivity {
     private void toastNotification(String description) {
         Toast.makeText(getApplicationContext(), description, Toast.LENGTH_LONG).show();
     }
+    public void calculatePayable(View v) {
+        int typenum;
+        int term;
+        double iniamt = Double.parseDouble(((EditText) findViewById(R.id.txt_liability_amt)).getText().toString());
+        double intrate = Double.parseDouble(((EditText) findViewById(R.id.txt_interest_rate)).getText().toString());
+        double payable = 0.00;
+        double monthly = 0.00;
+        if(validItems()) {
+                Spinner spn = (Spinner) findViewById(R.id.spn_lending_term);
+                typenum = spn.getSelectedItemPosition();
+                switch (typenum)
+                {
+                    case 0:
+                        term = 12;
+                        break;
+                    case 1:
+                        term = 24;
+                        break;
+                    case 2:
+                        term = 36;
+                        break;
+                    case 3:
+                        term = 48;
+                        break;
+                    case 4:
+                        term = 60;
+                        break;
+                    default:
+                        term = 0;
+                        break;
+                }
+                double intamt = 0.00;
+                for(int i = 0; i < term; i++) {
+                    intamt += (iniamt * (intrate / 100));
+                }
+                payable = iniamt + intamt;
+                monthly = Math.round( (payable/(double)term) * 100.0 ) / 100.0;
+
+                //Log.d("Contact Saved: ", "" + source);
+                toastNotification("Total amount payable in " + term + " months: " + payable);
+                toastNotification("Monthly installment: " + monthly);
+
+            } else {
+                toastNotification("Invalid Information");
+            }
+        }
 }

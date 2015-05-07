@@ -15,7 +15,7 @@ import java.util.ArrayList;
 
 
 public class FinanceCashView extends ActionBarActivity {
-
+    private int User_ID;
     private DatabaseContract db;
     private ListView onScreenList;
     private ArrayList<String> list = new ArrayList<>();
@@ -83,8 +83,9 @@ public class FinanceCashView extends ActionBarActivity {
         int month, day, year;
         double amount = 0.00;
         String source, notes;
+        User_ID = getSharedPreferences("loginPrefs", MODE_PRIVATE).getInt("ID", -1);
         if(c.moveToFirst()) {
-            do{
+            do if(c.getInt(7) == User_ID){
                 month = c.getInt(5)+1;
                 day = c.getInt(6);
                 year = c.getInt(4);

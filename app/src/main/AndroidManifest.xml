@@ -24,8 +24,8 @@
         </activity>
         <activity
             android:name=".HomeScreen"
-            android:label="@string/title_activity_home_screen"
-            android:icon="@mipmap/ic_launcher">
+            android:icon="@mipmap/ic_launcher"
+            android:label="@string/title_activity_home_screen" >
         </activity>
         <activity
             android:name=".NewUser"
@@ -49,8 +49,8 @@
         </activity>
         <activity
             android:name=".CareerHome"
-            android:label="@string/title_activity_career_home"
             android:icon="@mipmap/ic_launcher"
+            android:label="@string/title_activity_career_home"
             android:parentActivityName=".HomeScreen" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -218,7 +218,6 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="team9.clip_loginhomecareer.AppointmentsList" />
         </activity>
-
         <activity
             android:name=".ViewAppointment"
             android:label="View Appointment"
@@ -472,6 +471,14 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="team9.clip_loginhomecareer.DegreesList" />
+        </activity>
+        <activity
+            android:name=".CalculatePayable"
+            android:label="@string/title_activity_calculate_payable"
+            android:parentActivityName=".FinanceLiabilityNew" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="team9.clip_loginhomecareer.FinanceLiabilityNew" />
         </activity>
     </application>
 

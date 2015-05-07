@@ -15,6 +15,7 @@ import java.util.ArrayList;
 
 
 public class FinanceLiabilityView extends ActionBarActivity {
+    private int User_ID;
     private DatabaseContract db;
     private ListView onScreenList;
     private ArrayList<String> list = new ArrayList<>();
@@ -80,8 +81,9 @@ public class FinanceLiabilityView extends ActionBarActivity {
         double intrate;
         String lender, liabilitydesc, notes;
         // 	{"ID", "YEAR", "MONTH", "DAY", "LENDER_NAME", "AMOUNT", "INTEREST_RATE", "LENDING_TERM", "DESCRIPTION", "NOTE", "USER_ID"};
+        User_ID = getSharedPreferences("loginPrefs", MODE_PRIVATE).getInt("ID", -1);
         if(c.moveToFirst()) {
-            do{
+            do if(c.getInt(10) == User_ID){
                 month = c.getInt(2)+1;
                 day = c.getInt(3);
                 year = c.getInt(1);
@@ -93,8 +95,8 @@ public class FinanceLiabilityView extends ActionBarActivity {
                 notes = c.getString(9);
                 //4 2 1 3
                 //{_ID, COLUMN_CASH_AMOUNT, COLUMN_SOURCE, COLUMN_NOTE, COLUMN_YEAR, COLUMN_MONTH, COLUMN_DAY, COLUMN_USER_ID};
-                list.add(new String(month +"/"+ day +"/"+ year + " Lender: " + lender + " Amount: $" +
-                        liabilityamount +" Interest Rate: "+ intrate +" Term:  " + term + " Description: "+ liabilitydesc +" Notes:" + notes));
+                list.add(new String(month +"/"+ day +"/"+ year + " Lender: " + lender + ". Amount: $" +
+                        liabilityamount +". Interest Rate: "+ intrate +"%. Term:  " + term + ". Description: "+ liabilitydesc +". Notes: " + notes));
                 setTotalLiabilityBalance(liabilityamount);
             }while(c.moveToNext());
         }

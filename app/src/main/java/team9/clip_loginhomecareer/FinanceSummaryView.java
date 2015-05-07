@@ -22,6 +22,7 @@ import java.util.Calendar;
 
 
 public class FinanceSummaryView extends ActionBarActivity {
+    private int User_ID;
     private DatabaseContract db;
     private WebView myWebView;
     private TextView summarybalance;
@@ -85,8 +86,9 @@ public class FinanceSummaryView extends ActionBarActivity {
         Cursor c = db.getAllCash();
         //db.deleteAllCash();
         double amount = 0.00;
+        User_ID = getSharedPreferences("loginPrefs", MODE_PRIVATE).getInt("ID", -1);
         if(c.moveToFirst()) {
-            do{
+            do if(c.getInt(7) == User_ID){
                 amount += c.getDouble(1);
             }while(c.moveToNext());
         }
@@ -98,8 +100,9 @@ public class FinanceSummaryView extends ActionBarActivity {
         Cursor c = db.getAllAssets();
         double market_value = 0.00;
         // db.deleteAsset(rowIdArray.get(0));
-        if (c.moveToFirst()) {
-            do {
+        User_ID = getSharedPreferences("loginPrefs", MODE_PRIVATE).getInt("ID", -1);
+        if(c.moveToFirst()) {
+            do if(c.getInt(8) == User_ID){
                 market_value += c.getDouble(6);
                 //rowIdArray.add(c.getLong(0));
 
@@ -111,15 +114,15 @@ public class FinanceSummaryView extends ActionBarActivity {
     public double getStockBalance()
     {
         Cursor c = db.getAllStockSecurities();
-
         double noofunits = 0.00;
         //db.deleteAllStockSecurities();
         double market_amt = 0.00;
         double currentprice = 0.00;
         double totalvalue = 0.00;
         // {"ID", "YEAR", "MONTH", "DAY", "STOCK_NAME", "STOCK_NO_OF_UNITS", "STOCK_PURCHASE_PRICE", "STOCK_CURRENT_PRICE","STOCK_NOTE", "USER_ID"};
+        User_ID = getSharedPreferences("loginPrefs", MODE_PRIVATE).getInt("ID", -1);
         if(c.moveToFirst()) {
-            do{
+            do if(c.getInt(9) == User_ID){
                 noofunits = c.getInt(5);
                 currentprice = c.getDouble(7);
                 totalvalue += currentprice * (double)noofunits;
@@ -134,8 +137,9 @@ public class FinanceSummaryView extends ActionBarActivity {
         //db.deleteAllLiabilities();
         double liabilityamount = 0.00;
         // 	{"ID", "YEAR", "MONTH", "DAY", "LENDER_NAME", "AMOUNT", "INTEREST_RATE", "LENDING_TERM", "DESCRIPTION", "NOTE", "USER_ID"};
+        User_ID = getSharedPreferences("loginPrefs", MODE_PRIVATE).getInt("ID", -1);
         if(c.moveToFirst()) {
-            do{
+            do if(c.getInt(10) == User_ID){
                 liabilityamount += c.getDouble(5);
             }while(c.moveToNext());
         }
@@ -146,9 +150,9 @@ public class FinanceSummaryView extends ActionBarActivity {
     {
         Cursor c = db.getAllCreditCards();
         double amount = 0.00;
-        // 	{"ID", "YEAR", "MONTH", "DAY", "LENDER_NAME", "AMOUNT", "INTEREST_RATE", "LENDING_TERM", "DESCRIPTION", "NOTE", "USER_ID"};
+        User_ID = getSharedPreferences("loginPrefs", MODE_PRIVATE).getInt("ID", -1);
         if(c.moveToFirst()) {
-            do{
+            do if(c.getInt(7) == User_ID){
                 amount += c.getDouble(2);
             }while(c.moveToNext());
         }

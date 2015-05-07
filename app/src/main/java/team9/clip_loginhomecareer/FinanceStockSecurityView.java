@@ -15,6 +15,7 @@ import java.util.ArrayList;
 
 
 public class FinanceStockSecurityView extends ActionBarActivity {
+    private int User_ID;
     private DatabaseContract db;
     private ListView onScreenList;
     private ArrayList<String> list = new ArrayList<>();
@@ -108,8 +109,9 @@ public class FinanceStockSecurityView extends ActionBarActivity {
         double currentprice = 0.00;
         String stockname, notes;
         // {"ID", "YEAR", "MONTH", "DAY", "STOCK_NAME", "STOCK_NO_OF_UNITS", "STOCK_PURCHASE_PRICE", "STOCK_CURRENT_PRICE","STOCK_NOTE", "USER_ID"};
+        User_ID = getSharedPreferences("loginPrefs", MODE_PRIVATE).getInt("ID", -1);
         if(c.moveToFirst()) {
-            do{
+            do if(c.getInt(9) == User_ID){
                 month = c.getInt(2)+1;
                 day = c.getInt(3);
                 year = c.getInt(1);
@@ -118,11 +120,9 @@ public class FinanceStockSecurityView extends ActionBarActivity {
                 purchaseprice = c.getDouble(6);
                 currentprice = c.getDouble(7);
                 notes = c.getString(8);
-                //4 2 1 3
-                //{_ID, COLUMN_CASH_AMOUNT, COLUMN_SOURCE, COLUMN_NOTE, COLUMN_YEAR, COLUMN_MONTH, COLUMN_DAY, COLUMN_USER_ID};
-                list.add(new String(month +"/"+ day +"/"+ year + " Stock Name: " + stockname + " # of Units: " +
-                        noofunits +" Purchase Price Per Unit: "+ purchaseprice +" Current Price Per Unit:  "
-                        + currentprice + " Notes:" + notes));
+                list.add(new String(month +"/"+ day +"/"+ year + ". Stock Name: " + stockname + ". # of Units: " +
+                        noofunits +". Purchase Price Per Unit: "+ purchaseprice +". Current Price Per Unit:  "
+                        + currentprice + ". Notes: " + notes));
                 purchase_amt = purchaseprice * (double)noofunits;
                 market_amt = currentprice * (double)noofunits;
                 setTotal_purchase_value(purchase_amt);

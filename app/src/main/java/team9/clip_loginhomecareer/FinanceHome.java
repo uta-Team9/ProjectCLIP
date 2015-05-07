@@ -60,6 +60,7 @@ public class FinanceHome extends ActionBarActivity {
         }
 
         //intent.putExtra("tagName", value);
-        startActivity(intent);
+        if(intent != null)
+            startActivity(intent);
     }
 }

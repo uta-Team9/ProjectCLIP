@@ -15,6 +15,7 @@ import java.util.ArrayList;
 
 
 public class FinanceCreditView extends ActionBarActivity {
+    private int User_ID;
     private DatabaseContract db;
     private ListView onScreenList;
     private ArrayList<String> list = new ArrayList<>();
@@ -83,8 +84,9 @@ public class FinanceCreditView extends ActionBarActivity {
         double amount = 0.00;
         String source, notes;
         // {"ID", "PROVIDER", "BALANCE", "YEAR", "MONTH", "DAY", "NOTE", "USER_ID"};
+        User_ID = getSharedPreferences("loginPrefs", MODE_PRIVATE).getInt("ID", -1);
         if(c.moveToFirst()) {
-            do{
+            do if(c.getInt(7) == User_ID){
                 month = c.getInt(4)+1;
                 day = c.getInt(5);
                 year = c.getInt(3);
@@ -93,8 +95,8 @@ public class FinanceCreditView extends ActionBarActivity {
                 notes = c.getString(6);
                 //4 2 1 3
                 //{_ID, COLUMN_CASH_AMOUNT, COLUMN_SOURCE, COLUMN_NOTE, COLUMN_YEAR, COLUMN_MONTH, COLUMN_DAY, COLUMN_USER_ID};
-                list.add(new String("Card Name: " + source + " Amount: $" +
-                        amount +" Expiration Date:  "+ month +"/"+ day +"/"+ year + " Notes:" + notes));
+                list.add(new String("Card Name: " + source + ". Amount: $" +
+                        amount +". Expiration Date:  "+ month +"/"+ day +"/"+ year + ". Notes:" + notes));
                 setTotalCreditBalance(amount);
             }while(c.moveToNext());
         }

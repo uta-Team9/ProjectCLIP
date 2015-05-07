@@ -47,7 +47,6 @@
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="LDL Cholesterol:"
             android:id="@+id/textView9"
-
             android:paddingLeft="15dp"
             android:layout_below="@+id/textView8"
             android:layout_alignParentLeft="true"
@@ -58,12 +57,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/add_LDL_cholesterol"
+            android:inputType="numberDecimal"
             android:layout_alignBottom="@+id/textView9"
             android:layout_toRightOf="@+id/textView9"
             android:layout_alignRight="@+id/editText5"
             android:layout_alignEnd="@+id/editText5" />
-
-
 
         <TextView
             android:layout_width="wrap_content"
@@ -71,7 +69,6 @@
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="HDL Cholesterol: "
             android:id="@+id/textView10"
-
             android:paddingLeft="15dp"
             android:layout_below="@+id/textView9"
             android:layout_alignParentLeft="true"
@@ -81,7 +78,7 @@
         <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:inputType="date"
+            android:inputType="numberDecimal"
             android:ems="10"
             android:id="@+id/editText5"
             android:layout_alignBottom="@+id/textView10"
@@ -105,7 +102,7 @@
         <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:inputType="date"
+            android:inputType="numberDecimal"
             android:ems="10"
             android:id="@+id/editText6"
             android:layout_alignBottom="@+id/textView11"
@@ -164,6 +161,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/editText"
+            android:inputType="numberDecimal"
             android:layout_above="@+id/textView13"
             android:layout_alignRight="@+id/editText7"
             android:layout_alignEnd="@+id/editText7"
