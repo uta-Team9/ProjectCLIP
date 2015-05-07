@@ -79,8 +79,16 @@ public class ViewExercisePlan extends ActionBarActivity
     //TODO: EDIT TEXT FIELDS, LOOK AT CAREERGOAL XML FILE
     private void setUpTextBoxes() {
         if(exercisePlan != null) {
-            TextView text = (TextView) findViewById(R.id.editText9);
-            text.setText("" + exercisePlan.getExerciseName());
+            try
+            {
+                TextView text = (TextView) findViewById(R.id.editText9);
+                text.setText("" +exercisePlan.getExerciseName());
+            }
+            catch(NullPointerException e)
+            {
+
+            }
+            TextView text=null;
             text = (TextView) findViewById(R.id.editText14);
             text.setText("" + exercisePlan.getCaloriesBurned());
             text = (TextView) findViewById(R.id.editText5);

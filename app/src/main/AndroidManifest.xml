@@ -249,11 +249,11 @@
         </activity>
         <activity
             android:name=".ViewExercisePlan"
-            android:label="@string/title_activity_exercise_plan"
+            android:label="View Exercise Plan"
             android:parentActivityName=".ExercisePlansList" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="team9.clip_loginhomecareer.ExercisePlansList" />
+                android:value=".ExercisePlansList" />
         </activity>
         <activity
             android:name=".NewExercisePlan"
