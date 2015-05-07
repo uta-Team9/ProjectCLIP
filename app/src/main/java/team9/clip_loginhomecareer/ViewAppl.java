@@ -7,28 +7,28 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 
-public class ViewDegree extends ActionBarActivity {
+public class ViewAppl extends ActionBarActivity {
     private int User_ID;
-    private Degree degree = null;
+    private EduApp CollApp = null;
     private DatabaseContract db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         openDB();
-
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_view_degree);
+        setContentView(R.layout.activity_view_appl);
         Bundle extras = getIntent().getExtras();
         if(extras != null) {
             db = new DatabaseContract(this);
             db.open();
-            degree = (Degree) extras.getSerializable("Degree");
+            CollApp = (EduApp) extras.getSerializable("College Application");
 
-            setTitle(degree.getCollege());
+            setTitle(CollApp.getCollege());
             setUpTextBoxes();
         }
     }
@@ -37,7 +37,7 @@ public class ViewDegree extends ActionBarActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_view_degree, menu);
+        getMenuInflater().inflate(R.menu.menu_view_appl, menu);
         return true;
     }
 
@@ -55,41 +55,34 @@ public class ViewDegree extends ActionBarActivity {
 
         return super.onOptionsItemSelected(item);
     }
-    //Added By Edward
     private void openDB() {
         db = new DatabaseContract(this);
         db.open();
         User_ID = getSharedPreferences("loginPrefs", MODE_PRIVATE).getInt("ID", -1);
-        Log.d("ID in ViewDegree", "" + User_ID);
+        Log.d("ID in ViewAppl", "" + User_ID);
     }
     private void setUpTextBoxes() {
-        if(degree != null) {
-            TextView text = (TextView) findViewById(R.id.edu_detail_college);
-            text.setText("" + degree.getCollege());
-            text = (TextView) findViewById(R.id.edu_detail_location);
-            text.setText("" + degree.getLocation());
-            text = (TextView) findViewById(R.id.edu_detail_fos);
-            text.setText("" + degree.getStudy_field());
-            text = (TextView) findViewById(R.id.edu_detail_matr);
-            text.setText("" + degree.getStart_date());
-            text = (TextView) findViewById(R.id.edu_detail_gradDate);
-            text.setText("" + degree.getGrad_date());
-            text = (TextView) findViewById(R.id.edu_detail_degree_level);
-            text.setText("" + degree.getDegree_type());
+        if(CollApp != null) {
+            TextView text = (TextView) findViewById(R.id.edu_detail_collApp);
+            text.setText("" + CollApp.getCollege());
+            text = (EditText) findViewById(R.id.edu_appl_reply);
+            text.setText("" + CollApp.getReply_expected());
+            text = (EditText) findViewById(R.id.application_due_date);
+            text.setText("" + CollApp.getDeadline());
+
         }
     }
-
     public void editInstance(View v) {
-        startActivity(new Intent(this, new_degree_activity.class).putExtra("Degree", degree));
+        startActivity(new Intent(this, EduNewApp.class).putExtra("College Application", CollApp));
     }
     private void toast(String description) {
         Toast.makeText(getApplicationContext(), description, Toast.LENGTH_LONG).show();
     }
     public void deleteInstance(View v) {
-        if(db.deleteCollege(degree.getDatabaseID())) {
-            toast("Degree removed");
+        if(db.deleteCollegeApplication(CollApp.getDbRow())) {
+            toast("Application removed");
             finish();
         } else
-            toast("Degree already removed");
+            toast("Application already removed");
     }
 }

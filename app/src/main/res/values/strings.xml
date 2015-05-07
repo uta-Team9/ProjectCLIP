@@ -120,8 +120,12 @@
         <item>48 Months</item>
         <item>60 Months</item>
     </string-array>
+
     <string name="title_activity_finance_summary_view">Finance Summary</string>
     <string name="title_activity_finance_goal_new">New Goal</string>
     <string name="title_activity_finance_other_new">New Other Finance</string>
     <string name="title_activity_calculate_payable">Payable Calculator</string>
+    <string name="title_activity_view_appl">View Application</string>
+    <string name="title_activity_view_edu_finance">Education Finance Details</string>
+
 </resources>

@@ -248,8 +248,16 @@
                 android:value="team9.clip_loginhomecareer.WeightLossAndDietPlan" />
         </activity>
         <activity
-            android:name=".ExercisePlan"
-            android:label="@string/title_activity_exercise_plan"
+            android:name=".ViewExercisePlan"
+            android:label="View Exercise Plan"
+            android:parentActivityName=".ExercisePlansList" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ExercisePlansList" />
+        </activity>
+        <activity
+            android:name=".NewExercisePlan"
+            android:label="New Exercise Plan"
             android:parentActivityName=".ExercisePlansList" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -394,7 +402,7 @@
         </activity>
         <activity
             android:name=".new_degree_activity"
-            android:label="@string/title_activity_new_degree_activity"
+            android:label="New Degree"
             android:parentActivityName=".DegreesList" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -426,7 +434,7 @@
         </activity>
         <activity
             android:name=".CollegeAppsList"
-            android:label="@string/title_activity_edu_apps_list"
+            android:label="College Applications"
             android:parentActivityName=".EduMain" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -479,6 +487,22 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="team9.clip_loginhomecareer.FinanceLiabilityNew" />
+        </activity>
+        <activity
+            android:name=".ViewAppl"
+            android:label="@string/title_activity_view_appl"
+            android:parentActivityName=".CollegeAppsList" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="team9.clip_loginhomecareer.CollegeAppsList" />
+        </activity>
+        <activity
+            android:name=".ViewEduFinance"
+            android:label="@string/title_activity_view_edu_finance"
+            android:parentActivityName=".EducationFinancesList" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="team9.clip_loginhomecareer.EducationFinancesList" />
         </activity>
     </application>
 

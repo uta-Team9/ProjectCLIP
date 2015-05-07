@@ -5,6 +5,7 @@ import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -14,13 +15,33 @@ public class EduNewFinance extends ActionBarActivity {
     String period = "";
     String awardName = "";
     String condition =   "";
+    private EduFinanceItem eduMoney = null;
     private DatabaseContract db;
+    private int User_ID;
+    private EditText TEXTawardName;
+    private EditText TEXTawardPeriod;
+    private EditText TEXTawardConditions;
+    private EditText TEXTawardAmount;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         openDB();
+        Bundle extras = getIntent().getExtras();
+        if(extras != null) {
+            eduMoney = (EduFinanceItem)extras.getSerializable("Education Finance");
+        }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edu_new_finance);
+        TEXTawardName = (EditText) findViewById(R.id.edu_awardName);
+        TEXTawardAmount = (EditText) findViewById(R.id.edu_aid_amount);
+        TEXTawardPeriod = (EditText) findViewById(R.id.edu_awardPeriod);
+        TEXTawardConditions = (EditText) findViewById(R.id.edu_financeCondition);
+
+        if(eduMoney != null) {
+            Button b = (Button)findViewById(R.id.add);
+            b.setText("Update");
+            populateItems();
+        }
     }
 
 
@@ -45,7 +66,7 @@ public class EduNewFinance extends ActionBarActivity {
 
         return super.onOptionsItemSelected(item);
     }
-    public void add_new(View v) {
+    public void saveItems() {
         EditText text;
         if (true) {
             text = (EditText) findViewById(R.id.edu_awardName);
@@ -65,12 +86,37 @@ public class EduNewFinance extends ActionBarActivity {
 
             }
 
-            db.insertCollegeFinance(awardName,amount,period,condition,0);
-            toastNotification("Application Saved");
+            db.insertCollegeFinance(awardName, amount, period, condition, User_ID);
+            toastNotification("Finance Item Saved");
             clearData();
         } else {
             toastNotification("Invalid Information");
         }
+        finish();
+    }
+
+    public void add_new(View v) {
+        if (eduMoney != null) {
+            updateItems();
+        } else
+            saveItems();
+    }
+    private void updateItems() {
+        EditText text;
+
+        text = (EditText) findViewById(R.id.edu_awardName);
+        awardName = text.getText().toString();
+        text = (EditText) findViewById(R.id.edu_aid_amount);
+        amount = Double.parseDouble(text.getText().toString());
+        text = (EditText) findViewById(R.id.edu_awardPeriod);
+        period = text.getText().toString();
+        text = (EditText) findViewById(R.id.edu_financeCondition);
+        condition = text.getText().toString();
+
+        db.updateCollegeFinance(eduMoney.getDatabaseID(),awardName,amount,period,condition);
+        toastNotification("Funds Source Updated");
+        clearData();
+        finish();
     }
     @Override
     protected void onDestroy() {
@@ -81,6 +127,7 @@ public class EduNewFinance extends ActionBarActivity {
     public void openDB() {
         db = new DatabaseContract(this);
         db.open();
+        User_ID = getSharedPreferences("loginPrefs", MODE_PRIVATE).getInt("ID", -1);
     }
 
     public void closeDB() {
@@ -98,7 +145,12 @@ public class EduNewFinance extends ActionBarActivity {
     private void toastNotification(String description) {
         Toast.makeText(getApplicationContext(), description, Toast.LENGTH_LONG).show();
     }
-
+    private void populateItems() {
+        TEXTawardName.setText("" + eduMoney.getAwardName());
+        TEXTawardAmount.setText("" + eduMoney.getAmount());
+        TEXTawardPeriod.setText("" + eduMoney.getPeriod());
+        TEXTawardConditions.setText("" + eduMoney.getCondition());
+    }
     private void clearData() {
         EditText text;
         text = (EditText) findViewById(R.id.edu_financeCondition);

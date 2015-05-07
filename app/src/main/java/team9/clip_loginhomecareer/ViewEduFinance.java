@@ -11,33 +11,39 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
-public class ViewDegree extends ActionBarActivity {
+public class ViewEduFinance extends ActionBarActivity {
     private int User_ID;
-    private Degree degree = null;
+    private EduFinanceItem eduMoney = null;
     private DatabaseContract db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         openDB();
-
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_view_degree);
+        setContentView(R.layout.activity_view_edu_finance);
         Bundle extras = getIntent().getExtras();
         if(extras != null) {
             db = new DatabaseContract(this);
             db.open();
-            degree = (Degree) extras.getSerializable("Degree");
+            eduMoney = (EduFinanceItem) extras.getSerializable("Education Finance");
 
-            setTitle(degree.getCollege());
+            setTitle(eduMoney.getAwardName());
             setUpTextBoxes();
         }
     }
 
+    public int getUser_ID() {
+        return User_ID;
+    }
+
+    public void setUser_ID(int user_ID) {
+        User_ID = user_ID;
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_view_degree, menu);
+        getMenuInflater().inflate(R.menu.menu_view_edu_finance, menu);
         return true;
     }
 
@@ -55,41 +61,35 @@ public class ViewDegree extends ActionBarActivity {
 
         return super.onOptionsItemSelected(item);
     }
-    //Added By Edward
     private void openDB() {
         db = new DatabaseContract(this);
         db.open();
         User_ID = getSharedPreferences("loginPrefs", MODE_PRIVATE).getInt("ID", -1);
-        Log.d("ID in ViewDegree", "" + User_ID);
+        Log.d("ID in ViewEduFinance", "" + User_ID);
     }
     private void setUpTextBoxes() {
-        if(degree != null) {
-            TextView text = (TextView) findViewById(R.id.edu_detail_college);
-            text.setText("" + degree.getCollege());
-            text = (TextView) findViewById(R.id.edu_detail_location);
-            text.setText("" + degree.getLocation());
-            text = (TextView) findViewById(R.id.edu_detail_fos);
-            text.setText("" + degree.getStudy_field());
-            text = (TextView) findViewById(R.id.edu_detail_matr);
-            text.setText("" + degree.getStart_date());
-            text = (TextView) findViewById(R.id.edu_detail_gradDate);
-            text.setText("" + degree.getGrad_date());
-            text = (TextView) findViewById(R.id.edu_detail_degree_level);
-            text.setText("" + degree.getDegree_type());
+        if(eduMoney != null) {
+            TextView text = (TextView) findViewById(R.id.edu_detail_money);
+            text.setText("" + eduMoney.getAwardName());
+            text = (TextView) findViewById(R.id.edu_money_amount);
+            text.setText("" + eduMoney.getAmount());
+            text = (TextView) findViewById(R.id.edu_money_period);
+            text.setText("" + eduMoney.getPeriod());
+            text = (TextView) findViewById(R.id.edu_money_notes);
+            text.setText("" + eduMoney.getCondition());
         }
     }
-
     public void editInstance(View v) {
-        startActivity(new Intent(this, new_degree_activity.class).putExtra("Degree", degree));
+        startActivity(new Intent(this, EduNewFinance.class).putExtra("Education Finance", eduMoney));
     }
     private void toast(String description) {
         Toast.makeText(getApplicationContext(), description, Toast.LENGTH_LONG).show();
     }
     public void deleteInstance(View v) {
-        if(db.deleteCollege(degree.getDatabaseID())) {
-            toast("Degree removed");
+        if(db.deleteCollegeFinance(eduMoney.getDatabaseID())) {
+            toast("Funds source removed");
             finish();
         } else
-            toast("Degree already removed");
+            toast("Funds source already removed");
     }
 }

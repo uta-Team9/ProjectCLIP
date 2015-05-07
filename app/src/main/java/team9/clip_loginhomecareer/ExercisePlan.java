@@ -1,153 +1,75 @@
 package team9.clip_loginhomecareer;
 
-import android.database.Cursor;
-import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
-import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
-import android.widget.EditText;
-import android.widget.Toast;
+import java.io.Serializable;
 
 
-public class ExercisePlan extends ActionBarActivity
+public class ExercisePlan implements Serializable
 {
-    private long dbUserRow = 0;
-    private int User_ID = 0;
-    private DatabaseContract db;
-    private boolean hasData = false;
+    private String exerciseName;
+    private int caloriesBurned;
+    private int durationOfWorkout;
+    private String muscleTarget;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
 
-        openDB();
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_exercise_plan);
-
-        Cursor c = db.getAllExercisePlans();
-        if(c.moveToFirst())
-        {
-            do if(c.getInt(5) == User_ID) {
-                buildFields(c);
-                dbUserRow = c.getInt(0);
-                hasData = true;
-                break;
-            } while (c.moveToNext());
-        }
-
-    }
-    protected void onDestroy() {
-        closeDB();
-        super.onDestroy();
+    public ExercisePlan() {
+        exerciseName= "";
+        caloriesBurned = 0;
+        durationOfWorkout = 0;
+        muscleTarget = "";
+        databaseID = 0;
     }
 
-    private void openDB() {
-        User_ID = getSharedPreferences("loginPrefs", MODE_PRIVATE).getInt("ID", -1);
-        db = new DatabaseContract(this);
-        db.open();
+    public ExercisePlan(int dbID) {
+        exerciseName= "";
+        caloriesBurned = 0;
+        durationOfWorkout = 0;
+        muscleTarget = "";
+        databaseID = dbID;
     }
 
-    private void closeDB() {
-        db.close();
+    public int getDatabaseID() {
+        return databaseID;
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_exercise_plan, menu);
-        return true;
+    public void setDatabaseID(int databaseID) {
+        this.databaseID = databaseID;
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
+    private int databaseID;
+    public String getExerciseName() {
+        return exerciseName;
     }
-    //EDIT ALL TEXT FIELDS
-    public void buildFields(Cursor c)
+
+    public void setExerciseName(String exerciseName) {
+        this.exerciseName = exerciseName;
+    }
+
+    public int getCaloriesBurned() {
+        return caloriesBurned;
+    }
+
+    public void setCaloriesBurned(int caloriesBurned) {
+        this.caloriesBurned = caloriesBurned;
+    }
+
+    public int getDurationOfWorkout() {
+        return durationOfWorkout;
+    }
+
+    public void setDurationOfWorkout(int durationOfWorkout) {
+        this.durationOfWorkout = durationOfWorkout;
+    }
+
+    public String getMuscleTarget() {
+        return muscleTarget;
+    }
+
+    public void setMuscleTarget(String muscleTarget) {
+        this.muscleTarget = muscleTarget;
+    }
+
+    public String toString()
     {
-        EditText text;
-        text = (EditText) findViewById(R.id.editText9);
-        text.setText(c.getString(1));
-
-        text = (EditText) findViewById(R.id.editText4);
-        text.setText(c.getString(2));
-
-        text = (EditText) findViewById(R.id.editText5);
-        text.setText(c.getString(3));
-
-        text = (EditText) findViewById(R.id.editText6);
-        text.setText(c.getString(4));
-
-
-
+        return exerciseName;
     }
-
-    public void add_new(View v) {
-        EditText text;
-        if (validItems()) {
-            text = (EditText) findViewById(R.id.editText9);
-            String planName = text.getText().toString();
-            text = (EditText) findViewById(R.id.editText4);
-            Integer caloriesBurned = Integer.parseInt(text.getText().toString());
-            text = (EditText) findViewById(R.id.editText5);
-            Integer duration = Integer.parseInt(text.getText().toString());
-            text = (EditText) findViewById(R.id.editText6);
-            String muscleGroup = text.getText().toString();
-
-
-            if(!hasData) {
-                Log.d("Stored info for User ID", "" + User_ID);
-                dbUserRow = db.insertExercisePlan(planName, caloriesBurned, duration, muscleGroup,User_ID);
-                hasData = true;
-            } else {
-                Log.d("Updated for User ID", ""+User_ID);
-                db.updateExercisePlan(dbUserRow, planName, caloriesBurned, duration, muscleGroup);
-            }
-
-            toastNotification("Exercise Plan Saved");
-            //  clearData();
-        }
-
-        else
-        {
-            toastNotification("Invalid Information");
-        }
-        finish();
-    }
-    private boolean validItems() {
-        //TODO: Check for invalid input data
-        return true;
-    }
-    private void toastNotification(String description) {
-        Toast.makeText(getApplicationContext(), description, Toast.LENGTH_LONG).show();
-    }
-
-
-/*
-   private void clearData()
-    {
-        EditText text;
-        text = (EditText) findViewById(R.id.editText9);
-        text.setText("");
-        text = (EditText) findViewById(R.id.editText4);
-        text.setText("");
-        text = (EditText) findViewById(R.id.editText5);
-        text.setText("");
-        text = (EditText) findViewById(R.id.editText6);
-        text.setText("");
-
-
-    }
-*/
 }

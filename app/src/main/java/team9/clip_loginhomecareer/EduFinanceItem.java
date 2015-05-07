@@ -1,13 +1,24 @@
 package team9.clip_loginhomecareer;
 
+import java.io.Serializable;
+
 /**
  * Created by Mary on 4/18/2015.
  */
-public class EduFinanceItem {
+public class EduFinanceItem implements Serializable {
     String awardName;
     double amount;
     String period;
     String condition;
+    private long dbPosition;
+
+    public EduFinanceItem(long dbPosition) {
+        awardName = "";
+        amount = 0;
+        period = "";
+        condition = "";
+        this.dbPosition = dbPosition;
+    }
 
     @Override
     public String toString() {
@@ -24,6 +35,8 @@ public class EduFinanceItem {
         period = "semester";
         condition = "";
     }
+
+    public long getDatabaseID() {return dbPosition;}
 
     public String getAwardName() {
         return awardName;

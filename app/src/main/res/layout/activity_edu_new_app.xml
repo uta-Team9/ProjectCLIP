@@ -40,25 +40,40 @@
                 android:hint="College Name"
                 android:ems="10"
                 android:id="@+id/app_college_name"
-                android:paddingTop="16dp"/>
+                android:paddingTop="16dp"
+                android:clickable="true"
+                android:editable="true"
+                android:enabled="true" />
 
-            <EditText
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="date"
-                android:ems="10"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="Due Date"
+                android:id="@+id/textView3" />
+
+            <DatePicker
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:id="@+id/application_due_date"
-                android:paddingTop="16dp"
-                android:hint="Due Date"/>
+                android:calendarViewShown="false"
+                android:clickable="false"
+                android:longClickable="false"
+                android:measureAllChildren="true"
+                android:focusable="false"
+                android:focusableInTouchMode="false" />
 
-            <EditText
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="date"
-                android:ems="10"
-                android:id="@+id/reply_date"
-                android:paddingTop="16dp"
-                android:hint="Expected Reply Date"/>
+                android:text="Expected reply date"
+                android:id="@+id/textView7" />
+
+            <DatePicker
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/edu_appl_reply"
+                android:calendarViewShown="false" />
 
         </LinearLayout>
     </ScrollView>dth="wrap_content"

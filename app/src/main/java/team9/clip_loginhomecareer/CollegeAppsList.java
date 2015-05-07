@@ -7,6 +7,7 @@ import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
@@ -35,24 +36,22 @@ public class CollegeAppsList extends ActionBarActivity {
         }
 
         applicationsList = (ListView) findViewById(R.id.applications_list);
-
-        buildList();
-
-		/*ArrayList<String> temp = new ArrayList<>();
-		for(Contact c : list) {
-			temp.add(c.toString());
-		}*/
-
-        ArrayAdapter<EduApp> arrayAdapter = new ArrayAdapter<EduApp>(
-                this, android.R.layout.simple_list_item_1, list);
-
-        applicationsList.setAdapter(arrayAdapter);
     }
+
+
 
     @Override
     protected void onDestroy() {
         closeDB();
         super.onDestroy();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        buildList();
+        setList();
     }
 
 
@@ -84,6 +83,7 @@ public class CollegeAppsList extends ActionBarActivity {
         startActivity(intent);
     }
     private void openDB() {
+	    User_ID = getSharedPreferences("loginPrefs", MODE_PRIVATE).getInt("ID", -1);
         db = new DatabaseContract(this);
         db.open();
     }
@@ -91,30 +91,83 @@ public class CollegeAppsList extends ActionBarActivity {
         db.close();
     }
 
+    public int getUser_ID() {
+        return User_ID;
+    }
+
+    public void setUser_ID(int user_ID) {
+        User_ID = user_ID;
+    }
+
+    public DatabaseContract getDb() {
+        return db;
+    }
+
+    public void setDb(DatabaseContract db) {
+        this.db = db;
+    }
+
+    public ArrayList<EduApp> getList() {
+        return list;
+    }
+
+    public void setList(ArrayList<EduApp> list) {
+        this.list = list;
+    }
+
+    public ListView getApplicationsList() {
+        return applicationsList;
+    }
+
+    public void setApplicationsList(ListView applicationsList) {
+        this.applicationsList = applicationsList;
+    }
+
     private void buildList() {
+        list = new ArrayList<>();
         Cursor cursor = db.getAllCollegeApplications();
         EduApp temp = null;
+
         if (cursor.moveToFirst()) {
             do {
-                if(true) {
-                    temp = new EduApp();
+                if(cursor.getInt(4) == User_ID) {
+                    temp = new EduApp(cursor.getInt(0));
                     //_ID, college, due date, reply date
                     temp.setCollege(cursor.getString(1));
                     temp.setDeadline(cursor.getInt(2));
                     temp.setReply_expected(cursor.getInt(3));
                     list.add(temp);
                 }
+                //db.deleteCollegeApplication(temp.getDbRow());
             } while (cursor.moveToNext());
         }
         cursor.close();
 
     }
 
+    private void setList() {
+        //Possible to change simple_list_item_1 into our own xml object
+        ArrayAdapter<EduApp> arrayAdapter = new ArrayAdapter<>(
+                this, android.R.layout.simple_list_item_1, list);
 
-    public void createNewInstance(View v) {
-        Intent intent = new Intent(this, EduNewApp.class);
-        intent.putExtra("ID", User_ID);
-        startActivity(intent);
+        applicationsList.setAdapter(arrayAdapter);
+
+        applicationsList.setClickable(true);
+        applicationsList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
+                moveToView(position);
+            }
+        });
+    }
+ //   public void createNewInstance(View v) {
+//        Intent intent = new Intent(this, EduNewApp.class);
+//        startActivity(intent);
+//    }
+    private void moveToView(int position) {
+        startActivity(
+                new Intent(this, ViewAppl.class).putExtra("College Application", list.get(position))
+        );
     }
 }
 

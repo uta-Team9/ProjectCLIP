@@ -5,6 +5,8 @@ import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -12,12 +14,30 @@ import android.widget.Toast;
 public class EduNewApp extends ActionBarActivity {
 
     private DatabaseContract db;
+	private int User_ID;
+    private EditText TEXT_COLLEGE;
+    private DatePicker PICKER_DUE;
+    private DatePicker PICKER_REPLY;
+    private EduApp eduApp= null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         openDB();
         super.onCreate(savedInstanceState);
+        Bundle extras = getIntent().getExtras();
+        if(extras != null) {
+            eduApp = (EduApp)extras.getSerializable("College Application");
+        }
         setContentView(R.layout.activity_edu_new_app);
+        TEXT_COLLEGE = (EditText) findViewById(R.id.app_college_name);
+        PICKER_DUE = (DatePicker) findViewById(R.id.application_due_date);
+        PICKER_REPLY = (DatePicker) findViewById(R.id.edu_appl_reply);
+
+        if(eduApp != null) {
+            Button b = (Button)findViewById(R.id.add);
+            b.setText("Update");
+            populateItems();
+        }
 
     }
 
@@ -26,8 +46,12 @@ public class EduNewApp extends ActionBarActivity {
         closeDB();
         super.onDestroy();
     }
+    private void populateItems() {
+        TEXT_COLLEGE.setText("" + eduApp.getCollege());
+    }
 
     public void openDB() {
+	    User_ID = getSharedPreferences("loginPrefs", MODE_PRIVATE).getInt("ID", -1);
         db = new DatabaseContract(this);
         db.open();
     }
@@ -59,21 +83,11 @@ public class EduNewApp extends ActionBarActivity {
     }
 
     public void add_new(View v) {
-        EditText text;
-        if (validItems()) {
-            text = (EditText) findViewById(R.id.app_college_name);
-            String inst = text.getText().toString();
-            text = (EditText) findViewById(R.id.application_due_date);
-            Integer due = Integer.parseInt(text.getText().toString());
-            text = (EditText) findViewById(R.id.reply_date);
-            Integer reply = Integer.parseInt(text.getText().toString());
 
-            db.insertCollegeApplication(inst, due, reply, 0);
-            toastNotification("Application Saved");
-            clearData();
-        } else {
-            toastNotification("Invalid Information");
-        }
+        if (eduApp != null) {
+            updateItems();
+        } else
+            saveItems();
     }
 
     private boolean validItems() {
@@ -85,13 +99,45 @@ public class EduNewApp extends ActionBarActivity {
         Toast.makeText(getApplicationContext(), description, Toast.LENGTH_LONG).show();
     }
 
+    private void updateItems() {
+        String I = TEXT_COLLEGE.getText().toString();
+        Integer dD = Integer.parseInt(("" + PICKER_DUE.getYear()+PICKER_DUE.getMonth()+PICKER_DUE.getDayOfMonth()));
+        Integer rD = Integer.parseInt(("" + PICKER_REPLY.getYear()+PICKER_REPLY.getMonth()+PICKER_REPLY.getDayOfMonth()));
+        //Integer m = Integer.parseInt(
+        //       PICKER.getYear() + "" + PICKER.getMonth() + "" + PICKER.getDayOfMonth()
+        // );
+        if(db.updateCollegeApplication(eduApp.getDbRow(), I, dD.intValue(), rD.intValue()) == false) toastNotification("Update Failed");
+        //toastNotification("Degree Updated");
+        clearData();
+        finish();
+    }
+    private void saveItems() {
+        String inst= "";
+        Integer due = 0;
+        Integer reply = 0;
+        EditText text;
+        DatePicker date;
+
+        if (validItems()) {
+            text = (EditText) findViewById(R.id.app_college_name);
+            inst = text.getText().toString();
+            date = (DatePicker) findViewById(R.id.application_due_date);
+            due = Integer.parseInt(date.getYear() + "" + date.getMonth() + "" + date.getDayOfMonth());
+            date = (DatePicker) findViewById(R.id.edu_appl_reply);
+            reply = Integer.parseInt(date.getYear() + "" + date.getMonth() + "" + date.getDayOfMonth());
+
+            db.insertCollegeApplication(inst, due, reply, User_ID);
+            toastNotification("Application Saved");
+            clearData();
+        } else {
+            toastNotification("Invalid Information");
+        }
+        finish();
+    }
     private void clearData() {
         EditText text;
+
         text = (EditText) findViewById(R.id.app_college_name);
-        text.setText("");
-        text = (EditText) findViewById(R.id.application_due_date);
-        text.setText("");
-        text = (EditText) findViewById(R.id.reply_date);
         text.setText("");
 
     }

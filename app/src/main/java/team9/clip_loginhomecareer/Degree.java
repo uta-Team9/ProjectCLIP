@@ -85,11 +85,4 @@ public class Degree implements Serializable{
         this.grad_date = grad_date;
     }
 
-    public int getDisplay_place() {
-        return display_place;
-    }
-
-    public void setMet(int display_place) {
-        this.display_place = display_place;
-    }
 }
