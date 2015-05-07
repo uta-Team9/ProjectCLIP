@@ -25,7 +25,8 @@
         android:text="View Contacts"
         android:id="@+id/view_contacts_button"
         android:layout_alignParentBottom="true"
-        android:background="#ffffffff"
+        android:textColor="#ffffffff"
+        android:background="#ff000000"
         android:onClick="viewContactsList"/>
 
 </RelativeLayout>

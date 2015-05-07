@@ -83,6 +83,7 @@ public class CollegeAppsList extends ActionBarActivity {
         startActivity(intent);
     }
     private void openDB() {
+	    User_ID = getSharedPreferences("loginPrefs", MODE_PRIVATE).getInt("ID", -1);
         db = new DatabaseContract(this);
         db.open();
     }

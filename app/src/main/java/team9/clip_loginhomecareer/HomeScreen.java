@@ -177,8 +177,6 @@ public class HomeScreen extends ActionBarActivity implements ActionBar.TabListen
 	 * Setup the application drawer
 	 */
 	private void setupApplicationDrawer() {
-		drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-		drawerList = (ListView) findViewById(R.id.home_screen_drawer);
 		ArrayAdapter<String> temp = new ArrayAdapter<>(
 				this,
 				android.R.layout.simple_list_item_1,
@@ -245,6 +243,7 @@ public class HomeScreen extends ActionBarActivity implements ActionBar.TabListen
 	/** List Methods */
 	private void buildList() {
 		list = new ArrayList<>();
+
 		Cursor cursor = db.getAllCareerGoals();
 		if(cursor.moveToFirst()) {
 			do if(cursor.getInt(5) == User_ID) {
@@ -262,7 +261,14 @@ public class HomeScreen extends ActionBarActivity implements ActionBar.TabListen
 		cursor = db.getAllAppointments();
 		if(cursor.moveToFirst()) {
 			do if(cursor.getInt(7) == User_ID) {
-				list.add(new String("With " + cursor.getString(1) + " at " + cursor.getString(3)));
+				list.add(new String("Doctor Appointment with " + cursor.getString(1) + " at " + cursor.getString(3)));
+			} while(cursor.moveToNext());
+		}
+
+		cursor = db.getAllCollegeApplications();
+		if(cursor.moveToFirst()) {
+			do if(cursor.getInt(4) == User_ID) {
+				list.add(new String("College Application with " + cursor.getString(1) + " due by " + cursor.getString(2)));
 			} while(cursor.moveToNext());
 		}
 

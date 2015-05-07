@@ -10,18 +10,10 @@ import android.widget.Toast;
 
 
 public class CareerHome extends ActionBarActivity {
-
-	private int USER_ID = 0;
-
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.home_career_activity);
-
-		Bundle extras = getIntent().getExtras();
-		if(extras != null) {
-			USER_ID = extras.getInt("ID");
-		}
 
 	}
 
@@ -41,12 +33,11 @@ public class CareerHome extends ActionBarActivity {
 				intent = new Intent(this, IdentitiesList.class);
 				break;
 			case(R.id.view_career_companies_button):
-				Toast.makeText(getApplicationContext(), "feature not complete", Toast.LENGTH_LONG).show();
+				Toast.makeText(getApplicationContext(), "Coming soon!", Toast.LENGTH_LONG).show();
 				break;
 		}
 
 		if(intent != null) {
-			intent.putExtra("ID", USER_ID);
 			startActivity(intent);
 		}
 	}

@@ -14,6 +14,7 @@ import android.widget.Toast;
 public class EduNewApp extends ActionBarActivity {
 
     private DatabaseContract db;
+	private int User_ID;
     private EditText TEXT_COLLEGE;
     private DatePicker PICKER_DUE;
     private DatePicker PICKER_REPLY;
@@ -50,6 +51,7 @@ public class EduNewApp extends ActionBarActivity {
     }
 
     public void openDB() {
+	    User_ID = getSharedPreferences("loginPrefs", MODE_PRIVATE).getInt("ID", -1);
         db = new DatabaseContract(this);
         db.open();
     }
@@ -124,7 +126,7 @@ public class EduNewApp extends ActionBarActivity {
             date = (DatePicker) findViewById(R.id.edu_appl_reply);
             reply = Integer.parseInt(date.getYear() + "" + date.getMonth() + "" + date.getDayOfMonth());
 
-            db.insertCollegeApplication(inst, due, reply, 0);
+            db.insertCollegeApplication(inst, due, reply, User_ID);
             toastNotification("Application Saved");
             clearData();
         } else {

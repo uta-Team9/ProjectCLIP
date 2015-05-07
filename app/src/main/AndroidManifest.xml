@@ -402,7 +402,7 @@
         </activity>
         <activity
             android:name=".new_degree_activity"
-            android:label="@string/title_activity_new_degree_activity"
+            android:label="New Degree"
             android:parentActivityName=".DegreesList" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -434,7 +434,7 @@
         </activity>
         <activity
             android:name=".CollegeAppsList"
-            android:label="@string/title_activity_edu_apps_list"
+            android:label="College Applications"
             android:parentActivityName=".EduMain" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
