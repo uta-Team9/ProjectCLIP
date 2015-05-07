@@ -1,9 +1,8 @@
 package team9.clip_loginhomecareer;
 
 import android.content.Intent;
-import android.database.Cursor;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -21,8 +20,8 @@ public class CalculatePayable extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.finance_calculate_payable);
-        totalpayable = (EditText)findViewById(R.id.txt_amt_payable);
-        monthlypayable = (EditText)findViewById(R.id.txt_amt_monthly);
+        totalpayable = (TextView)findViewById(R.id.txt_amt_payable);
+        monthlypayable = (TextView)findViewById(R.id.txt_amt_monthly);
     }
 
     @Override
